@@ -30,6 +30,7 @@ apiClient.interceptors.response.use(
     //   console.log(error.response);
     //   throw new Error('Invalid configuration');
     // }
+    console.log(error.response.data)
     return Promise.reject(error.response.data.msg);
   }
 );

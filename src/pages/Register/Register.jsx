@@ -12,6 +12,7 @@ import InputField from "../../components/FormControler/InputField/InputField";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
 import { register } from "../../redux/userSlice/userSlice";
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router';
 const Container = styled.div`
 width: 100%;
 height: 100vh;
@@ -71,6 +72,7 @@ const schema = yup
   .required();
 
 const Register = (props) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const form = useForm({
@@ -91,6 +93,7 @@ const Register = (props) => {
 
       console.log("new user",user);
       enqueueSnackbar("Bạn đã đăng ký thành công", { variant: "success" });
+      navigate('/login')
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error, { variant: "error" });
@@ -135,7 +138,7 @@ const Register = (props) => {
       </Form>
       <Bottom>
         <LinkLogin>Bạn đã có tài khoản ?</LinkLogin>
-        <Link href="#">Đăng nhập</Link>
+        <Link href="/login">Đăng nhập</Link>
         
       </Bottom>
        </Wrapper>
