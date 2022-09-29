@@ -26,7 +26,8 @@ function InputField(props) {
         render = {({ field})=> (
             <TextField
                 {...field}
-                sx ={{ width :"30%", m:1}}
+                
+                sx ={{ m:1, width: '100%'}}
                 label={label}
                 disabled={disabled}
                 errors= {!!hasError}
