@@ -1,10 +1,10 @@
-import axios from 'axios'
 
+import apiClient from './apiClient';
 
-const baseURL = 'http://localhost:4000/api'
-
-export const register = async (dispatch, user) => {
-   
-await axios.post(baseURL+'/register', user)
+const userApi = {
+    register(data) {
+        const url ='/register';
+        return apiClient.post(url, data)
+    }
 }
-
+export default userApi;

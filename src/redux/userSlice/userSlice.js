@@ -1,22 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 
+import userApi from './../../service/userService';
+
+export const register = createAsyncThunk(
+    '/register',
+    async (payload) => {
+       try {
+        const data = await userApi.register(payload);
+        localStorage.setItem('user', JSON.stringify(data.user))
+        return data.user;
+       } catch (error) {
+        console.log(error)
+       } 
+    }
+  )
 const initialState = {
-    user: [],
+    user:[],
     loading: false,
     error: null,
-
 }
-
 const userSlice = createSlice({
     name: "user",
     initialState,
-    reducers: {
-            registerSuccess: (state, action) => {
-                state.user.push(action.payload);
-            }
-
+    reducers: {       
+    },
+    extraReducers : {
+        [register.fulfilled]: (state, action) => {
+            state.user = action.payload
+        }
     }
 })
 
-export const {registerSuccess} = userSlice.actions;
-export default userSlice.reducer;
+const {reducer} = userSlice;
+export default reducer;
