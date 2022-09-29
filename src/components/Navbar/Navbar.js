@@ -7,7 +7,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Avatar from '@mui/material/Avatar';
 const Container = styled.div`
     width: 100%;
-    height: 60px;
+    height: 70px;
     display:flex;
     align-items: center;
     justify-content: space-between;
