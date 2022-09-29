@@ -3,19 +3,18 @@ import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import userApi from './../../service/userService';
 
 export const register = createAsyncThunk(
-    '/register',
+    'user/register',
     async (payload) => {
-       try {
+    
         const data = await userApi.register(payload);
         localStorage.setItem('user', JSON.stringify(data.user))
+        console.log(data.user);
         return data.user;
-       } catch (error) {
-        console.log(error)
-       } 
-    }
+    } 
+    
   )
 const initialState = {
-    user:[],
+    user:{},
     loading: false,
     error: null,
 }

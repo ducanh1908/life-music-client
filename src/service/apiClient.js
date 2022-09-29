@@ -25,8 +25,12 @@ apiClient.interceptors.response.use(
     return response.data;
   },
   function (error) {
-    console.log(error.response.data);
-    return Promise.reject(error.response.data);
+    // const {config,status, data} = error.response;
+    // if(config.url === '/api/register' && status === 400) {
+    //   console.log(error.response);
+    //   throw new Error('Invalid configuration');
+    // }
+    return Promise.reject(error.response.data.msg);
   }
 );
 export default apiClient;
