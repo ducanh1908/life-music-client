@@ -80,8 +80,7 @@ const Login = (props) => {
       const user = unwrapResult(resultAction);
         navigate('/home')
     } catch (error) {
-        enqueueSnackbar(error.message, { variant: "error" });
-        
+        enqueueSnackbar(error.message, { variant: "error" });  
         navigate('/login')
     }
   };
