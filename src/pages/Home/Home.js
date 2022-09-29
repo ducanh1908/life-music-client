@@ -1,6 +1,5 @@
 import React from 'react';
-import Body from './../../components/Body/Body';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 import Navbar from './../../components/Navbar/Navbar';
 
