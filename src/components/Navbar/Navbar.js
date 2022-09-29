@@ -68,13 +68,14 @@ background: transparent;
 color: #fff;
 `
 const Profile = styled.div`
+padding: 10px;
 flex: 1;
 display: flex;
 justify-content:end;
 cursor: pointer;
 `;
 
-const Topbar = () => {
+const Navbar = () => {
   return (
     <Container>
       <Logo>
@@ -102,4 +103,4 @@ const Topbar = () => {
   )
 }
 
-export default Topbar
+export default Navbar

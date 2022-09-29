@@ -48,15 +48,14 @@ const Register = (props) => {
   });
   const handleSubmit = async (data) => {
     try {
-      const action = await register(data);
+      const action = register(data);
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
       console.log("new user",user);
       enqueueSnackbar("Bạn đã đăng ký thành công", { variant: "success" });
-
     } catch (error) {
-      console.log(error);
-      enqueueSnackbar(error, { variant: "error" });
+     
+      enqueueSnackbar(error.message, { variant: "error" });
     }
   };
   const { isSubmitting } = form.formState;
