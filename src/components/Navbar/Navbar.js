@@ -5,6 +5,11 @@ import LibraryMusicOutlinedIcon from "@mui/icons-material/LibraryMusicOutlined";
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Avatar from '@mui/material/Avatar';
+import { Menu, MenuItem } from '@mui/material';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/userSlice/userSlice';
+import { useNavigate } from 'react-router';
 const Container = styled.div`
     width: 100%;
     height: 70px;
@@ -68,13 +73,29 @@ background: transparent;
 color: #fff;
 `
 const Profile = styled.div`
+padding: 10px;
 flex: 1;
 display: flex;
 justify-content:end;
 cursor: pointer;
 `;
 
-const Topbar = () => {
+const Navbar = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  }
+
   return (
     <Container>
       <Logo>
@@ -92,14 +113,26 @@ const Topbar = () => {
         </HomeForm>
       </Center>
       <Profile>
-      <Avatar  src='https://i.pinimg.com/736x/c5/16/ed/c516ed9fdeffcdcf8345b71dd221b616.jpg' sx={{border: "1px solid #2a2a2a" }}/>
+      <Avatar  src='https://i.pinimg.com/736x/c5/16/ed/c516ed9fdeffcdcf8345b71dd221b616.jpg' sx={{border: "1px solid #2a2a2a" }} onClick={handleClick}/>
       </Profile>
-     
 
 
-
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Hồ sơ</MenuItem>
+        <MenuItem onClick={handleClose}>Đổi mật khẩu</MenuItem>
+        <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+      </Menu>
+  
     </Container>
   )
 }
 
-export default Topbar
+export default Navbar
