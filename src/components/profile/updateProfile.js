@@ -1,16 +1,17 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from "styled-components";
+
 const Container = styled.div`
   background-color: whitesmoke;
     width:70%;
   height: 100vh;
 `
-const BodyProfile = () => {
+const UpdateProfile = () => {
     return (
         <Container>
-            <h1>Hồ sơ</h1>
+sua ho xo
         </Container>
     );
 };
 
-export default BodyProfile;
+export default UpdateProfile;
