@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Controller } from "react-hook-form";
-import { TextField, FormHelperText } from "@mui/material";
+import { Controller } from 'react-hook-form';
+
+import { TextField, FormHelperText} from '@mui/material';
 
 InputField.propTypes = {
   form: PropTypes.object.isRequired,
@@ -24,14 +25,16 @@ function InputField(props) {
       <Controller
         name={name}
         control={form.control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            sx={{ width: "30%", m: 1 }}
-            label={label}
-            disabled={disabled}
-            errors={!!hasError}
-          />
+        render = {({ field})=> (
+           
+            <TextField
+                {...field}
+                
+                sx ={{ m:1, width: '100%'}}
+                label={label}
+                disabled={disabled}
+                errors= {!!hasError}
+            />         
         )}
       />
       <FormHelperText error={!!hasError}>
