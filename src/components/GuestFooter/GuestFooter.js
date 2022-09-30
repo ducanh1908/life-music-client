@@ -29,11 +29,14 @@ const SongContent = styled.div`
   flex: 1;
 `;
 const SongName = styled.p`
+cursor: pointer;
 font-size: 16px;
   font-weight: bold;
   color: #fff;
 `;
 const SongSinger = styled.span`
+cursor: pointer;
+
 font-size:14px;
 font-weight: 300;
 color: #a7a7a7;
