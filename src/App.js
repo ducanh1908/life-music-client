@@ -18,9 +18,10 @@ function App() {
   return (
    <Router>
     <Routes>
-      {/*<Route path='/register' element={<Register />} />*/}
-      {/*<Route path='/login' element={<Login />} />*/}
-      {/*<Route path='/home' element={<Home />} />*/}
+      <Route path='/register' element={<Register />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/home' element={<Home />} />
+      <Route path='/upload' element={<UploadFile />} />
       <Route path='/profile' element={<Profile />}>
 
         <Route
@@ -29,7 +30,6 @@ function App() {
         />
         <Route path="update" element={<UpdateProfile />} />
         <Route path="password" element={<UpdatePassword />} />
-
       </Route>
 
     </Routes>
