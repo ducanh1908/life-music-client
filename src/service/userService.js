@@ -11,7 +11,11 @@ const userApi = {
 
         const url = '/login';
         return apiClient.post(url, data)
-    }
+    },
 
+    uploadSong(data) {
+        const url = '/song';
+        return apiClient.post(url, data)
+    }
 }
 export default userApi;
