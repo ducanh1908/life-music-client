@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import ModeIcon from '@mui/icons-material/Mode';
 import LockIcon from '@mui/icons-material/Lock';
 import HomeIcon from '@mui/icons-material/Home';
-const Container = styled.div`
+import {NavLink} from "react-router-dom";
+const Container2 = styled.div`
   background-color: grey;
     width:30%;
   height: 100vh;
@@ -32,7 +33,7 @@ const MenuItem = styled.div`
   height: 100%;
   padding: 20px;
 `
-const Title = styled.a`
+const Title = styled.div`
   margin-left: 50px;
   text-decoration: none;
   font-size: 20px;
@@ -40,35 +41,42 @@ const Title = styled.a`
 `
 const SideBarProfile = () => {
     return (
-        <Container>
+        <Container2>
             <Logo>
                 <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" sx={{width:150 ,height:150}}/>
             </Logo>
             <Menu>
                 <MenuItem>
                     <HomeIcon />
-                    <Title href={''}>
-                        Tổng quan tài khoản
+                    <Title>
+                        <NavLink to={'/profile'} >
+                            Tổng quan tài khoản
+                        </NavLink>
                     </Title>
                 </MenuItem>
             </Menu>
             <Menu>
                 <MenuItem>
                     <ModeIcon />
-                    <Title href={''}>
-                        Sửa hồ sơ
+                    <Title>
+                        <NavLink to={'/profile/update'}>
+                            Sửa hồ sơ
+                        </NavLink>
                     </Title>
                 </MenuItem>
             </Menu>
             <Menu>
                 <MenuItem>
                     <LockIcon />
-                    <Title href={''}>
-                        Đổi mật khẩu
+                    <Title>
+                        <NavLink to={'/profile/password'}>
+                            Đổi mật khẩu
+                        </NavLink>
                     </Title>
+
                 </MenuItem>
             </Menu>
-        </Container>
+        </Container2>
     );
 };
 
