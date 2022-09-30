@@ -11,7 +11,7 @@ max-height: 100vh;
 overflow: hidden;
 display: grid;
 grid-template-rows:85vh 15vh;
-background-color: #121212;
+background-color: #040404;
 
 `
 

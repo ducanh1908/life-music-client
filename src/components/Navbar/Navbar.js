@@ -19,6 +19,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     background-color: #000000;
+    overflow: hidden;
 `;
 const Logo = styled.div`
 flex: 1;

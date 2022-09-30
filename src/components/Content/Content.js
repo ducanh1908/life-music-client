@@ -21,6 +21,7 @@ padding: 24px 24px 0;
 background-color: #333333;
 height: 100vh;
 flex: 1;
+overflow:scroll;
 `;
 
 const Wrapper = style.div`
