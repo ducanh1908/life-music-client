@@ -3,7 +3,7 @@ import Home from './pages/Home/Home';
 import Register from './pages/Register/Register';
 import Profile from "./components/profile/profile";
 import Login from './pages/Login/Login';
-import UploadFile from './components/UploadFile/Uploadfile';
+import Upload from './components/UploadFile/Uploadfile';
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,20 +18,14 @@ function App() {
   return (
    <Router>
     <Routes>
-      {/*<Route path='/register' element={<Register />} />*/}
-      {/*<Route path='/login' element={<Login />} />*/}
-      {/*<Route path='/home' element={<Home />} />*/}
-      <Route path='/profile' element={<Profile />}>
-
-        <Route
-            path=""
-            element={<Information />}
-        />
-        <Route path="update" element={<UpdateProfile />} />
-        <Route path="password" element={<UpdatePassword />} />
-
-      </Route>
-
+      <Route path='/register' element={<Register />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/home' element={<Home />} />
+      <Route path='/profile' element={<Profile />} />
+      <Route path='/upload' element={<Upload />} /> 
+      <Route path=""  element={<Information />} />
+      <Route path="update" element={<UpdateProfile />} />
+      <Route path="password" element={<UpdatePassword />} />
     </Routes>
    </Router>
    
