@@ -17,8 +17,7 @@ export const register = createAsyncThunk(
         async (payload) => {
             const data = await userApi.login(payload);
             localStorage.setItem('access_token',data.access_token)
-            localStorage.setItem('user', JSON.stringify(data.user))
-           
+            localStorage.setItem('user', JSON.stringify(data.user))   
             return data.user;
         });
 const initialState = {

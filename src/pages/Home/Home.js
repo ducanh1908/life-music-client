@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Navbar from './../../components/Navbar/Navbar';
+import Sidebar from './../../components/Sidebar/Sidebar';
+import Body from './../../components/Body/Body';
 
 const  Container = styled.div`
 width: 100%;
@@ -17,7 +19,7 @@ const Home = () => {
     <Container>
         <Navbar />
         <Wrapper>
-
+      <Body />
         </Wrapper>
     </Container>
   )
