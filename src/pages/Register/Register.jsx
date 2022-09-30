@@ -1,18 +1,18 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-import Typography from '@mui/material/Typography';
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
 import styled from 'styled-components';
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
-import { login } from "../../redux/userSlice/userSlice";
+import { register } from "../../redux/userSlice/userSlice";
+import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router';
 const Container = styled.div`
 width: 100%;
 height: 100vh;
@@ -39,8 +39,11 @@ margin-top:40px;
 `
 const Form = styled.div`
 
-`
 
+`
+const FormInput = styled.div`
+
+`
 
 const Bottom = styled.div`
 margin-top: 20px;
@@ -54,35 +57,46 @@ const schema = yup
     .required("Tên tài khoản không được để trống")
     .min(2, "Tên tài khoản quá ngắn")
     .max(25, "Tên tài khoản "),
+    email: yup.string()
+    .email("Email không đúng định dạng")
+    .required("Email không được để trống"),
     password: yup.string().required("Mật khẩu không được để trống")
     .min(6, "Mật khẩu tối thiểu 6 ký tự")
     .max(25, "Mật khẩu tối đa 25 ký tự"),
+    confirmPassword: yup.string()
+    .required("Nhập lại mật khẩu của bạn")
+    .oneOf([yup.ref("password")], "Mật khẩu không khớp"),
+    phone: yup.string()
+    .required("Nhập số điện thoại"),
   })
   .required();
 
-const Login = (props) => {
-    const navigate = useNavigate()
+const Register = (props) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const form = useForm({
     defaultValues: {
-      username: "", 
+      username: "",
+      email: "",
       password: "",
-     
+      confirmPassword: "",
+      phone: "",
     },
     resolver: yupResolver(schema),
   });
   const handleSubmit = async (data) => {
     try {
-        
-      const action = await login(data);
+      const action = await register(data);
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
-        navigate('/home')
+
+      console.log("new user",user);
+      enqueueSnackbar("Bạn đã đăng ký thành công", { variant: "success" });
+      navigate('/login')
     } catch (error) {
-        enqueueSnackbar(error.message, { variant: "error" });
-        
-        navigate('/login')
+      console.log(error);
+      enqueueSnackbar(error, { variant: "error" });
     }
   };
   const { isSubmitting } = form.formState;
@@ -94,7 +108,7 @@ const Login = (props) => {
           <Typography variant="h3">
           Music Life 
           </Typography>
-        <Title>Để tiếp tục, hãy đăng nhập vào Music Life.</Title>
+        <Title>Đăng ký miễn phí để bắt đầu nghe.</Title>
         </Topbar>
       <Form>
         
@@ -106,18 +120,25 @@ const Login = (props) => {
            
           />
         )}
-       
+        <FormInput>
         <InputField name="username" label="Tên tài khoản" form={form}/>
-         
+        </FormInput>
+        <InputField name="email" label="Nhập email của bạn" form={form} />
         <PasswordField name="password" label="Mật khẩu" form={form} />
+        <PasswordField
+          name="confirmPassword"
+          label="Nhập lại mật khẩu"
+          form={form}
+        />
+        <InputField name="phone" label="Nhập số điện thoại" form={form} />
         <Button sx={{ mt:5,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
-         ĐĂNG Nhập
+         ĐĂNG KÝ
         </Button>
       </form>
       </Form>
       <Bottom>
-        <LinkLogin>Bạn chưa có tài khoản ?</LinkLogin>
-        <Link href="/register">Đăng ký</Link>
+        <LinkLogin>Bạn đã có tài khoản ?</LinkLogin>
+        <Link href="/login">Đăng nhập</Link>
         
       </Bottom>
        </Wrapper>
@@ -126,4 +147,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Register;
