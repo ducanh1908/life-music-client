@@ -6,6 +6,7 @@ import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
 const Container = styled.div`
@@ -124,7 +125,7 @@ const GuestNavbar = () => {
         </Typography>
       </Left>
       <Center>
-        <HomeIcon href="#">
+        <HomeIcon href="/home">
           <HomeRoundedIcon
             sx={{ color: "white", width: "56px", height: "56px" }}
           />
@@ -167,7 +168,10 @@ const GuestNavbar = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Hồ sơ</MenuItem>
+        <MenuItem> <Link to="/profile" >
+        Hồ sơ
+        </Link>
+        </MenuItem>
         <MenuItem onClick={handleClose}>Đổi mật khẩu</MenuItem>
         <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
       </Menu>
