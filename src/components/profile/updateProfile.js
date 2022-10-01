@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   background-color: blue;
-    width:70%;
+    width:70vw;
   height: 100vh;
 `
 const UpdateProfile = () => {

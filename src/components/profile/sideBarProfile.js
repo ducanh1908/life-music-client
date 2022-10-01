@@ -8,14 +8,18 @@ import {NavLink} from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
 const Container2 = styled.div`
-margin-top:10px;
-  background-color: grey;
-    width:30%;
+
+  background-color: transparent;
+    width:30vw;
   height: 100vh;
-`
-const Logo=styled.div`
-align-items: center;
+  border-radius:10px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  `
+const Logo=styled.div`
+  display: flex;
+  align-items: center;
   justify-content: center;
   align-content: center;
   padding: 10px;
@@ -23,24 +27,41 @@ align-items: center;
 `
 const Menu = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
-  width: 100%;
+  width: 80%;
   padding: 10px;
 `
+
 const MenuItem = styled.div`
   display: flex;
+  align-items: center;
   justify-content: start;
   border-top: 1px solid cornsilk;
-  width: 80%;
+  width: 100%;
   height: 100%;
   padding: 20px;
+
+  .icon {
+    width: 50px;
+    height: 50px;
+    color:#7a7a7a
+  }
+
 `
 const Title = styled.div`
-  margin-left: 50px;
-  text-decoration: none;
-  font-size: 20px;
-  color: black;
+padding-left: 10px;
+  font-size: 24px;
+  color: #7a7a7a;
+  .nav_link {
+    text-decoration: none;
+    font-size: 24x;
+    color: #7a7a7a;
+    &:hover {
+   color: #fff
+   }
+  }
 `
 const SideBarProfile = () => {
     const user = useSelector(state=> state.user.user)
@@ -49,34 +70,32 @@ const SideBarProfile = () => {
             <Logo>
                 <Avatar alt="Cindy Baker" src={user.profileImage} sx={{width:150 ,height:150}}/>
             </Logo>
-            <Typography>
+            <Typography variant = 'h4' component='h2'>
                 {user.fullname} fasdfasd
             </Typography>
             <Menu>
                 <MenuItem>
-                    <HomeIcon />
+                    <HomeIcon  className='icon'/>
                     <Title>
-                        <NavLink to={'/profile'} >
+                        <NavLink  className= "nav_link"to={'/profile'} >
                             Tổng quan tài khoản
                         </NavLink>
                     </Title>
                 </MenuItem>
-            </Menu>
-            <Menu>
+            
                 <MenuItem>
-                    <ModeIcon />
+                    <ModeIcon  className='icon' />
                     <Title>
-                        <NavLink to={'/profile/update'}>
+                        <NavLink className= "nav_link" to={'/profile/update'}>
                             Sửa hồ sơ
                         </NavLink>
                     </Title>
                 </MenuItem>
-            </Menu>
-            <Menu>
+            
                 <MenuItem>
-                    <LockIcon />
+                    <LockIcon   className='icon'/>
                     <Title>
-                        <NavLink to={'/profile/password'}>
+                        <NavLink className= "nav_link" to={'/profile/password'}>
                             Đổi mật khẩu
                         </NavLink>
                     </Title>
