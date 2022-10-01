@@ -25,5 +25,9 @@ const userApi = {
         const url = '/user';
         return apiClient.patch(url, data)
     },
+    updateAvatar(data) {
+        const url = '/user/avatar';
+        return apiClient.patch(url, data)
+    },
 }
 export default userApi;

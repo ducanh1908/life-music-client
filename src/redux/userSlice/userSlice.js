@@ -28,6 +28,12 @@ export const updateProfile = createAsyncThunk("user/profile", async (payload) =>
   localStorage.setItem("user", JSON.stringify(data.user));
   return data.user;
 });
+export const updateAvatar= createAsyncThunk("user/avatar", async (payload) => {
+  const data = await userApi.updateAvatar(payload);
+  // localStorage.setItem("access_token", data.access_token);
+  localStorage.setItem("user", JSON.stringify(data.user));
+  return data.user;
+});
 export const changePassword = createAsyncThunk("user/password", async (payload) => {
   try {
     const data = await userApi.changePassword(payload);
@@ -61,6 +67,9 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     [updateProfile.fulfilled]: (state, action) => {
+      state.user = action.payload;
+    },
+    [updateAvatar.fulfilled]: (state, action) => {
       state.user = action.payload;
     },
   },

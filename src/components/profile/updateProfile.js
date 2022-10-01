@@ -9,23 +9,19 @@ import {useDispatch, useSelector} from "react-redux";
 import styled from 'styled-components';
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
-import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
-import {register, updateProfile} from "../../redux/userSlice/userSlice";
+import {updateProfile} from "../../redux/userSlice/userSlice";
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
 const Container = styled.div`
-width: 100%;
+width: 70%;
 height: 100vh;
 display: flex;
 text-align: center;
 justify-content: center;
-  
 `
 const Wrapper = styled.div`
 margin-top: 10px;
 max-width: 450px;
-
-
 `
 const Topbar = styled.div`
 padding: 40px 0 32px;

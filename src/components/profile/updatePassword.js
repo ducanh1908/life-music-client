@@ -12,7 +12,7 @@ import PasswordField from "../../components/FormControler/PasswordField/Password
 import {changePassword, register} from "../../redux/userSlice/userSlice";
 import Typography from '@mui/material/Typography';
 const Container = styled.div`
-width: 100%;
+width: 70%;
 height: 100vh;
 display: flex;
 text-align: center;
