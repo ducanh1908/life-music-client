@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import styled from 'styled-components';
 import ModeIcon from '@mui/icons-material/Mode';
@@ -42,10 +42,24 @@ const Title = styled.div`
 `
 const SideBarProfile = () => {
     const user = useSelector(state=> state.user.user)
+    const [avatar, setAvatar] = useState('')
     return (
         <Container2>
             <Logo>
-                <Avatar alt="Cindy Baker" src={user.profileImage} sx={{width:150 ,height:150}}/>
+                <form>
+                    <Avatar alt="Cindy Baker" src={user.profileImage} sx={{width:150 ,height:150}}/>
+                    {/*<div className="info_avatar">*/}
+                    {/*    <img src={avatar ? URL.createObjectURL(avatar) :user.avatar}*/}
+                    {/*         alt="avatar" />*/}
+                    {/*    <span>*/}
+                    {/*    <i className="fas fa-camera"/>*/}
+                    {/*    <p>Change</p>*/}
+                    {/*    <input type="file" name="file" id="file_up"*/}
+                    {/*           accept="image/*" />*/}
+                    {/*</span>*/}
+                    {/*</div>*/}
+                </form>
+
             </Logo>
             <Menu>
                 <MenuItem>
