@@ -12,9 +12,10 @@ const Menu = styled.div`
   align-content: center;
   width: 100%;
   padding: 10px;
+  
 `
 const Title = styled.div`
-  //display: flex;
+  display: flex;
   justify-content: start;
   border-top: 2px solid ;
   width: 100%;
@@ -22,8 +23,8 @@ const Title = styled.div`
   padding: 20px;
 `
 const Content = styled.div`
-  //margin-left: 50px;
-  //text-decoration: none;
+  margin-left: 50px;
+  text-decoration: none;
   border-top: 2px solid ;
   width: 100%;
   height: 100%;

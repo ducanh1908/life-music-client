@@ -9,10 +9,10 @@ import { useDispatch } from "react-redux";
 import styled from 'styled-components';
 import * as yup from "yup";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
-import { register } from "../../redux/userSlice/userSlice";
+import {changePassword, register} from "../../redux/userSlice/userSlice";
 import Typography from '@mui/material/Typography';
 const Container = styled.div`
-width: 100%;
+width: 70%;
 height: 100vh;
 display: flex;
 text-align: center;
@@ -35,12 +35,12 @@ const Form = styled.div`
 const schema = yup
     .object()
     .shape({
-        password: yup.string().required("Mật khẩu không được để trống")
+        newpassword: yup.string().required("Mật khẩu không được để trống")
             .min(6, "Mật khẩu tối thiểu 6 ký tự")
             .max(25, "Mật khẩu tối đa 25 ký tự"),
         confirmPassword: yup.string()
             .required("Nhập lại mật khẩu của bạn")
-            .oneOf([yup.ref("password")],"Mật khẩu không khớp"),
+            .oneOf([yup.ref("newpassword")],"Mật khẩu không khớp"),
     })
     .required();
 
@@ -58,7 +58,7 @@ const UpdatePassword = (props) => {
 
     const handleSubmit = async (data) => {
         try {
-            const action = await register(data);
+            const action = await changePassword(data);
             const resultAction = await dispatch(action);
             const user = unwrapResult(resultAction);
 

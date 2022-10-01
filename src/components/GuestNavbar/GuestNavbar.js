@@ -95,7 +95,6 @@ const GuestNavbar = () => {
   const isLoggedInUser = useSelector(state => state.user.user )
 
   const isLoggedIn = !!isLoggedInUser._id;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
