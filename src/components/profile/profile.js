@@ -16,7 +16,7 @@ const Profile = () => {
     return (
         <Container>
             <GuestNavbar />
-            <SideBarProfile />
+            <SideBarProfile  />
             <Outlet/>
         </Container>
     );

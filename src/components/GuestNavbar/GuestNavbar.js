@@ -151,7 +151,7 @@ const GuestNavbar = () => {
   <Avatar
    onClick={handleClick}
     alt="Duc Anh"
-    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+    src={isLoggedInUser.profileImage}
     sx={{ width: 56, height: 56, cursor: 'pointer'}}
   />
 
