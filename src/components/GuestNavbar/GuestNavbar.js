@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
+
 const Container = styled.div`
 
   height:70px;
@@ -152,7 +153,7 @@ const GuestNavbar = () => {
    onClick={handleClick}
     alt="Duc Anh"
     src={isLoggedInUser.profileImage}
-    sx={{ width: 56, height: 56, cursor: 'pointer'}}
+    sx={{ width: 50, height: 50, cursor: 'pointer'}}
   />
 
 )}

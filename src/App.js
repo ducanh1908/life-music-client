@@ -12,6 +12,7 @@ import {
 import Information from "./components/profile/information";
 import UpdateProfile from "./components/profile/updateProfile";
 import UpdatePassword from "./components/profile/updatePassword";
+import Song from './components/Songs/Song';
 
 function App() {
 
@@ -23,12 +24,14 @@ function App() {
       <Route path='/home' element={<Home />} />
       <Route path='/profile' element={<Profile />} >
             
-      <Route path=""  element={<Information />} />
-      <Route path="update" element={<UpdateProfile />} />
-      <Route path="password" element={<UpdatePassword />} />
+        <Route path=""  element={<Information />} />
+        <Route path="update" element={<UpdateProfile />} />
+        <Route path="password" element={<UpdatePassword />} />
       </Route>
 
       <Route path='/upload' element={<Upload />} /> 
+      <Route path='/songs' element={<Song />} /> 
+
      
     </Routes>
    </Router>

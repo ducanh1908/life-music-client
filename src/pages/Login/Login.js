@@ -51,9 +51,9 @@ const schema = yup
   .object()
   .shape({
     username: yup.string()
-    .required("Tên tài khoản không được để trống")
+    .required("Tên tài khoản không được để trống từ 6 -25 ký tự")
     .min(2, "Tên tài khoản quá ngắn")
-    .max(25, "Tên tài khoản "),
+    .max(25, "Tên tài khoản quá 25 ký tự"),
     password: yup.string().required("Mật khẩu không được để trống")
     .min(6, "Mật khẩu tối thiểu 6 ký tự")
     .max(25, "Mật khẩu tối đa 25 ký tự"),
