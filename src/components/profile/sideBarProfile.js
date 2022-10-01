@@ -6,7 +6,9 @@ import LockIcon from '@mui/icons-material/Lock';
 import HomeIcon from '@mui/icons-material/Home';
 import {NavLink} from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { Typography } from '@mui/material';
 const Container2 = styled.div`
+margin-top:10px;
   background-color: grey;
     width:30%;
   height: 100vh;
@@ -30,7 +32,7 @@ const MenuItem = styled.div`
   display: flex;
   justify-content: start;
   border-top: 1px solid cornsilk;
-  width: 100%;
+  width: 80%;
   height: 100%;
   padding: 20px;
 `
@@ -47,6 +49,9 @@ const SideBarProfile = () => {
             <Logo>
                 <Avatar alt="Cindy Baker" src={user.profileImage} sx={{width:150 ,height:150}}/>
             </Logo>
+            <Typography>
+                {user.fullname} fasdfasd
+            </Typography>
             <Menu>
                 <MenuItem>
                     <HomeIcon />

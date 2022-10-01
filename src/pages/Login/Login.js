@@ -78,7 +78,7 @@ const Login = (props) => {
       const action = await login(data);
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
-        navigate('/home')
+        navigate('/')
     } catch (error) {
         enqueueSnackbar(error.message, { variant: "error" });  
         navigate('/login')

@@ -21,7 +21,10 @@ function App() {
     <Routes>
       <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/home' element={<Home />} />
+      <Route path='/' element={<Home />} >
+          <Route path='upload' element={<Upload />} /> 
+          <Route path='songs' element={<Song />} /> 
+      </Route>
       <Route path='/profile' element={<Profile />} >
             
         <Route path=""  element={<Information />} />
@@ -29,10 +32,8 @@ function App() {
         <Route path="password" element={<UpdatePassword />} />
       </Route>
 
-      <Route path='/upload' element={<Upload />} /> 
-      <Route path='/songs' element={<Song />} /> 
+      
 
-     
     </Routes>
    </Router>
    

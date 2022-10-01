@@ -7,7 +7,6 @@ import DownloadForOfflineOutlinedIcon from '@mui/icons-material/DownloadForOffli
 const Container = styled.div`
 height:100vh;
 left: 0;
-margin-top:70px;
 border-radius: 5px;
 background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ;
 `;

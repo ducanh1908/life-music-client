@@ -5,6 +5,7 @@ import Navbar from './../../components/Navbar/Navbar';
 import Sidebar from './../../components/Sidebar/Sidebar';
 import Body from './../../components/Body/Body';
 import Guest from './../Guest/Guest';
+import { Outlet } from 'react-router';
 
 const  Container = styled.div`
 width: 100%;
@@ -22,6 +23,7 @@ const Home = () => {
       <Body />
         </Wrapper> */}
         <Guest />
+        <Outlet />
     </Container>
   )
 }

@@ -126,7 +126,7 @@ const GuestNavbar = () => {
         </Typography>
       </Left>
       <Center>
-        <HomeIcon href="/home">
+        <HomeIcon href="/">
           <HomeRoundedIcon
             sx={{ color: "white", width: "56px", height: "56px" }}
           />

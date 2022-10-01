@@ -8,7 +8,7 @@ import UpdatePassword from "./updatePassword";
 import GuestNavbar from '../GuestNavbar/GuestNavbar';
 
 const Container=styled.div`
-margin-top: 70px;
+    margin-top: 70px;
     display:flex;
   justify-content: space-between;
 `
