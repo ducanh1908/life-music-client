@@ -84,8 +84,7 @@ const UpdateProfile = (props) => {
             const action = await updateProfile(data);
             const resultAction = await dispatch(action);
             const user = unwrapResult(resultAction);
-            console.log(action)
-            enqueueSnackbar(user.msg, { variant: "success" });
+            enqueueSnackbar('Cập nhật thành công', { variant: "success" });
         } catch (error) {
             console.log(error);
             enqueueSnackbar(error, { variant: "error" });
