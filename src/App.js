@@ -8,15 +8,28 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import Information from "./components/profile/information";
+import UpdateProfile from "./components/profile/updateProfile";
+import UpdatePassword from "./components/profile/updatePassword";
 
 function App() {
 
   return (
    <Router>
     <Routes>
-      <Route path='/register' element={<Register />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/home' element={<Home />} />
+      {/*<Route path='/register' element={<Register />} />*/}
+      {/*<Route path='/login' element={<Login />} />*/}
+      {/*<Route path='/home' element={<Home />} />*/}
+      <Route path='/profile' element={<Profile />}>
+
+        <Route
+            path=""
+            element={<Information />}
+        />
+        <Route path="update" element={<UpdateProfile />} />
+        <Route path="password" element={<UpdatePassword />} />
+
+      </Route>
 
     </Routes>
    </Router>
