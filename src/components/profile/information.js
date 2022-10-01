@@ -35,7 +35,6 @@ const Content = styled.div`
 const Information = () => {
 
     const user = useSelector(state => state.user.user )
-    console.log(user.email)
     return (
         <Container>
             <h1>Tổng Quan Tài Khoản</h1>
