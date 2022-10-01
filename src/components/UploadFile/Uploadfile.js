@@ -16,14 +16,14 @@ function AddNewFile() {
   const dispatch = useDispatch();
   const uploadFile = async () => {
     if (fileUpload == null) return;
+    const user = JSON.parse(localStorage.getItem('user'));
     const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
     await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
     await getDownloadURL(snapshot.ref).then((url) => {
-         setNewSong({name: fileUpload.name, file: url})
+         setNewSong({name: fileUpload.name, file: url, _id: user._id})
          setFileUrls((prev) => [...prev, url]);
       });
     });
-    
     dispatch(upSong(newSong));
     dispatch(uploadSong(newSong));
   };
@@ -40,14 +40,11 @@ function AddNewFile() {
       />
       <button onClick={uploadFile}>Upload</button>
       {fileUrls.map((url, index) => (
-        <>
-        <p>{newSong.name}</p>
         <AudioPlayer
         autoPlay={false}
         src={url}
         onPlay={e => console.log("onPlay")}
       />
-        </>
       ))}
     </div>
   );
