@@ -21,11 +21,15 @@ function App() {
       <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
       <Route path='/home' element={<Home />} />
-      <Route path='/profile' element={<Profile />} />
-      <Route path='/upload' element={<Upload />} /> 
+      <Route path='/profile' element={<Profile />} >
+            
       <Route path=""  element={<Information />} />
       <Route path="update" element={<UpdateProfile />} />
       <Route path="password" element={<UpdatePassword />} />
+      </Route>
+
+      <Route path='/upload' element={<Upload />} /> 
+     
     </Routes>
    </Router>
    

@@ -65,7 +65,7 @@ const schema = yup
     .max(25, "Mật khẩu tối đa 25 ký tự"),
     confirmPassword: yup.string()
     .required("Nhập lại mật khẩu của bạn")
-    .oneOf([yup.ref("password")], "Mật khẩu không khớp"),
+    .oneOf([yup.ref("password")],"Mật khẩu không khớp"),
     phone: yup.string()
     .required("Nhập số điện thoại"),
   })
@@ -85,6 +85,7 @@ const Register = (props) => {
     },
     resolver: yupResolver(schema),
   });
+  
   const handleSubmit = async (data) => {
     try {
       const action = await register(data);

@@ -72,9 +72,8 @@ const Login = (props) => {
       const user = unwrapResult(resultAction);
       navigate("/home");
     } catch (error) {
-      enqueueSnackbar(error.message, { variant: "error" });
-
-      navigate("/login");
+        enqueueSnackbar(error.message, { variant: "error" });  
+        navigate('/login')
     }
   };
   const { isSubmitting } = form.formState;
@@ -86,34 +85,30 @@ const Login = (props) => {
           <Typography variant="h3">Music Life</Typography>
           <Title>Để tiếp tục, hãy đăng nhập vào Music Life.</Title>
         </Topbar>
-        <Form>
-          <form onSubmit={form.handleSubmit(handleSubmit)}>
-            {isSubmitting && (
-              <LinearProgress
-                sx={{ width: "100%", color: "grey.500" }}
-                color="secondary"
-              />
-            )}
-
-            <InputField name="username" label="Tên tài khoản" form={form} />
-
-            <PasswordField name="password" label="Mật khẩu" form={form} />
-            <Button
-              sx={{ mt: 5, p: 2, width: "50%", borderRadius: "500px" }}
-              disabled={isSubmitting}
-              type="submit"
-              variant="contained"
-              color="inherit"
-            >
-              ĐĂNG Nhập
-            </Button>
-          </form>
-        </Form>
-        <Bottom>
-          <LinkLogin>Bạn chưa có tài khoản ?</LinkLogin>
-          <Link href="/register">Đăng ký</Link>
-        </Bottom>
-      </Wrapper>
+      <Form>
+        
+      <form onSubmit={form.handleSubmit(handleSubmit)}>
+        {isSubmitting && (
+          <LinearProgress
+            sx={{width:'100%',color: "grey.500" }}
+            color="secondary"
+           
+          />
+        )}
+       
+        <InputField name="username" label="Tên tài khoản" form={form}/> 
+        <PasswordField name="password" label="Mật khẩu" form={form} />
+        <Button sx={{ mt:5,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
+         ĐĂNG Nhập
+        </Button>
+      </form>
+      </Form>
+      <Bottom>
+        <LinkLogin>Bạn chưa có tài khoản ?</LinkLogin>
+        <Link href="/register">Đăng ký</Link>
+        
+      </Bottom>
+       </Wrapper>  
     </Container>
   );
 };

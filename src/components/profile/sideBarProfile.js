@@ -5,6 +5,7 @@ import ModeIcon from '@mui/icons-material/Mode';
 import LockIcon from '@mui/icons-material/Lock';
 import HomeIcon from '@mui/icons-material/Home';
 import {NavLink} from "react-router-dom";
+import { useSelector } from 'react-redux';
 const Container2 = styled.div`
   background-color: grey;
     width:30%;
@@ -40,10 +41,11 @@ const Title = styled.div`
   color: black;
 `
 const SideBarProfile = () => {
+    const user = useSelector(state=> state.user.user)
     return (
         <Container2>
             <Logo>
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" sx={{width:150 ,height:150}}/>
+                <Avatar alt="Cindy Baker" src={user.profileImage} sx={{width:150 ,height:150}}/>
             </Logo>
             <Menu>
                 <MenuItem>

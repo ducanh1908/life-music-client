@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { useSelector } from 'react-redux';
 const Container = styled.div`
   background-color: whitesmoke;
     width:70%;
@@ -32,6 +33,9 @@ const Content = styled.div`
   justify-content:start;
 `
 const Information = () => {
+
+    const user = useSelector(state => state.user.user )
+    console.log(user.email)
     return (
         <Container>
             <h1>Tổng Quan Tài Khoản</h1>
@@ -41,15 +45,15 @@ const Information = () => {
                     Tên người dùng
                 </Title>
                 <Content>
-                    Nguyễn Văn Quyền
+                    {user.fullname}
                 </Content>
             </Menu>
             <Menu>
                 <Title>
-                    Email
+                   Email
                 </Title>
                 <Content>
-                    q@gmail.com
+                {user.email}
                 </Content>
             </Menu>
             <Menu>
@@ -57,7 +61,7 @@ const Information = () => {
                     Số Điện Thoại
                 </Title>
                 <Content>
-                    99999
+                {user.phone}
                 </Content>
             </Menu>
             <Menu>
@@ -65,7 +69,7 @@ const Information = () => {
                     Địa chỉ
                 </Title>
                 <Content>
-                    Hà nội
+                {user.address}
                 </Content>
             </Menu>
 

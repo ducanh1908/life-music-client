@@ -3,24 +3,22 @@ import userApi from "./../../service/userService";
 
 
 const initialState = {
-  song: {},
+  songs: [],
 };
 
 export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
   const data = await userApi.uploadSong(payload);
-  
   console.log('payload', payload);
   return data;
 });
-
-
 
 const songSlice = createSlice({
   name: "song",
   initialState,
   reducers: {
     upSong(state, action) {
-      state.song = action.payload
+      state.songs.push(action.payload)
+      console.log('songs', state.songs)
     },
   },
   

@@ -1,6 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userApi from "./../../service/userService";
 
+
+const initialState = {
+  user: JSON.parse(localStorage.getItem("user")) || {},
+  loading: false,
+  error: null,
+};
+
 export const register = createAsyncThunk("user/register", async (payload) => {
   const data = await userApi.register(payload);
   localStorage.setItem("user", JSON.stringify(data.user));
@@ -16,11 +23,7 @@ export const login = createAsyncThunk("user/login", async (payload) => {
   return data.user;
 });
 
-const initialState = {
-  user: JSON.parse(localStorage.getItem("user")) || {},
-  loading: false,
-  error: null,
-};
+
 const userSlice = createSlice({
   name: "user",
   initialState,
