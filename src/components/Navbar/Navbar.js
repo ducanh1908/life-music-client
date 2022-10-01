@@ -95,6 +95,9 @@ const Navbar = () => {
     dispatch(logout());
     navigate('/login');
   }
+  const handleProfile = () => {
+    navigate('/profile')
+  }
 
   return (
     <Container>
@@ -126,7 +129,7 @@ const Navbar = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Hồ sơ</MenuItem>
+        <MenuItem onClick={handleProfile}>Hồ sơ</MenuItem>
         <MenuItem onClick={handleClose}>Đổi mật khẩu</MenuItem>
         <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
       </Menu>

@@ -40,11 +40,14 @@ function AddNewFile() {
       />
       <button onClick={uploadFile}>Upload</button>
       {fileUrls.map((url, index) => (
+        <>
+        <p>{newSong.name}</p>
         <AudioPlayer
         autoPlay={false}
         src={url}
         onPlay={e => console.log("onPlay")}
       />
+        </>
       ))}
     </div>
   );
