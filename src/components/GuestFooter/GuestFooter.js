@@ -51,6 +51,7 @@ color: #fff;
 const AudioPlay = styled.div``;
 
 const GuestFooter = () => {
+  
   return (
     <Container>
       <Song>
@@ -59,11 +60,11 @@ const GuestFooter = () => {
           <SongName>Waiting for you</SongName>
           <SongSinger>Bột giặt OMO</SongSinger>
         </SongContent>
-        <SongLike>
+        <SongLike >
           <FavoriteBorderOutlinedIcon />
           </SongLike>
       </Song>
-      <AudioPlay>
+      <AudioPlay >
         <Audio />
       </AudioPlay>
     </Container>

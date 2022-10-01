@@ -14,7 +14,7 @@ const Audio = () => {
     <Container>
 
         <AudioPlayer className='player-music ' 
-        layout="horizontal-reverse"
+     
           src="https://hanzluo.s3-us-west-1.amazonaws.com/music/wuyuwuqing.mp3"
           volume={0.5}       // Try other props!
         />
