@@ -10,17 +10,24 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/userSlice/userSlice';
 import { useNavigate } from 'react-router';
+
 const Container = styled.div`
     width: 100%;
     height: 70px;
+    position: fixed;
     display:flex;
     align-items: center;
     justify-content: space-between;
     background-color: #000000;
+    overflow: hidden;
 `;
 const Logo = styled.div`
 flex: 1;
 `;
+const LogoImg = styled.img`
+width: 60px;
+height: 50px;
+`
 const Center = styled.div`
 flex: 1;
 display: flex;
@@ -95,11 +102,10 @@ const Navbar = () => {
     dispatch(logout());
     navigate('/login');
   }
-
   return (
     <Container>
-      <Logo>
-      <LibraryMusicOutlinedIcon style={{ width: 40, height: 40, color:"white" }} />
+      <Logo>   
+        <LogoImg src='https://firebasestorage.googleapis.com/v0/b/yoongee.appspot.com/o/music-life.png?alt=media&token=fdf597f1-abc6-4521-a958-f3db753ed3d0'/>
       </Logo>
       <Center>
         <HomeIcon href='#'>
@@ -115,8 +121,6 @@ const Navbar = () => {
       <Profile>
       <Avatar  src='https://i.pinimg.com/736x/c5/16/ed/c516ed9fdeffcdcf8345b71dd221b616.jpg' sx={{border: "1px solid #2a2a2a" }} onClick={handleClick}/>
       </Profile>
-
-
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

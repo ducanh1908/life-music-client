@@ -5,10 +5,10 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 const Container = styled.div`
 height:100vh;
-position: fixed;
 left: 0;
 margin-top:70px;
-z-index: 1
+border-radius: 5px;
+background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ;
 `;
 const Wrapper = styled.div`
 display: flex;
@@ -17,12 +17,19 @@ align-items: center;
 justify-content: center;
 `;
 const Menu = styled.div`
+margin-top: 20px;
 display: flex;
 flex-direction: column;
+color: #b3b3b3;
 `
 const MenuItem = styled.div`
 display:flex;
 padding: 8px 0;
+cursor: pointer;
+&:hover {
+  color: #fff
+}
+
 `
 
 const ItemIcon = styled.div``
@@ -33,18 +40,23 @@ font-weight: 500;
 
 `
 const Hr = styled.div`
-border: 1px solid black;
+border: 1px solid #a7a7a7;
 width: 80%;
+
 `
 
 const CreateList = styled.div`
-
+color: #b3b3b3;
+cursor: pointer;
+&:hover {
+  color: #fff
+}
 `
 const ListTitle = styled.p`
 padding: 10px 0;
 font-weight: 500;
 ` 
-const Sidebar = () => {
+const  GuestSide = () => {
   return (
     <Container>
     <Wrapper>
@@ -84,4 +96,4 @@ const Sidebar = () => {
   )
 }
 
-export default Sidebar
+export default GuestSide
