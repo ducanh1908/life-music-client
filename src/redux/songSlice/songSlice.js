@@ -1,15 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userApi from "./../../service/userService";
-
+import songApi from "./../../service/songService"
 
 const initialState = {
   songs: [],
+  loading: false
 };
 
 export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
   const data = await userApi.uploadSong(payload);
-  console.log('payload', payload);
+  
   return data;
+});
+
+export const fetchSong = createAsyncThunk("/songs", async (payload) => {
+  const data = await songApi.getSong();
+  return data.songs;
 });
 
 const songSlice = createSlice({
@@ -18,10 +24,13 @@ const songSlice = createSlice({
   reducers: {
     upSong(state, action) {
       state.songs.push(action.payload)
-      console.log('songs', state.songs)
     },
   },
-  
+  extraReducers : {
+    [fetchSong.fulfilled] : (state, action) => {
+      state.songs = action.payload;
+    }
+  }
 });
 
 const { reducer, actions } = songSlice;
