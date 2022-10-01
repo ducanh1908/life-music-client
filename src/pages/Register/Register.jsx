@@ -56,7 +56,7 @@ const schema = yup
     username: yup.string()
     .required("Tên tài khoản không được để trống")
     .min(2, "Tên tài khoản quá ngắn")
-    .max(25, "Tên tài khoản "),
+    .max(25, "Tên tài khoản quá 25 ký tự "),
     email: yup.string()
     .email("Email không đúng định dạng")
     .required("Email không được để trống"),
@@ -96,8 +96,9 @@ const Register = (props) => {
       enqueueSnackbar("Bạn đã đăng ký thành công", { variant: "success" });
       navigate('/login')
     } catch (error) {
-      console.log(error);
-      enqueueSnackbar(error, { variant: "error" });
+      console.log(error.message);
+      enqueueSnackbar(error.message, { variant: "error" });
+      navigate('/register')
     }
   };
   const { isSubmitting } = form.formState;
