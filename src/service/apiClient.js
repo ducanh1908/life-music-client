@@ -24,16 +24,16 @@ apiClient.interceptors.request.use(
 // Add a response interceptor
 apiClient.interceptors.response.use(
   function (response) {
-   
     return response.data;
   },
   function (error) {
     const {config,status, data} = error.response;
     if(status === 400) {
       const errorList = data || [];
+
       const array = Object.values(errorList);
       const firstError = (array.length > 0) ? array[0] : {} ;
-      console.log(firstError)
+      console.log(errorList)
       throw new Error(firstError)
     }
     return Promise.reject(error);

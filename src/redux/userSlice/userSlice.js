@@ -30,10 +30,10 @@ export const updateProfile = createAsyncThunk("user/profile", async (payload) =>
 });
 export const updateAvatar= createAsyncThunk("user/avatar", async (payload) => {
   try{
-    let media;
-    if(payload) media = await imageUpload([payload])
+    let media='';
+    if(payload) media = await imageUpload(payload)
     console.log(media)
-    const data = await userApi.updateAvatar(media[0].url);
+    const data = await userApi.updateAvatar(media);
     localStorage.setItem("user", JSON.stringify(data.user));
     return data.user;
   }catch (err){
@@ -45,12 +45,17 @@ export const updateAvatar= createAsyncThunk("user/avatar", async (payload) => {
   // return data.user;
 });
 export const changePassword = createAsyncThunk("user/password", async (payload) => {
+  const data = await userApi.changePassword(payload);
   try {
-    const data = await userApi.changePassword(payload);
     localStorage.setItem("user", JSON.stringify(data.user));
     return data.user;
   }catch (err){
     console.log(err)
+  }
+    finally {
+    // const data = await userApi.changePassword(payload);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    return data.user;
   }
 
 });

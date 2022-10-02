@@ -61,10 +61,9 @@ const UpdatePassword = (props) => {
             const action = await changePassword(data);
             const resultAction = await dispatch(action);
             const user = unwrapResult(resultAction);
-
-            enqueueSnackbar("Đổi mật khẩu thành công", { variant: "success" });
+            enqueueSnackbar('Đổi mật khẩu thành công' , { variant: "success" });
         } catch (error) {
-            enqueueSnackbar(error, { variant: "error" });
+            enqueueSnackbar("Mật khẩu cũ không đúng", { variant: "error" });
         }
     };
     const { isSubmitting } = form.formState;
