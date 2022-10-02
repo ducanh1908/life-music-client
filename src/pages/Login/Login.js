@@ -19,7 +19,8 @@ height: 100vh;
 display: flex;
 text-align: center;
 justify-content: center;
-
+background: url('https://images.unsplash.com/photo-1499415479124-43c32433a620?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80') no-repeat;
+background-size: cover;
 
 `
 const Wrapper = styled.div`
@@ -32,10 +33,12 @@ const Topbar = styled.div`
 padding: 40px 0 32px;
 `
 const Logo = styled.h1`
+color:white;
 
 `
 const Title = styled.h1`
 margin-top:40px;
+color:white;
 `
 const Form = styled.div`
 
@@ -45,8 +48,14 @@ const Form = styled.div`
 const Bottom = styled.div`
 margin-top: 20px;
 `
-const Link = styled.a``
-const LinkLogin = styled.span``
+const Link = styled.a`
+color:white;
+
+`
+const LinkLogin = styled.span`
+color:white;
+
+`
 const schema = yup
   .object()
   .shape({
@@ -78,7 +87,7 @@ const Login = (props) => {
       const action = await login(data);
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
-        navigate('/home')
+        navigate('/')
     } catch (error) {
         enqueueSnackbar(error.message, { variant: "error" });  
         navigate('/login')
@@ -90,7 +99,7 @@ const Login = (props) => {
     <Container>
       <Wrapper>
         <Topbar>
-          <Typography variant="h3">
+          <Typography variant="h3" sx={{color: "#fff"}}>
           Music Life 
           </Typography>
         <Title>Để tiếp tục, hãy đăng nhập vào Music Life.</Title>

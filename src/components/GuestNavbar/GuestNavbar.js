@@ -125,7 +125,7 @@ const GuestNavbar = () => {
         </Typography>
       </Left>
       <Center>
-        <HomeIcon href="/home">
+        <HomeIcon href="/">
           <HomeRoundedIcon
             sx={{ color: "white", width: "56px", height: "56px" }}
           />
@@ -168,11 +168,11 @@ const GuestNavbar = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem> <Link to="/profile" >
+        <MenuItem> <Link to="/profile" sx={{textDirection: 'none'}} >
         Hồ sơ
         </Link>
         </MenuItem>
-        <MenuItem onClick={handleClose}>Đổi mật khẩu</MenuItem>
+        
         <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
       </Menu>
     </Container>

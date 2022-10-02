@@ -12,7 +12,7 @@ const initialState = {
 export const register = createAsyncThunk("user/register", async (payload) => {
   const data = await userApi.register(payload);
   localStorage.setItem("user", JSON.stringify(data.user));
-  console.log(data.user);
+  
   return data.user;
 });
 

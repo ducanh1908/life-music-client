@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+import { alpha, styled } from "@mui/material/styles";
 
 PasswordField.propTypes = {
   form: PropTypes.object.isRequired,
@@ -19,6 +20,23 @@ PasswordField.propTypes = {
   disabled: PropTypes.bool,
 };
 
+const ValidationTextField = styled(OutlinedInput)({
+  "& .MuiInputBase-input": {
+    backgroundColor: "white",
+  },
+  "& input:valid + fieldset": {
+    borderColor: "green",
+    borderWidth: 2
+  },
+  "& input:invalid + fieldset": {
+    borderColor: "red",
+    borderWidth: 2
+  },
+  "& input:valid:focus + fieldset": {
+    borderLeftWidth: 6,
+    padding: "4px !important" // override inline-style
+  }
+});
 function PasswordField(props) {
   const { form, name, label, disabled } = props;
   const {
@@ -33,14 +51,14 @@ function PasswordField(props) {
   return (
     <>
       
-      <FormControl sx={{ m: 1, width:'100%' }}  variant="outlined">
+      <FormControl sx={{ marginTop: 2, width:'100%' }}  variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
           <Controller 
             name={name}
             control={form.control}
             
             render = {({ field})=> (
-                <OutlinedInput
+                <ValidationTextField
                     {...field}
                     type={showPassword ? 'text' : 'password'}
                     label={label}  
@@ -52,6 +70,7 @@ function PasswordField(props) {
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
                             edge="end"
+                            sx={{color: "#fff"}}
                           >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>

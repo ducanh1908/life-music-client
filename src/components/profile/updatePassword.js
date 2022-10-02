@@ -17,10 +17,20 @@ height: 100vh;
 display: flex;
 text-align: center;
 justify-content: center;
+background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url("https://images.unsplash.com/photo-1488376739361-ed24c9beb6d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80");
 `
 const Wrapper = styled.div`
 margin-top: 10px;
+height: 600px;
+width: 100%;
 max-width: 450px;
+margin-top: 10px;
+max-width: 450px;
+
 `
 const Topbar = styled.div`
 padding: 40px 0 32px;
@@ -29,7 +39,15 @@ const Title = styled.h1`
 margin-top:40px;
 `
 const Form = styled.div`
-    
+margin-top:20px;
+width:100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+    .form-input {
+    width: 90%;
+}
 `
 
 const schema = yup
@@ -61,9 +79,10 @@ const UpdatePassword = (props) => {
             const action = await changePassword(data);
             const resultAction = await dispatch(action);
             const user = unwrapResult(resultAction);
-            enqueueSnackbar('Đổi mật khẩu thành công' , { variant: "success" });
+
+            enqueueSnackbar("Đổi mật khẩu thành công", { variant: "success" });
         } catch (error) {
-            enqueueSnackbar("Mật khẩu cũ không đúng", { variant: "error" });
+            enqueueSnackbar('Mật khẩu cũ không đúng', { variant: "error" });
         }
     };
     const { isSubmitting } = form.formState;
@@ -79,7 +98,7 @@ const UpdatePassword = (props) => {
                 </Topbar>
                 <Form>
 
-                    <form onSubmit={form.handleSubmit(handleSubmit)}>
+                    <form onSubmit={form.handleSubmit(handleSubmit)} className="form-input">
                         {isSubmitting && (
                             <LinearProgress
                                 sx={{width:'100%',color: "grey.500" }}

@@ -1,22 +1,33 @@
-import React, {useState} from 'react';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import styled from 'styled-components';
-import ModeIcon from '@mui/icons-material/Mode';
-import LockIcon from '@mui/icons-material/Lock';
 import HomeIcon from '@mui/icons-material/Home';
-import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from 'react-redux';
-import {updateAvatar} from "../../redux/userSlice/userSlice";
-import {unwrapResult} from "@reduxjs/toolkit";
-import {useSnackbar} from "notistack";
+import LockIcon from '@mui/icons-material/Lock';
+import ModeIcon from '@mui/icons-material/Mode';
+import React, { useState } from 'react';
+import { NavLink } from "react-router-dom";
+import styled from 'styled-components';
+
+import { useSelector } from 'react-redux';
+
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useSnackbar } from "notistack";
+import { useDispatch } from 'react-redux';
+import { updateAvatar } from "../../redux/userSlice/userSlice";
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import Button from '@mui/material/Button';
+
 const Container2 = styled.div`
-  background-color: grey;
-    width:30%;
+
+  background-color: transparent;
+    width:30vw;
   height: 100vh;
-`
-const Logo=styled.div`
-align-items: center;
+  border-radius:10px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  `
+const Logo=styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   align-content: center;
   padding: 10px;
@@ -24,24 +35,41 @@ align-items: center;
 `
 const Menu = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
-  width: 100%;
+  width: 80%;
   padding: 10px;
 `
+
 const MenuItem = styled.div`
   display: flex;
+  align-items: center;
   justify-content: start;
   border-top: 1px solid cornsilk;
   width: 100%;
   height: 100%;
   padding: 20px;
+
+  .icon {
+    width: 50px;
+    height: 50px;
+    color:#7a7a7a
+  }
+
 `
 const Title = styled.div`
-  margin-left: 50px;
-  text-decoration: none;
+padding-left: 10px;
   font-size: 20px;
-  color: black;
+  color: #7a7a7a;
+  .nav_link {
+    text-decoration: none;
+    font-size: 20x;
+    color: #7a7a7a;
+    &:hover {
+   color: #fff
+   }
+  }
 `
 const InforAvatar=styled.div`
   width: 150px;
@@ -103,6 +131,7 @@ const SideBarProfile = () => {
 
     return (
         <Container2>
+
             <form onSubmit={uploadAvatar}>
                 <Logo>
                     <InforAvatar>
@@ -111,42 +140,39 @@ const SideBarProfile = () => {
                                  alt="avatar" />
                         <InforSpan >
                             <i>
-                                <CameraAltIcon/>
+                              <CameraAltIcon />
                             </i>
                             <p >Change</p>
                             <Input type="file" name="file" id="file_up"
                                    accept="image/*" onChange={changeAvatar}/>
                         </InforSpan>
                     </InforAvatar>
+                <Button variant='contained' color="secondary" type="submit"  >save</Button>
                 </Logo>
-                     <button  type="submit"  >save</button>
             </form>
 
             <Menu>
                 <MenuItem>
-                    <HomeIcon />
+                    <HomeIcon  className='icon'/>
                     <Title>
-                        <NavLink to={'/profile'} >
+                        <NavLink  className= "nav_link"to={'/profile'} >
                             Tổng quan tài khoản
                         </NavLink>
                     </Title>
                 </MenuItem>
-            </Menu>
-            <Menu>
+            
                 <MenuItem>
-                    <ModeIcon />
+                    <ModeIcon  className='icon' />
                     <Title>
-                        <NavLink to={'/profile/update'}>
+                        <NavLink className= "nav_link" to={'/profile/update'}>
                             Sửa hồ sơ
                         </NavLink>
                     </Title>
                 </MenuItem>
-            </Menu>
-            <Menu>
                 <MenuItem>
-                    <LockIcon />
+                    <LockIcon   className='icon'/>
                     <Title>
-                        <NavLink to={'/profile/password'}>
+                        <NavLink className= "nav_link" to={'/profile/password'}>
                             Đổi mật khẩu
                         </NavLink>
                     </Title>

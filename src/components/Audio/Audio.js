@@ -2,6 +2,7 @@ import React from 'react'
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 const Audio = () => {
 
     const Container = styled.div`
@@ -9,7 +10,7 @@ const Audio = () => {
     width:80%;
     height:100%;
     `
-
+  const song  = useSelector(state => state.song.songs)
   return (
     <Container>
 

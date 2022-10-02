@@ -13,18 +13,27 @@ import {updateProfile} from "../../redux/userSlice/userSlice";
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
 const Container = styled.div`
+
 width: 70%;
 height: 100vh;
 display: flex;
 text-align: center;
 justify-content: center;
+background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url("https://images.unsplash.com/photo-1488376739361-ed24c9beb6d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80");
 `
 const Wrapper = styled.div`
 margin-top: 10px;
+height: 600px;
+width: 100%;
 max-width: 450px;
+
 `
 const Topbar = styled.div`
-padding: 40px 0 32px;
+
 `
 const Logo = styled.h1`
 
@@ -33,7 +42,15 @@ const Title = styled.h1`
 margin-top:40px;
 `
 const Form = styled.div`
-
+margin-top:20px;
+width:100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+.form-input {
+    width: 90%;
+}
 
 `
 const FormInput = styled.div`
@@ -99,7 +116,7 @@ const UpdateProfile = (props) => {
                 </Topbar>
                 <Form>
 
-                    <form onSubmit={form.handleSubmit(handleSubmit)}>
+                    <form onSubmit={form.handleSubmit(handleSubmit)} className="form-input">
                         {isSubmitting && (
                             <LinearProgress
                                 sx={{width:'100%',color: "grey.500" }}
@@ -107,13 +124,13 @@ const UpdateProfile = (props) => {
 
                             />
                         )}
-                        <FormInput>
-                            <InputField name="fullname" label="Nhập Họ tên" form={form}/>
-                        </FormInput>
+                      
+                        <InputField name="fullname" label="Nhập Họ tên" form={form}/>
+                        
                         <InputField name="email" label="Nhập email của bạn" form={form} />
                         <InputField name="address" label="Nhập địa chỉ của bạn"form={form} />
                         <InputField name="phone" label="Nhập số điện thoại" form={form} />
-                        <Button sx={{ mt:5,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
+                        <Button sx={{ mt:5,p:2,width:'100%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
                             Lưu
                         </Button>
                     </form>

@@ -18,14 +18,19 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const Container = style.div`
-height:100vh;
+height: 100%;
 width: 100%;
-margin-top: 70px;
-border-radius: 5px;
+border-radius: 10px;
 padding: 24px 24px 0;
-overflow:scroll;
+overflow:auto;
+&::-webkit-scrollbar {
+  width: 0.8rem;
+  border-radius: 10px;
+  &-thumb {
+    background-color: rgba(255, 255, 255,0.6);
+  }
+}
 background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ;
-
 `
 
 const Wrapper = style.div`
