@@ -39,9 +39,9 @@ function createData(name, calories) {
   return { name, calories };
 }
 
+
 const Information = () => {
   const user = useSelector((state) => state.user.user);
-
   const rows = [
     createData("Tên người dùng", `${user.fullname}`),
     createData("Email", `${user.email}`),
@@ -75,6 +75,7 @@ const Information = () => {
       </TableContainer>
     </Container>
   );
+
 };
 
 export default Information;

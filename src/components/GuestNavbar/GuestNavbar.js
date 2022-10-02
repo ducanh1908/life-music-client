@@ -95,7 +95,6 @@ const GuestNavbar = () => {
   const isLoggedInUser = useSelector(state => state.user.user )
 
   const isLoggedIn = !!isLoggedInUser._id;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -169,11 +168,11 @@ const GuestNavbar = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem> <Link to="/profile" >
+        <MenuItem> <Link to="/profile" sx={{textDirection: 'none'}} >
         Hồ sơ
         </Link>
         </MenuItem>
-        <MenuItem onClick={handleClose}>Đổi mật khẩu</MenuItem>
+        
         <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
       </Menu>
     </Container>

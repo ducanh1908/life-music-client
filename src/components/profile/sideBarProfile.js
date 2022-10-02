@@ -1,12 +1,19 @@
-import React from 'react';
-import Avatar from '@mui/material/Avatar';
-import styled from 'styled-components';
-import ModeIcon from '@mui/icons-material/Mode';
-import LockIcon from '@mui/icons-material/Lock';
 import HomeIcon from '@mui/icons-material/Home';
-import {NavLink} from "react-router-dom";
+import LockIcon from '@mui/icons-material/Lock';
+import ModeIcon from '@mui/icons-material/Mode';
+import React, { useState } from 'react';
+import { NavLink } from "react-router-dom";
+import styled from 'styled-components';
+
 import { useSelector } from 'react-redux';
-import { Typography } from '@mui/material';
+
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useSnackbar } from "notistack";
+import { useDispatch } from 'react-redux';
+import { updateAvatar } from "../../redux/userSlice/userSlice";
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import Button from '@mui/material/Button';
+
 const Container2 = styled.div`
 
   background-color: transparent;
@@ -19,6 +26,7 @@ const Container2 = styled.div`
   `
 const Logo=styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   align-content: center;
@@ -52,27 +60,97 @@ const MenuItem = styled.div`
 `
 const Title = styled.div`
 padding-left: 10px;
-  font-size: 24px;
+  font-size: 20px;
   color: #7a7a7a;
   .nav_link {
     text-decoration: none;
-    font-size: 24x;
+    font-size: 20x;
     color: #7a7a7a;
     &:hover {
    color: #fff
    }
   }
 `
+const InforAvatar=styled.div`
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+  margin: 15px auto;
+  border: 1px solid #ddd;
+  cursor: pointer;
+`
+const InfoImg=styled.img`
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+`
+const InforSpan=styled.span`
+  position: absolute;
+  bottom: -15%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  text-align: center;
+  color: orange;
+  transition: 0.3s ease-in-out;
+  background: #fff5;
+`
+const Input = styled.input`
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
+`
 const SideBarProfile = () => {
     const user = useSelector(state=> state.user.user)
+    const [avatar, setAvatar] = useState('');
+    const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+    const changeAvatar = (e) => {
+        const file = e.target.files[0]
+        console.log(file)
+        setAvatar(file)
+    }
+    const handleSubmit = async (e,avatar) => {
+        e.preventDefault()
+        try {
+            const action = await updateAvatar(avatar);
+            const resultAction = await dispatch(action);
+            const user = unwrapResult(resultAction);
+            enqueueSnackbar('Cập nhật ảnh đại diện thành công', {variant: "success"});
+        } catch (error) {
+            console.log(error);
+            enqueueSnackbar(error, {variant: "error"});
+        }
+    }
     return (
         <Container2>
-            <Logo>
-                <Avatar alt="Cindy Baker" src={user.profileImage} sx={{width:150 ,height:150}}/>
-            </Logo>
-            <Typography variant = 'h4' component='h2'>
-                {user.fullname} fasdfasd
-            </Typography>
+
+            <form onSubmit={handleSubmit}>
+                <Logo>
+                    <InforAvatar>
+                        <InfoImg src={avatar ? URL.createObjectURL(avatar) : user.profileImage}
+                                 style={{filter:'invert(0)'}}
+                                 alt="avatar" />
+                        <InforSpan >
+                            <i>
+                              <CameraAltIcon />
+                            </i>
+                            <p >Change</p>
+                            <Input type="file" name="file" id="file_up"
+                                   accept="image/*" onChange={changeAvatar}/>
+                        </InforSpan>
+                    </InforAvatar>
+                <Button variant='contained' color="secondary" type="submit"  >save</Button>
+                </Logo>
+            </form>
+
             <Menu>
                 <MenuItem>
                     <HomeIcon  className='icon'/>
@@ -91,7 +169,6 @@ const SideBarProfile = () => {
                         </NavLink>
                     </Title>
                 </MenuItem>
-            
                 <MenuItem>
                     <LockIcon   className='icon'/>
                     <Title>

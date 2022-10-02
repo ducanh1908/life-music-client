@@ -24,8 +24,9 @@ apiClient.interceptors.request.use(
 // Add a response interceptor
 apiClient.interceptors.response.use(
   function (response) {
-   
+ 
     return response.data;
+
   },
   function (error) {
     const {config,status, data} = error.response;

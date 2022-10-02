@@ -16,6 +16,18 @@ const userApi = {
     uploadSong(data) {
         const url = '/song';
         return apiClient.post(url, data)
-    }
+    },
+    changePassword(data){
+        const url = '/password';
+        return apiClient.patch(url,data)
+    },
+    updateProfile(data) {
+        const url = '/user';
+        return apiClient.patch(url, data)
+    },
+    updateAvatar(data) {
+        const url = '/user/avatar';
+        return apiClient.patch(url, data)
+    },
 }
 export default userApi;
