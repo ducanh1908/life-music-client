@@ -82,7 +82,7 @@ const UpdatePassword = (props) => {
 
             enqueueSnackbar("Đổi mật khẩu thành công", { variant: "success" });
         } catch (error) {
-            enqueueSnackbar(error, { variant: "error" });
+            enqueueSnackbar("Mật khẩu cũ không đúng", { variant: "error" });
         }
     };
     const { isSubmitting } = form.formState;

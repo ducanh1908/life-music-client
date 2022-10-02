@@ -127,7 +127,7 @@ const UpdateProfile = (props) => {
                       
                         <InputField name="fullname" label="Nhập Họ tên" form={form}/>
                         
-                        <InputField name="email" label="Nhập email của bạn" form={form} />
+                        <InputField name="email" label="Nhập email của bạn" form={form} disabled />
                         <InputField name="address" label="Nhập địa chỉ của bạn"form={form} />
                         <InputField name="phone" label="Nhập số điện thoại" form={form} />
                         <Button sx={{ mt:5,p:2,width:'100%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
