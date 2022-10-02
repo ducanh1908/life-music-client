@@ -32,7 +32,7 @@ apiClient.interceptors.response.use(
     if(status === 400) {
       const errorList = data || [];
       const array = Object.values(errorList);
-      const firstError = array.length > 0 ? array[0] : {} ;
+      const firstError = (array.length > 0) ? array[0] : {} ;
       console.log(firstError)
       throw new Error(firstError)
     }

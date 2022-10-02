@@ -9,6 +9,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {updateAvatar, updateProfile} from "../../redux/userSlice/userSlice";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {useSnackbar} from "notistack";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {storage} from "../UploadFile/firebase";
+import { v4 } from "uuid";
+import {uploadSong, upSong} from "../../redux/songSlice/songSlice";
 const Container2 = styled.div`
   background-color: grey;
     width:30%;
@@ -82,14 +86,16 @@ const Input = styled.input`
 const SideBarProfile = () => {
     const user = useSelector(state=> state.user.user)
     const [avatar, setAvatar] = useState('');
+    const [avatarUpload, setAvatarUpload] = useState(null);
+    const [avatarUrls, setAvatarUrls] = useState([]);
+    const [newAvatar, setNewAvatar] = useState('')
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const changeAvatar = (e) => {
         const file = e.target.files[0]
-        console.log(file)
         setAvatar(file)
     }
-    const handleSubmit = async (e,avatar) => {
+    const uploadAvatar = async (e) => {
         e.preventDefault()
         try {
             const action = await updateAvatar(avatar);
@@ -100,10 +106,11 @@ const SideBarProfile = () => {
             console.log(error);
             enqueueSnackbar(error, {variant: "error"});
         }
-    }
+    };
+
     return (
         <Container2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={uploadAvatar}>
                 <Logo>
                     <InforAvatar>
                         <InfoImg src={avatar ? URL.createObjectURL(avatar) : user.profileImage}

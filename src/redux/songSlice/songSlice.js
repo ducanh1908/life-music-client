@@ -9,7 +9,6 @@ const initialState = {
 
 export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
   const data = await userApi.uploadSong(payload);
-  
   return data;
 });
 
