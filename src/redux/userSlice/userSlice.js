@@ -12,7 +12,6 @@ const initialState = {
 export const register = createAsyncThunk("user/register", async (payload) => {
   const data = await userApi.register(payload);
   localStorage.setItem("user", JSON.stringify(data.user));
-  
   return data.user;
 });
 
@@ -39,18 +38,12 @@ export const updateAvatar= createAsyncThunk("user/avatar", async (payload) => {
   try{
     let media;
     if(payload) media = await imageUpload([payload])
-    console.log(media[0].url)
-    const urlAvatar= JSON.parse(JSON.stringify(media[0].url))
-    const data = await userApi.updateAvatar(urlAvatar);
+    const data = await userApi.updateAvatar({profileImage:media[0].url});
     localStorage.setItem("user", JSON.stringify(data.user));
     return data.user;
   }catch (err){
     console.log(err)
   }
-  // const data = await userApi.updateAvatar(payload);
-  // // localStorage.setItem("access_token", data.access_token);
-  // // localStorage.setItem("user", JSON.stringify(data.user));
-  // return data.user;
 });
 export const changePassword = createAsyncThunk("user/password", async (payload) => {
   const data = await userApi.changePassword(payload);
