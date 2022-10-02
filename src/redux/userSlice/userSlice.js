@@ -24,8 +24,16 @@ export const login = createAsyncThunk("user/login", async (payload) => {
 });
 export const updateProfile = createAsyncThunk("user/profile", async (payload) => {
   const data = await userApi.updateProfile(payload);
-  localStorage.setItem("user", JSON.stringify(data.user));
-  return data.user;
+  try{
+    localStorage.setItem("user", JSON.stringify(data.user));
+    return data.user;
+  }catch (err){
+    console.log(err)
+  }finally {
+    localStorage.setItem("user", JSON.stringify(data.user));
+    return data.user;
+  }
+
 });
 export const updateAvatar= createAsyncThunk("user/avatar", async (payload) => {
   try{
