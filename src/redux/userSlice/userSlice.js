@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userApi from "./../../service/userService";
+import {imageUpload} from "../../components/UploadFile/avatarUpload";
 
 
 const initialState = {
@@ -23,24 +24,38 @@ export const login = createAsyncThunk("user/login", async (payload) => {
 });
 export const updateProfile = createAsyncThunk("user/profile", async (payload) => {
   const data = await userApi.updateProfile(payload);
-  console.log('hahah',data)
   // localStorage.setItem("access_token", data.access_token);
   localStorage.setItem("user", JSON.stringify(data.user));
   return data.user;
 });
 export const updateAvatar= createAsyncThunk("user/avatar", async (payload) => {
-  const data = await userApi.updateAvatar(payload);
-  // localStorage.setItem("access_token", data.access_token);
-  localStorage.setItem("user", JSON.stringify(data.user));
-  return data.user;
-});
-export const changePassword = createAsyncThunk("user/password", async (payload) => {
-  try {
-    const data = await userApi.changePassword(payload);
+  try{
+    let media='';
+    if(payload) media = await imageUpload(payload)
+    console.log(media)
+    const data = await userApi.updateAvatar(media);
     localStorage.setItem("user", JSON.stringify(data.user));
     return data.user;
   }catch (err){
     console.log(err)
+  }
+  // const data = await userApi.updateAvatar(payload);
+  // // localStorage.setItem("access_token", data.access_token);
+  // // localStorage.setItem("user", JSON.stringify(data.user));
+  // return data.user;
+});
+export const changePassword = createAsyncThunk("user/password", async (payload) => {
+  const data = await userApi.changePassword(payload);
+  try {
+    localStorage.setItem("user", JSON.stringify(data.user));
+    return data.user;
+  }catch (err){
+    console.log(err)
+  }
+    finally {
+    // const data = await userApi.changePassword(payload);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    return data.user;
   }
 
 });

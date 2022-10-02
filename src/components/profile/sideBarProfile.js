@@ -114,10 +114,9 @@ const SideBarProfile = () => {
     const { enqueueSnackbar } = useSnackbar();
     const changeAvatar = (e) => {
         const file = e.target.files[0]
-        console.log(file)
         setAvatar(file)
     }
-    const handleSubmit = async (e,avatar) => {
+    const uploadAvatar = async (e) => {
         e.preventDefault()
         try {
             const action = await updateAvatar(avatar);
@@ -128,11 +127,12 @@ const SideBarProfile = () => {
             console.log(error);
             enqueueSnackbar(error, {variant: "error"});
         }
-    }
+    };
+
     return (
         <Container2>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={uploadAvatar}>
                 <Logo>
                     <InforAvatar>
                         <InfoImg src={avatar ? URL.createObjectURL(avatar) : user.profileImage}

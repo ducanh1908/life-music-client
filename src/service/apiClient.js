@@ -32,9 +32,10 @@ apiClient.interceptors.response.use(
     const {config,status, data} = error.response;
     if(status === 400) {
       const errorList = data || [];
+
       const array = Object.values(errorList);
-      const firstError = array.length > 0 ? array[0] : {} ;
-      console.log(firstError)
+      const firstError = (array.length > 0) ? array[0] : {} ;
+      console.log(errorList)
       throw new Error(firstError)
     }
     return Promise.reject(error);

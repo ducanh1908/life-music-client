@@ -30,7 +30,7 @@ width: 100%;
 max-width: 450px;
 margin-top: 10px;
 max-width: 450px;
-background-color: #fff;
+
 `
 const Topbar = styled.div`
 padding: 40px 0 32px;
