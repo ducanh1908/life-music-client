@@ -12,15 +12,10 @@ import { logout } from "../../redux/userSlice/userSlice";
 
 const Container = styled.div`
 
-  height:70px;
-  width: 100%;
   grid-column-gap: 10px;
   background-color: #040404;
-  position: fixed;
+  /* position: fixed; */
   display: grid;
-  top: 0;
-  left:0;
-  z-index:10;
   grid-template-columns: 1fr 2fr 1fr; ;
 `;
 
@@ -95,7 +90,6 @@ const GuestNavbar = () => {
   const isLoggedInUser = useSelector(state => state.user.user )
 
   const isLoggedIn = !!isLoggedInUser._id;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -169,11 +163,11 @@ const GuestNavbar = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem> <Link to="/profile" >
+        <MenuItem> <Link to="/profile" sx={{textDirection: 'none'}} >
         Hồ sơ
         </Link>
         </MenuItem>
-        <MenuItem onClick={handleClose}>Đổi mật khẩu</MenuItem>
+        
         <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
       </Menu>
     </Container>

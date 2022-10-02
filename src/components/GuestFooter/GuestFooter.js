@@ -2,9 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import Audio from './../Audio/Audio';
+import { useSelector } from 'react-redux';
 const Container = styled.div`
-  height: 100%;
-  background-color: #333;
+ height: 100%;
+ width: 100%;
+  background-color:#040404;
   display:grid;
   grid-template-columns:1fr 2fr;
   
@@ -47,11 +49,19 @@ const SongLike = styled.div`
 text-align: start;
 flex:1;
 color: #fff;
+
+.heart {
+  overflow: hidden;
+  &:hover {
+  color: red;
+}
+}
+
 `;
 
 const AudioPlay = styled.div``;
-
 const GuestFooter = () => {
+  const songs = useSelector(state => state.song.songs)
   
   return (
     <Container>
@@ -62,7 +72,7 @@ const GuestFooter = () => {
           <SongSinger>Bột giặt OMO</SongSinger>
         </SongContent>
         <SongLike >
-          <FavoriteBorderOutlinedIcon />
+          <FavoriteBorderOutlinedIcon className="heart" />
           </SongLike>
       </Song>
       <AudioPlay >

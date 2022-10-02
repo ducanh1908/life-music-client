@@ -1,48 +1,61 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import styled from 'styled-components';
 import { fetchSong } from '../../redux/songSlice/songSlice';
-import GuestNavbar from './../GuestNavbar/GuestNavbar';
-import styled  from 'styled-components';
+import Audio from './../Audio/Audio';
+import { useState } from 'react';
+
+
 const Container = styled.div`
-height:100vh;
-width: 85vw;
-right: 0;
-margin-top: 70px;
-border-radius: 5px;
-padding: 24px 24px 0;
-overflow:scroll;
-background-color: #fff;
-position: absolute;
-overflow: hidden;
-
-/* background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ; */
-
-
+background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ;
+overflow: auto;
 `
+
+const Songs = styled.div``
+const SongItem = styled.div`
+display: flex;
+margin: 10px;
+background-color: #7a7a;
+`
+const SongImage = styled.img`
+width: 50px;
+height: 50px;
+`
+const SongName = styled.p`
+  color:#fff`
+const SongSinger = styled.span``
+
+
 const Song = () => {
 
   const dispatch = useDispatch();
   const songs = useSelector(state => state.song.songs)
-  console.log(songs)
+  const [idSong, setidSong] = useState(0)
+  
+  const handlePlay =(idSong) => {
+    console.log(idSong)
+      setidSong(idSong)
+  }
+ 
   useEffect(() => {
-
+    setidSong(idSong)
     dispatch(fetchSong())
-  },[dispatch])
+  },[idSong])
+
   return (
     <Container>
-      
         {
-          songs.map(song => (
-            <div key={song._id}>
-              <p>{song.name}</p>
-              <img  src={song.image}/>
-              <a href={song.file}>link</a>
-            </div>
-
-          ))
-        }
-
+          songs.map((song, index)=> (
+           
+            <SongItem key={index} onClick= {() => handlePlay(index)}>
+              <SongImage  src={song.image}/>
+              <SongName>{song.name.split('-',1)}</SongName>
+              <a href={song.file} >link</a>
+              
+            </SongItem>
+                 
+            ))
+          }
     </Container>
   )
 }

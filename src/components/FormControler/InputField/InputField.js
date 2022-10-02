@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import { alpha, styled } from "@mui/material/styles";
 import { Controller } from 'react-hook-form';
 
 import { TextField, FormHelperText} from '@mui/material';
@@ -12,7 +12,26 @@ InputField.propTypes = {
   label: PropTypes.string,
   disabled: PropTypes.bool,
 };
-
+const ValidationTextField = styled(TextField)({
+  "& .MuiInputBase-input": {
+    backgroundColor: "white",
+    // borderColor: "white",
+    border: "1px solid white",
+  },
+  "& input:valid + fieldset": {
+    borderColor: "white",
+    borderWidth: 2
+  },
+  "& input:invalid + fieldset": {
+    borderColor: "white !important",
+    borderWidth: 2
+  },
+  "& input:valid:focus + fieldset": {
+    color:"white",
+    borderLeftWidth: 6,
+    padding: "4px !important" // override inline-style
+  }
+});
 function InputField(props) {
   const { form, name, label, disabled } = props;
   const {
@@ -27,10 +46,10 @@ function InputField(props) {
         control={form.control}
         render = {({ field})=> (
            
-            <TextField
+            <ValidationTextField
                 {...field}
                 
-                sx ={{ m:1, width: '100%'}}
+                sx ={{marginTop:1, width: '100%'}}
                 label={label}
                 disabled={disabled}
                 errors= {!!hasError}
