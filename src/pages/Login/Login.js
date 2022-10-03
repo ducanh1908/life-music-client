@@ -87,6 +87,7 @@ const Login = (props) => {
       const action = await login(data);
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
+        enqueueSnackbar('Đăng nhập thành công', { variant: "success" });
         navigate('/')
     } catch (error) {
         enqueueSnackbar(error.message, { variant: "error" });  
