@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { fetchSong } from '../../redux/songSlice/songSlice';
-import Audio from './../Audio/Audio';
-import { useState } from 'react';
 
 
 const Container = styled.div`
@@ -15,7 +12,11 @@ const Songs = styled.div``
 const SongItem = styled.div`
 display: flex;
 margin: 10px;
-background-color: #7a7a;
+background-color: #7a7a7a;
+padding: 0 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
 `
 const SongImage = styled.img`
 width: 50px;
@@ -31,16 +32,12 @@ const Song = () => {
   const dispatch = useDispatch();
   const songs = useSelector(state => state.song.songs)
   const [idSong, setidSong] = useState(0)
-  
+ 
   const handlePlay =(idSong) => {
     console.log(idSong)
       setidSong(idSong)
   }
  
-  useEffect(() => {
-    setidSong(idSong)
-    dispatch(fetchSong())
-  },[idSong])
 
   return (
     <Container>
@@ -48,7 +45,8 @@ const Song = () => {
           songs.map((song, index)=> (
            
             <SongItem key={index} onClick= {() => handlePlay(index)}>
-              <SongImage  src={song.image}/>
+             <p>{index + 1}</p>
+            <SongImage  src={song.image}/>
               <SongName>{song.name.split('-',1)}</SongName>
               <a href={song.file} >link</a>
               

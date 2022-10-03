@@ -35,7 +35,6 @@ const Home = () => {
       <GuestSide />
       <Outlet />
    </Body>
-  
    <GuestFooter />
   </Container> 
   );

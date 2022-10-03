@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import Audio from './../Audio/Audio';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { fetchSong } from '../../redux/songSlice/songSlice';
+
 const Container = styled.div`
  height: 100%;
  width: 100%;
@@ -14,14 +17,16 @@ const Container = styled.div`
 
 const Song = styled.div`
 display:flex;
+height: 100%;
 justify-content: space-between;
 text-align: center;
 align-items: center;
 `;
 const SongImage = styled.img`
-width:90px;
-height:90px;
+width:70px;
+height:70px;
 margin-left: 10px;
+margin-bottom: 10px;
 `;
 
 const SongContent = styled.div`
@@ -61,14 +66,31 @@ color: #fff;
 
 const AudioPlay = styled.div``;
 const GuestFooter = () => {
+  const dispatch = useDispatch();
   const songs = useSelector(state => state.song.songs)
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [nextSongIndex, setNextSongIndex] = useState(0);
+
+  useEffect(() => {
+    setNextSongIndex(() => {
+      if (currentSongIndex + 1 > songs.length - 1) {
+        return 0;
+      } else {
+        return currentSongIndex + 1;
+      }
+    });
+  }, [currentSongIndex]);
+
+  useEffect(() => {
   
+    dispatch(fetchSong())
+  },[currentSongIndex])
   return (
     <Container>
       <Song>
-        <SongImage src="https://images.unsplash.com/photo-1555952517-2e8e729e0b44?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"/>
+        <SongImage src=''/>
         <SongContent>
-          <SongName>Waiting for you</SongName>
+          <SongName></SongName>
           <SongSinger>Bột giặt OMO</SongSinger>
         </SongContent>
         <SongLike >
@@ -76,7 +98,9 @@ const GuestFooter = () => {
           </SongLike>
       </Song>
       <AudioPlay >
-        <Audio />
+        <Audio song={songs} currentSongIndex={currentSongIndex} 
+        setCurrentSongIndex={setCurrentSongIndex} 
+        nextSongIndex={nextSongIndex} />
       </AudioPlay>
     </Container>
   );

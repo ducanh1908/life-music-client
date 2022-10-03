@@ -10,9 +10,11 @@ background: transparent;
 width:80%;
 height:100%;
 `
-const Audio = () => {
-  const song = useSelector(state => state.song.songs)
-  const handleClickNext = () => {
+const Audio = (props) => {
+const {song} = props
+console.log(song);
+
+const handleClickNext = () => {
     
 }
 const handleClickPre = () => {
@@ -25,7 +27,7 @@ const handleClickPre = () => {
       layout="stacked-reverse"
       showSkipControls={true}
       showJumpControls={false}
-          src={song.file}
+          src ={song[0].file}
           volume={0.5}     
           onClickNext={handleClickNext}
           onClickPrevious={handleClickPre}  // Try other props!

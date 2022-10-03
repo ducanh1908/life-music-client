@@ -42,8 +42,7 @@ function App() {
         <Route path='library' element={<Library />} />
 
       </Route>
-      <Route path='profile' element={<Profile />} >
-            
+      <Route path='profile' element={<Profile />} >  
             <Route path=""  element={<Information />} />
             <Route path="update" element={<UpdateProfile />} />
             <Route path="password" element={<UpdatePassword />} />
