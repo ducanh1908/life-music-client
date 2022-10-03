@@ -67,8 +67,7 @@ const Song = () => {
              <p>{index + 1}</p>
             <SongImage  src={song.image}/>
               <SongName>{song.name}</SongName>
-              <a href={song.file} >link</a>
-              
+              <a href={song.file} >link</a>       
             </SongItem>       
             ))
           }
@@ -78,4 +77,3 @@ const Song = () => {
 
 export default Song
 
-// hihi
