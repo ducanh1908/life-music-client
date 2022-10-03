@@ -24,11 +24,11 @@ const Profile = () => {
     return (
         <Container>
             <GuestNavbar />
-            
-            <SideBarProfile  /> 
-            <Outlet/>
-           
-          
+            <Body>
+                <SideBarProfile  />
+                <Outlet/>
+            </Body>
+
             
         </Container>
     );
