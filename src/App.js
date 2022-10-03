@@ -45,7 +45,7 @@ function App() {
             <Route path=""  element={<Information />} />
             <Route path="update" element={<UpdateProfile />} />
             <Route path="password" element={<UpdatePassword />} />
-          </Route>
+      </Route>
     </Routes>
    </Router>
    

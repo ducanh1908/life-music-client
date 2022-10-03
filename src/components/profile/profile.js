@@ -26,7 +26,6 @@ const Profile = () => {
             <GuestNavbar />
             <SideBarProfile  /> 
             <Outlet/>
-          
             
         </Container>
     );
