@@ -20,7 +20,7 @@ display: flex;
 text-align: center;
 justify-content: center;
 background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.9),
       rgba(255, 255, 255, 0.8)
     ),
     url("https://images.unsplash.com/photo-1488376739361-ed24c9beb6d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80");
@@ -128,7 +128,7 @@ const UpdateProfile = (props) => {
                         <InputField name="email" label="Nhập email của bạn" form={form} />
                         <InputField name="address" label="Nhập địa chỉ của bạn"form={form} />
                         <InputField name="phone" label="Nhập số điện thoại" form={form} />
-                        <Button sx={{ mt:5,p:2,width:'100%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
+                        <Button sx={{ mt:5,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
                             Lưu
                         </Button>
                     </form>
