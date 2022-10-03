@@ -1,14 +1,16 @@
+
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
+import {searchSong} from "../../redux/songSlice/songSlice";
 
 const Container = styled.div`
 
@@ -105,6 +107,26 @@ const GuestNavbar = () => {
     dispatch(logout());
     navigate('/login');
   }
+  const songs = useSelector((state) => state.song.songs);
+    const [displaySong,setDisplaySong] = useState(songs);
+
+    useEffect(() =>{
+      dispatch(searchSong())
+  },[])
+  const handleSearch = (e) => {
+      if(e.target.value) {
+          const searchText = e.target.value;
+          const matchedSong = songs.filter(song =>
+          {
+              console.log(song)
+
+          song.name.includes(searchText.toLowerCase())
+
+          });
+          console.log(matchedSong);
+          dispatch(searchSong(matchedSong))
+      }
+  }
   return (
     <Container>
       <Left>
@@ -130,7 +152,16 @@ const GuestNavbar = () => {
           <SearchButton>
             <SearchOutlinedIcon />
           </SearchButton>
-          <Input placeholder="Bạn muốn nghe gì..." />
+          <Input placeholder="Bạn muốn nghe gì..."
+                 onChange = {handleSearch}
+          />
+            <div>
+                <div>
+                    {displaySong.map(song => {
+                        song = {song}
+                    })}
+                </div>
+            </div>
         </HomeForm>
       </Center>
       <Right>

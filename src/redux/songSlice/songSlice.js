@@ -5,7 +5,8 @@ import searchSongApi from "../../service/searchService";
 
 const initialState = {
   songs: [],
-  loading: false
+  loading: false,
+  search: []
 };
 
 export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
@@ -29,6 +30,10 @@ const songSlice = createSlice({
     upSong(state, action) {
       state.songs.push(action.payload)
     },
+    handleSearch(state, action) {
+      state.search = [];
+      state.search.push(action.payload);
+    }
   },
   extraReducers : {
     [fetchSong.fulfilled] : (state, action) => {
@@ -36,6 +41,8 @@ const songSlice = createSlice({
     },
     [searchSong.fulfilled] : (state, action) => {
       state.songs = action.payload;
+      state.search = action.payload;
+      state.loading = false;
     }
   }
 });

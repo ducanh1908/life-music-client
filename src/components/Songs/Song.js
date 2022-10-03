@@ -35,7 +35,7 @@ const Song = () => {
 
   const dispatch = useDispatch();
   const songs = useSelector(state => state.song.songs)
-  console.log(songs)
+  // console.log(songs)
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
 
@@ -55,7 +55,7 @@ const Song = () => {
   },[currentSongIndex])
  
   const handlePlay =(idSong) => {
-   console.log(idSong)
+   // console.log(idSong)
   }
  
   return (
