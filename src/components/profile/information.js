@@ -51,8 +51,8 @@ const Information = () => {
   return (
     <Container>
       <Desc>
-        <Typography variant="h4" component="h2">Tổng Quan Tài Khoản</Typography>
-        <Typography variant="h5" sx={{ marginBottom: '30px '}}>
+        <Typography variant="h4" component="h1">Tổng Quan Tài Khoản</Typography>
+        <Typography variant="h5" component="h3" sx={{ marginBottom: '30px '}}>
           Hồ Sơ
         </Typography>
       </Desc>
