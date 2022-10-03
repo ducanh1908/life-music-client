@@ -1,23 +1,36 @@
-import React from 'react'
-import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
+import React from 'react';
+import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-const Audio = () => {
+import styled from 'styled-components';
 
-    const Container = styled.div`
-    background: transparent;
-    width:80%;
-    height:100%;
-    `
-  const song  = useSelector(state => state.song.songs)
+
+const Container = styled.div`
+background: transparent;
+width:80%;
+height:100%;
+`
+const Audio = (props) => {
+const {song} = props
+console.log(song);
+
+const handleClickNext = () => {
+    
+}
+const handleClickPre = () => {
+  
+}
   return (
     <Container>
 
         <AudioPlayer className='player-music ' 
-     
-          src="https://hanzluo.s3-us-west-1.amazonaws.com/music/wuyuwuqing.mp3"
-          volume={0.5}       // Try other props!
+      layout="stacked-reverse"
+      showSkipControls={true}
+      showJumpControls={false}
+          src ={song[0].file}
+          volume={0.5}     
+          onClickNext={handleClickNext}
+          onClickPrevious={handleClickPre}  // Try other props!
         />
       </Container>
   )

@@ -9,10 +9,16 @@ import GuestNavbar from '../GuestNavbar/GuestNavbar';
 import GuestFooter from './../GuestFooter/GuestFooter';
 
 const Container=styled.div`
-    margin-top: 70px;
     background-color: #333;
+    width: 100%;
+    height: 100%;
     display:flex;
+    flex-direction:column;
+    justify-content:center;
     overflow: hidden;
+`
+const Body = styled.div`
+display:flex;
 `
 const Profile = () => {
     return (
@@ -20,6 +26,8 @@ const Profile = () => {
             <GuestNavbar />
             <SideBarProfile  /> 
             <Outlet/>
+            </Body>
+            
         </Container>
     );
 };

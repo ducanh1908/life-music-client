@@ -12,15 +12,10 @@ import { logout } from "../../redux/userSlice/userSlice";
 
 const Container = styled.div`
 
-  height:70px;
-  width: 100%;
   grid-column-gap: 10px;
   background-color: #040404;
-  position: fixed;
+  /* position: fixed; */
   display: grid;
-  top: 0;
-  left:0;
-  z-index:10;
   grid-template-columns: 1fr 2fr 1fr; ;
 `;
 

@@ -1,39 +1,52 @@
 
-import Home from './pages/Home/Home';
-import Register from './pages/Register/Register';
-import Profile from "./components/profile/profile";
-import Login from './pages/Login/Login';
-import Upload from './components/UploadFile/Uploadfile';
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
+  BrowserRouter as Router, Route, Routes
 } from "react-router-dom";
 import Information from "./components/profile/information";
-import UpdateProfile from "./components/profile/updateProfile";
+import Profile from "./components/profile/profile";
 import UpdatePassword from "./components/profile/updatePassword";
+import UpdateProfile from "./components/profile/updateProfile";
 import Song from './components/Songs/Song';
+import Upload from './components/UploadFile/Uploadfile';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+
+import GuestContent from './components/GuestContent/GuestContent';
+import Library from './components/Library/Library';
 
 function App() {
 
   return (
    <Router>
     <Routes>
-      <Route path='/register' element={<Register />} />
+      {/* <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
       <Route path='/' element={<Home />} >
           <Route path='upload' element={<Upload />} /> 
-          <Route path='songs' element={<Song />} /> 
+          <Route path='songs' element={<Song />} />     
       </Route>
-      <Route path='/profile' element={<Profile />} >
+      <Route path='profile' element={<Profile />} >
             
         <Route path=""  element={<Information />} />
         <Route path="update" element={<UpdateProfile />} />
         <Route path="password" element={<UpdatePassword />} />
+      </Route> */}
+
+      <Route path='/register' element={<Register />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/' element={<Home />} >
+        <Route path='' element={<GuestContent />} />
+        <Route path='list' element={<Song />} />
+        <Route path='upload' element={<Upload />} />
+        <Route path='library' element={<Library />} />
+
       </Route>
-
-      
-
+      <Route path='profile' element={<Profile />} >  
+            <Route path=""  element={<Information />} />
+            <Route path="update" element={<UpdateProfile />} />
+            <Route path="password" element={<UpdatePassword />} />
+          </Route>
     </Routes>
    </Router>
    
