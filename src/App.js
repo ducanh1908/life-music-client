@@ -40,7 +40,6 @@ function App() {
         <Route path='list' element={<Song />} />
         <Route path='upload' element={<Upload />} />
         <Route path='library' element={<Library />} />
-
       </Route>
       <Route path='profile' element={<Profile />} >  
             <Route path=""  element={<Information />} />
