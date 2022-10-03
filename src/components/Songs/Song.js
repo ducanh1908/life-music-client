@@ -26,7 +26,9 @@ height: 50px;
 const SongName = styled.p`
   color:#fff;
   `
-const SongSinger = styled.span``
+const SongSinger = styled.span`
+
+`
 
 
 const Song = () => {
@@ -53,10 +55,9 @@ const Song = () => {
   },[currentSongIndex])
  
   const handlePlay =(idSong) => {
-   
+   console.log(idSong)
   }
  
-
   return (
     <Container>
         {
@@ -76,3 +77,5 @@ const Song = () => {
 }
 
 export default Song
+
+// hihi
