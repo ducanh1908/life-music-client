@@ -6,17 +6,20 @@ import Information from "./information";
 import UpdateProfile from "./updateProfile";
 import UpdatePassword from "./updatePassword";
 import GuestNavbar from '../GuestNavbar/GuestNavbar';
+import GuestFooter from './../GuestFooter/GuestFooter';
 
 const Container=styled.div`
-margin-top: 70px;
+    margin-top: 70px;
+    background-color: #333;
     display:flex;
-  justify-content: space-between;
+    overflow: hidden;
 `
 const Profile = () => {
     return (
         <Container>
             <GuestNavbar />
             <SideBarProfile  />
+            
             <Outlet/>
         </Container>
     );

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
+
 const Container = styled.div`
 
   height:70px;
@@ -94,7 +95,6 @@ const GuestNavbar = () => {
   const isLoggedInUser = useSelector(state => state.user.user )
 
   const isLoggedIn = !!isLoggedInUser._id;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -125,7 +125,7 @@ const GuestNavbar = () => {
         </Typography>
       </Left>
       <Center>
-        <HomeIcon href="/home">
+        <HomeIcon href="/">
           <HomeRoundedIcon
             sx={{ color: "white", width: "56px", height: "56px" }}
           />
@@ -152,7 +152,7 @@ const GuestNavbar = () => {
    onClick={handleClick}
     alt="Duc Anh"
     src={isLoggedInUser.profileImage}
-    sx={{ width: 56, height: 56, cursor: 'pointer'}}
+    sx={{ width: 50, height: 50, cursor: 'pointer'}}
   />
 
 )}
@@ -168,11 +168,11 @@ const GuestNavbar = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem> <Link to="/profile" >
+        <MenuItem> <Link to="/profile" sx={{textDirection: 'none'}} >
         Hồ sơ
         </Link>
         </MenuItem>
-        <MenuItem onClick={handleClose}>Đổi mật khẩu</MenuItem>
+        
         <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
       </Menu>
     </Container>

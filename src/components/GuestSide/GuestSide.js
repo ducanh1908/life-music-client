@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import DownloadForOfflineOutlinedIcon from '@mui/icons-material/DownloadForOfflineOutlined';
 const Container = styled.div`
 height:100vh;
 left: 0;
-margin-top:70px;
 border-radius: 5px;
 background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ;
 `;
@@ -22,16 +22,16 @@ display: flex;
 flex-direction: column;
 color: #b3b3b3;
 `
-const MenuItem = styled.div`
+const MenuItem = styled.a`
 display:flex;
 padding: 8px 0;
+text-decoration: none;
+color: #b3b3b3;
 cursor: pointer;
 &:hover {
   color: #fff
 }
-
 `
-
 const ItemIcon = styled.div``
 const ItemDesc = styled.p`
 margin-left : 10px;
@@ -73,6 +73,14 @@ const  GuestSide = () => {
       <MenuItem>
         <ItemIcon><FavoriteIcon /></ItemIcon>
           <ItemDesc>Bài hát đã thích</ItemDesc>
+      </MenuItem>
+      <MenuItem href='/upload'>
+        <ItemIcon><DownloadForOfflineOutlinedIcon /></ItemIcon>
+          <ItemDesc>Tải lên bài hát</ItemDesc>
+      </MenuItem>
+      <MenuItem href='/songs'>
+        <ItemIcon><DownloadForOfflineOutlinedIcon /></ItemIcon>
+          <ItemDesc>Bài hát</ItemDesc>
       </MenuItem>
     </Menu>
     <Hr />

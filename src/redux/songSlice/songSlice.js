@@ -1,18 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userApi from "./../../service/userService";
-
+import songApi from "./../../service/songService"
 
 const initialState = {
   status: "idle",
   songs: [],
-  playlist: [{}],
-  msg: null,
+  loading: false
 };
 
 export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
   const data = await userApi.uploadSong(payload);
-  console.log('payload', payload);
   return data;
+});
+
+export const fetchSong = createAsyncThunk("/songs", async (payload) => {
+  const data = await songApi.getSong();
+  return data.songs;
 });
 
 const songSlice = createSlice({
@@ -20,23 +23,13 @@ const songSlice = createSlice({
   initialState,
   reducers: {
     upSong(state, action) {
-    state.songs.push(action.payload)
-      console.log('songs', state.songs)
+      state.songs.push(action.payload)
     },
   },
-  extraReducers: {
-    [uploadSong.pending]: (state, action) => {
-      state.status = "loading";
-    },
-    [uploadSong.fulfilled]: (state, action) => {
-      state.status = "success";
-      state.msg = action.payload.msg;
-      state.playlist = action.payload.songInfo
-      console.log(action.payload);
-    },
-    [uploadSong.rejected]: (state, action) => {
-      state.status = "failed";
-    },
+  extraReducers : {
+    [fetchSong.fulfilled] : (state, action) => {
+      state.songs = action.payload;
+    }
   }
 });
 

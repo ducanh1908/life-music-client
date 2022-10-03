@@ -7,6 +7,7 @@ const Container = styled.div`
   background-color: #333;
   display:grid;
   grid-template-columns:1fr 2fr;
+  
 `;
 
 const Song = styled.div`

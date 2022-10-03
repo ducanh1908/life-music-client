@@ -14,43 +14,56 @@ import InputField from "../../components/FormControler/InputField/InputField";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
 import { login } from "../../redux/userSlice/userSlice";
 const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-`;
+width: 100%;
+height: 100vh;
+display: flex;
+text-align: center;
+justify-content: center;
+background: url('https://images.unsplash.com/photo-1499415479124-43c32433a620?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80') no-repeat;
+background-size: cover;
+
+`
 const Wrapper = styled.div`
   margin-top: 10px;
   max-width: 450px;
 `;
 const Topbar = styled.div`
-  padding: 40px 0 32px;
-`;
-const Logo = styled.h1``;
+padding: 40px 0 32px;
+`
+const Logo = styled.h1`
+color:white;
+
+`
 const Title = styled.h1`
-  margin-top: 40px;
-`;
-const Form = styled.div``;
+margin-top:40px;
+color:white;
+`
+const Form = styled.div`
+
+`
+
 
 const Bottom = styled.div`
-  margin-top: 20px;
-`;
-const Link = styled.a``;
-const LinkLogin = styled.span``;
+margin-top: 20px;
+`
+const Link = styled.a`
+color:white;
+
+`
+const LinkLogin = styled.span`
+color:white;
+
+`
 const schema = yup
   .object()
   .shape({
-    username: yup
-      .string()
-      .required("Tên tài khoản không được để trống")
-      .min(2, "Tên tài khoản quá ngắn")
-      .max(25, "Tên tài khoản "),
-    password: yup
-      .string()
-      .required("Mật khẩu không được để trống")
-      .min(6, "Mật khẩu tối thiểu 6 ký tự")
-      .max(25, "Mật khẩu tối đa 25 ký tự"),
+    username: yup.string()
+    .required("Tên tài khoản không được để trống từ 6 -25 ký tự")
+    .min(2, "Tên tài khoản quá ngắn")
+    .max(25, "Tên tài khoản quá 25 ký tự"),
+    password: yup.string().required("Mật khẩu không được để trống")
+    .min(6, "Mật khẩu tối thiểu 6 ký tự")
+    .max(25, "Mật khẩu tối đa 25 ký tự"),
   })
   .required();
 
@@ -70,7 +83,7 @@ const Login = (props) => {
       const action = await login(data);
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
-      navigate("/home");
+        navigate('/')
     } catch (error) {
         enqueueSnackbar(error.message, { variant: "error" });  
         navigate('/login')
@@ -82,8 +95,10 @@ const Login = (props) => {
     <Container>
       <Wrapper>
         <Topbar>
-          <Typography variant="h3">Music Life</Typography>
-          <Title>Để tiếp tục, hãy đăng nhập vào Music Life.</Title>
+          <Typography variant="h3" sx={{color: "#fff"}}>
+          Music Life 
+          </Typography>
+        <Title>Để tiếp tục, hãy đăng nhập vào Music Life.</Title>
         </Topbar>
       <Form>
         

@@ -19,23 +19,26 @@ height: 100vh;
 display: flex;
 text-align: center;
 justify-content: center;
-
-
+background: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
+background-repeat: no-repeat;
+background-size: cover;
+overflow: hidden;
 `
 const Wrapper = styled.div`
 margin-top: 10px;
 max-width: 450px;
-
+background: transparent;
 
 `
 const Topbar = styled.div`
-padding: 40px 0 32px;
+padding: 40px 0 12px;
 `
 const Logo = styled.h1`
 
 `
 const Title = styled.h1`
-margin-top:40px;
+margin-top:20px;
+color: #fff;
 `
 const Form = styled.div`
 
@@ -48,15 +51,19 @@ const FormInput = styled.div`
 const Bottom = styled.div`
 margin-top: 20px;
 `
-const Link = styled.a``
-const LinkLogin = styled.span``
+const Link = styled.a`
+color: #fff;
+`
+const LinkLogin = styled.span`
+color: #fff;
+`
 const schema = yup
   .object()
   .shape({
     username: yup.string()
     .required("Tên tài khoản không được để trống")
     .min(2, "Tên tài khoản quá ngắn")
-    .max(25, "Tên tài khoản "),
+    .max(25, "Tên tài khoản quá 25 ký tự "),
     email: yup.string()
     .email("Email không đúng định dạng")
     .required("Email không được để trống"),
@@ -92,12 +99,12 @@ const Register = (props) => {
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
 
-      console.log("new user",user);
       enqueueSnackbar("Bạn đã đăng ký thành công", { variant: "success" });
       navigate('/login')
     } catch (error) {
-      console.log(error);
-      enqueueSnackbar(error, { variant: "error" });
+      console.log(error.message);
+      enqueueSnackbar(error.message, { variant: "error" });
+      navigate('/register')
     }
   };
   const { isSubmitting } = form.formState;
@@ -106,8 +113,8 @@ const Register = (props) => {
     <Container>
       <Wrapper>
         <Topbar>
-          <Typography variant="h3">
-          Music Life 
+          <Typography variant="h3" sx={{color:'#fff'}}>
+          Music Life .
           </Typography>
         <Title>Đăng ký miễn phí để bắt đầu nghe.</Title>
         </Topbar>
@@ -122,7 +129,7 @@ const Register = (props) => {
           />
         )}
         <FormInput>
-        <InputField name="username" label="Tên tài khoản" form={form}/>
+        <InputField name="username" label="Tên tài khoản" form={form} />
         </FormInput>
         <InputField name="email" label="Nhập email của bạn" form={form} />
         <PasswordField name="password" label="Mật khẩu" form={form} />
