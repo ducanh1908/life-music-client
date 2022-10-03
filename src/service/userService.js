@@ -27,6 +27,7 @@ const userApi = {
     },
     updateAvatar(data) {
         const url = '/user/avatar';
+        console.log(data);
         return apiClient.patch(url, data)
     },
 }

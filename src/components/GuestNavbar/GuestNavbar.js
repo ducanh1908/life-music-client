@@ -12,16 +12,12 @@ import { logout } from "../../redux/userSlice/userSlice";
 
 const Container = styled.div`
 
-  height:70px;
-  width: 100%;
   grid-column-gap: 10px;
   background-color: #040404;
-  position: fixed;
+  /* position: fixed; */
   display: grid;
-  top: 0;
-  left:0;
-  z-index:10;
   grid-template-columns: 1fr 2fr 1fr; ;
+
 `;
 
 const Left = styled.div`
@@ -168,8 +164,9 @@ const GuestNavbar = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem> <Link to="/profile" sx={{textDirection: 'none'}} >
-        Hồ sơ
+        <MenuItem> 
+        <Link color="#333" className="link-profile" to="/profile" >
+             Hồ sơ
         </Link>
         </MenuItem>
         

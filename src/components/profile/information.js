@@ -43,16 +43,16 @@ function createData(name, calories) {
 const Information = () => {
   const user = useSelector((state) => state.user.user);
   const rows = [
-    createData("Tên người dùng", `${user.fullname}`),
+    createData("Tên người dùng", `${user.fullname ? user.fullname: ''}`),
     createData("Email", `${user.email}`),
-    createData("Địa chỉ", `${user.address}`),
+    createData("Địa chỉ", `${user.address ? user.address : ''}`),
     createData("Số điện thoại", `${user.phone}`),
   ];
   return (
     <Container>
       <Desc>
-        <Typography variant="h4" component="h2">Tổng Quan Tài Khoản</Typography>
-        <Typography variant="h5" sx={{ marginBottom: '30px '}}>
+        <Typography variant="h4" component="h1">Tổng Quan Tài Khoản</Typography>
+        <Typography variant="h5" component="h3" sx={{ marginBottom: '30px '}}>
           Hồ Sơ
         </Typography>
       </Desc>

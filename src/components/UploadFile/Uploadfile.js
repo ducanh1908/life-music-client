@@ -40,8 +40,8 @@ margin-top: 70px;
 `
   return (
     <Container>
-      <GuestNavbar />
-    <Wrapper >
+    
+  
     <input
         type="text"  
       />
@@ -64,8 +64,7 @@ margin-top: 70px;
         onPlay={e => console.log("onPlay")}
       />
       ))}
-    </Wrapper>
-
+   
 
       
     </Container>
