@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "./firebase";
-import { v4 } from "uuid";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { v4 } from "uuid";
 import { uploadSong, upSong } from "../../redux/songSlice/songSlice";
+import { storage } from "./firebase";
 
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import GuestNavbar from './../GuestNavbar/GuestNavbar';
 import styled from 'styled-components';
 
 function AddNewFile() {
@@ -33,23 +32,12 @@ function AddNewFile() {
   };
 
 const Container = styled.div`
-`
-const Wrapper = styled.div`
-margin-top: 70px;
-
+background-color: #7a7a7a ;
 `
   return (
     <Container>
+      <h1>Tải bài hát lên</h1>
     
-  
-    <input
-        type="text"  
-      />
-    <input
-        type="text"  
-      /> <input
-      type="text"
-    />
     <input
         type="file"
         onChange={(event) => {
@@ -64,9 +52,6 @@ margin-top: 70px;
         onPlay={e => console.log("onPlay")}
       />
       ))}
-   
-
-      
     </Container>
   );
 }
