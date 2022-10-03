@@ -3,7 +3,8 @@ import styled from "styled-components";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
+import UploadIcon from '@mui/icons-material/Upload';
+import MusicVideoIcon from '@mui/icons-material/MusicVideo';
 import { NavLink } from "react-router-dom";
 const Container = styled.div`
   height: 100%;
@@ -97,7 +98,7 @@ const GuestSide = () => {
           <MenuItem>
             <NavLink className='item-link' to={"/upload"}>
               <ItemIcon>
-                <DownloadForOfflineOutlinedIcon />
+                <UploadIcon />
               </ItemIcon>
               <ItemDesc>Tải lên bài hát</ItemDesc>
             </NavLink>
@@ -106,7 +107,7 @@ const GuestSide = () => {
           <MenuItem>
             <NavLink className='item-link' to={"/list"}>
               <ItemIcon>
-                <DownloadForOfflineOutlinedIcon />
+                <MusicVideoIcon/>
               </ItemIcon>
               <ItemDesc>Bài hát</ItemDesc>
             </NavLink>
