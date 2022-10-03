@@ -99,8 +99,7 @@ const UpdateProfile = (props) => {
             const user = unwrapResult(resultAction);
             enqueueSnackbar('Cập nhật thành công', { variant: "success" });
         } catch (error) {
-            console.log(error);
-            enqueueSnackbar(error, { variant: "error" });
+            enqueueSnackbar(error.message, { variant: "error" });
         }
     };
     const { isSubmitting } = form.formState;
