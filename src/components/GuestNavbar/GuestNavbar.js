@@ -33,13 +33,13 @@ const Center = styled.div`
   justify-content: center;
 `;
 
-const HomeIcon = styled.a`
-  width: 56px;
-  height: 56px;
+const LogoLink = styled.a`
+ 
   padding: 10px;
-  background-color: #2a2a2a;
+  font-size: 30px;
+  font-weight: 700;
   color: #ffff;
-  border-radius: 50%;
+ text-decoration: none;
   margin-right: 10px;
   display: flex;
   align-items: center;
@@ -105,27 +105,17 @@ const GuestNavbar = () => {
     dispatch(logout());
     navigate('/login');
   }
+
+  
   return (
     <Container>
       <Left>
-        <Typography
-          variant="h5"
-          sx={{
-            display: { xs: "none", md: "flex" },
-            marginLeft: 1,
-            fontWeight: 700,
-            color: "white",
-          }}
-        >
-          Music Life
-        </Typography>
+        <LogoLink href="/">
+              Music Life 
+        </LogoLink>
       </Left>
       <Center>
-        <HomeIcon href="/">
-          <HomeRoundedIcon
-            sx={{ color: "white", width: "56px", height: "56px" }}
-          />
-        </HomeIcon>
+        
         <HomeForm>
           <SearchButton>
             <SearchOutlinedIcon />
@@ -165,7 +155,7 @@ const GuestNavbar = () => {
         }}
       >
         <MenuItem> 
-        <Link color="#333" className="link-profile" to="/profile" >
+        <Link style={{color:"#333", textDecoration: 'none'}} to="/profile">
              Hồ sơ
         </Link>
         </MenuItem>

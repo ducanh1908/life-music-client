@@ -14,6 +14,7 @@ import Register from './pages/Register/Register';
 
 import GuestContent from './components/GuestContent/GuestContent';
 import Library from './components/Library/Library';
+import Playlist from "./components/Playlist/Playlist";
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
         <Route path='list' element={<Song />} />
         <Route path='upload' element={<Upload />} />
         <Route path='library' element={<Library />} />
-
+        <Route path="playlist" element={<Playlist />} />
       </Route>
       <Route path='profile' element={<Profile />} >  
             <Route path=""  element={<Information />} />

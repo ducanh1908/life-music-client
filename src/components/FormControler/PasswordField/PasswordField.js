@@ -6,36 +6,40 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import { styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
-import { alpha, styled } from "@mui/material/styles";
 
 PasswordField.propTypes = {
   form: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-
   label: PropTypes.string,
   disabled: PropTypes.bool,
 };
 
 const ValidationTextField = styled(OutlinedInput)({
-  "& .MuiInputBase-input": {
-    backgroundColor: "white",
+  backgroundColor: "#fff",
+  "& label.Mui-focused": {
+    color: "#333"
   },
-  "& input:valid + fieldset": {
-    borderColor: "green",
-    borderWidth: 2
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#333"
   },
-  "& input:invalid + fieldset": {
-    borderColor: "red",
-    borderWidth: 2
-  },
-  "& input:valid:focus + fieldset": {
-    borderLeftWidth: 6,
-    padding: "4px !important" // override inline-style
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      backgroundColor: "#fff",
+      borderColor: "black"
+    },
+    "&:hover fieldset": {
+      borderColor: "#333"
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#333"
+    }
   }
+ 
 });
 function PasswordField(props) {
   const { form, name, label, disabled } = props;
@@ -51,7 +55,7 @@ function PasswordField(props) {
   return (
     <>
       
-      <FormControl sx={{ marginTop: 2, width:'100%' }}  variant="outlined">
+      <FormControl sx={{ marginTop: 2, width:'100%' }}  >
           <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
           <Controller 
             name={name}
@@ -70,7 +74,6 @@ function PasswordField(props) {
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
                             edge="end"
-                            sx={{color: "#fff"}}
                           >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
