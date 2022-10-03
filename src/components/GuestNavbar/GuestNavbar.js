@@ -17,6 +17,7 @@ const Container = styled.div`
   /* position: fixed; */
   display: grid;
   grid-template-columns: 1fr 2fr 1fr; ;
+
 `;
 
 const Left = styled.div`
@@ -163,8 +164,9 @@ const GuestNavbar = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem> <Link to="/profile" sx={{textDirection: 'none'}} >
-        Hồ sơ
+        <MenuItem> 
+        <Link color="#333" className="link-profile" to="/profile" >
+             Hồ sơ
         </Link>
         </MenuItem>
         

@@ -3,6 +3,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { fetchSong } from '../../redux/songSlice/songSlice';
 
 
 const Container = styled.div`
@@ -12,7 +13,6 @@ height:100%;
 `
 const Audio = (props) => {
 const {song} = props
-console.log(song);
 
 const handleClickNext = () => {
     
@@ -27,7 +27,7 @@ const handleClickPre = () => {
       layout="stacked-reverse"
       showSkipControls={true}
       showJumpControls={false}
-          src ={song[0].file}
+          
           volume={0.5}     
           onClickNext={handleClickNext}
           onClickPrevious={handleClickPre}  // Try other props!
