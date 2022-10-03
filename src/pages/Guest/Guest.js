@@ -56,8 +56,8 @@ const Guest = () => {
           <GuestSide />
         </Sidebar>
         <Content>
-          {/* <GuestContent /> */}
-          <Outlet />
+          <GuestContent />
+          {/* <Outlet /> */}
         </Content>
        
       </Body>
