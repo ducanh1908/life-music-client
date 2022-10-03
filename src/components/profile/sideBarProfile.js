@@ -64,7 +64,7 @@ padding-left: 10px;
   color: #7a7a7a;
   .nav_link {
     text-decoration: none;
-    font-size: 20x;
+    font-size: 20px;
     color: #7a7a7a;
     &:hover {
    color: #fff
@@ -125,7 +125,7 @@ const SideBarProfile = () => {
             enqueueSnackbar('Cập nhật ảnh đại diện thành công', {variant: "success"});
         } catch (error) {
             console.log(error);
-            enqueueSnackbar(error, {variant: "error"});
+            enqueueSnackbar(error.message, {variant: "error"});
         }
     };
 
@@ -142,12 +142,12 @@ const SideBarProfile = () => {
                             <i>
                               <CameraAltIcon />
                             </i>
-                            <p >Change</p>
+                            <p >Thay ảnh</p>
                             <Input type="file" name="file" id="file_up"
                                    accept="image/*" onChange={changeAvatar}/>
                         </InforSpan>
                     </InforAvatar>
-                <Button variant='contained' color="secondary" type="submit"  >save</Button>
+                <Button variant='contained' color="secondary" type="submit"  >Lưu</Button>
                 </Logo>
             </form>
 

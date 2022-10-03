@@ -38,7 +38,7 @@ export const updateAvatar= createAsyncThunk("user/avatar", async (payload) => {
   try{
     let media;
     if(payload) media = await imageUpload([payload])
-    const data = await userApi.updateAvatar({profileImage:media[0].url});
+    const data = await userApi.updateAvatar({profileImage: media[0].url});
     localStorage.setItem("user", JSON.stringify(data.user));
     return data.user;
   }catch (err){
