@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import DownloadForOfflineOutlinedIcon from '@mui/icons-material/DownloadForOfflineOutlined';
+import UploadIcon from '@mui/icons-material/Upload';
 const Container = styled.div`
 height:100vh;
 left: 0;
@@ -75,11 +75,12 @@ const  GuestSide = () => {
           <ItemDesc>Bài hát đã thích</ItemDesc>
       </MenuItem>
       <MenuItem href='/upload'>
-        <ItemIcon><DownloadForOfflineOutlinedIcon /></ItemIcon>
+        {/*<ItemIcon><DownloadForOfflineOutlinedIcon /></ItemIcon>*/}
+        <ItemIcon><UploadIcon /></ItemIcon>
           <ItemDesc>Tải lên bài hát</ItemDesc>
       </MenuItem>
       <MenuItem href='/songs'>
-        <ItemIcon><DownloadForOfflineOutlinedIcon /></ItemIcon>
+        <ItemIcon><LibraryMusicIcon /></ItemIcon>
           <ItemDesc>Bài hát</ItemDesc>
       </MenuItem>
     </Menu>
