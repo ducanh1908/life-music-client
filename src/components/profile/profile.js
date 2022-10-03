@@ -24,10 +24,10 @@ const Profile = () => {
     return (
         <Container>
             <GuestNavbar />
-            <Body>
-                  <SideBarProfile  /> 
+            
+            <SideBarProfile  /> 
             <Outlet/>
-            </Body>
+           
           
             
         </Container>
