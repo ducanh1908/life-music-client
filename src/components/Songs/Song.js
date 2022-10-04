@@ -32,7 +32,6 @@ const SongSinger = styled.span`
 
 
 const Song = () => {
-
   const dispatch = useDispatch();
   const songs = useSelector(state => state.song.songs)
   console.log(songs)
@@ -62,13 +61,11 @@ const Song = () => {
     <Container>
         {
           songs.map((song, index)=> (
-           
             <SongItem key={index} onClick= {() => handlePlay(index)}>
              <p>{index + 1}</p>
             <SongImage  src={song.image}/>
               <SongName>{song.name}</SongName>
-              <a href={song.file} >link</a>
-              
+              <a href={song.file} >link</a>       
             </SongItem>       
             ))
           }
@@ -78,4 +75,3 @@ const Song = () => {
 
 export default Song
 
-// hihi

@@ -1,6 +1,6 @@
 export const imageUpload = async (images) => {
     let imgArr=[] ;
-    for(const item of mageis){
+    for(const item of images){
         const formData = new FormData()
         formData.append("file", item)
 
