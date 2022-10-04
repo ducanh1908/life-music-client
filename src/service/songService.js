@@ -7,9 +7,9 @@ const songApi = {
         return apiClient.get(url, data)
     },
     getSongById(id) {
-        const url = `/songs/${id}`
-        return apiClient.get(url, id)
 
+        const url = `/song/${id}`
+        return apiClient.get(url, id)
     }
 
 }

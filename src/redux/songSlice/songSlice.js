@@ -13,10 +13,12 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
 });
 
 export const fetchSong = createAsyncThunk("/songs", async (payload) => {
+
   const data = await songApi.getSong();
   return data.songs;
 });
 export const fetchSongById = createAsyncThunk("song/id", async (payload) => {
+
   const data = await songApi.getSongById(payload)
   return data;
 });

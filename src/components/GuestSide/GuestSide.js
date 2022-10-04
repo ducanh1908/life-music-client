@@ -190,7 +190,7 @@ const { isSubmitting } = form.formState;
           </MenuItem>
 
           <MenuItem>
-            <NavLink className='item-link' to={"/list"}>
+            <NavLink className='item-link' to={"/song"}>
               <ItemIcon>
                 <DownloadForOfflineOutlinedIcon />
               </ItemIcon>
