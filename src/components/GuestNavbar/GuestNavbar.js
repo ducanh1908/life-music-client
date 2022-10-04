@@ -1,16 +1,14 @@
-
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
-import {searchSong} from "../../redux/songSlice/songSlice";
 
 const Container = styled.div`
 
@@ -35,13 +33,13 @@ const Center = styled.div`
   justify-content: center;
 `;
 
-const HomeIcon = styled.a`
-  width: 56px;
-  height: 56px;
+const LogoLink = styled.a`
+ 
   padding: 10px;
-  background-color: #2a2a2a;
+  font-size: 30px;
+  font-weight: 700;
   color: #ffff;
-  border-radius: 50%;
+ text-decoration: none;
   margin-right: 10px;
   display: flex;
   align-items: center;
@@ -107,55 +105,22 @@ const GuestNavbar = () => {
     dispatch(logout());
     navigate('/login');
   }
-  const songs = useSelector((state) => state.song.songs);
-    useEffect(() =>{
-      dispatch(searchSong())
-  },[])
-  const handleSearch = (e) => {
-      if(e.target.value) {
-          const searchText = e.target.value;
-          const matchedSong = songs.filter(song =>
-          {
-          song.name.includes(searchText.toLowerCase())
-          });
-          dispatch(searchSong(matchedSong))
-      }
-  }
+
+  
   return (
     <Container>
       <Left>
-        <Typography
-          variant="h5"
-          sx={{
-            display: { xs: "none", md: "flex" },
-            marginLeft: 1,
-            fontWeight: 700,
-            color: "white",
-          }}
-        >
-          Music Life
-        </Typography>
+        <LogoLink href="/">
+              Music Life 
+        </LogoLink>
       </Left>
       <Center>
-        <HomeIcon href="/">
-          <HomeRoundedIcon
-            sx={{ color: "white", width: "56px", height: "56px" }}
-          />
-        </HomeIcon>
+        
         <HomeForm>
           <SearchButton>
             <SearchOutlinedIcon />
           </SearchButton>
-          <Input placeholder="Bạn muốn nghe gì..."
-                 onChange = {handleSearch}
-          />
-            {/*<div>*/}
-            {/*    <div>*/}
-            {/*        {songs.map((song,index) => (*/}
-            {/*            <div key = {index}>{song.name}</div>*/}
-            {/*        ))}*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+          <Input placeholder="Bạn muốn nghe gì..." />
         </HomeForm>
       </Center>
       <Right>
@@ -190,7 +155,7 @@ const GuestNavbar = () => {
         }}
       >
         <MenuItem> 
-        <Link color="#333" className="link-profile" to="/profile" >
+        <Link style={{color:"#333", textDecoration: 'none'}} to="/profile">
              Hồ sơ
         </Link>
         </MenuItem>

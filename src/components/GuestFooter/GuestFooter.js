@@ -7,12 +7,13 @@ import { useDispatch } from 'react-redux';
 import { fetchSong } from '../../redux/songSlice/songSlice';
 
 const Container = styled.div`
- height: 100%;
- width: 100%;
+ height:70px;
+ bottom: 0;
+ right: 0;
   background-color:#040404;
   display:grid;
   grid-template-columns:1fr 2fr;
-  
+  position: fixed;
 `;
 
 const Song = styled.div`

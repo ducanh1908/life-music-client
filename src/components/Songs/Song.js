@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { fetchSong } from '../../redux/songSlice/songSlice';
+import GuestFooter from './../GuestFooter/GuestFooter';
 
 
 const Container = styled.div`
@@ -67,15 +68,14 @@ const Song = () => {
              <p>{index + 1}</p>
             <SongImage  src={song.image}/>
               <SongName>{song.name}</SongName>
-              <a href={song.file} >link</a>
-              
+              <a href={song.file} >link</a>       
             </SongItem>       
             ))
           }
+          <GuestFooter />
     </Container>
   )
 }
 
 export default Song
 
-// hihi
