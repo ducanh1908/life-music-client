@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
+import Typography from '@mui/material/Typography';
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
 import React from "react";
@@ -9,8 +10,7 @@ import { useDispatch } from "react-redux";
 import styled from 'styled-components';
 import * as yup from "yup";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
-import {changePassword, register} from "../../redux/userSlice/userSlice";
-import Typography from '@mui/material/Typography';
+import { changePassword } from "../../redux/userSlice/userSlice";
 const Container = styled.div`
 width: 70%;
 height: 100vh;

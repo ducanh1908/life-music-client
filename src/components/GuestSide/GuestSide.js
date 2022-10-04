@@ -133,9 +133,9 @@ console.log(playlist);
 
 
 const handleSubmit = async (data) => {
-  console.log(data)
+  
   try {
-    const action = await createPlaylist(data);
+    const action = await createPlaylist(data, user._id);
       const resultAction = await dispatch(action);
       const playlist = unwrapResult(resultAction);
       enqueueSnackbar("Bạn đã đăng ký thành công", { variant: "success" });
@@ -144,7 +144,6 @@ const handleSubmit = async (data) => {
   } catch (error) {
     console.log(error.message);
     enqueueSnackbar(error.message, { variant: "error" });
-
   }
 };
 const { isSubmitting } = form.formState;
