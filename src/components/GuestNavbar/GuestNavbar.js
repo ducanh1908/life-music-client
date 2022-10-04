@@ -7,6 +7,7 @@ import Stack from "@mui/material/Stack";
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
+import {useSearchParams} from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
@@ -108,8 +109,6 @@ const GuestNavbar = () => {
     navigate('/login');
   }
   const songs = useSelector((state) => state.song.songs);
-    const [displaySong,setDisplaySong] = useState(songs);
-
     useEffect(() =>{
       dispatch(searchSong())
   },[])
@@ -118,12 +117,8 @@ const GuestNavbar = () => {
           const searchText = e.target.value;
           const matchedSong = songs.filter(song =>
           {
-              console.log(song)
-
           song.name.includes(searchText.toLowerCase())
-
           });
-          console.log(matchedSong);
           dispatch(searchSong(matchedSong))
       }
   }
@@ -157,7 +152,7 @@ const GuestNavbar = () => {
           />
             <div>
                 <div>
-                    {displaySong.map(song => {
+                    {songs.map(song => {
                         song = {song}
                     })}
                 </div>

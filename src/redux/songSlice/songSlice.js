@@ -30,22 +30,23 @@ const songSlice = createSlice({
     upSong(state, action) {
       state.songs.push(action.payload)
     },
-    handleSearch(state, action) {
-      state.search = [];
-      state.search.push(action.payload);
-    }
+    // handleSearch(state, action) {
+    //   state.search = [];
+    //   state.search.push(action.payload);
+    // }
   },
   extraReducers : {
     [fetchSong.fulfilled] : (state, action) => {
       state.songs = action.payload;
     },
     [searchSong.fulfilled] : (state, action) => {
-      state.songs = action.payload;
       state.search = action.payload;
+      console.log(state.search)
       state.loading = false;
     }
   }
 });
+
 
 const { reducer, actions } = songSlice;
 export const { upSong } = actions;
