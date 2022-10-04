@@ -79,7 +79,6 @@ const UpdatePassword = (props) => {
             const action = await changePassword(data);
             const resultAction = await dispatch(action);
             const user = unwrapResult(resultAction);
-
             enqueueSnackbar("Đổi mật khẩu thành công", { variant: "success" });
         } catch (error) {
             enqueueSnackbar(error.message, { variant: "error" });

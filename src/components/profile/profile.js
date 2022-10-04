@@ -29,7 +29,6 @@ const Profile = () => {
                 <Outlet/>
             </Body>
 
-            
         </Container>
     );
 };
