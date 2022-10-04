@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
   display: 'flex',
   alignItems: "center",
   height: theme.spacing(12),
-  color:'#fff'
+  color:'#fff',
 }));
 
 
@@ -145,7 +145,7 @@ const GuestContent = () => {
     <Categories >
       <TopTitle>Chào buổi sáng</TopTitle>
       <Playlist >
-        <PlaylistItem>
+        <PlaylistItem href="/detail-playlist">
           <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
           <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
           <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>

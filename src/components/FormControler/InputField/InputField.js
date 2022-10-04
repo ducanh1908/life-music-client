@@ -13,25 +13,10 @@ InputField.propTypes = {
   disabled: PropTypes.bool,
 };
 const ValidationTextField = styled(TextField)({
-  "& .MuiInputBase-input": {
-    backgroundColor: "white",
-    // borderColor: "white",
-    border: "1px solid white",
-  },
-  "& input:valid + fieldset": {
-    borderColor: "white",
-    borderWidth: 2
-  },
-  "& input:invalid + fieldset": {
-    borderColor: "white !important",
-    borderWidth: 2
-  },
-  "& input:valid:focus + fieldset": {
-    color:"white",
-    borderLeftWidth: 6,
-    padding: "4px !important" // override inline-style
-  }
-});
+  backgroundColor: "#fff",
+
+  
+  });
 function InputField(props) {
   const { form, name, label, disabled } = props;
   const {
@@ -45,11 +30,10 @@ function InputField(props) {
         name={name}
         control={form.control}
         render = {({ field})=> (
-           
             <ValidationTextField
                 {...field}
                 
-                sx ={{marginTop:1, width: '100%'}}
+                sx ={{marginTop:2, width: '100%'}}
                 label={label}
                 disabled={disabled}
                 errors= {!!hasError}
