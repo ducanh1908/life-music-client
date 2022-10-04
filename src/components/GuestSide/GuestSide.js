@@ -103,7 +103,7 @@ const style = {
 const schema = yup
   .object()
   .shape({
-    playlist: yup.string()
+    name: yup.string()
     .required("Tên Playlist không được để trống")
     .min(2, "Tên Playlist quá ngắn")
     .max(25, "Tên Playlist quá 25 ký tự "),
@@ -118,11 +118,11 @@ const GuestSide = () => {
   const handleClose = () => setOpen(false);
   const user = useSelector(state=> state.user.user);
 const playlist = useSelector(state=> state.playlist.playlist);
-console.log(playlist);
   const { enqueueSnackbar } = useSnackbar();
   const form = useForm({
     defaultValues: {
-      playlist: "",
+      name: "",
+      id:`${user._id}`
     },
     resolver: yupResolver(schema),
   });
@@ -135,10 +135,11 @@ console.log(playlist);
 const handleSubmit = async (data) => {
   
   try {
-    const action = await createPlaylist(data, user._id);
+    const action = await createPlaylist(data);
+
       const resultAction = await dispatch(action);
       const playlist = unwrapResult(resultAction);
-      enqueueSnackbar("Bạn đã đăng ký thành công", { variant: "success" });
+      enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
       navigate('/playlist')
  
   } catch (error) {
@@ -146,6 +147,7 @@ const handleSubmit = async (data) => {
     enqueueSnackbar(error.message, { variant: "error" });
   }
 };
+
 const { isSubmitting } = form.formState;
   return (
     <Container>
@@ -223,14 +225,14 @@ const { isSubmitting } = form.formState;
                 color="secondary" 
                 />
               )}      
-                <Form>
-              <InputField name="playlist" form={form} />
+              <Form>
+              {/* <InputField name="id" form={form} value={""} hidden /> */}
+              <InputField name="name" form={form} />
               <Button sx={{ mt:1,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
               Thêm mới
               </Button>
           </Form>
-            </form>
-          
+            </form>         
         </Box>
       </Modal>
     </Container>

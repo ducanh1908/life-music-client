@@ -14,6 +14,7 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
   return data;
 });
 export const createPlaylist = createAsyncThunk(`/playlist`, async (payload) => {
+  
     const data = await playlistApi.createPlaylist(payload);
     return data.playlists;
   });

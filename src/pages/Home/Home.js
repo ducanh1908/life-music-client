@@ -9,7 +9,7 @@ const Container = styled.div`
   max-height: 100vh;
   background-color: #040404;
   display: grid;
-  grid-template-rows:10vh 78vh 12vh;
+  grid-template-rows:10vh 90vh;
   grid-row-gap: 5px;
   overflow: hidden;
 `;
