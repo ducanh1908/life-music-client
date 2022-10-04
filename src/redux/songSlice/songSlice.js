@@ -16,6 +16,10 @@ export const fetchSong = createAsyncThunk("/songs", async (payload) => {
   const data = await songApi.getSong();
   return data.songs;
 });
+export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload) => {
+  const data = await songApi.getSongsByPlaylistId(payload);
+  return data.songs;
+});
 
 const songSlice = createSlice({
   name: "song",
@@ -27,6 +31,9 @@ const songSlice = createSlice({
   },
   extraReducers : {
     [fetchSong.fulfilled] : (state, action) => {
+      state.songs = action.payload;
+    },
+    [getSongsByPlaylistId.fulfilled] : (state, action) => {
       state.songs = action.payload;
     }
   }
