@@ -18,7 +18,7 @@ const ValidationTextField = styled(TextField)({
   
   });
 function InputField(props) {
-  const { form, name, label, disabled } = props;
+  const { form, name, label, disabled, value} = props;
   const {
     formState: { errors },
   } = form;
@@ -37,6 +37,7 @@ function InputField(props) {
                 label={label}
                 disabled={disabled}
                 errors= {!!hasError}
+                value={value}
             />         
         )}
       />

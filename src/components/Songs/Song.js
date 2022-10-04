@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { fetchSong } from '../../redux/songSlice/songSlice';
+import GuestFooter from './../GuestFooter/GuestFooter';
 
 
 const Container = styled.div`
@@ -71,6 +72,7 @@ const Song = () => {
             </SongItem>       
             ))
           }
+          <GuestFooter />
     </Container>
   )
 }

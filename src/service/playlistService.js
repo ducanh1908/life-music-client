@@ -4,7 +4,7 @@ import apiClient from './apiClient';
 const playlistApi = {
     
     createPlaylist(data) {
-        const url ='/playlist';
+        const url =`/playlist/${data.id}`;
         return apiClient.post(url, data);
     },
 

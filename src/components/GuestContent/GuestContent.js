@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
+import GuestFooter from "../GuestFooter/GuestFooter";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#3a3a3a",
   ...theme.typography.body2,
@@ -227,7 +228,7 @@ const GuestContent = () => {
     </Categories>
          
          
-
+      <GuestFooter />
       </Wrapper>
     </Container>
   );
