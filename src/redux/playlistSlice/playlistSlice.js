@@ -14,12 +14,18 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
   return data;
 });
 export const createPlaylist = createAsyncThunk(`/playlist`, async (payload) => {
+  
     const data = await playlistApi.createPlaylist(payload);
     return data.playlists;
   });
 
 export const fetchPlaylist = createAsyncThunk("/playlist", async (payload) => {
   const data = await playlistApi.getAllPlaylist();
+  return data.playlists;
+});
+
+export const getPlaylistByUserId = createAsyncThunk("/playlist/userid", async (payload) => {
+  const data = await playlistApi.getPlaylistByUserId(payload);
   return data.playlists;
 });
 
@@ -34,7 +40,10 @@ const playlistSlice = createSlice({
     },
     [fetchPlaylist.fulfilled] : (state, action) => {
         state.playlist = action.payload
-  }
+  },
+    [getPlaylistByUserId.fulfilled] : (state, action) => {
+      state.playlist = action.payload
+    }
 }
 });
 

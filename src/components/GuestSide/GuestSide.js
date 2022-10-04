@@ -2,15 +2,15 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
-import { TextField } from "@mui/material";
+import {TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { createPlaylist, fetchPlaylist } from './../../redux/playlistSlice/playlistSlice';
+import {createPlaylist, fetchPlaylist, getPlaylistByUserId} from './../../redux/playlistSlice/playlistSlice';
 import { yupResolver } from "@hookform/resolvers/yup";
 import LinearProgress from "@mui/material/LinearProgress";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -103,7 +103,7 @@ const style = {
 const schema = yup
   .object()
   .shape({
-    playlist: yup.string()
+    name: yup.string()
     .required("Tên Playlist không được để trống")
     .min(2, "Tên Playlist quá ngắn")
     .max(25, "Tên Playlist quá 25 ký tự "),
@@ -118,12 +118,12 @@ const GuestSide = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const user = useSelector(state=> state.user.user);
-const playlist = useSelector(state=> state.playlist.playlist);
-console.log(playlist);
+  const playlists = useSelector (state => state.playlist.playlist)
   const { enqueueSnackbar } = useSnackbar();
   const form = useForm({
     defaultValues: {
-      playlist: "",
+      name: "",
+      id:`${user._id}`
     },
     resolver: yupResolver(schema),
   });
@@ -131,22 +131,26 @@ console.log(playlist);
   useEffect(()=> {
     dispatch(fetchPlaylist)
   },[])
-
+  useEffect(()=> {
+    dispatch(getPlaylistByUserId(user._id))
+  },[getPlaylistByUserId(user._id)])
 
 const handleSubmit = async (data) => {
   
   try {
-    const action = await createPlaylist(data, user._id);
+    const action = await createPlaylist(data);
+
       const resultAction = await dispatch(action);
-      const playlist = unwrapResult(resultAction);
-      enqueueSnackbar("Bạn đã đăng ký thành công", { variant: "success" });
-      navigate('/playlist')
+      const playlists = unwrapResult(resultAction);
+      enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
+      // navigate('/playlist')
  
   } catch (error) {
     console.log(error.message);
     enqueueSnackbar(error.message, { variant: "error" });
   }
 };
+
 const { isSubmitting } = form.formState;
   return (
     <Container>
@@ -199,13 +203,22 @@ const { isSubmitting } = form.formState;
         </Menu>
         <Hr />
         {
-          isLoggedIn &&
-            <CreateList>
-              <ListTitle> Danh sách bài hát của tôi</ListTitle>
-            </CreateList>
+          playlists &&(
+                isLoggedIn &&
+                (playlists.length >0 &&
+                    playlists.map((item,index)=>(
+
+                        <CreateList key={index} >
+                          <NavLink to={`/playlist/${item._id}`} >
+                          <ListTitle>{item.name}</ListTitle>
+                          </NavLink>
+                        </CreateList>
+
+                    )))
+            )
+
         }
 
-        
       </Wrapper>
 
       <Modal
@@ -226,14 +239,14 @@ const { isSubmitting } = form.formState;
                 color="secondary" 
                 />
               )}      
-                <Form>
-              <InputField name="playlist" form={form} />
+              <Form>
+              {/* <InputField name="id" form={form} value={""} hidden /> */}
+              <InputField name="name" form={form} />
               <Button sx={{ mt:1,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
               Thêm mới
               </Button>
           </Form>
-            </form>
-          
+            </form>         
         </Box>
       </Modal>
     </Container>
