@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router";
 import styled from "styled-components";
-import GuestFooter from "../../components/GuestFooter/GuestFooter";
+import Footer from "../../components/Footer/Footer";
 import GuestNavbar from "./../../components/GuestNavbar/GuestNavbar";
 import GuestSide from "./../../components/GuestSide/GuestSide";
 const Container = styled.div`
@@ -35,7 +35,7 @@ const Home = () => {
       <GuestSide />
       <Outlet />
    </Body>
-   <GuestFooter />
+   <Footer />
   </Container> 
   );
 };

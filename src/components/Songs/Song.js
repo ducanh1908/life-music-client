@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { fetchSong } from '../../redux/songSlice/songSlice';
-import GuestFooter from './../GuestFooter/GuestFooter';
+import GuestFooter from '../Footer/Footer';
+import { fetchSongById } from './../../redux/songSlice/songSlice';
 
 
 const Container = styled.div`
@@ -30,13 +31,10 @@ const SongName = styled.p`
 const SongSinger = styled.span`
 
 `
-
-
 const Song = () => {
 
   const dispatch = useDispatch();
   const songs = useSelector(state => state.song.songs)
-  console.log(songs)
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
 
@@ -56,15 +54,14 @@ const Song = () => {
   },[currentSongIndex])
  
   const handlePlay =(idSong) => {
-   console.log(idSong)
+      dispatch(fetchSongById(idSong))
   }
  
   return (
     <Container>
         {
-          songs.map((song, index)=> (
-           
-            <SongItem key={index} onClick= {() => handlePlay(index)}>
+          songs.map((song, index)=> (   
+            <SongItem key={index} onClick= {() => handlePlay(song._id)}>
              <p>{index + 1}</p>
             <SongImage  src={song.image}/>
               <SongName>{song.name}</SongName>
