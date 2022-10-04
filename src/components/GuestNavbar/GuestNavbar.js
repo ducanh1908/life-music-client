@@ -7,7 +7,6 @@ import Stack from "@mui/material/Stack";
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
-import {useSearchParams} from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
@@ -150,13 +149,13 @@ const GuestNavbar = () => {
           <Input placeholder="Bạn muốn nghe gì..."
                  onChange = {handleSearch}
           />
-            <div>
-                <div>
-                    {songs.map(song => {
-                        song = {song}
-                    })}
-                </div>
-            </div>
+            {/*<div>*/}
+            {/*    <div>*/}
+            {/*        {songs.map((song,index) => (*/}
+            {/*            <div key = {index}>{song.name}</div>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </HomeForm>
       </Center>
       <Right>

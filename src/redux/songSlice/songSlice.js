@@ -17,6 +17,7 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
 export const fetchSong = createAsyncThunk("/songs", async (payload) => {
   const data = await songApi.getSong();
   return data.songs;
+
 });
 export const searchSong = createAsyncThunk('/song/search/:key', async (payload) => {
   let data = await searchSongApi.searchSong();
@@ -41,7 +42,6 @@ const songSlice = createSlice({
     },
     [searchSong.fulfilled] : (state, action) => {
       state.search = action.payload;
-      console.log(state.search)
       state.loading = false;
     }
   }
