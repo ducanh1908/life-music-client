@@ -22,6 +22,7 @@ const Container = styled.div`
 
 const AudioPlay = styled.div``;
 const Footer = () => {
+    
   const dispatch = useDispatch();
   const songs = useSelector((state) => state.song.songs);
 
