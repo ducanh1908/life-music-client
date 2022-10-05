@@ -29,9 +29,11 @@ function AddNewFile() {
     dispatch(getUploadedSongs({ _id: user._id }));
   }, []);
 
-  const getUploadSongs = () => {
+  const getUploadSongs = (isSongUploadedSuccess) => {
     if (isSongUploadedSuccess) {
       dispatch(getUploadedSongs({ _id: user._id }));
+    } else {
+      // tải bài hát thất bại
     }
   };
 
@@ -46,11 +48,32 @@ function AddNewFile() {
       });
       // dispatch(upSong(newSong));
       dispatch(uploadSong(newSong));
-      getUploadSongs();
+      getUploadSongs(isSongUploadedSuccess);
     } catch (err) {
       console.log(err.message);
     }
   };
+
+  const getDuration = (src) => {
+    return new Promise(function(resolve) {
+        var audio = new Audio();
+        $(audio).on("loadedmetadata", function(){
+            resolve(audio.duration);
+        });
+        audio.src = src;
+    });
+}
+  const getAllFileDuration = (uploadSongs) => {
+    uploadSongs.map((song) => {
+      
+      // getDuration(song.file)
+      // .then(function(length) {
+      //     console.log('length',length)
+      //     uploadSong.length = length
+      // });
+    })
+  }
+
 
   const Container = styled.div`
     background-color: #7a7a7a;
@@ -85,10 +108,10 @@ function AddNewFile() {
           </thead>
           <tbody>
             {uploadSongs.songs &&
-              uploadSongs.songs.map((song) => (
-                <tr>
+              uploadSongs.songs.map((song, index) => (
+                <tr key={index}>
                   <td>
-                    <img src={song.image} alt="" />
+                    <img width={50} src={song.image} alt="" />
                   </td>
                   <td>{song.name}</td>
                   <td></td>
