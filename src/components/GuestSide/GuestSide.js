@@ -69,8 +69,16 @@ const Hr = styled.div`
 const CreateList = styled.div`
   color: #b3b3b3;
   cursor: pointer;
-  &:hover {
+  display:flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  .profile-item {
+    color: #b3b3b3;
+    text-decoration: none;
+    
+    &:hover {
     color: #fff;
+  }
   }
 `;
 const ListTitle = styled.p`
@@ -130,15 +138,13 @@ const GuestSide = () => {
   });
   
   useEffect(()=> {
-    dispatch(fetchPlaylist())
+    dispatch(fetchPlaylist(user._id))
   },[])
-
 
 const handleSubmit = async (data) => {
   
   try {
     const action = await createPlaylist(data);
-
       const resultAction = await dispatch(action);
       const playlists = unwrapResult(resultAction);
       enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
@@ -206,13 +212,12 @@ const { isSubmitting } = form.formState;
                 isLoggedIn &&
                 (playlists.length >0 &&
                     playlists.map((item,index)=>(
-
+                          
                         <CreateList key={index} >
-                          <NavLink to={`/playlist/${item._id}`} >
+                          <NavLink to={`/playlist/${item._id}`}  className="profile-item">
                           <ListTitle>{item.name}</ListTitle>
                           </NavLink>
                         </CreateList>
-
                     )))
             )
 
@@ -227,6 +232,7 @@ const { isSubmitting } = form.formState;
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+         
           <Typography id="modal-modal-title" variant="h6" component="h2">
            Tạo Playlist
           </Typography>

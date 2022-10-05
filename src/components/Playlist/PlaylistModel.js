@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
-import styled from "styled-components";
-import { IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import Button from "../Button/button";
-import LinearProgress from "@mui/material/LinearProgress";
-import InputField from "../FormControler/InputField/InputField";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import CloseIcon from "@mui/icons-material/Close";
+import { IconButton } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
+import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
+import styled from "styled-components";
+import Button from "../Button/button";
+import InputField from "../FormControler/InputField/InputField";
 const Container=styled.div`
   width: 30rem;
   min-height: 30rem;
@@ -156,11 +155,11 @@ const PlaylistModel = ({ closeModel, playlist }) => {
 
                     <InputField name="desc" label="Nhập mô tả" form={form} />
              
-                   
-                </form>
                  <Button sx={{ mt:5,p:2,width:'50%' ,borderRadius:'500px', color:"#fff"}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
                       Lưu
                   </Button>
+                   
+                </form>
             </Form>
         </Container>
     );

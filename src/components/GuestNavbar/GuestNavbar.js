@@ -116,12 +116,12 @@ const GuestNavbar = () => {
       <Center>
         
         <HomeForm >
-          <NavLink to={'/search'}>
+       
           <SearchButton>
             <SearchOutlinedIcon />
           </SearchButton>
           <Input placeholder="Bạn muốn nghe gì..." />
-          </NavLink>
+      
          
         </HomeForm>
       </Center>

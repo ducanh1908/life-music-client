@@ -9,13 +9,10 @@ const playlistApi = {
     },
 
     getAllPlaylist(data) {
-        const url = '/playlist';
+        const url = `/playlists/${data}`;
         return apiClient.get(url, data);
     },
-    getPlaylistByUserId(data) {
-        const url = `/playlists/${data}`
-        return apiClient.get(url,data);
-    },
+  
     getPlaylistById(data) {
         const url = `/playlist/${data}`
         return apiClient.get(url,data);
