@@ -1,25 +1,24 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
-import {TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { Link,NavLink } from "react-router-dom";
-import styled from "styled-components";
-import {createPlaylist, fetchPlaylist, getPlaylistByUserId} from './../../redux/playlistSlice/playlistSlice';
-import { yupResolver } from "@hookform/resolvers/yup";
 import LinearProgress from "@mui/material/LinearProgress";
+import Modal from "@mui/material/Modal";
+import Typography from '@mui/material/Typography';
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
-import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router';
+import { createPlaylist, fetchPlaylist } from './../../redux/playlistSlice/playlistSlice';
 
 const Container = styled.div`
   height: 100%;
@@ -88,6 +87,7 @@ align-items: center;
 const style = {
   position: "absolute",
   display: "flex",
+  background: "grey",
  flexDirection: "column",
  alginItem:"center",
  justifyContent: "center",
@@ -96,7 +96,8 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #000",
+  borderRadius:"20px",
   boxShadow: 24,
   p: 4
 };
@@ -129,11 +130,9 @@ const GuestSide = () => {
   });
   
   useEffect(()=> {
-    dispatch(fetchPlaylist)
+    dispatch(fetchPlaylist())
   },[])
-  useEffect(()=> {
-    dispatch(getPlaylistByUserId(user._id))
-  },[getPlaylistByUserId(user._id)])
+
 
 const handleSubmit = async (data) => {
   
@@ -144,7 +143,6 @@ const handleSubmit = async (data) => {
       const playlists = unwrapResult(resultAction);
       enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
       // navigate('/playlist')
- 
   } catch (error) {
     console.log(error.message);
     enqueueSnackbar(error.message, { variant: "error" });
@@ -202,6 +200,7 @@ const { isSubmitting } = form.formState;
           </MenuItem>
         </Menu>
         <Hr />
+
         {
           playlists &&(
                 isLoggedIn &&
@@ -245,7 +244,7 @@ const { isSubmitting } = form.formState;
               <Button sx={{ mt:1,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
               Thêm mới
               </Button>
-          </Form>
+            </Form>
             </form>         
         </Box>
       </Modal>

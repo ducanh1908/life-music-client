@@ -5,19 +5,22 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaylistModel from "./PlaylistModel";
-import {useDispatch, useSelector} from "react-redux";
-import {getSongsByPlaylistId} from "../../redux/songSlice/songSlice";
-import {useParams} from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
+import { useParams } from "react-router";
+import { getPlaylistByUserId } from "../../redux/playlistSlice/playlistSlice";
 const Container = styled.div`
   background-color: whitesmoke;
   position: relative;
-`
-const Head= styled.div`
+  border-radius: 10px;
+`;
+const Head = styled.div`
   position: relative;
   display: flex;
+
   height: 310px;
   padding: 2rem;
-  background-color: var(--gradient-gray);
+  background-color: grey;
 
   .head_gradient {
     position: absolute;
@@ -53,7 +56,8 @@ const Head= styled.div`
       font-size: 1.4rem;
     }
   }
-`
+ 
+`;
 const Body = styled.div`
   padding: 1rem 3rem;
 
@@ -103,63 +107,62 @@ const Body = styled.div`
       }
     }
   }
-`
+`;
 const Playlist = () => {
-    const {id}=useParams()
-    const [playlist, setPlaylist] = useState({});
-    const [model, setModel] = useState(false);
-    const dispatch = useDispatch();
-    // const listsong = useSelector(state=>state.song)
-    // useEffect(()=>{
-    //     dispatch(getSongsByPlaylistId(id))
-    //     },[dispatch(getSongsByPlaylistId(id))]
-    // )
+  const { id } = useParams();
+  const [playlist, setPlaylist] = useState({});
+
+  const [model, setModel] = useState(false);
+  const dispatch = useDispatch();
+    useEffect(()=> {
+    },[])
   return (
-     <Container>
-       <Fragment>
-           <Head>
-               <div className={'head_gradient'}></div>
-               <img
-                   src="https://static.thenounproject.com/png/17849-200.png"
-                   alt={'avatar'}
-                   style={{ background: "#919496" }}
-               />
-               <div className={'playlist_info'}>
-                   <p>Playlist</p>
-                   <h1>quyen</h1>
-                   <span>ngon</span>
-               </div>
-               <div className={'actions_container'}>
-                   <IconButton onClick={() => setModel(true)}>
-                       <EditIcon />
-                   </IconButton>
-                   <IconButton >
-                       <DeleteIcon />
-                   </IconButton>
-               </div>
-           </Head>
-           <Body>
-               <div className={'body_nav'}>
-                   <div className={'left'}>
-                       <span>#</span>
-                       <p>Title</p>
-                   </div>
-                   <div className={'center'}>
-                       <p>Artist</p>
-                   </div>
-                   <div className={'right'}>
-                       <AccessTimeIcon />
-                   </div>
-               </div>
-           </Body>
-           {model && (
-               <PlaylistModel
-                   closeModel={() => setModel(false)}
-                   playlist={playlist}
-               />
-           )}
-       </Fragment>
-     </Container>
+    <Container>
+      <Fragment>
+        <Head>
+          <div className={"head_gradient"}>     
+          </div>   
+          <img
+            src="https://static.thenounproject.com/png/17849-200.png"
+            alt={"avatar"}
+            style={{ background: "#919496" }}
+          />
+          <div className={"playlist_info"}>
+            <p>Playlist</p>
+            <h1>quyen</h1>
+            <span>ngon</span>
+          </div>
+          <div className={"actions_container"}>
+            <IconButton onClick={() => setModel(true)}>
+              <EditIcon />
+            </IconButton>
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </div>
+        </Head>
+        <Body>
+          <div className={"body_nav"}>
+            <div className={"left"}>
+              <span>#</span>
+              <p>Title</p>
+            </div>
+            <div className={"center"}>
+              <p>Artist</p>
+            </div>
+            <div className={"right"}>
+              <AccessTimeIcon />
+            </div>
+          </div>
+        </Body>
+        {model && (
+          <PlaylistModel
+            closeModel={() => setModel(false)}
+            playlist={playlist}
+          />
+        )}
+      </Fragment>
+    </Container>
   );
 };
 
