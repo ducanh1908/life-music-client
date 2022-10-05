@@ -6,7 +6,8 @@ const initialState = {
   status: "idle",
   songs: [],
   loading: false,
-  uploadSongs: []
+  uploadSongs: [],
+  deleteSongStatus: "idle",
 };
 export const getUploadedSongs = createAsyncThunk("user/getUploadedSongs", async (payload) => {
   const data = await songApi.uploadedSongs(payload);
@@ -28,12 +29,11 @@ export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload
   return data.songs;
 });
 
-export const deleteSongById = createAsyncThunk('song/deleteSong', async (payload) => {
-  const data = await songApi.deleteSong(payload);
+export const deleteSongById = createAsyncThunk('song/deleteSong', (payload) => {
+  const data = songApi.deleteSong(payload);
   return data
-})
+});
 
-;
 const songSlice = createSlice({
   name: "song",
   initialState,
@@ -67,7 +67,13 @@ const songSlice = createSlice({
     },
     [getSongsByPlaylistId.fulfilled] : (state, action) => {
       state.songs = action.payload;
-    }
+    },
+    [deleteSongById.fulfilled] : (state, action) => {
+      state.deleteSongStatus = 'success';
+    },
+    [deleteSongById.rejected] : (state, action) => {
+      state.deleteSongStatus = 'false'
+    },
   }
 });
 

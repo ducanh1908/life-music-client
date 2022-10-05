@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from './userSlice/userSlice';
-import profileReducer from './userProfileSlice/profileSlice'
-import songReducer from './songSlice/songSlice'
-import playlistReducer from './playlistSlice/playlistSlice'
+import profileReducer from './userProfileSlice/profileSlice';
+import songReducer from './songSlice/songSlice';
+import playlistReducer from './playlistSlice/playlistSlice';
+import cateReducer from './cateSlice/cateSlice'
 export const store = configureStore({
     reducer:{
         user : userReducer,
         profile:profileReducer,
         song : songReducer,
-        playlist: playlistReducer
+        playlist: playlistReducer,
+        cate : cateReducer
     }
 })

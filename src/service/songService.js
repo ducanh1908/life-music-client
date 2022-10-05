@@ -16,7 +16,11 @@ const songApi = {
     },
     deleteSong(data) {
         const url = `/song/${data}`;
-        return apiClient.delete(url, data)
+        return apiClient.delete(url)
+    },
+    getCate() {
+        const url = `/cate`;
+        return apiClient.get(url)
     }
 
 }

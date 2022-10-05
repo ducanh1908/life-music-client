@@ -1,6 +1,6 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "./firebase";
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 import {
@@ -14,13 +14,40 @@ import "./uploadfile.css";
 import styled from "styled-components";
 import $ from "jquery";
 
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import { getCategories } from "../../redux/cateSlice/cateSlice";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 function AddNewFile() {
   const [fileUpload, setFileUpload] = useState(null);
   const [newSong, setNewSong] = useState({});
+  const [editSong, setEditSong] = useState({});
+  const [open, setOpen] = React.useState(false);
+  const [updateSong, setUpdateSong] = React.useState({});
 
-  let uploadSongs = useSelector((state) => state.song.uploadSongs);
+  let { uploadSongs, status, deleteSongStatus } = useSelector(
+    (state) => state.song
+  );
   console.log("uploadSongs", uploadSongs);
+  let categories = useSelector((state) => state.cate.categories);
+  console.log('categories',categories)
 
   let isSongUploadedSuccess =
     "success" === useSelector((state) => state.song.status);
@@ -58,7 +85,7 @@ function AddNewFile() {
       dispatch(uploadSong(newSong));
       getUploadSongs(isSongUploadedSuccess);
     } catch (err) {
-      console.log('uploadFile', err.message);
+      console.log("uploadFile", err.message);
     }
   };
 
@@ -72,29 +99,52 @@ function AddNewFile() {
         audio.src = src;
       });
     } catch (err) {
-      console.log('getDuration ', err.message)
+      console.log("getDuration ", err.message);
     }
   };
 
+  const addSongToPlaylist = (id) => {};
+
   const deleleSong = (songId) => {
     try {
-      dispatch(deleteSongById(songId))
+      if (window.confirm("Press a button!") === true) {
+        dispatch(deleteSongById(songId));
+      }
     } catch (err) {
-      console.log('deleleSong ', err.message)
+      console.log("deleleSong ", err.message);
     }
-  }
+  };
+
+  const handleSong = (obj) => {
+    try {
+      let select = obj.target.value.split(",")[0];
+      let songId = obj.target.value.split(",")[1];
+      let name = obj.target.value.split(",")[2];
+      let image = obj.target.value.split(",")[3];
+      let singer = obj.target.value.split(",")[4];
+      if (select == 1) {
+        addSongToPlaylist(songId);
+      } else if (select == 2) {
+        deleleSong(songId);
+      } else if (select == 3) {
+        setEditSong({ name: name, image: image, singer: singer });
+        setOpen(true);
+      }
+    } catch (err) {
+      console.log("handleSong", err.message);
+    }
+  };
+
+  const handleChange = (event) => {
+    setUpdateSong(event.target.value);
+  };
+
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
+    dispatch(getCategories());
     dispatch(getUploadedSongs({ _id: user._id }));
-  }, []);
-
-  $("select").mouseup(function() {
-    var open = $(this).data("isopen");
-    if(open) {
-        alert('hello');
-    }
-    $(this).data("isopen", !open);
-});
+  }, [status !== "idle", deleteSongStatus == "success"]);
 
   const Container = styled.div`
     background-color: #7a7a7a;
@@ -115,7 +165,6 @@ function AddNewFile() {
             type="file"
             onChange={(event) => {
               setFileUpload(event.target.files[0]);
-            
             }}
           />
         </div>
@@ -141,16 +190,24 @@ function AddNewFile() {
                   <td></td>
                   <td>
                     <select>
-                      <option value={{status: 2}}>Public</option>
-                      <option value={{status: 1}}>Private</option>
+                      <option value={"2"}>Công khai</option>
+                      <option value={"1"}>Cá nhân</option>
                     </select>
                   </td>
                   <td></td>
                   <td>{song.duration}</td>
                   <td>
-                    <select id={"select"}>
-                      <option value={"1"}>Thêm bài hát vào playlist</option>
-                      <option value={"2"}>Xóa bài hát</option>
+                    <select onChange={(e) => handleSong(e)}>
+                      <option value={""}>-- Chọn --</option>
+                      <option value={`1,${song._id}`}>
+                        Thêm bài hát vào playlist{" "}
+                      </option>
+                      <option value={`2,${song._id}`}>Xóa bài hát</option>
+                      <option
+                        value={`3,${song._id}, ${song.name}, ${song.image}, ${song.singerName}`}
+                      >
+                        Chỉnh sửa
+                      </option>
                     </select>
                   </td>
                 </tr>
@@ -158,6 +215,55 @@ function AddNewFile() {
           </tbody>
         </table>
         <div className="force-overflow"></div>
+      </div>
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Chỉnh sửa
+            </Typography>
+
+            <Box
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 3, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="outlined-basic"
+                label={`${editSong.name}`}
+                variant="outlined"
+              />
+              <TextField id="outlined-basic" label="Ca sĩ" variant="outlined" />
+              <TextField
+                id="outlined-basic"
+                label="Outlined"
+                variant="outlined"
+              />
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Thể loại"
+                value={updateSong}
+                onChange={handleChange}
+              >
+                {categories &&
+                  categories.map((cate, index) => (
+                    <MenuItem key={index} value={cate._id}>
+                      {cate.name}
+                    </MenuItem>
+                  ))}
+              </TextField>
+            </Box>
+          </Box>
+        </Modal>
       </div>
     </Container>
   );
