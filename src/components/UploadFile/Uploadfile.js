@@ -7,8 +7,8 @@ import {
   getUploadedSongs,
   uploadSong,
   deleteSongById,
-  upSong,
   loading,
+  changeDeleteSongStatus,
 } from "../../redux/songSlice/songSlice";
 
 import "./uploadfile.css";
@@ -46,6 +46,8 @@ function AddNewFile() {
   const [editSong, setEditSong] = useState({});
   const [open, setOpen] = React.useState(false);
   const [updateSong, setUpdateSong] = React.useState({});
+  const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   let { uploadSongs, status, deleteSongStatus } = useSelector(
     (state) => state.song
@@ -53,19 +55,17 @@ function AddNewFile() {
   console.log("uploadSongs", uploadSongs);
   let categories = useSelector((state) => state.cate.categories);
 
-  let isSongUploadedSuccess =
-    "success" === useSelector((state) => state.song.status);
-  const user = JSON.parse(localStorage.getItem("user"));
+  // let isSongUploadedSuccess =
+  //   "success" === useSelector((state) => state.song.status);
 
-  const dispatch = useDispatch();
 
-  const getUploadSongs = (isSongUploadedSuccess) => {
-    if (isSongUploadedSuccess) {
-      dispatch(getUploadedSongs({ _id: user._id }));
-    } else {
-      console.log("tai bai hat that bai");
-    }
-  };
+  // const getUploadSongs = (isSongUploadedSuccess) => {
+  //   if (isSongUploadedSuccess) {
+  //     dispatch(getUploadedSongs({ _id: user._id }));
+  //   } else {
+  //     console.log("tai bai hat that bai");
+  //   }
+  // };
 
   const uploadFile = async () => {
     try {
@@ -92,10 +92,7 @@ function AddNewFile() {
     }
   };
 
-  useEffect(() => {
-    dispatch(uploadSong(newSong));
-    getUploadSongs(isSongUploadedSuccess);
-  }, [newSong]);
+  
 
   const getDuration = (src) => {
     try {
@@ -117,6 +114,7 @@ function AddNewFile() {
     try {
       if (window.confirm("Press a button!") === true) {
         dispatch(deleteSongById(songId));
+        dispatch(changeDeleteSongStatus('idle'));
       }
     } catch (err) {
       console.log("deleleSong ", err.message);
@@ -148,6 +146,10 @@ function AddNewFile() {
   };
 
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    dispatch(uploadSong(newSong));
+  }, [newSong]);
 
   useEffect(() => {
     dispatch(getCategories());

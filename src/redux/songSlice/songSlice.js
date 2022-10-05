@@ -44,32 +44,36 @@ const songSlice = createSlice({
     },
     changeStatus(state, action) {
       state.status = action.payload
-    }
+    },
+    changeDeleteSongStatus (state, action) {
+      state.deleteSongStatus = action.payload
+    },
   },
   extraReducers : {
     [fetchSong.fulfilled] : (state, action) => {
       state.songs = action.payload;
     },
     [uploadSong.pending] : (state, action) => {
-      state.status = 'loading'
+      state.status = 'loading';
     },
     [uploadSong.fulfilled] : (state, action) => {
       state.status = 'success';
     },
     [uploadSong.rejected] : (state, action) => {
-      state.status = 'false'
+      state.status = 'false';
     },
     [getUploadedSongs.pending] : (state, action) => {
-      state.getUploadSongsStatus = 'loading'
+      state.getUploadSongsStatus = 'loading';
     },
     [getUploadedSongs.fulfilled] : (state, action) => {
       state.getUploadSongsStatus = 'success';
       state.uploadSongs = action.payload
     },
     [getUploadedSongs.rejected] : (state, action) => {
-      state.getUploadSongsStatus = 'false'
+      state.getUploadSongsStatus = 'false';
     },
     [getSongsByPlaylistId.fulfilled] : (state, action) => {
+      state.getUploadSongsStatus = 'success';
       state.songs = action.payload;
     },
     [deleteSongById.fulfilled] : (state, action) => {
@@ -82,5 +86,5 @@ const songSlice = createSlice({
 });
 
 const { reducer, actions } = songSlice;
-export const { loading, changeStatus } = actions;
+export const { loading, changeStatus, changeDeleteSongStatus } = actions;
 export default reducer;

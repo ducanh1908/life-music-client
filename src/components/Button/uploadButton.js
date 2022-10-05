@@ -8,7 +8,7 @@ export default function UploadButtons(props) {
     <Stack direction="row" alignItems="center" spacing={2}>
       <Button variant="contained" component="label" onChange={props}>
         Upload
-        <input hidden accept="image/*" multiple type="file" />
+        <input hidden accept="file/*" multiple type="file" />
       </Button>
     </Stack>
   );
