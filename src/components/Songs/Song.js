@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import Player from "../Player/Player";
 
 
 
@@ -43,16 +44,17 @@ console.log(index)
     <Container>
       
       {song.map((item, index) => (
-     
+
           <SongItem key={item.id} onClick ={ () => onTrackSelect(index)}>
             <SongImage src={item.image}></SongImage>
             <SongName>{item.name}</SongName>
             <SongSinger>{item.singer}</SongSinger>
           </SongItem>
-       
+
       ))}
-     
+
     </Container>
+
   );
 };
 
