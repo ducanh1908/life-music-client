@@ -39,9 +39,12 @@ const songSlice = createSlice({
   name: "song",
   initialState,
   reducers: {
-    upSong(state, action) {
-      state.songs.push(action.payload)
+    loading(state, action) {
+      state.status = action.payload
     },
+    changeStatus(state, action) {
+      state.status = action.payload
+    }
   },
   extraReducers : {
     [fetchSong.fulfilled] : (state, action) => {
@@ -79,5 +82,5 @@ const songSlice = createSlice({
 });
 
 const { reducer, actions } = songSlice;
-export const { upSong } = actions;
+export const { loading, changeStatus } = actions;
 export default reducer;

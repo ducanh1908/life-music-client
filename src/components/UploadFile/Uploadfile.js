@@ -8,6 +8,7 @@ import {
   uploadSong,
   deleteSongById,
   upSong,
+  loading,
 } from "../../redux/songSlice/songSlice";
 
 import "./uploadfile.css";
@@ -22,8 +23,10 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { getCategories } from "../../redux/cateSlice/cateSlice";
-// import LoadingButton from "@mui/lab/LoadingButton";
-// import SaveIcon from "@mui/icons-material/Save";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 const style = {
   position: "absolute",
@@ -67,6 +70,7 @@ function AddNewFile() {
   const uploadFile = async () => {
     try {
       if (fileUpload == null) return;
+      dispatch(loading("loading"));
       const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
       await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
         await getDownloadURL(snapshot.ref).then(async (url) => {
@@ -151,6 +155,16 @@ function AddNewFile() {
   }, [status !== "idle", deleteSongStatus == "success"]);
 
   const Container = styled.div`
+    @font-face {
+      font-family: "MyWebFont";
+      src: url("webfont.eot"); /* IE9 Compat Modes */
+      src: url("webfont.eot?#iefix") format("embedded-opentype"),
+        /* IE6-IE8 */ url("webfont.woff2") format("woff2"),
+        /* Super Modern Browsers */ url("webfont.woff") format("woff"),
+        /* Pretty Modern Browsers */ url("webfont.ttf") format("truetype"),
+        /* Safari, Android, iOS */ url("webfont.svg#svgFontName") format("svg"); /* Legacy iOS */
+    }
+
     background-color: #7a7a7a;
 
     .image-upload > input {
@@ -187,12 +201,20 @@ function AddNewFile() {
             Chọn tệp
             <input hidden accept="file/*" multiple type="file" />
           </Button>
-          
-          <Button variant="contained" onClick={uploadFile}>
-            Up tệp
-          </Button>
-          
-          
+          {status == "loading" ? (
+            <LoadingButton
+              loading
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="outlined"
+            >
+              Loading...
+            </LoadingButton>
+          ) : (
+            <Button variant="contained" onClick={uploadFile}>
+              Up tệp
+            </Button>
+          )}
         </div>
         <h1>Tải bài hát lên</h1>
         <table>
