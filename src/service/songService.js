@@ -7,5 +7,10 @@ const songApi = {
         return apiClient.get(url, data)
     },
 
+    uploadedSongs(data) {
+        const url = '/song/uploaded';
+        return apiClient.get(url, data)
+    }
+
 }
 export default songApi;

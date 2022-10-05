@@ -5,8 +5,13 @@ import songApi from "./../../service/songService"
 const initialState = {
   status: "idle",
   songs: [],
-  loading: false
+  loading: false,
+  uploadSongs: []
 };
+export const getUploadedSongs = createAsyncThunk("user/getUploadedSongs", async (payload) => {
+  const data = await songApi.uploadedSongs(payload);
+  return data;
+});
 
 export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
   const data = await userApi.uploadSong(payload);
@@ -29,7 +34,27 @@ const songSlice = createSlice({
   extraReducers : {
     [fetchSong.fulfilled] : (state, action) => {
       state.songs = action.payload;
-    }
+    },
+    [uploadSong.pending] : (state, action) => {
+      state.status = 'loading'
+    },
+    [uploadSong.fulfilled] : (state, action) => {
+      state.status = 'success';
+    },
+    [uploadSong.rejected] : (state, action) => {
+      state.status = 'false'
+    },
+    [getUploadedSongs.pending] : (state, action) => {
+      state.status = 'loading'
+    },
+    [getUploadedSongs.fulfilled] : (state, action) => {
+      state.status = 'success';
+      state.uploadSongs = action.payload
+    },
+    [getUploadedSongs.rejected] : (state, action) => {
+      state.status = 'false'
+    },
+
   }
 });
 
