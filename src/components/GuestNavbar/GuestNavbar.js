@@ -1,12 +1,11 @@
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
+import { Avatar, Menu, MenuItem } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
 
@@ -116,11 +115,14 @@ const GuestNavbar = () => {
       </Left>
       <Center>
         
-        <HomeForm>
+        <HomeForm >
+       
           <SearchButton>
             <SearchOutlinedIcon />
           </SearchButton>
           <Input placeholder="Bạn muốn nghe gì..." />
+      
+         
         </HomeForm>
       </Center>
       <Right>

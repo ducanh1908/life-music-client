@@ -44,7 +44,6 @@ console.log(index)
     <Container>
       
       {song.map((item, index) => (
-
           <SongItem key={item.id} onClick ={ () => onTrackSelect(index)}>
             <SongImage src={item.image}></SongImage>
             <SongName>{item.name}</SongName>

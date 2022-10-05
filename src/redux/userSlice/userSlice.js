@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userApi from "./../../service/userService";
 import {imageUpload} from "../../components/UploadFile/avatarUpload";
 
-
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || {},
   loading: false,

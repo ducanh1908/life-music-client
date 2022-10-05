@@ -1,25 +1,24 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
-import {TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { Link,NavLink } from "react-router-dom";
-import styled from "styled-components";
-import {createPlaylist, fetchPlaylist, getPlaylistByUserId} from './../../redux/playlistSlice/playlistSlice';
-import { yupResolver } from "@hookform/resolvers/yup";
 import LinearProgress from "@mui/material/LinearProgress";
+import Modal from "@mui/material/Modal";
+import Typography from '@mui/material/Typography';
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
-import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router';
+import { createPlaylist, fetchPlaylist } from './../../redux/playlistSlice/playlistSlice';
 
 const Container = styled.div`
   height: 100%;
@@ -70,8 +69,16 @@ const Hr = styled.div`
 const CreateList = styled.div`
   color: #b3b3b3;
   cursor: pointer;
-  &:hover {
+  display:flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  .profile-item {
+    color: #b3b3b3;
+    text-decoration: none;
+    
+    &:hover {
     color: #fff;
+  }
   }
 `;
 const ListTitle = styled.p`
@@ -88,6 +95,7 @@ align-items: center;
 const style = {
   position: "absolute",
   display: "flex",
+  background: "grey",
  flexDirection: "column",
  alginItem:"center",
  justifyContent: "center",
@@ -96,7 +104,8 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #000",
+  borderRadius:"20px",
   boxShadow: 24,
   p: 4
 };
@@ -129,22 +138,17 @@ const GuestSide = () => {
   });
   
   useEffect(()=> {
-    dispatch(fetchPlaylist)
+    dispatch(fetchPlaylist(user._id))
   },[])
-  useEffect(()=> {
-    dispatch(getPlaylistByUserId(user._id))
-  },[getPlaylistByUserId(user._id)])
 
 const handleSubmit = async (data) => {
   
   try {
     const action = await createPlaylist(data);
-
       const resultAction = await dispatch(action);
       const playlists = unwrapResult(resultAction);
       enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
       // navigate('/playlist')
- 
   } catch (error) {
     console.log(error.message);
     enqueueSnackbar(error.message, { variant: "error" });
@@ -202,18 +206,18 @@ const { isSubmitting } = form.formState;
           </MenuItem>
         </Menu>
         <Hr />
+
         {
           playlists &&(
                 isLoggedIn &&
                 (playlists.length >0 &&
                     playlists.map((item,index)=>(
-
+                          
                         <CreateList key={index} >
-                          <NavLink to={`/playlist/${item._id}`} >
+                          <NavLink to={`/playlist/${item._id}`}  className="profile-item">
                           <ListTitle>{item.name}</ListTitle>
                           </NavLink>
                         </CreateList>
-
                     )))
             )
 
@@ -228,6 +232,7 @@ const { isSubmitting } = form.formState;
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+         
           <Typography id="modal-modal-title" variant="h6" component="h2">
            Tạo Playlist
           </Typography>
@@ -245,7 +250,7 @@ const { isSubmitting } = form.formState;
               <Button sx={{ mt:1,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
               Thêm mới
               </Button>
-          </Form>
+            </Form>
             </form>         
         </Box>
       </Modal>
