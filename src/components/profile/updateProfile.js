@@ -51,7 +51,6 @@ align-items: center;
 .form-input {
     width: 90%;
 }
-
 `
 const FormInput = styled.div`
 
