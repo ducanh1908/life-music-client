@@ -11,6 +11,7 @@ import { storage } from "./firebase";
 
 import "./uploadfile.css";
 import styled from "styled-components";
+import $ from "jquery";
 
 function AddNewFile() {
   const [fileUpload, setFileUpload] = useState(null);
@@ -25,15 +26,13 @@ function AddNewFile() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUploadedSongs({ _id: user._id }));
-  }, []);
+  
 
   const getUploadSongs = (isSongUploadedSuccess) => {
     if (isSongUploadedSuccess) {
       dispatch(getUploadedSongs({ _id: user._id }));
     } else {
-      // tải bài hát thất bại
+      console.log("tai bai hat that bai");
     }
   };
 
@@ -42,8 +41,17 @@ function AddNewFile() {
       if (fileUpload == null) return;
       const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
       await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
-        await getDownloadURL(snapshot.ref).then((url) => {
-          setNewSong({ name: fileUpload.name.split(".")[0], file: url });
+        await getDownloadURL(snapshot.ref).then(async (url) => {
+          await getDuration(url).then((length) => {
+            let duration = length / 60;
+            duration = duration.toFixed(2);
+            setNewSong({
+              name: fileUpload.name.split(".")[0],
+              file: url,
+              duration: duration,
+            });
+            console.log("duration", duration);
+          });
         });
       });
       // dispatch(upSong(newSong));
@@ -55,25 +63,18 @@ function AddNewFile() {
   };
 
   const getDuration = (src) => {
-    return new Promise(function(resolve) {
-        var audio = new Audio();
-        $(audio).on("loadedmetadata", function(){
-            resolve(audio.duration);
-        });
-        audio.src = src;
+    return new Promise(function (resolve) {
+      var audio = new Audio();
+      $(audio).on("loadedmetadata", function () {
+        resolve(audio.duration);
+      });
+      audio.src = src;
     });
-}
-  const getAllFileDuration = (uploadSongs) => {
-    uploadSongs.map((song) => {
-      
-      // getDuration(song.file)
-      // .then(function(length) {
-      //     console.log('length',length)
-      //     uploadSong.length = length
-      // });
-    })
-  }
+  };
 
+  useEffect(() => {
+    dispatch(getUploadedSongs({ _id: user._id }));
+  }, []);
 
   const Container = styled.div`
     background-color: #7a7a7a;
@@ -84,25 +85,26 @@ function AddNewFile() {
   `;
   return (
     <Container>
-        <div class="scrollbar" id="style-1">
-      <div class="image-upload">
-        <label for="file-input">
-          <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
-        </label>
-        <input
-          id="file-input"
-          type="file"
-          onChange={(event) => {
-            setFileUpload(event.target.files[0]);
-          }}
-        />
-      </div>
+      <div class="scrollbar" id="style-1">
+        <div class="image-upload">
+          <label htmlFor="file-input">
+            <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
+          </label>
+          <input
+            id="file-input"
+            type="file"
+            onChange={(event) => {
+              setFileUpload(event.target.files[0]);
+            }}
+          />
+        </div>
         <button onClick={uploadFile}>Upload</button>
         <h1>Tải bài hát lên</h1>
         <table>
           <thead>
             <tr>
               <th colSpan={2}>Bài hát</th>
+              <th colSpan={3}></th>
               <th>Thời gian</th>
             </tr>
           </thead>
@@ -115,6 +117,14 @@ function AddNewFile() {
                   </td>
                   <td>{song.name}</td>
                   <td></td>
+                  <td>
+                    <select id="cars">
+                      <option value={{status: 2}}>Public</option>
+                      <option value={{status: 1}}>Private</option>
+                    </select>
+                  </td>
+                  <td></td>
+                  <td>{song.duration}</td>
                 </tr>
               ))}
           </tbody>
