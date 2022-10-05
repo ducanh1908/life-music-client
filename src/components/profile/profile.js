@@ -1,12 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { Outlet } from "react-router";
 import styled from 'styled-components';
-import {Outlet} from "react-router";
-import SideBarProfile from "./sideBarProfile";
-import Information from "./information";
-import UpdateProfile from "./updateProfile";
-import UpdatePassword from "./updatePassword";
 import GuestNavbar from '../GuestNavbar/GuestNavbar';
-import GuestFooter from './../GuestFooter/GuestFooter';
+import SideBarProfile from "./sideBarProfile";
 
 const Container=styled.div`
     background-color: #333;
@@ -29,7 +25,6 @@ const Profile = () => {
                 <Outlet/>
             </Body>
 
-            
         </Container>
     );
 };

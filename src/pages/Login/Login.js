@@ -13,30 +13,36 @@ import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
 import { login } from "../../redux/userSlice/userSlice";
+import CircularProgress from '@mui/material/CircularProgress';
 const Container = styled.div`
 width: 100%;
 height: 100vh;
 display: flex;
 text-align: center;
 justify-content: center;
-background: url('https://images.unsplash.com/photo-1499415479124-43c32433a620?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80') no-repeat;
+background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url("https://images.unsplash.com/photo-1488376739361-ed24c9beb6d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80");;
 background-size: cover;
 
 `
 const Wrapper = styled.div`
-  margin-top: 10px;
-  max-width: 450px;
-`;
+margin-top: 10px;
+max-width: 450px;
+
+`
 const Topbar = styled.div`
 padding: 40px 0 32px;
 `
 const Logo = styled.h1`
-color:white;
+color:#333;
 
 `
 const Title = styled.h1`
 margin-top:40px;
-color:white;
+color:#333;
 `
 const Form = styled.div`
 
@@ -47,11 +53,11 @@ const Bottom = styled.div`
 margin-top: 20px;
 `
 const Link = styled.a`
-color:white;
+color:#333;
 
 `
 const LinkLogin = styled.span`
-color:white;
+color:#333;
 
 `
 const schema = yup
@@ -96,7 +102,7 @@ const Login = (props) => {
     <Container>
       <Wrapper>
         <Topbar>
-          <Typography variant="h3" sx={{color: "#fff"}}>
+          <Typography variant="h2" sx={{color: "#333"}}>
           Music Life 
           </Typography>
         <Title>Để tiếp tục, hãy đăng nhập vào Music Life.</Title>

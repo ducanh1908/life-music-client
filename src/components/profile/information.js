@@ -27,13 +27,8 @@ const Info = styled.div`
 `;
 
 const Desc = styled.h2``;
-const InfoItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid #333;
-`;
-const Title = styled.p``;
+
+
 
 function createData(name, calories) {
   return { name, calories };
@@ -57,7 +52,7 @@ const Information = () => {
         </Typography>
       </Desc>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650, height: 300 }} aria-label="caption table">
+        <Table sx={{ minWidth: 450, height: 300 }} aria-label="caption table">
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.name}>

@@ -19,10 +19,16 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
 });
 
 export const fetchSong = createAsyncThunk("/songs", async (payload) => {
+
   const data = await songApi.getSong();
   return data.songs;
 });
+export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload) => {
+  const data = await songApi.getSongsByPlaylistId(payload);
+  return data.songs;
+});
 
+;
 const songSlice = createSlice({
   name: "song",
   initialState,
@@ -54,7 +60,9 @@ const songSlice = createSlice({
     [getUploadedSongs.rejected] : (state, action) => {
       state.status = 'false'
     },
-
+    [getSongsByPlaylistId.fulfilled] : (state, action) => {
+      state.songs = action.payload;
+    }
   }
 });
 

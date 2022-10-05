@@ -1,25 +1,29 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
+import Typography from '@mui/material/Typography';
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
 import { register } from "../../redux/userSlice/userSlice";
-import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router';
 const Container = styled.div`
 width: 100%;
 height: 100vh;
 display: flex;
 text-align: center;
 justify-content: center;
-background: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
+background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url("https://images.unsplash.com/photo-1488376739361-ed24c9beb6d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80");;
 background-repeat: no-repeat;
 background-size: cover;
 overflow: hidden;
@@ -27,7 +31,7 @@ overflow: hidden;
 const Wrapper = styled.div`
 margin-top: 10px;
 max-width: 450px;
-background: transparent;
+
 
 `
 const Topbar = styled.div`
@@ -36,9 +40,9 @@ padding: 40px 0 12px;
 const Logo = styled.h1`
 
 `
-const Title = styled.h1`
+const Title = styled.h2`
 margin-top:20px;
-color: #fff;
+color: #333;
 `
 const Form = styled.div`
 
@@ -52,10 +56,11 @@ const Bottom = styled.div`
 margin-top: 20px;
 `
 const Link = styled.a`
-color: #fff;
+color: red;
 `
 const LinkLogin = styled.span`
-color: #fff;
+color: #333;
+
 `
 const schema = yup
   .object()
@@ -98,7 +103,6 @@ const Register = (props) => {
       const action = await register(data);
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
-
       enqueueSnackbar("Bạn đã đăng ký thành công", { variant: "success" });
       navigate('/login')
     } catch (error) {
@@ -113,8 +117,8 @@ const Register = (props) => {
     <Container>
       <Wrapper>
         <Topbar>
-          <Typography variant="h3" sx={{color:'#fff'}}>
-          Music Life .
+          <Typography variant="h3" sx={{color:'#333'}}>
+          Music Life
           </Typography>
         <Title>Đăng ký miễn phí để bắt đầu nghe.</Title>
         </Topbar>
@@ -128,9 +132,9 @@ const Register = (props) => {
            
           />
         )}
-        <FormInput>
+       
         <InputField name="username" label="Tên tài khoản" form={form} />
-        </FormInput>
+       
         <InputField name="email" label="Nhập email của bạn" form={form} />
         <PasswordField name="password" label="Mật khẩu" form={form} />
         <PasswordField
