@@ -22,9 +22,7 @@ export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload
   return data.songs;
 });
 
-  const data = await songApi.getSongById(payload)
-  return data;
-});
+;
 const songSlice = createSlice({
   name: "song",
   initialState,

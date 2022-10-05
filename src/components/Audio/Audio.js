@@ -1,16 +1,12 @@
-import React, {useState} from 'react';
-import AudioPlayer from 'react-h5-audio-player';
+import React from 'react';
 import 'react-h5-audio-player/lib/styles.css';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { fetchSong } from '../../redux/songSlice/songSlice';
 
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 
-import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import PauseCircleIcon from '@mui/icons-material/PauseCircle';
-import styled  from 'styled-components';
+import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 const  Container = styled.div`
 
 display: flex;
