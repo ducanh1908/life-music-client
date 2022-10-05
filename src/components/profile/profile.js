@@ -24,6 +24,7 @@ const Profile = () => {
                 <SideBarProfile  />
                 <Outlet/>
             </Body>
+
         </Container>
     );
 };

@@ -1,4 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { fetchSong } from '../../redux/songSlice/songSlice';
 
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';

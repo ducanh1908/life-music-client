@@ -17,7 +17,10 @@ export const fetchSong = createAsyncThunk("/songs", async (payload) => {
   const data = await songApi.getSong();
   return data.songs;
 });
-export const fetchSongById = createAsyncThunk("song/id", async (payload) => {
+export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload) => {
+  const data = await songApi.getSongsByPlaylistId(payload);
+  return data.songs;
+});
 
   const data = await songApi.getSongById(payload)
   return data;
@@ -34,7 +37,7 @@ const songSlice = createSlice({
     [fetchSong.fulfilled] : (state, action) => {
       state.songs = action.payload;
     },
-    [fetchSongById.fulfilled] : (state, action) => {
+    [getSongsByPlaylistId.fulfilled] : (state, action) => {
       state.songs = action.payload;
     }
   }
