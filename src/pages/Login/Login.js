@@ -1,14 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import styled from 'styled-components';
+import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
@@ -74,20 +74,18 @@ const schema = yup
   .required();
 
 const Login = (props) => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const form = useForm({
     defaultValues: {
-      username: "", 
+      username: "",
       password: "",
-     
     },
     resolver: yupResolver(schema),
   });
   const handleSubmit = async (data) => {
     try {
-        
       const action = await login(data);
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
@@ -99,7 +97,7 @@ const Login = (props) => {
     }
   };
   const { isSubmitting } = form.formState;
-  
+
   return (
     <Container>
       <Wrapper>
