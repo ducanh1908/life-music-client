@@ -2,15 +2,15 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
-import { TextField } from "@mui/material";
+import {TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { createPlaylist, fetchPlaylist } from './../../redux/playlistSlice/playlistSlice';
+import {createPlaylist, fetchPlaylist, getPlaylistByUserId} from './../../redux/playlistSlice/playlistSlice';
 import { yupResolver } from "@hookform/resolvers/yup";
 import LinearProgress from "@mui/material/LinearProgress";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -111,13 +111,14 @@ const schema = yup
   .required();
 const GuestSide = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  const isLoggedInUser = useSelector(state => state.user.user )
+  const isLoggedIn = !!isLoggedInUser._id;
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const user = useSelector(state=> state.user.user);
-const playlist = useSelector(state=> state.playlist.playlist);
+  const playlists = useSelector (state => state.playlist.playlist)
   const { enqueueSnackbar } = useSnackbar();
   const form = useForm({
     defaultValues: {
@@ -130,7 +131,9 @@ const playlist = useSelector(state=> state.playlist.playlist);
   useEffect(()=> {
     dispatch(fetchPlaylist)
   },[])
-
+  useEffect(()=> {
+    dispatch(getPlaylistByUserId(user._id))
+  },[getPlaylistByUserId(user._id)])
 
 const handleSubmit = async (data) => {
   
@@ -138,9 +141,9 @@ const handleSubmit = async (data) => {
     const action = await createPlaylist(data);
 
       const resultAction = await dispatch(action);
-      const playlist = unwrapResult(resultAction);
+      const playlists = unwrapResult(resultAction);
       enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
-      navigate('/playlist')
+      // navigate('/playlist')
  
   } catch (error) {
     console.log(error.message);
@@ -190,7 +193,7 @@ const { isSubmitting } = form.formState;
           </MenuItem>
 
           <MenuItem>
-            <NavLink className='item-link' to={"/list"}>
+            <NavLink className='item-link' to={"/song"}>
               <ItemIcon>
                 <DownloadForOfflineOutlinedIcon />
               </ItemIcon>
@@ -199,12 +202,23 @@ const { isSubmitting } = form.formState;
           </MenuItem>
         </Menu>
         <Hr />
+        {
+          playlists &&(
+                isLoggedIn &&
+                (playlists.length >0 &&
+                    playlists.map((item,index)=>(
 
+                        <CreateList key={index} >
+                          <NavLink to={`/playlist/${item._id}`} >
+                          <ListTitle>{item.name}</ListTitle>
+                          </NavLink>
+                        </CreateList>
 
-        <CreateList>
-          <ListTitle> Danh sách bài hát của tôi</ListTitle>
-        </CreateList>
-        
+                    )))
+            )
+
+        }
+
       </Wrapper>
 
       <Modal

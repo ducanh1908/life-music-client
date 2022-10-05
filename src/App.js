@@ -39,9 +39,10 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/' element={<Home />} >
         <Route path='' element={<GuestContent />} />
-        <Route path='list' element={<Song />} />
+        <Route path='song' element={<Song />} />
         <Route path='upload' element={<Upload />} />
         <Route path='library' element={<Library />} />
+        <Route path="playlist/:id" element={<Playlist />} />
         <Route path="playlist" element={<Playlist />} />
           <Route path='search' element={<Search />} />
       </Route>

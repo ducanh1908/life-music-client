@@ -3,10 +3,16 @@ import userApi from "./../../service/userService";
 import songApi from "./../../service/songService";
 import searchSongApi from "../../service/searchService";
 const initialState = {
+  status: "idle",
   songs: [],
   loading: false,
-  search: []
+  search: [],
+  uploadSongs: []
 };
+export const getUploadedSongs = createAsyncThunk("user/getUploadedSongs", async (payload) => {
+  const data = await songApi.uploadedSongs(payload);
+  return data;
+});
 
 export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
   const data = await userApi.uploadSong(payload);
@@ -16,7 +22,10 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
 export const fetchSong = createAsyncThunk("/songs", async (payload) => {
   const data = await songApi.getSong();
   return data.songs;
-
+});
+export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload) => {
+  const data = await songApi.getSongsByPlaylistId(payload);
+  return data.songs;
 });
 export const searchSong = createAsyncThunk(
     '/song/search/:key',
@@ -35,13 +44,31 @@ const songSlice = createSlice({
     upSong(state, action) {
       state.songs.push(action.payload)
     },
-    // handleSearch(state, action) {
-    //   state.search = [];
-    //   state.search.push(action.payload);
-    // }
   },
   extraReducers : {
     [fetchSong.fulfilled] : (state, action) => {
+      state.songs = action.payload;
+    },
+    [uploadSong.pending] : (state, action) => {
+      state.status = 'loading'
+    },
+    [uploadSong.fulfilled] : (state, action) => {
+      state.status = 'success';
+    },
+    [uploadSong.rejected] : (state, action) => {
+      state.status = 'false'
+    },
+    [getUploadedSongs.pending] : (state, action) => {
+      state.status = 'loading'
+    },
+    [getUploadedSongs.fulfilled] : (state, action) => {
+      state.status = 'success';
+      state.uploadSongs = action.payload
+    },
+    [getUploadedSongs.rejected] : (state, action) => {
+      state.status = 'false'
+    },
+    [getSongsByPlaylistId.fulfilled] : (state, action) => {
       state.songs = action.payload;
     },
     [searchSong.fulfilled] : (state, action) => {

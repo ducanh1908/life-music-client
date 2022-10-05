@@ -1,18 +1,18 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
+import Typography from '@mui/material/Typography';
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
 import { register } from "../../redux/userSlice/userSlice";
-import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router';
 const Container = styled.div`
 width: 100%;
 height: 100vh;
