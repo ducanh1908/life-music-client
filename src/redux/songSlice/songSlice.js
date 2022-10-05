@@ -4,10 +4,11 @@ import songApi from "./../../service/songService"
 
 const initialState = {
   status: "idle",
+  getUploadSongsStatus: "idle",
+  deleteSongStatus: "idle",
   songs: [],
   loading: false,
   uploadSongs: [],
-  deleteSongStatus: "idle",
 };
 export const getUploadedSongs = createAsyncThunk("user/getUploadedSongs", async (payload) => {
   const data = await songApi.uploadedSongs(payload);
@@ -56,14 +57,14 @@ const songSlice = createSlice({
       state.status = 'false'
     },
     [getUploadedSongs.pending] : (state, action) => {
-      state.status = 'loading'
+      state.getUploadSongsStatus = 'loading'
     },
     [getUploadedSongs.fulfilled] : (state, action) => {
-      state.status = 'success';
+      state.getUploadSongsStatus = 'success';
       state.uploadSongs = action.payload
     },
     [getUploadedSongs.rejected] : (state, action) => {
-      state.status = 'false'
+      state.getUploadSongsStatus = 'false'
     },
     [getSongsByPlaylistId.fulfilled] : (state, action) => {
       state.songs = action.payload;

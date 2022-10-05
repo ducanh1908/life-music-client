@@ -22,6 +22,8 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { getCategories } from "../../redux/cateSlice/cateSlice";
+// import LoadingButton from "@mui/lab/LoadingButton";
+// import SaveIcon from "@mui/icons-material/Save";
 
 const style = {
   position: "absolute",
@@ -47,7 +49,6 @@ function AddNewFile() {
   );
   console.log("uploadSongs", uploadSongs);
   let categories = useSelector((state) => state.cate.categories);
-  console.log("categories", categories);
 
   let isSongUploadedSuccess =
     "success" === useSelector((state) => state.song.status);
@@ -77,17 +78,20 @@ function AddNewFile() {
               file: url,
               duration: duration,
             });
-            console.log("duration ", duration);
           });
         });
       });
       // dispatch(upSong(newSong));
-      dispatch(uploadSong(newSong));
-      getUploadSongs(isSongUploadedSuccess);
+      // dispatch(uploadSong(newSong));
     } catch (err) {
       console.log("uploadFile", err.message);
     }
   };
+
+  useEffect(() => {
+    dispatch(uploadSong(newSong));
+    getUploadSongs(isSongUploadedSuccess);
+  }, [newSong]);
 
   const getDuration = (src) => {
     try {
@@ -153,10 +157,13 @@ function AddNewFile() {
       display: none;
     }
   `;
+  const change = (e) => {
+    setFileUpload(e.target.files[0]);
+  };
   return (
     <Container>
       <div className="scrollbar" id="style-1">
-        <div className="image-upload">
+        {/* <div className="image-upload">
           <label htmlFor="file-input">
             <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
           </label>
@@ -167,8 +174,26 @@ function AddNewFile() {
               setFileUpload(event.target.files[0]);
             }}
           />
+        </div> */}
+        {/* <button onClick={uploadFile}>Upload</button> */}
+        <div>
+          <Button
+            variant="contained"
+            component="label"
+            onChange={(event) => {
+              setFileUpload(event.target.files[0]);
+            }}
+          >
+            Chọn tệp
+            <input hidden accept="file/*" multiple type="file" />
+          </Button>
+          
+          <Button variant="contained" onClick={uploadFile}>
+            Up tệp
+          </Button>
+          
+          
         </div>
-        <button onClick={uploadFile}>Upload</button>
         <h1>Tải bài hát lên</h1>
         <table>
           <thead>
