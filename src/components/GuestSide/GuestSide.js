@@ -139,7 +139,7 @@ const GuestSide = () => {
   
   useEffect(()=> {
     dispatch(fetchPlaylist(user._id))
-  },[])
+  },[playlists])
 
 const handleSubmit = async (data) => {
   
@@ -202,6 +202,14 @@ const { isSubmitting } = form.formState;
                 <DownloadForOfflineOutlinedIcon />
               </ItemIcon>
               <ItemDesc>Bài hát</ItemDesc>
+            </NavLink>
+          </MenuItem>
+          <MenuItem>
+            <NavLink className='item-link' to={"/song-list"}>
+              <ItemIcon>
+                <DownloadForOfflineOutlinedIcon />
+              </ItemIcon>
+              <ItemDesc>Danh sách bài hát</ItemDesc>
             </NavLink>
           </MenuItem>
         </Menu>

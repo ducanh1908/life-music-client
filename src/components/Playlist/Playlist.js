@@ -138,17 +138,21 @@ align-items: flex-start;
 const Playlist = () => {
   const { id } = useParams();
   const [list, setPlaylist] = useState({});
-  console.log(id);
+
 
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
-  console.log(currentPlaylist);
   const [model, setModel] = useState(false);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getPlaylistById(id));
+
   }, [id]);
+
+
   return (
     <Container>
       <Fragment>
@@ -161,9 +165,7 @@ const Playlist = () => {
               <PlaylistInfo>
                 <PlaylistTitle>Playlist</PlaylistTitle>
                 <PlaylistName>{currentPlaylist.name}</PlaylistName>
-
               </PlaylistInfo>
-
               <PlaylistAction>
               <IconButton onClick={() => setModel(true)}>
                 <EditIcon  sx={{width: '40px', height: "40px"}}/>
@@ -173,26 +175,7 @@ const Playlist = () => {
               </IconButton>
               </PlaylistAction>
 
-
             </Navbar>
-            {/* <img
-              src={currentPlaylist.image}
-              alt={"avatar"}
-              style={{ background: "#919496" }}
-            />
-            <div className={"playlist_info"}>
-              <p>Playlist</p>
-              <h1>{currentPlaylist.name}</h1>
-              <span>ngon</span>
-            </div>
-            <div className={"actions_container"}>
-              <IconButton onClick={() => setModel(true)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
-            </div> */}
           </Head>
         )}
         <Body>

@@ -228,7 +228,7 @@ const GuestContent = () => {
     </Categories>
          
          
-      <Footer />
+      {/* <Footer /> */}
       </Wrapper>
     </Container>
   );

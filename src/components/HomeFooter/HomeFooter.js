@@ -1,60 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect,useState} from "react";
 import styled from "styled-components";
-import Audio from "../Audio/Audio";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { fetchSong, fetchSongById } from "../../redux/songSlice/songSlice";
-import DetailSong from './../DetailSong/DetailSong';
-import Song from './../Songs/Song';
-import Player from './../Player/Player';
+import Audio from "./Audio";
+import DetailSong from "./DetailSong";
+import SongList from "./SongList";
+import { useDispatch } from 'react-redux';
+import { fetchSong } from './../../redux/songSlice/songSlice';
+import { useSelector } from 'react-redux';
+
 
 const Container = styled.div`
-  height: 70px;
-  width: 85%;
-  bottom: 0;
-  right: 0;
-  /* background-color: #040404; */
+  background-color: #7a7a7a;
   display: grid;
-  /* grid-template-columns: 1fr 2fr; */
-  /* position: s; */
+  grid-template-rows: 75vh 15vh;
 `;
+const Body = styled.div`
+height: 100%;
+overflow: auto;
+
+`
+const Footer = styled.div`
+height: 100%;
+display: flex;
+`
 
 
-const AudioPlay = styled.div``;
-const Footer = () => {
-    
-  const dispatch = useDispatch();
-  const songs = useSelector((state) => state.song.songs);
+const HomeFooter = () => {
+  const dispatch = useDispatch()
+const song = useSelector(state => state.song.songs)
+const [trackIndex, settrackIndex] = useState(-1)
 
-
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [nextSongIndex, setNextSongIndex] = useState(0);
   useEffect(() => {
-    dispatch(fetchSong());
-  }, []);
-  useEffect(() => {
-    setNextSongIndex(() => {
-      if (currentSongIndex + 1 > songs.length - 1) {
-        return 0;
-      } else {
-        return currentSongIndex + 1;
-      }
-    });
-  }, [currentSongIndex]);
-  const onTrackSelect =(index) => {
-      setCurrentSongIndex(index)
+    dispatch(fetchSong())
+  },[trackIndex])
+
+  const onTrackSelect = (index)=> {
+    settrackIndex(index)
   }
+
   return (
     <Container>
-      {
-       ( songs.length > 0) && ( <Player  currentSongIndex={currentSongIndex} 
-        setCurrentSongIndex={setCurrentSongIndex} 
-        nextSongIndex={nextSongIndex} 
-        songs={songs}/>)
-      }
-      
+     {
+      song && (
+      <>
+      <Body>
+        <SongList song = {song} onTrackSelect={onTrackSelect} />
+      </Body>
+      <Footer>
+        <DetailSong />
+        <Audio song={song} trackIndex={trackIndex} />    
+      </Footer>
+      </>
+      )
+     }
     </Container>
   );
 };
 
-export default Footer;
+export default HomeFooter;

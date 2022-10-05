@@ -11,7 +11,6 @@ const initialState = {
 export const getPlaylistById = createAsyncThunk("/playlist/id", async(payload)=> {
   
   const data = await playlistApi.getPlaylistById(payload);
-    console.log(data);
   return data;
 })
 

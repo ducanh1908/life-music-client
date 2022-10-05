@@ -13,6 +13,10 @@ const songApi = {
     uploadedSongs(data) {
         const url = '/song/uploaded';
         return apiClient.get(url, data)
+    },
+    getSongById(data) {
+        const url = `/song/${data}`;
+        return apiClient.get(url, data)
     }
 
 }
