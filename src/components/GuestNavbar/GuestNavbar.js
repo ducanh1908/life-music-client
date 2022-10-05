@@ -1,4 +1,3 @@
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -6,10 +5,12 @@ import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
-
+import {fetchSong} from "../../redux/songSlice/songSlice";
+import {searchSongApi} from "../../service/searchService";
+import SearchNavBar from "./SearchNavBar";
 const Container = styled.div`
 
   grid-column-gap: 10px;
@@ -105,8 +106,18 @@ const GuestNavbar = () => {
     dispatch(logout());
     navigate('/login');
   }
-
-  
+  const songs = useSelector(state => state.song.songs)
+  const [term,setTerm] = useState('');
+    const onChange = (e) => {
+        console.log(e.target.value);
+    }
+    // console.log(songs.filter(song => song.name.toLowerCase().includes(term)))
+  // const handleSubmit = (event) => {
+  //     event.preventDefault();
+  //     if(term === '') return alert('Please enter search term')
+  //     dispatch(searchSongApi(term));
+  //     setTerm('')
+  // }
   return (
     <Container>
       <Left>
@@ -116,12 +127,30 @@ const GuestNavbar = () => {
       </Left>
       <Center>
         
-        <HomeForm>
+        <HomeForm >
+            <NavLink to={ '/search'} >
           <SearchButton>
             <SearchOutlinedIcon />
-          </SearchButton>
-          <Input placeholder="Bạn muốn nghe gì..." />
+          </SearchButton >
+          <Input placeholder="Bạn muốn nghe gì..."
+                 onChange = {e => setTerm(e.target.value)}
+          />
+            </NavLink>
         </HomeForm>
+
+          {/*<div className="search-bar">*/}
+          {/*    <form onSubmit={handleSubmit}>*/}
+          {/*        <input*/}
+          {/*            type="text"*/}
+          {/*            value={term}*/}
+          {/*            placeholder="Search Movies or Shows"*/}
+          {/*            onChange={(e) => setTerm(e.target.value)}*/}
+          {/*        />*/}
+          {/*        <button type="submit">*/}
+          {/*            <i className="fa fa-search"></i>*/}
+          {/*        </button>*/}
+          {/*    </form>*/}
+          {/*</div>*/}
       </Center>
       <Right>
         <Stack direction="row" spacing={2}>

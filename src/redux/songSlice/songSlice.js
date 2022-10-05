@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userApi from "./../../service/userService";
 import songApi from "./../../service/songService";
 import searchSongApi from "../../service/searchService";
-
 const initialState = {
   songs: [],
   loading: false,
@@ -19,9 +18,14 @@ export const fetchSong = createAsyncThunk("/songs", async (payload) => {
   return data.songs;
 
 });
-export const searchSong = createAsyncThunk('/song/search/:key', async (payload) => {
-  let data = await searchSongApi.searchSong();
-  return data;
+export const searchSong = createAsyncThunk(
+    '/song/search/:key',
+    async (data) => {
+      console.log(1)
+      const res = await searchSongApi.searchSong();
+      console.log(res.data)
+      console.log(2)
+      return res.data;
 } )
 
 const songSlice = createSlice({
@@ -42,11 +46,20 @@ const songSlice = createSlice({
     },
     [searchSong.fulfilled] : (state, action) => {
       state.search = action.payload;
-      state.loading = false;
+      // state.loading = false;
     }
   }
+//   extraReducers : (builder) => {
+//     builder.addCase(fetchSong.fulfilled,(state, action) => {
+//       state.songs = action.payload;
+//     })
+//         .addCase(searchSongApi.fulfilled,(state, action) => {
+//           state.songs = state.songs.filter((song) =>{
+//
+//           })
+//         })
+//   }
 });
-
 
 const { reducer, actions } = songSlice;
 export const { upSong } = actions;

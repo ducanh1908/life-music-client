@@ -1,5 +1,6 @@
 
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 import style from "styled-components";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -7,6 +8,9 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import GuestFooter from "../GuestFooter/GuestFooter";
+import {useDispatch} from "react-redux";
+import {fetchSong,searchSong} from "../../redux/songSlice/songSlice";
+import SearchNavBar from "../GuestNavbar/SearchNavBar";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#3a3a3a",
   ...theme.typography.body2,
@@ -16,7 +20,6 @@ const Item = styled(Paper)(({ theme }) => ({
   height: theme.spacing(12),
   color:'#fff',
 }));
-
 
 const Container = style.div`
 height: 100%;
@@ -104,9 +107,15 @@ color: #a7a7a7;
 
 
 const GuestContent = () => {
+  const dispatch = useDispatch();
+  const [term,setTerm] =useState('')
+  // useEffect(() =>{
+  //   dispatch(fetchSong());
+  //   dispatch(searchSong());
+  // },[dispatch])
+  let songs = useSelector(state => state.song.songs)
   // const today = new Date();
   // const  time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  
   return (
     <Container>
       <Wrapper>
@@ -121,110 +130,96 @@ const GuestContent = () => {
                   <PlayArrowRoundedIcon />
                 </Item>
               </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
             </Grid>
           </Box>
           <ListMe></ListMe>
         </Top>
     <Categories >
       <TopTitle>Chào buổi sáng</TopTitle>
-      <Playlist >
-        <PlaylistItem href="/detail-playlist">
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem>
-        <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem>
-        <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem> <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem> <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem> <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem> <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem>
-         <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem>
-      </Playlist>
-    </Categories>
+      {songs.map((song,index) => (
+          <Playlist key ={index} >
+            <PlaylistItem href="/detail-playlist">
+              <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
+              <PlaylistTitle> {song.name}</PlaylistTitle>
+              <PlaylistSinger>{song.author}</PlaylistSinger>
+            </PlaylistItem>
+          </Playlist>
+      ))}
 
-    <Categories >
-      <TopTitle>Chào buổi sáng</TopTitle>
-      <Playlist >
-        <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem>
-        <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem>
-        <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem> <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem> <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem> <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem> <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem>
-         <PlaylistItem>
-          <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-          <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-          <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>
-        </PlaylistItem>
-      </Playlist>
+    {/*    <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem>*/}
+    {/*    <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem> <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem> <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem> <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem> <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem>*/}
+    {/*     <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem>*/}
+    {/*  </Playlist>*/}
+    {/*</Categories>*/}
+
+    {/*<Categories >*/}
+    {/*  <TopTitle>Chào buổi sáng</TopTitle>*/}
+    {/*  <Playlist >*/}
+    {/*    <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem>*/}
+    {/*    <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem>*/}
+    {/*    <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem> <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem> <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem> <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem> <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem>*/}
+    {/*     <PlaylistItem>*/}
+    {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
+    {/*      <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>*/}
+    {/*      <PlaylistSinger>Wiz Khalifa, Big Sean, Future và nhiều hơn nữa</PlaylistSinger>*/}
+    {/*    </PlaylistItem>*/}
+    {/*  </Playlist>*/}
     </Categories>
          
          

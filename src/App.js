@@ -15,6 +15,7 @@ import Register from './pages/Register/Register';
 import GuestContent from './components/GuestContent/GuestContent';
 import Library from './components/Library/Library';
 import Playlist from "./components/Playlist/Playlist";
+import Search from "./components/Search/search";
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
         <Route path='upload' element={<Upload />} />
         <Route path='library' element={<Library />} />
         <Route path="playlist" element={<Playlist />} />
+          <Route path='search' element={<Search />} />
       </Route>
       <Route path='profile' element={<Profile />} >  
             <Route path=""  element={<Information />} />
