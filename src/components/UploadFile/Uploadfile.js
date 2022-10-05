@@ -47,7 +47,7 @@ function AddNewFile() {
   );
   console.log("uploadSongs", uploadSongs);
   let categories = useSelector((state) => state.cate.categories);
-  console.log('categories',categories)
+  console.log("categories", categories);
 
   let isSongUploadedSuccess =
     "success" === useSelector((state) => state.song.status);
@@ -242,10 +242,10 @@ function AddNewFile() {
                 variant="outlined"
               />
               <TextField id="outlined-basic" label="Ca sĩ" variant="outlined" />
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
+              <img
+                src={`${editSong.image}?w=100&h=100&fit=crop&auto=format`}
+                alt={`${editSong.name}`}
+                loading="lazy"
               />
               <TextField
                 id="outlined-select-currency"
