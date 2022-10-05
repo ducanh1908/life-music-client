@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {fetchSong, searchSong} from '../../redux/songSlice/songSlice';
-import GuestFooter from './../GuestFooter/GuestFooter';
 import SearchNavBar from "../GuestNavbar/SearchNavBar";
+import Footer from "../Footer/Footer";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 
@@ -38,6 +38,7 @@ const SongSinger = styled.span`
 const Search = () => {
     const dispatch = useDispatch();
     const songs = useSelector(state => state.song.songs)
+    console.log(songs)
     const [term,setTerm] = useState('');
     // console.log(songs.filter(song => song.name.toLowerCase().includes(term)))
     // const handleSubmit = (event) => {
@@ -97,7 +98,7 @@ const Search = () => {
                         </SongItem>
                     ))
             }
-            <GuestFooter />
+            <Footer />
         </Container>
     )
 }

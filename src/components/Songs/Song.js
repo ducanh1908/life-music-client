@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { fetchSong } from '../../redux/songSlice/songSlice';
-import GuestFooter from './../GuestFooter/GuestFooter';
 import SearchNavBar from "../GuestNavbar/SearchNavBar";
 import {searchSongApi} from "../../service/searchService";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import Footer from "../Footer/Footer";
 
 
 const Container = styled.div`
@@ -127,7 +127,7 @@ const Song = () => {
             </SongItem>       
             ))
           }
-          <GuestFooter />
+          <Footer />
     </Container>
   )
 }

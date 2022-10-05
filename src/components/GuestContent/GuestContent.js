@@ -7,8 +7,8 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
-import GuestFooter from "../GuestFooter/GuestFooter";
 import {useDispatch} from "react-redux";
+import Footer from "../Footer/Footer";
 import {fetchSong,searchSong} from "../../redux/songSlice/songSlice";
 import SearchNavBar from "../GuestNavbar/SearchNavBar";
 const Item = styled(Paper)(({ theme }) => ({
@@ -221,9 +221,7 @@ const GuestContent = () => {
     {/*    </PlaylistItem>*/}
     {/*  </Playlist>*/}
     </Categories>
-         
-         
-      <GuestFooter />
+      <Footer />
       </Wrapper>
     </Container>
   );
