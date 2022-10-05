@@ -28,6 +28,11 @@ export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload
   return data.songs;
 });
 
+export const deleteSongById = createAsyncThunk('song/deleteSong', async (payload) => {
+  const data = await songApi.deleteSong(payload);
+  return data
+})
+
 ;
 const songSlice = createSlice({
   name: "song",

@@ -1,17 +1,19 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "./firebase";
 import { React, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 import {
   getUploadedSongs,
   uploadSong,
+  deleteSongById,
   upSong,
 } from "../../redux/songSlice/songSlice";
-import { storage } from "./firebase";
 
 import "./uploadfile.css";
 import styled from "styled-components";
 import $ from "jquery";
+
 
 function AddNewFile() {
   const [fileUpload, setFileUpload] = useState(null);
@@ -25,8 +27,6 @@ function AddNewFile() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const dispatch = useDispatch();
-
-  
 
   const getUploadSongs = (isSongUploadedSuccess) => {
     if (isSongUploadedSuccess) {
@@ -50,7 +50,7 @@ function AddNewFile() {
               file: url,
               duration: duration,
             });
-            console.log("duration", duration);
+            console.log("duration ", duration);
           });
         });
       });
@@ -58,23 +58,43 @@ function AddNewFile() {
       dispatch(uploadSong(newSong));
       getUploadSongs(isSongUploadedSuccess);
     } catch (err) {
-      console.log(err.message);
+      console.log('uploadFile', err.message);
     }
   };
 
   const getDuration = (src) => {
-    return new Promise(function (resolve) {
-      var audio = new Audio();
-      $(audio).on("loadedmetadata", function () {
-        resolve(audio.duration);
+    try {
+      return new Promise(function (resolve) {
+        var audio = new Audio();
+        $(audio).on("loadedmetadata", function () {
+          resolve(audio.duration);
+        });
+        audio.src = src;
       });
-      audio.src = src;
-    });
+    } catch (err) {
+      console.log('getDuration ', err.message)
+    }
   };
+
+  const deleleSong = (songId) => {
+    try {
+      dispatch(deleteSongById(songId))
+    } catch (err) {
+      console.log('deleleSong ', err.message)
+    }
+  }
 
   useEffect(() => {
     dispatch(getUploadedSongs({ _id: user._id }));
   }, []);
+
+  $("select").mouseup(function() {
+    var open = $(this).data("isopen");
+    if(open) {
+        alert('hello');
+    }
+    $(this).data("isopen", !open);
+});
 
   const Container = styled.div`
     background-color: #7a7a7a;
@@ -85,8 +105,8 @@ function AddNewFile() {
   `;
   return (
     <Container>
-      <div class="scrollbar" id="style-1">
-        <div class="image-upload">
+      <div className="scrollbar" id="style-1">
+        <div className="image-upload">
           <label htmlFor="file-input">
             <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
           </label>
@@ -95,6 +115,7 @@ function AddNewFile() {
             type="file"
             onChange={(event) => {
               setFileUpload(event.target.files[0]);
+            
             }}
           />
         </div>
@@ -106,6 +127,7 @@ function AddNewFile() {
               <th colSpan={2}>Bài hát</th>
               <th colSpan={3}></th>
               <th>Thời gian</th>
+              <th>Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -118,18 +140,24 @@ function AddNewFile() {
                   <td>{song.name}</td>
                   <td></td>
                   <td>
-                    <select id="cars">
+                    <select>
                       <option value={{status: 2}}>Public</option>
                       <option value={{status: 1}}>Private</option>
                     </select>
                   </td>
                   <td></td>
                   <td>{song.duration}</td>
+                  <td>
+                    <select id={"select"}>
+                      <option value={"1"}>Thêm bài hát vào playlist</option>
+                      <option value={"2"}>Xóa bài hát</option>
+                    </select>
+                  </td>
                 </tr>
               ))}
           </tbody>
         </table>
-        <div class="force-overflow"></div>
+        <div className="force-overflow"></div>
       </div>
     </Container>
   );
