@@ -16,6 +16,10 @@ const playlistApi = {
     getPlaylistById(data) {
         const url = `/playlist/${data}`
         return apiClient.get(url,data);
+    },
+    updatePlaylist(id,data) {
+        const url = `/playlist/${id}`
+        return apiClient.patch(url,data);
     }
 
 }

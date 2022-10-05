@@ -1,12 +1,13 @@
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
-import LinearProgress from "@mui/material/LinearProgress";
-import React, { useState } from 'react';
-import { useForm } from "react-hook-form";
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
-import Button from "../Button/button";
-import InputField from "../FormControler/InputField/InputField";
+import { Button } from "@mui/material";
+import {useDispatch} from "react-redux";
+import {updatePlaylist} from "../../redux/playlistSlice/currentPlaylist";
+import {unwrapResult} from "@reduxjs/toolkit";
+import {useSnackbar} from "notistack";
 const Container=styled.div`
   width: 30rem;
   min-height: 30rem;
@@ -98,45 +99,49 @@ const Logo=styled.div`
   padding: 10px;
   
 `
-const PlaylistModel = ({ closeModel, playlist }) => {
-    const [data, setData] = useState({
-        name: "",
-        desc: "",
-        img: "",
-    });
+const PlaylistModel = ({ closeModel, playlist,id }) => {
     const [avatar, setAvatar] = useState('');
-    const [isFetching, setIsFetching] = useState(false);
-    const form = useForm({
-        defaultValues: {
-            fullname: '',
-            email: '',
-            address: '',
-            phone: '',
-        },
-        // resolver: yupResolver(schema),
-    });
+    const initState = {name: '', description: ''}
+    const [playlistData, setPlaylistData] = useState(initState)
+    const {name, description} = playlistData;
+    const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+    useEffect(()=>{
+        setPlaylistData(playlist)
+    },[playlist])
+
     const changeAvatar = (e) => {
         const file = e.target.files[0]
         setAvatar(file)
     }
-    const { isSubmitting } = form.formState;
+    const handleInput = e => {
+        const {name, value} = e.target
+        setPlaylistData({...playlistData, [name]: value})
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const action = await updatePlaylist({id,avatar,name,description})
+            const resultAction = await dispatch(action);
+            const user = unwrapResult(resultAction);
+            enqueueSnackbar('Cập nhật thành công', {variant: "success"});
+        } catch (error) {
+            console.log(error);
+            enqueueSnackbar(error.message, {variant: "error"});
+        }
+    };
+
     return (
         <Container>
             <IconButton className={'close_btn'} onClick={closeModel}>
                 <CloseIcon />
             </IconButton>        
             <Form>
-                <form  className="form-input">
-                    {isSubmitting && (
-                        <LinearProgress
-                            sx={{width:'100%',color: "grey.500" }}
-                            color="secondary"
+                <form onSubmit={handleSubmit} className="form-input">
 
-                        />
-                    )}
                     <Logo>
                         <InforAvatar>
-                            <InfoImg src={avatar ? URL.createObjectURL(avatar) : ''}
+                            <InfoImg src={avatar ? URL.createObjectURL(avatar) : playlist.image}
                                      style={{filter:'invert(0)'}}
                                      alt="avatar" />
                             <InforSpan >
@@ -151,14 +156,15 @@ const PlaylistModel = ({ closeModel, playlist }) => {
                        
                     </Logo>
 
-                    <InputField name="name" label="Nhập tên playlist" form={form}/>
+                    <label>Nhập tên playlist</label>
+                    <input type={'text'} name={'name'} value={name} onChange={handleInput}/>
 
-                    <InputField name="desc" label="Nhập mô tả" form={form} />
-             
-                 <Button sx={{ mt:5,p:2,width:'50%' ,borderRadius:'500px', color:"#fff"}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
+                    <label>Nhập mô tả</label>
+                    <input name={'description'} type={'text'} value={description} onChange={handleInput}/>
+
+                 <Button sx={{ mt:5,p:2,width:'50%' ,borderRadius:'500px', color:"black"}} type="submit"  variant="contained" color="inherit">
                       Lưu
                   </Button>
-                   
                 </form>
             </Form>
         </Container>

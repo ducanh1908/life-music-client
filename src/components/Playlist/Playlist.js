@@ -138,12 +138,10 @@ align-items: flex-start;
 const Playlist = () => {
   const { id } = useParams();
   const [list, setPlaylist] = useState({});
-  console.log(id);
 
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
-  console.log(currentPlaylist);
   const [model, setModel] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -161,6 +159,7 @@ const Playlist = () => {
               <PlaylistInfo>
                 <PlaylistTitle>Playlist</PlaylistTitle>
                 <PlaylistName>{currentPlaylist.name}</PlaylistName>
+                <span>{currentPlaylist.description}</span>
 
               </PlaylistInfo>
 
@@ -210,7 +209,7 @@ const Playlist = () => {
           </div>
         </Body>
         {model && (
-          <PlaylistModel closeModel={() => setModel(false)} playlist={list} />
+          <PlaylistModel closeModel={() => setModel(false)} playlist={currentPlaylist} id={id} />
         )}
       </Fragment>
     </Container>
