@@ -34,10 +34,10 @@ const playlistSlice = createSlice({
   },
   extraReducers : {
     [createPlaylist.fulfilled] : (state, action) => {
-      state.playlist = action.payload;
+      state.playlists = action.payload;
     },
     [fetchPlaylist.fulfilled] : (state, action) => {
-        state.playlist = action.payload
+        state.playlists = action.payload
   },
 
 }
