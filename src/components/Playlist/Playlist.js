@@ -169,7 +169,6 @@ const Playlist = () => {
     dispatch(getPlaylistById(id));
   }, [id]);
 
-
   return (
     <Container>
       <Fragment>
