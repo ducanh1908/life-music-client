@@ -22,9 +22,9 @@ export const addSongToPlaylist = createAsyncThunk("/playlist/add-song", async(pa
 })
 
 export const removeSongFromPlaylist = createAsyncThunk("/playlist/remo-song", async(payload)=> {
-  // const{songId,playlistId} = payload.payload
-  // const data = await playlistApi.addSongPlaylist(songId,playlistId);
-  // return data;
+  const{playlistId,songId} = payload.payload
+  const data = await playlistApi.removeSongPlaylist(playlistId,songId);
+  return data;
 })
 
 export const updatePlaylist = createAsyncThunk("/playlist/id", async(payload)=> {
@@ -61,8 +61,11 @@ const currentPlaylistSlice = createSlice({
     },
     [addSongToPlaylist.fulfilled] : (state, action) => {
       state.playlist = action.payload
-    },  [getSongToPlaylist.fulfilled] : (state, action) => { 
-
+    },
+    [getSongToPlaylist.fulfilled] : (state, action) => {
+      state.playlistAdmin = action.payload;
+    },
+    [removeSongFromPlaylist.fulfilled] : (state, action) => {
       state.playlistAdmin = action.payload;
     },
 }

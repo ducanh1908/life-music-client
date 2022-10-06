@@ -158,9 +158,9 @@ const PlaylistAdmin = () => {
     (state) => state.currentPlaylist.playlist
   );
   const currentSong = useSelector(
-    (state) => state.currentPlaylist.playlistAdmin);
+    (state) => state.currentPlaylist.playlistAdmin
+  );
 
-  console.log(currentSong)
   const [model, setModel] = useState(false);
 
   const dispatch = useDispatch();

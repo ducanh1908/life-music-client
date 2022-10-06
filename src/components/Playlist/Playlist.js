@@ -8,8 +8,14 @@ import PlaylistModel from "./PlaylistModel";
 import { useDispatch, useSelector } from "react-redux";
 import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
 import { useParams } from "react-router";
-import { getPlaylistById } from "../../redux/playlistSlice/currentPlaylist";
+import {
+  getPlaylistById,
+  getSongToPlaylist,
+  removeSongFromPlaylist
+} from "../../redux/playlistSlice/currentPlaylist";
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
+import {unwrapResult} from "@reduxjs/toolkit";
+import {useSnackbar} from "notistack";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -150,25 +156,36 @@ const Playlist = () => {
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
+  const currentSong = useSelector(
+      (state) => state.currentPlaylist.playlistAdmin
+  );
+  console.log(currentSong)
   const [model, setModel] = useState(false);
-
+  const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
   const handleDeletePlaylist = async () => {
     // const res = await deletePlayList(playlist._id, dispatch);
     // if (res) history.push("/home");
   };
   const handleRemoveSong = async (songId) => {
-    // const originalSongs = [...songs];
-    // const payload = { playlistId: currentPlaylist._id, songId };
-    // const filterSongs = originalSongs.filter((song) => song._id !== songId);
-    // setSongs(filterSongs);
-    // const res = await removeSongFromPlaylist(payload, dispatch);
-    // !res && setSongs(originalSongs);
+    const payload = { playlistId: currentPlaylist._id, songId };
+    try {
+      const action = await removeSongFromPlaylist({payload})
+      const resultAction = await dispatch(action);
+      const user = unwrapResult(resultAction);
+      enqueueSnackbar('Xoá bài hát khỏi playlist thành công', {variant: "success"});
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error.message, {variant: "error"});
+    }
+
   };
   useEffect(() => {
     dispatch(getPlaylistById(id));
   }, [id]);
-
+  useEffect(()=> {
+    dispatch(getSongToPlaylist(id))
+  },[id]);
 
   return (
     <Container>
@@ -210,6 +227,15 @@ const Playlist = () => {
               <AccessTimeIcon />
             </div>
           </div>
+          {currentSong && currentSong.map((song) => (
+              <Fragment key={song._id}>
+                <SongPlaylist
+                    song={song}
+                    currentPlaylist={currentPlaylist}
+                    handleRemoveSong={handleRemoveSong}
+                />
+              </Fragment>
+          ))}
           <hr/>
           <h3>Đề Xuất</h3>
           {songs.map((song) => (
