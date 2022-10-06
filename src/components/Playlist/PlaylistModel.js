@@ -1,17 +1,15 @@
-import React, {useState} from 'react';
-import styled from "styled-components";
-import { IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import Button from "../Button/button";
-import LinearProgress from "@mui/material/LinearProgress";
-import InputField from "../FormControler/InputField/InputField";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import CloseIcon from "@mui/icons-material/Close";
+import { IconButton } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
+import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
+import styled from "styled-components";
+import Button from "../Button/button";
+import InputField from "../FormControler/InputField/InputField";
 const Container=styled.div`
-  width: 40rem;
-  min-height: 40rem;
-  //background-color: var(--light-black);
+  width: 30rem;
+  min-height: 30rem;
   background-color: grey;
   border-radius: 1rem;
   position: fixed;
@@ -126,50 +124,8 @@ const PlaylistModel = ({ closeModel, playlist }) => {
         <Container>
             <IconButton className={'close_btn'} onClick={closeModel}>
                 <CloseIcon />
-            </IconButton>
-            {/*<div className={'form_container'}>*/}
-            {/*    <h1>Edit Details</h1>*/}
-            {/*    <div className={'input_container'}>*/}
-            {/*        kakaka*/}
-            {/*        /!*<TextField*!/*/}
-            {/*        /!*    label="Name"*!/*/}
-            {/*        /!*    name="name"*!/*/}
-            {/*        /!*    // value={data.name}*!/*/}
-            {/*        /!*    // handleInputState={handleInputState}*!/*/}
-                    {/*/>*/}
-            {/*    </div>*/}
-            {/*    <div className={'input_container'}>*/}
-            {/*        hihii*/}
-            {/*        /!*<TextField*!/*/}
-            {/*        /!*    label="Description"*!/*/}
-            {/*        /!*    // name="desc"*!/*/}
-            {/*        /!*    // handleInputState={handleInputState}*!/*/}
-                    {/*/>*/}
-            {/*    </div>*/}
-            {/*    <div className={'input_container'}>*/}
-            {/*        hahaha*/}
-            {/*        /!*<FileInput*!/*/}
-            {/*        /!*    label="Choose Image"*!/*/}
-            {/*        /!*    type="image"*!/*/}
-            {/*        /!*    name="img"*!/*/}
-            {/*        /!*    // value={data.img === "" ? defaultImg : data.img}*!/*/}
-            {/*        /!*    // handleInputState={handleInputState}*!/*/}
-            {/*        />*/}
-            {/*    </div>*/}
-            {/*    <Button*/}
-            {/*        label="Submit"*/}
-            {/*        // onClick={handleSubmit}*/}
-            {/*        isFetching={isFetching}*/}
-            {/*        style={{*/}
-            {/*            position: "absolute",*/}
-            {/*            bottom: "0",*/}
-            {/*            right: "0",*/}
-            {/*            margin: "1rem",*/}
-            {/*        }}*/}
-            {/*    />*/}
-            {/*</div>*/}
+            </IconButton>        
             <Form>
-
                 <form  className="form-input">
                     {isSubmitting && (
                         <LinearProgress
@@ -192,17 +148,17 @@ const PlaylistModel = ({ closeModel, playlist }) => {
                                        accept="image/*" onChange={changeAvatar}/>
                             </InforSpan>
                         </InforAvatar>
-                        {/*<Button variant='contained' color="secondary" type="submit"  >Lưu</Button>*/}
+                       
                     </Logo>
 
-                    <InputField name="fullname" label="Nhập Họ tên" form={form}/>
+                    <InputField name="name" label="Nhập tên playlist" form={form}/>
 
-                    <InputField name="email" label="Nhập email của bạn" form={form} />
-                    <InputField name="address" label="Nhập địa chỉ của bạn"form={form} />
-                    <InputField name="phone" label="Nhập số điện thoại" form={form} />
-                    <Button sx={{ mt:5,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
-                        Lưu
-                    </Button>
+                    <InputField name="desc" label="Nhập mô tả" form={form} />
+             
+                 <Button sx={{ mt:5,p:2,width:'50%' ,borderRadius:'500px', color:"#fff"}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
+                      Lưu
+                  </Button>
+                   
                 </form>
             </Form>
         </Container>

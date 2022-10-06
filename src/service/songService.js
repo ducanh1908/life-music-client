@@ -13,6 +13,18 @@ const songApi = {
     uploadedSongs(data) {
         const url = '/song/uploaded';
         return apiClient.get(url, data)
+    },
+    getSongById(data) {
+        const url = `/song/${data}`;
+        return apiClient.get(url, data)
+    },
+    deleteSong(data) {
+        const url = `/song/${data}`;
+        return apiClient.delete(url)
+    },
+    getCate() {
+        const url = `/cate`;
+        return apiClient.get(url)
     }
 
 }

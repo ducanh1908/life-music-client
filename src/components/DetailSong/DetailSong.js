@@ -20,11 +20,14 @@ function Details(props) {
  
     return (
         <Container className="c-player--details">
-            <div className="details-img">
-              <SongImage src={props.song.image} alt="" />
-            </div>
-            <SongName className="details-title">{props.song.name}</SongName>
-            <SongSinger className="details-artist">{props.song.author}</SongSinger>
+           { props.song && ( <>
+             <div className="details-img">
+             <SongImage src={props.song.image} alt="" />
+           </div>
+           <SongName className="details-title">{props.song.name}</SongName>
+           <SongSinger className="details-artist">{props.song.author}</SongSinger>
+           </>
+           )}
         </Container>
     )
 }
