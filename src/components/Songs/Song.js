@@ -127,7 +127,6 @@ const Song = () => {
             </SongItem>       
             ))
           }
-          <Footer />
     </Container>
   )
 }

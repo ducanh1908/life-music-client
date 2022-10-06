@@ -128,12 +128,10 @@ const GuestSide = () => {
     resolver: yupResolver(schema),
   });
   
-  useEffect(()=> {
-    dispatch(fetchPlaylist)
-  },[])
+
   useEffect(()=> {
     dispatch(getPlaylistByUserId(user._id))
-  },[getPlaylistByUserId(user._id)])
+  },[])
 
 const handleSubmit = async (data) => {
   

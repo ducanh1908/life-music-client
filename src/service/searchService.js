@@ -1,8 +1,8 @@
 import apiClient from './apiClient';
 const searchSongApi = {
     searchSong(data) {
-        const url = 'song/search/:key';
-        return apiClient.get(url, data)
+        const url = `song/search/${data}`;
+        return apiClient.get(url)
     }
 }
 export default searchSongApi;

@@ -126,7 +126,7 @@ const Playlist = () => {
                />
                <div className={'playlist_info'}>
                    <p>Playlist</p>
-                   <h1>quyen</h1>
+                   <h1>{playlist.name}</h1>
                    <span>ngon</span>
                </div>
                <div className={'actions_container'}>

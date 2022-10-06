@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router';
 import {Link, NavLink} from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
-import {fetchSong} from "../../redux/songSlice/songSlice";
-import {searchSongApi} from "../../service/searchService";
+import {fetchSong, searchSong} from "../../redux/songSlice/songSlice";
 import SearchNavBar from "./SearchNavBar";
+import {searchPlaylist} from "../../redux/playlistSlice/playlistSlice";
+import {useEffect} from "react"
 const Container = styled.div`
 
   grid-column-gap: 10px;
@@ -106,12 +107,15 @@ const GuestNavbar = () => {
     dispatch(logout());
     navigate('/login');
   }
+
   const songs = useSelector(state => state.song.songs)
   const [term,setTerm] = useState('');
-    const onChange = (e) => {
-        console.log(e.target.value);
+
+    const handleChange = (e) => {
+         setTerm(e.target.value);
+        dispatch(searchSong(term));
+        dispatch(searchPlaylist(term));
     }
-    // console.log(songs.filter(song => song.name.toLowerCase().includes(term)))
   // const handleSubmit = (event) => {
   //     event.preventDefault();
   //     if(term === '') return alert('Please enter search term')
@@ -133,24 +137,10 @@ const GuestNavbar = () => {
             <SearchOutlinedIcon />
           </SearchButton >
           <Input placeholder="Bạn muốn nghe gì..."
-                 onChange = {e => setTerm(e.target.value)}
+                 onChange = {handleChange}
           />
             </NavLink>
         </HomeForm>
-
-          {/*<div className="search-bar">*/}
-          {/*    <form onSubmit={handleSubmit}>*/}
-          {/*        <input*/}
-          {/*            type="text"*/}
-          {/*            value={term}*/}
-          {/*            placeholder="Search Movies or Shows"*/}
-          {/*            onChange={(e) => setTerm(e.target.value)}*/}
-          {/*        />*/}
-          {/*        <button type="submit">*/}
-          {/*            <i className="fa fa-search"></i>*/}
-          {/*        </button>*/}
-          {/*    </form>*/}
-          {/*</div>*/}
       </Center>
       <Right>
         <Stack direction="row" spacing={2}>

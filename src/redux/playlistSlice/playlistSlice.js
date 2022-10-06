@@ -19,7 +19,7 @@ export const createPlaylist = createAsyncThunk(`/playlist`, async (payload) => {
     return data.playlists;
   });
 
-export const fetchPlaylist = createAsyncThunk("/playlist", async (payload) => {
+export const fetchPlaylist = createAsyncThunk("/playlists", async (payload) => {
   const data = await playlistApi.getAllPlaylist();
   return data.playlists;
 });
@@ -28,7 +28,12 @@ export const getPlaylistByUserId = createAsyncThunk("/playlist/userid", async (p
   const data = await playlistApi.getPlaylistByUserId(payload);
   return data.playlists;
 });
-
+export const searchPlaylist = createAsyncThunk(
+    "/playlist/search",
+    async (payload) => {
+      const res = await playlistApi.searchPlaylist(payload);
+      return res
+    })
 const playlistSlice = createSlice({
   name: "playlist",
   initialState,
@@ -43,6 +48,10 @@ const playlistSlice = createSlice({
   },
     [getPlaylistByUserId.fulfilled] : (state, action) => {
       state.playlist = action.payload
+    },
+    [searchPlaylist.fulfilled] : (state, action) => {
+        state.playlists = action.payload.playlists.length>0 ? action.payload.playlists : state.playlists
+        console.log(state.playlists);
     }
 }
 });

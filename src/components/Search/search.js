@@ -5,6 +5,7 @@ import {fetchSong, searchSong} from '../../redux/songSlice/songSlice';
 import SearchNavBar from "../GuestNavbar/SearchNavBar";
 import Footer from "../Footer/Footer";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import {fetchPlaylist, searchPlaylist} from "../../redux/playlistSlice/playlistSlice";
 
 
 const Container = styled.div`
@@ -38,9 +39,7 @@ const SongSinger = styled.span`
 const Search = () => {
     const dispatch = useDispatch();
     const songs = useSelector(state => state.song.songs)
-    console.log(songs)
-    const [term,setTerm] = useState('');
-    // console.log(songs.filter(song => song.name.toLowerCase().includes(term)))
+    const playlists = useSelector(state => state.playlist.playlist);
     // const handleSubmit = (event) => {
     //   event.preventDefault();
     //   if(term === '') return alert('Please enter search term')
@@ -62,14 +61,15 @@ const Search = () => {
     }, [currentSongIndex]);
 
     useEffect(() => {
-
-        dispatch(fetchSong())
-
+        dispatch(fetchSong());
+        dispatch(fetchPlaylist());
     },[])
 
-    useEffect((searchInput) => {
-        dispatch(searchSong('a'))
-    },[])
+    useEffect(() => {
+        console.log({playlists});
+    },)
+
+
     const handlePlay =(idSong) => {
         // console.log(idSong)
     }
@@ -88,17 +88,28 @@ const Search = () => {
 
             {/*{*/}
             {/*    songs.filter(song => song.name.toLowerCase().includes(term))*/}
-            {songs.map((song, index)=> (
+            <div>
 
-                        <SongItem key={index} onClick= {() => handlePlay(index)}>
-                            <p>{index + 1}</p>
-                            <SongImage  src={song.image}/>
-                            <SongName>{song.name}</SongName>
-                            <a href={song.file} >link</a>
-                        </SongItem>
-                    ))
-            }
-            <Footer />
+                {songs.map((song, index)=> (
+
+                    <SongItem key={index} onClick= {() => handlePlay(index)}>
+                        <p>{index + 1}</p>
+                        <SongImage  src={song.image}/>
+                        <SongName>{song.name}</SongName>
+                        <a href={song.file} >link</a>
+                    </SongItem>
+                ))
+                }
+            </div>
+            <div>
+                {playlists.map((playlist, index)=> (
+                    <SongItem key={index} >
+                        <p>{index + 1}</p>
+                        <SongImage  src={playlist.image}/>
+                        <SongName>{playlist.name}</SongName>
+                    </SongItem>
+                ))}
+            </div>
         </Container>
     )
 }

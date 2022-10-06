@@ -28,13 +28,10 @@ export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload
   return data.songs;
 });
 export const searchSong = createAsyncThunk(
-    '/song/search/:key',
-    async (data) => {
-      console.log(1)
-      const res = await searchSongApi.searchSong();
-      console.log(res.data)
-      console.log(2)
-      return res.data;
+    '/song/search',
+    async (term) => {
+      const res = await searchSongApi.searchSong(term);
+      return res;
 } )
 
 const songSlice = createSlice({
@@ -73,19 +70,10 @@ const songSlice = createSlice({
     },
     [searchSong.fulfilled] : (state, action) => {
       state.search = action.payload;
-      // state.loading = false;
+      state.songs = action.payload.length >0 ? action.payload : state.songs;
     }
   }
-//   extraReducers : (builder) => {
-//     builder.addCase(fetchSong.fulfilled,(state, action) => {
-//       state.songs = action.payload;
-//     })
-//         .addCase(searchSongApi.fulfilled,(state, action) => {
-//           state.songs = state.songs.filter((song) =>{
-//
-//           })
-//         })
-//   }
+
 });
 
 const { reducer, actions } = songSlice;

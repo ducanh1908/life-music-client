@@ -11,6 +11,8 @@ import {useDispatch} from "react-redux";
 import Footer from "../Footer/Footer";
 import {fetchSong,searchSong} from "../../redux/songSlice/songSlice";
 import SearchNavBar from "../GuestNavbar/SearchNavBar";
+import {NavLink} from "react-router-dom";
+import {fetchPlaylist} from "../../redux/playlistSlice/playlistSlice";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#3a3a3a",
   ...theme.typography.body2,
@@ -109,42 +111,42 @@ color: #a7a7a7;
 const GuestContent = () => {
   const dispatch = useDispatch();
   const [term,setTerm] =useState('')
-  // useEffect(() =>{
-  //   dispatch(fetchSong());
-  //   dispatch(searchSong());
-  // },[dispatch])
+  useEffect(() =>{
+    dispatch(fetchSong());
+  },[])
+
+  const playlists = useSelector((state) => state.playlist.playlist)
   let songs = useSelector(state => state.song.songs)
   // const today = new Date();
   // const  time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   return (
     <Container>
       <Wrapper>
-        <Top>    
-          <TopTitle>Chào buổi sáng</TopTitle>
-          <Box sx={{ flexGrow: 1, marginTop:2 }}>
-            <Grid container spacing={2} >
-              <Grid item xs={4}>
-                <Item >
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                  <PlayArrowRoundedIcon />
-                </Item>
-              </Grid>
-            </Grid>
+          <Top>
+
+              <TopTitle>Chào buổi sáng</TopTitle>
+              <Box sx={{ flexGrow: 1, marginTop:2 }}>
+          <Grid container spacing={2} >
+            {songs.map((song,index) => (
+                <Grid item xs={4} key = {index}>
+          <Item >
+          <ListMeImg src={song.image} />
+          <ListMeTitle>{song.name}</ListMeTitle>
+          <PlayArrowRoundedIcon />
+          </Item>
+          </Grid>
+            ))}
+          </Grid>
           </Box>
-          <ListMe></ListMe>
-        </Top>
+
+            <ListMe></ListMe>
+
+          </Top>
     <Categories >
-      <TopTitle>Chào buổi sáng</TopTitle>
-      {songs.map((song,index) => (
-          <Playlist key ={index} >
-            <PlaylistItem href="/detail-playlist">
-              <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>
-              <PlaylistTitle> {song.name}</PlaylistTitle>
-              <PlaylistSinger>{song.author}</PlaylistSinger>
-            </PlaylistItem>
-          </Playlist>
-      ))}
+
+
+      {/*<TopTitle>Chào buổi sáng</TopTitle>*/}
+
 
     {/*    <PlaylistItem>*/}
     {/*      <PlaylistImage  src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default"/>*/}
@@ -221,7 +223,6 @@ const GuestContent = () => {
     {/*    </PlaylistItem>*/}
     {/*  </Playlist>*/}
     </Categories>
-      <Footer />
       </Wrapper>
     </Container>
   );
