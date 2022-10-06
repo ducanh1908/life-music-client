@@ -7,7 +7,8 @@ import {
   getUploadedSongs,
   uploadSong,
   deleteSongById,
-  upSong,
+  loading,
+  changeDeleteSongStatus,
 } from "../../redux/songSlice/songSlice";
 
 import "./uploadfile.css";
@@ -22,6 +23,10 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { getCategories } from "../../redux/cateSlice/cateSlice";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 const style = {
   position: "absolute",
@@ -41,31 +46,31 @@ function AddNewFile() {
   const [editSong, setEditSong] = useState({});
   const [open, setOpen] = React.useState(false);
   const [updateSong, setUpdateSong] = React.useState({});
+  const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   let { uploadSongs, status, deleteSongStatus } = useSelector(
     (state) => state.song
   );
   console.log("uploadSongs", uploadSongs);
   let categories = useSelector((state) => state.cate.categories);
-  console.log("categories", categories);
 
-  let isSongUploadedSuccess =
-    "success" === useSelector((state) => state.song.status);
-  const user = JSON.parse(localStorage.getItem("user"));
+  // let isSongUploadedSuccess =
+  //   "success" === useSelector((state) => state.song.status);
 
-  const dispatch = useDispatch();
 
-  const getUploadSongs = (isSongUploadedSuccess) => {
-    if (isSongUploadedSuccess) {
-      dispatch(getUploadedSongs({ _id: user._id }));
-    } else {
-      console.log("tai bai hat that bai");
-    }
-  };
+  // const getUploadSongs = (isSongUploadedSuccess) => {
+  //   if (isSongUploadedSuccess) {
+  //     dispatch(getUploadedSongs({ _id: user._id }));
+  //   } else {
+  //     console.log("tai bai hat that bai");
+  //   }
+  // };
 
   const uploadFile = async () => {
     try {
       if (fileUpload == null) return;
+      dispatch(loading("loading"));
       const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
       await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
         await getDownloadURL(snapshot.ref).then(async (url) => {
@@ -77,17 +82,17 @@ function AddNewFile() {
               file: url,
               duration: duration,
             });
-            console.log("duration ", duration);
           });
         });
       });
       // dispatch(upSong(newSong));
-      dispatch(uploadSong(newSong));
-      getUploadSongs(isSongUploadedSuccess);
+      // dispatch(uploadSong(newSong));
     } catch (err) {
       console.log("uploadFile", err.message);
     }
   };
+
+  
 
   const getDuration = (src) => {
     try {
@@ -109,6 +114,7 @@ function AddNewFile() {
     try {
       if (window.confirm("Press a button!") === true) {
         dispatch(deleteSongById(songId));
+        dispatch(changeDeleteSongStatus('idle'));
       }
     } catch (err) {
       console.log("deleleSong ", err.message);
@@ -142,21 +148,38 @@ function AddNewFile() {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
+    dispatch(uploadSong(newSong));
+  }, [newSong]);
+
+  useEffect(() => {
     dispatch(getCategories());
     dispatch(getUploadedSongs({ _id: user._id }));
   }, [status !== "idle", deleteSongStatus == "success"]);
 
   const Container = styled.div`
+    @font-face {
+      font-family: "MyWebFont";
+      src: url("webfont.eot"); /* IE9 Compat Modes */
+      src: url("webfont.eot?#iefix") format("embedded-opentype"),
+        /* IE6-IE8 */ url("webfont.woff2") format("woff2"),
+        /* Super Modern Browsers */ url("webfont.woff") format("woff"),
+        /* Pretty Modern Browsers */ url("webfont.ttf") format("truetype"),
+        /* Safari, Android, iOS */ url("webfont.svg#svgFontName") format("svg"); /* Legacy iOS */
+    }
+
     background-color: #7a7a7a;
 
     .image-upload > input {
       display: none;
     }
   `;
+  const change = (e) => {
+    setFileUpload(e.target.files[0]);
+  };
   return (
     <Container>
       <div className="scrollbar" id="style-1">
-        <div className="image-upload">
+        {/* <div className="image-upload">
           <label htmlFor="file-input">
             <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
           </label>
@@ -167,8 +190,34 @@ function AddNewFile() {
               setFileUpload(event.target.files[0]);
             }}
           />
+        </div> */}
+        {/* <button onClick={uploadFile}>Upload</button> */}
+        <div>
+          <Button
+            variant="contained"
+            component="label"
+            onChange={(event) => {
+              setFileUpload(event.target.files[0]);
+            }}
+          >
+            Chọn tệp
+            <input hidden accept="file/*" multiple type="file" />
+          </Button>
+          {status == "loading" ? (
+            <LoadingButton
+              loading
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="outlined"
+            >
+              Loading...
+            </LoadingButton>
+          ) : (
+            <Button variant="contained" onClick={uploadFile}>
+              Up tệp
+            </Button>
+          )}
         </div>
-        <button onClick={uploadFile}>Upload</button>
         <h1>Tải bài hát lên</h1>
         <table>
           <thead>
