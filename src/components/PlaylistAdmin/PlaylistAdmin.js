@@ -8,12 +8,14 @@ import PlaylistModel from "../Playlist/PlaylistModel";
 import { useDispatch, useSelector } from "react-redux";
 // import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
 import { useParams } from "react-router";
-import { getPlaylistById } from "../../redux/playlistSlice/currentPlaylist";
+import { getPlaylistById , getSongToPlaylist} from "../../redux/playlistSlice/currentPlaylist";
+
 
 const Container = styled.div`
   background-color: whitesmoke;
   position: relative;
   border-radius: 10px;
+  overflow: auto;
 `;
 const Head = styled.div`
   position: relative;
@@ -135,6 +137,18 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 `
+
+const Song = styled.div``
+
+const SongItem = styled.div``
+
+const SongName = styled.h1`
+
+`
+const SongImage = styled.img``
+
+const SongInfo = styled.div``
+
 const PlaylistAdmin = () => {
   const { id } = useParams();
   const [list, setPlaylist] = useState({});
@@ -143,6 +157,10 @@ const PlaylistAdmin = () => {
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
+  const currentSong = useSelector(
+    (state) => state.currentPlaylist.playlistAdmin);
+
+  console.log(currentSong)
   const [model, setModel] = useState(false);
 
   const dispatch = useDispatch();
@@ -151,6 +169,9 @@ const PlaylistAdmin = () => {
     dispatch(getPlaylistById(id));
   }, [id]);
 
+  useEffect(()=> {
+    dispatch(getSongToPlaylist(id))
+  },[]);
 
   return (
     <Container>
@@ -186,6 +207,20 @@ const PlaylistAdmin = () => {
             </div>
           </div>
         </Body>
+       <Song>
+
+        {
+           currentSong && currentSong.map((song)=>(
+            <SongItem>
+            <SongImage src={song.image} />
+            <SongName>{song.name}</SongName>
+          </SongItem>
+
+          ))
+        }
+        
+       
+       </Song>
         
       </Fragment>
     </Container>

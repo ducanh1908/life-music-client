@@ -3,7 +3,6 @@ import userApi from "./../../service/userService";
 import playlistApi from "./../../service/playlistService"
 
 
-
 const initialState = {
   playlists: [],
   loading: false
@@ -17,19 +16,19 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
 export const createPlaylist = createAsyncThunk(`/playlist`, async (payload) => {
   
     const data = await playlistApi.createPlaylist(payload);
-    return data.playlist;
+    return data.playlists;
   });
-// get playlist and user 
-export const fetchPlaylist = createAsyncThunk("/playlists/UserId", async (payload) => {
+
+export const getPlaylistAndUser = createAsyncThunk("/playlist", async (payload) => {
   const data = await playlistApi.getAllPlaylistUser(payload);
-  console.log(data.playlists)
-  return data.playlist;
+ 
+  return data.playlists;
 });
-// get all play list
+
 
 
 const playlistSlice = createSlice({
-  name: "playlists",
+  name: "playlist",
   initialState,
   reducers: { 
   },
@@ -37,10 +36,10 @@ const playlistSlice = createSlice({
     [createPlaylist.fulfilled] : (state, action) => {
       state.playlists = action.payload;
     },
-    [fetchPlaylist.fulfilled] : (state, action) => {
+    [getPlaylistAndUser.fulfilled] : (state, action) => {
         state.playlists = action.payload
   },
-  
+
 }
 });
 

@@ -18,6 +18,10 @@ const playlistApi = {
     getAllPlaylist(data) {
         const url = '/playlists'
         return apiClient.get(url, data);
+    },
+    getSongToPlaylist(data) {
+        const url = `/playlist-song/${data}`;
+        return apiClient.get(url, data);
     }
 
 }

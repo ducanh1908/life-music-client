@@ -18,7 +18,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
-import { createPlaylist, fetchPlaylist } from './../../redux/playlistSlice/playlistSlice';
+import { createPlaylist, getPlaylistAndUser } from './../../redux/playlistSlice/playlistSlice';
 
 const Container = styled.div`
   height: 100%;
@@ -127,7 +127,7 @@ const GuestSide = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const user = useSelector(state=> state.user.user);
-  const playlists = useSelector (state => state.playlist.playlist)
+  const playlists = useSelector (state => state.playlist.playlists)
   const { enqueueSnackbar } = useSnackbar();
   const form = useForm({
     defaultValues: {
@@ -138,8 +138,8 @@ const GuestSide = () => {
   });
   
   useEffect(()=> {
-    dispatch(fetchPlaylist(user._id))
-  },[playlists])
+    dispatch(getPlaylistAndUser(user._id))
+  },[])
 
 const handleSubmit = async (data) => {
   
