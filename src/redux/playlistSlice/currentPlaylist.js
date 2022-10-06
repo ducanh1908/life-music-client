@@ -17,9 +17,13 @@ export const getPlaylistById = createAsyncThunk("/playlist/id", async(payload)=>
 export const updatePlaylist = createAsyncThunk("/playlist/id", async(payload)=> {
 const {id,avatar,name,description}=payload
   let media;
-  if(avatar) media = await imageUpload([avatar])
-  let image = media[0].url
-  const data = await playlistApi.updatePlaylist(id,{image,name,description});
+  let image;
+  if (avatar) {
+    media = await imageUpload([avatar])
+    image = media[0].url
+  }
+
+  const data = await playlistApi.updatePlaylist(id, {image, name, description});
   return data;
 })
 

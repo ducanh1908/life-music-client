@@ -14,6 +14,13 @@ const Container = styled.div`
   background-color: whitesmoke;
   position: relative;
   border-radius: 10px;
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+    border-radius: 10px;
+    &-thumb {
+      background-color: rgba(255, 255, 255,0.6);
+    }
+  }
 `;
 const Head = styled.div`
   position: relative;
@@ -138,7 +145,7 @@ align-items: flex-start;
 const Playlist = () => {
   const { id } = useParams();
   const [list, setPlaylist] = useState({});
-
+  const songs = useSelector((state) => state.song.songs);
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
@@ -152,7 +159,6 @@ const Playlist = () => {
       <Fragment>
         {currentPlaylist && (
           <Head>
-            {/* <div className={"head_gradient"}></div> */}
 
             <Navbar>
               <Image  src={currentPlaylist.image}/>
@@ -174,24 +180,7 @@ const Playlist = () => {
 
 
             </Navbar>
-            {/* <img
-              src={currentPlaylist.image}
-              alt={"avatar"}
-              style={{ background: "#919496" }}
-            />
-            <div className={"playlist_info"}>
-              <p>Playlist</p>
-              <h1>{currentPlaylist.name}</h1>
-              <span>ngon</span>
-            </div>
-            <div className={"actions_container"}>
-              <IconButton onClick={() => setModel(true)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
-            </div> */}
+
           </Head>
         )}
         <Body>
@@ -207,6 +196,19 @@ const Playlist = () => {
               <AccessTimeIcon />
             </div>
           </div>
+          {songs.map((song) => (
+              <Fragment key={song._id}>
+                {/*<Song*/}
+                {/*    song={song}*/}
+                {/*    playlist={playlist}*/}
+                {/*    handleRemoveSong={handleRemoveSong}*/}
+                {/*/>*/}
+                <img   width={'50px'}
+                height={'50px'} src={song.image}/>
+                <h3>{song.name}</h3>
+                <h3>{song.singer}</h3>
+              </Fragment>
+          ))}
         </Body>
         {model && (
           <PlaylistModel closeModel={() => setModel(false)} playlist={currentPlaylist} id={id} />
