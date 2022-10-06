@@ -101,7 +101,7 @@ const PlaylistSinger = styled.span`
   color: #a7a7a7;
 `;
 const GuestContent = () => {
-  const playlistAdmin = useSelector((state) => state.playlistAdmin.playlist);
+  const playlistAdmin = useSelector((state) => state.playlistAdmin.playlistAdmin);
   const { id } = useParams();
 
   const dispatch = useDispatch();
