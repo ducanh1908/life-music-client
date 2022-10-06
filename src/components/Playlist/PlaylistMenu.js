@@ -55,7 +55,8 @@ const Container= styled.div`
 `
 
 const PlaylistMenu = ({ playlist, song, handleRemoveSong, closeMenu }) => {
-    const playlists = useSelector (state => state.playlist.playlist)
+    const playlists = useSelector (state => state.playlist.playlists)
+    console.log(playlists);
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
