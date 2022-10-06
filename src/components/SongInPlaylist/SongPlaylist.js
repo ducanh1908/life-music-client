@@ -91,11 +91,10 @@ const Container= styled.div`
   }
 `
 
-const SongPlaylist = ({ song, playlist, handleRemoveSong }) => {
+const SongPlaylist = ({ song, currentPlaylist, handleRemoveSong }) => {
     const [menu, setMenu] = useState(false);
     // const { currentSong } = useSelector((state) => state.audioPlayer);
     const dispatch = useDispatch();
-
     const handleChange = () => {
         // if (currentSong && currentSong.action === "play") {
         //     const payload = {
@@ -138,7 +137,7 @@ const SongPlaylist = ({ song, playlist, handleRemoveSong }) => {
                 </IconButton>
                 {menu && (
                     <PlaylistMenu
-                        playlist={playlist}
+                        currentPlaylist={currentPlaylist}
                         song={song}
                         handleRemoveSong={handleRemoveSong}
                         closeMenu={() => setMenu(false)}

@@ -20,14 +20,12 @@ const playlistApi = {
         return apiClient.patch(url,data);
     },
     addSongPlaylist(songId,playlistId) {
-        console.log(songId)
         const url = `/playlist/addsong/${songId}`
         return apiClient.post(url, {playlistId});
     },
-    removeSongPlaylist(songId,playlistId) {
-        console.log(songId)
-        const url = `/playlist/addsong/${songId}`
-        return apiClient.post(url, {playlistId});
+    removeSongPlaylist(playlistId,songId) {
+        const url = `/playlist/remove/${playlistId}`
+        return apiClient.post(url, {songId});
     },
     getAllPlaylist(data) {
         const url = '/playlists'

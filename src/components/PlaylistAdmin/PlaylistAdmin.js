@@ -113,7 +113,6 @@ const PlaylistAdmin = () => {
     (state) => state.currentPlaylist.playlistAdmin
   );
 
-  console.log(currentSong);
   const [model, setModel] = useState(false);
 
   const dispatch = useDispatch();

@@ -7,6 +7,7 @@ import styled from "styled-components";
 import {addSongToPlaylist, updatePlaylist} from "../../redux/playlistSlice/currentPlaylist";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {useSnackbar} from "notistack";
+import {useNavigate} from "react-router";
 
 const Container= styled.div`
   .menu,
@@ -54,13 +55,12 @@ const Container= styled.div`
   }
 `
 
-const PlaylistMenu = ({ playlist, song, handleRemoveSong, closeMenu }) => {
+const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) => {
     const playlists = useSelector (state => state.playlist.playlists)
-    console.log(playlists);
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
-
+    const navigate = useNavigate()
     const handleAddToPlaylist = async (songId, playlistId) => {
         const payload = { songId,playlistId }
         try {
@@ -95,13 +95,13 @@ const PlaylistMenu = ({ playlist, song, handleRemoveSong, closeMenu }) => {
                             </div>
                         </Fragment>
                     </div>
-                    {/*{playlist && playlist.user === user._id && (*/}
-                    {/*    <div className={"option"}>*/}
-                    {/*        <p onClick={() => handleRemoveSong(song._id)}>*/}
-                    {/*            Remove from Playlist*/}
-                    {/*        </p>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
+                    {currentPlaylist && currentPlaylist.user === user._id && (
+                        <div className={"option"}>
+                            <p onClick={() => handleRemoveSong(song._id)}>
+                                Remove from Playlist
+                            </p>
+                        </div>
+                    )}
                     {/*<div className={"option"}>*/}
                     {/*    <p>Go to artist</p>*/}
                     {/*</div>*/}
