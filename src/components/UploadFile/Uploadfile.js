@@ -146,7 +146,7 @@ function AddNewFile() {
   };
 
   const handleChange = (event) => {
-    setUpdateSong(event.target.value);
+    setUpdateSong(() => {[event.target.name] = event.target.value});
   };
   
   const handleClose = () => setOpen(false);
@@ -298,8 +298,10 @@ function AddNewFile() {
                 id="outlined-basic"
                 label={`${editSong.name}`}
                 variant="outlined"
+                name="name"
+                onChange={handleChange}
               />
-              <TextField id="outlined-basic" label="Ca sĩ" variant="outlined" />
+              <TextField id="outlined-basic" label="Ca sĩ" variant="outlined" name="singerName" onChange={handleChange} />
               <img
                 src={`${editSong.image}?w=100&h=100&fit=crop&auto=format`}
                 alt={`${editSong.name}`}
@@ -309,7 +311,7 @@ function AddNewFile() {
                 id="outlined-select-currency"
                 select
                 label="Thể loại"
-                value={updateSong}
+                name="cate"
                 onChange={handleChange}
               >
                 {categories &&
@@ -319,8 +321,8 @@ function AddNewFile() {
                     </MenuItem>
                   ))}
               </TextField>
-              <Button variant="contained">Contained</Button>
-              <Button variant="contained">Contained</Button>
+              <Button variant="contained" onClick={() => {setOpen(false)}}>Đóng</Button>
+              <Button variant="contained" >Lưu</Button>
             </Box>
           </Box>
         </Modal>
