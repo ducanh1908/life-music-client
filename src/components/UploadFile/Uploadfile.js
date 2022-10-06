@@ -27,6 +27,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import { fetchPlaylist } from "../../redux/playlistSlice/playlistSlice";
 
 const style = {
   position: "absolute",
@@ -52,7 +53,10 @@ function AddNewFile() {
   let { uploadSongs, status, deleteSongStatus } = useSelector(
     (state) => state.song
   );
+  let { playlists } = useSelector((state) => state.playlist)
+
   console.log("uploadSongs", uploadSongs);
+  console.log('status upload', status)
   let categories = useSelector((state) => state.cate.categories);
 
   // let isSongUploadedSuccess =
@@ -92,8 +96,6 @@ function AddNewFile() {
     }
   };
 
-  
-
   const getDuration = (src) => {
     try {
       return new Promise(function (resolve) {
@@ -108,7 +110,9 @@ function AddNewFile() {
     }
   };
 
-  const addSongToPlaylist = (id) => {};
+  const addSongToPlaylist = (id) => {
+
+  };
 
   const deleleSong = (songId) => {
     try {
@@ -144,17 +148,22 @@ function AddNewFile() {
   const handleChange = (event) => {
     setUpdateSong(event.target.value);
   };
-
+  
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    dispatch(fetchPlaylist(user._id));
+    dispatch(getCategories());
+    dispatch(getUploadedSongs({ _id: user._id }));
+  }, []);
 
   useEffect(() => {
     dispatch(uploadSong(newSong));
   }, [newSong]);
 
   useEffect(() => {
-    dispatch(getCategories());
     dispatch(getUploadedSongs({ _id: user._id }));
-  }, [status !== "idle", deleteSongStatus == "success"]);
+  }, [status == "success", deleteSongStatus == "success"]);
 
   const Container = styled.div`
     @font-face {
@@ -310,6 +319,8 @@ function AddNewFile() {
                     </MenuItem>
                   ))}
               </TextField>
+              <Button variant="contained">Contained</Button>
+              <Button variant="contained">Contained</Button>
             </Box>
           </Box>
         </Modal>
