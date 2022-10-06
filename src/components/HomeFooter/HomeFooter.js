@@ -36,7 +36,6 @@ const [trackIndex, settrackIndex] = useState(-1)
   const onTrackSelect = (index)=> {
     settrackIndex(index)
   }
-
   return (
     <Container>
      {
@@ -47,7 +46,9 @@ const [trackIndex, settrackIndex] = useState(-1)
       </Body>
       <Footer>
         <DetailSong />
-        <Audio song={song} trackIndex={trackIndex} />    
+      {
+        trackIndex !== 1&&  <Audio song={song} trackIndex={trackIndex} />
+      }
       </Footer>
       </>
       )

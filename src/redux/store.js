@@ -6,7 +6,7 @@ import playlistReducer from './playlistSlice/playlistSlice';
 import cateReducer from './cateSlice/cateSlice'
 import currentPlaylistReducer from './playlistSlice/currentPlaylist'
 import currentSongReducer from './songSlice/currentSong'
-
+import playlistAdminReducer from './playlistSlice/playlistAdmin';
 export const store = configureStore({
     reducer:{
         user : userReducer,
@@ -16,6 +16,7 @@ export const store = configureStore({
         currentPlaylist: currentPlaylistReducer,
         currentSong: currentSongReducer
 ,
-        cate : cateReducer
+        cate : cateReducer,
+        playlistAdmin: playlistAdminReducer
     }
 })

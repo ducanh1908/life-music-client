@@ -7,16 +7,20 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getSongById } from '../../redux/songSlice/currentSong';
 
-function Audio() {
+function Audio({trackIndex}) {
+console.log('onTrackSelect', trackIndex)
+
   const song = useSelector(state=> state.currentSong.currentSong)
  const dispatch = useDispatch()
     const handleClickNext = () => {
-        dispatch(getSongById(song._id + 1))
+     console.log(+1)
     }
     const handleClickPre = () => {
-      dispatch(getSongById(song._id - 1))
+      console.log(-1)
+     
         
     }
+    
   return (
     <div className='playing'>
       <AudioPlayer

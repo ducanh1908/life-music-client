@@ -8,14 +8,18 @@ const playlistApi = {
         return apiClient.post(url, data);
     },
 
-    getAllPlaylist(data) {
+    getAllPlaylistUser(data) {
         const url = `/playlists/${data}`;
         return apiClient.get(url, data);
     },
-  
+    
     getPlaylistById(data) {
         const url = `/playlist/${data}`
         return apiClient.get(url,data);
+    },
+    getAllPlaylist(data) {
+        const url = '/playlists'
+        return apiClient.get(url, data);
     }
 
 }

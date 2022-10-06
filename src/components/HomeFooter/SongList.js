@@ -13,18 +13,19 @@ const SongImage = styled.img`
 width: 40px;
 height: 40px;
 `
-const SongList = ({song}) => {
+const SongList = ({song, onTrackSelect}) => {
   const dispatch= useDispatch();
 
-  const handleClick = (id) => {
+  const handleClick = (id, index) => {
     dispatch(getSongById(id))
+    onTrackSelect(index)
   }
   return (
     <Container>
       {
         song.length > 0 && (
         song.map((item, index)=> (
-          <div key={item._id}  onClick = {()=> handleClick(item._id)}>
+          <div key={item._id}  onClick = {()=> handleClick(item._id, index)   }>
             <SongImage src={item.image} />
             <p>{item.name}</p>
             <p> {item.author}</p>

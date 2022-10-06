@@ -17,6 +17,7 @@ import Library from './components/Library/Library';
 import Playlist from "./components/Playlist/Playlist";
 import Search from './Search/Search';
 import HomeFooter from './components/HomeFooter/HomeFooter';
+import PlaylistAdmin from './components/PlaylistAdmin/PlaylistAdmin';
 
 function App() {
 
@@ -46,6 +47,8 @@ function App() {
         <Route path="playlist/:id" element={<Playlist />} />
         <Route path ='song-list' element={<HomeFooter />} />
         {/* <Route path="search" element={<Search />} /> */}
+        <Route path="playlists/:id" element={<PlaylistAdmin />} />
+
       </Route>
       <Route path='profile' element={<Profile />} >  
             <Route path=""  element={<Information />} />

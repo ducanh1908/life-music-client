@@ -149,7 +149,6 @@ const Playlist = () => {
 
   useEffect(() => {
     dispatch(getPlaylistById(id));
-
   }, [id]);
 
 
