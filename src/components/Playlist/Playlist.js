@@ -146,8 +146,6 @@ align-items: flex-start;
 `
 const Playlist = () => {
   const { id } = useParams();
-  const [list, setPlaylist] = useState({});
-
   const songs = useSelector((state) => state.song.songs);
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
