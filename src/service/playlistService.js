@@ -20,6 +20,16 @@ const playlistApi = {
     updatePlaylist(id,data) {
         const url = `/playlist/${id}`
         return apiClient.patch(url,data);
+    },
+    addSongPlaylist(songId,playlistId) {
+        console.log(songId)
+        const url = `/playlist/addsong/${songId}`
+        return apiClient.post(url, {playlistId});
+    },
+    removeSongPlaylist(songId,playlistId) {
+        console.log(songId)
+        const url = `/playlist/addsong/${songId}`
+        return apiClient.post(url, {playlistId});
     }
 
 }
