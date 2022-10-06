@@ -9,11 +9,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
 import { useParams } from "react-router";
 import { getPlaylistById } from "../../redux/playlistSlice/currentPlaylist";
+import SongPlaylist from "../SongInPlaylist/SongPlaylist";
 
 const Container = styled.div`
   background-color: whitesmoke;
   position: relative;
   border-radius: 10px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+    border-radius: 10px;
+    &-thumb {
+      background-color: rgba(255, 255, 255,0.6);
+    }
+  }
 `;
 const Head = styled.div`
   position: relative;
@@ -137,16 +146,25 @@ align-items: flex-start;
 `
 const Playlist = () => {
   const { id } = useParams();
-  const [list, setPlaylist] = useState({});
-
-
+  const songs = useSelector((state) => state.song.songs);
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
   const [model, setModel] = useState(false);
 
   const dispatch = useDispatch();
-
+  const handleDeletePlaylist = async () => {
+    // const res = await deletePlayList(playlist._id, dispatch);
+    // if (res) history.push("/home");
+  };
+  const handleRemoveSong = async (songId) => {
+    // const originalSongs = [...songs];
+    // const payload = { playlistId: currentPlaylist._id, songId };
+    // const filterSongs = originalSongs.filter((song) => song._id !== songId);
+    // setSongs(filterSongs);
+    // const res = await removeSongFromPlaylist(payload, dispatch);
+    // !res && setSongs(originalSongs);
+  };
   useEffect(() => {
     dispatch(getPlaylistById(id));
   }, [id]);
@@ -157,24 +175,26 @@ const Playlist = () => {
       <Fragment>
         {currentPlaylist && (
           <Head>
-            {/* <div className={"head_gradient"}></div> */}
 
             <Navbar>
               <Image  src={currentPlaylist.image}/>
               <PlaylistInfo>
                 <PlaylistTitle>Playlist</PlaylistTitle>
                 <PlaylistName>{currentPlaylist.name}</PlaylistName>
+                <span>{currentPlaylist.description}</span>
+
               </PlaylistInfo>
               <PlaylistAction>
               <IconButton onClick={() => setModel(true)}>
                 <EditIcon  sx={{width: '40px', height: "40px"}}/>
               </IconButton>
-              <IconButton>
+              <IconButton onClick={handleDeletePlaylist}>
                 <DeleteIcon sx={{width: '40px', height: "40px"}} />
               </IconButton>
               </PlaylistAction>
 
             </Navbar>
+
           </Head>
         )}
         <Body>
@@ -190,9 +210,24 @@ const Playlist = () => {
               <AccessTimeIcon />
             </div>
           </div>
+          <hr/>
+          <h3>Đề Xuất</h3>
+          {songs.map((song) => (
+              <Fragment key={song._id}>
+                <SongPlaylist
+                    song={song}
+                    playlist={currentPlaylist}
+                    handleRemoveSong={handleRemoveSong}
+                />
+                {/*<img   width={'50px'}*/}
+                {/*height={'50px'} src={song.image}/>*/}
+                {/*<h3>{song.name}</h3>*/}
+                {/*<h3>{song.singer}</h3>*/}
+              </Fragment>
+          ))}
         </Body>
         {model && (
-          <PlaylistModel closeModel={() => setModel(false)} playlist={list} />
+          <PlaylistModel closeModel={() => setModel(false)} playlist={currentPlaylist} id={id} />
         )}
       </Fragment>
     </Container>
