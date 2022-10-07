@@ -9,10 +9,12 @@ import { useSelector } from 'react-redux';
 
 
 const Container = styled.div`
-  background-color: #7a7a7a;
+
   display: grid;
   grid-template-rows: 75vh 15vh;
 `;
+const Wraper = styled.div`
+`
 const Body = styled.div`
 height: 100%;
 overflow: auto;
@@ -20,37 +22,36 @@ overflow: auto;
 `
 const Footer = styled.div`
 height: 100%;
-display: flex;
+  background-color: #333;
+display: grid;
+grid-template-columns: 1fr 2fr;
 `
-
 
 const HomeFooter = () => {
   const dispatch = useDispatch()
 const song = useSelector(state => state.song.songs)
-const [trackIndex, settrackIndex] = useState(-1)
+const [trackIndex, setTrackIndex] = useState(-1)
 
   useEffect(() => {
     dispatch(fetchSong())
   },[])
 
   const onTrackSelect = (index)=> {
-    settrackIndex(index)
+    setTrackIndex(index)
   }
   return (
     <Container>
      {
       song && (
-      <>
+      <Wraper>
       <Body>
         <SongList song = {song} onTrackSelect={onTrackSelect} />
       </Body>
       <Footer>
-        <DetailSong />
-      {
-        song &&  <Audio song={song} trackIndex={trackIndex} />
-      }
+        <DetailSong song = {song}  trackIndex={trackIndex}/>
+        <Audio song={song} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
       </Footer>
-      </>
+      </Wraper>
       )
      }
     </Container>
