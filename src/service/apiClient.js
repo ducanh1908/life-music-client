@@ -29,7 +29,7 @@ apiClient.interceptors.response.use(
 
   },
   function (error) {
-    const {config,status, data} = error.response;
+    const {status, data} = error.response;
     if(status === 400) {
       const errorList = data || [];
 

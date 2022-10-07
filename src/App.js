@@ -16,6 +16,7 @@ import GuestContent from './components/GuestContent/GuestContent';
 import Library from './components/Library/Library';
 import Playlist from "./components/Playlist/Playlist";
 import PlaylistAdmin from './components/PlaylistAdmin/PlaylistAdmin';
+import HomeFooter from './components/HomeFooter/HomeFooter';
 import Search from "./Search/Search";
 
 function App() {
@@ -40,12 +41,12 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/' element={<Home />} >
         <Route path='' element={<GuestContent />} />
-        <Route path='song' element={<Song />} />
         <Route path='upload' element={<Upload />} />
+        <Route path='song' element={<Song />} />
         <Route path='library' element={<Library />} />
         <Route path="playlist/:id" element={<Playlist />} />
-        <Route path="playlist" element={<Playlist />} />
-          <Route path='search' element={<Search />} />
+        <Route path ='song-list' element={<HomeFooter />} />
+         <Route path="search" element={<Search />} />
         <Route path="playlists/:id" element={<PlaylistAdmin />} />
 
       </Route>

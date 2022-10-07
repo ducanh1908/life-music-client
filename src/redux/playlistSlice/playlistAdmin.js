@@ -14,8 +14,6 @@ export const getAllPlaylist = createAsyncThunk("/playlists", async (payload) => 
   return data.playlists;
 });
 
-
-
 const playlistAdminSlice = createSlice({
   name: "playlistAdmin",
   initialState,
@@ -25,8 +23,10 @@ const playlistAdminSlice = createSlice({
     
   [getAllPlaylist.fulfilled] : (state, action) => { 
 
-    state.playlist = action.payload;
-  }
+    state.playlistAdmin = action.payload;
+  },
+
+
 
 }
 });

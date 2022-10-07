@@ -31,7 +31,7 @@ const [trackIndex, settrackIndex] = useState(-1)
 
   useEffect(() => {
     dispatch(fetchSong())
-  },[trackIndex])
+  },[])
 
   const onTrackSelect = (index)=> {
     settrackIndex(index)
@@ -47,7 +47,7 @@ const [trackIndex, settrackIndex] = useState(-1)
       <Footer>
         <DetailSong />
       {
-        trackIndex !== 1&&  <Audio song={song} trackIndex={trackIndex} />
+        song &&  <Audio song={song} trackIndex={trackIndex} />
       }
       </Footer>
       </>

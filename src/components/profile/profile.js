@@ -6,11 +6,9 @@ import SideBarProfile from "./sideBarProfile";
 
 const Container=styled.div`
     background-color: #333;
-    width: 100%;
-    height: 100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+    
+   display: grid;
+   grid-template-rows: 10vh 90vh;
     overflow: hidden;
 `
 const Body = styled.div`

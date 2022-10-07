@@ -17,7 +17,7 @@ const SongList = ({song, onTrackSelect}) => {
   const dispatch= useDispatch();
 
   const handleClick = (id, index) => {
-    dispatch(getSongById(id))
+    // dispatch(getSongById(id))
     onTrackSelect(index)
   }
   return (
