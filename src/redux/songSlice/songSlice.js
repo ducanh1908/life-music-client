@@ -6,6 +6,7 @@ const initialState = {
   status: "idle",
   getUploadSongsStatus: "idle",
   deleteSongStatus: "idle",
+  publicOrPrivateStatus: "idle",
   songs: [],
   loading: false,
   uploadSongs: [],
@@ -21,7 +22,6 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
 });
 
 export const fetchSong = createAsyncThunk("/songs", async (payload) => {
-
   const data = await songApi.getSong();
   return data.songs;
 });
@@ -32,6 +32,16 @@ export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload
 
 export const deleteSongById = createAsyncThunk('song/deleteSong', (payload) => {
   const data = songApi.deleteSong(payload);
+  return data
+});
+
+export const updateSongInfo = createAsyncThunk('song/updateSong', (payload) => {
+  const data = songApi.updateSong(payload);
+  return data
+});
+
+export const publicOrPrivate = createAsyncThunk('song/updateSong', (payload) => {
+  const data = songApi.publicOrPrivate(payload);
   return data
 });
 
@@ -81,6 +91,15 @@ const songSlice = createSlice({
     },
     [deleteSongById.rejected] : (state, action) => {
       state.deleteSongStatus = 'false'
+    },
+    [updateSongInfo.pending] : (state, action) => {
+      state.publicOrPrivateStatus = 'loading';
+    },
+    [updateSongInfo.fulfilled] : (state, action) => {
+      state.publicOrPrivateStatus = 'success';
+    },
+    [updateSongInfo.rejected] : (state, action) => {
+      state.publicOrPrivateStatus = 'false';
     },
   }
 });

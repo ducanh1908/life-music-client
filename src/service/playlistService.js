@@ -20,7 +20,11 @@ const playlistApi = {
     getAllPlaylist(data) {
         const url = '/playlists'
         return apiClient.get(url, data);
-    }
+    },
+    addSongToPlaylist(data) {
+        const url = `/playlist/addsong/${data.songId}`;
+        return apiClient.post(url, {playlistId : data.playlistId})
+    },
 
 }
 export default playlistApi;

@@ -7,6 +7,7 @@ const initialState = {
   playlist: {},
   loading: false,
   fetchPlaylistStatus: "idle",
+  addSongToPlaylistStatus: 'idle',
 };
 
 export const uploadSong = createAsyncThunk(
@@ -33,6 +34,14 @@ export const getAllPlaylist = createAsyncThunk(
     return data.playlists;
   }
 );
+export const addToPlaylist = createAsyncThunk(
+  "addToPlaylist/playlist/addsong/:songId",
+  async (payload) => {
+    const data = await playlistApi.addSongToPlaylist(payload);
+    return data
+  }
+);
+
 
 const playlistSlice = createSlice({
   name: "playlist",
@@ -55,6 +64,15 @@ const playlistSlice = createSlice({
     },
     [getAllPlaylist.fulfilled]: (state, action) => {
       state.playlist = action.payload;
+    },
+    [addToPlaylist.pending]: (state, action) => {
+      state.addSongToPlaylistStatus = 'loading';
+    },
+    [addToPlaylist.fulfilled]: (state, action) => {
+      state.addSongToPlaylistStatus = 'success';
+    },
+    [addToPlaylist.rejected]: (state, action) => {
+      state.addSongToPlaylistStatus = 'false';
     },
   },
 });

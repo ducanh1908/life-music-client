@@ -9,7 +9,12 @@ import {
   deleteSongById,
   loading,
   changeDeleteSongStatus,
+  updateSongInfo,
+  publicOrPrivate,
 } from "../../redux/songSlice/songSlice";
+
+import { useSnackbar } from "notistack";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 import "./uploadfile.css";
 import styled from "styled-components";
@@ -21,55 +26,43 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 import { getCategories } from "../../redux/cateSlice/cateSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import { fetchPlaylist } from "../../redux/playlistSlice/playlistSlice";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 800,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import {
+  addToPlaylist,
+  fetchPlaylist,
+} from "../../redux/playlistSlice/playlistSlice";
+import { imageUpload } from "../../components/UploadFile/avatarUpload";
 
 function AddNewFile() {
   const [fileUpload, setFileUpload] = useState(null);
   const [newSong, setNewSong] = useState({});
   const [editSong, setEditSong] = useState({});
-  const [open, setOpen] = React.useState(false);
-  const [updateSong, setUpdateSong] = React.useState({});
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const [updateSong, setUpdateSong] = useState({});
+  const [avatar, setAvatar] = useState("");
+
+  const [name, setName] = useState("");
+  const [singerName, setSingerName] = useState("");
+  const [cate, setCate] = useState("");
+
+
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
 
-  let { uploadSongs, status, deleteSongStatus } = useSelector(
+  let { uploadSongs, status, deleteSongStatus, publicOrPrivateStatus, updateSongStatus } = useSelector(
     (state) => state.song
   );
-  let { playlists } = useSelector((state) => state.playlist)
-
-  console.log("uploadSongs", uploadSongs);
-  console.log('status upload', status)
+  let { playlists } = useSelector((state) => state.playlist);
+  
   let categories = useSelector((state) => state.cate.categories);
-
-  // let isSongUploadedSuccess =
-  //   "success" === useSelector((state) => state.song.status);
-
-
-  // const getUploadSongs = (isSongUploadedSuccess) => {
-  //   if (isSongUploadedSuccess) {
-  //     dispatch(getUploadedSongs({ _id: user._id }));
-  //   } else {
-  //     console.log("tai bai hat that bai");
-  //   }
-  // };
+  console.log("categories", categories);
+  console.log("status upload", status);
+  console.log("uploadSongs", uploadSongs.songs);
 
   const uploadFile = async () => {
     try {
@@ -89,8 +82,6 @@ function AddNewFile() {
           });
         });
       });
-      // dispatch(upSong(newSong));
-      // dispatch(uploadSong(newSong));
     } catch (err) {
       console.log("uploadFile", err.message);
     }
@@ -110,34 +101,39 @@ function AddNewFile() {
     }
   };
 
-  const addSongToPlaylist = (id) => {
-
-  };
-
   const deleleSong = (songId) => {
     try {
       if (window.confirm("Press a button!") === true) {
         dispatch(deleteSongById(songId));
-        dispatch(changeDeleteSongStatus('idle'));
+        dispatch(changeDeleteSongStatus("idle"));
       }
     } catch (err) {
       console.log("deleleSong ", err.message);
     }
   };
 
+  const checkSong = (id) => {
+    for (let song of uploadSongs.songs) {
+      if (song._id == id) return song;
+    }
+  };
+
+  // const addSongToPlaylist = (value) => {
+  //   dispatch(addToPlaylist(value))
+  // };
+
   const handleSong = (obj) => {
     try {
       let select = obj.target.value.split(",")[0];
       let songId = obj.target.value.split(",")[1];
-      let name = obj.target.value.split(",")[2];
-      let image = obj.target.value.split(",")[3];
-      let singer = obj.target.value.split(",")[4];
       if (select == 1) {
-        addSongToPlaylist(songId);
+        //
+        // addSongToPlaylist({songId, playlistId});
       } else if (select == 2) {
         deleleSong(songId);
       } else if (select == 3) {
-        setEditSong({ name: name, image: image, singer: singer });
+        let song = checkSong(songId);
+        setEditSong(song);
         setOpen(true);
       }
     } catch (err) {
@@ -145,16 +141,57 @@ function AddNewFile() {
     }
   };
 
-  const handleChange = (event) => {
-    setUpdateSong(() => {[event.target.name] = event.target.value});
+  const changeAvatar = (e) => {
+    const file = e.target.files[0];
+    setAvatar(file);
   };
-  
-  const handleClose = () => setOpen(false);
+
+  const handleChange = (e) => {
+    setUpdateSong({
+      ...updateSong,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (value) => {
+    console.log('value ',value)
+    console.log('name', name);
+    console.log('cate', cate);
+    console.log('singerName', singerName);
+    let media;
+    if (avatar) {
+      media = await imageUpload([avatar]);
+    }
+    // let image = media[0].url;
+    let songId = editSong._id;
+    // value.image = image;
+    value.songId = songId;
+    dispatch(updateSongInfo(value));
+    // console.log("media", media);
+
+    // console.log("updateSong", updateSong);
+
+    handleClose();
+  };
+
+
+  const handleSongStatus = (e, song) => {
+    try {
+      let select = e.target.value.split(",")[0];
+      // console.log("select", select);
+
+      // console.log("song123", song);
+      let status = select;
+      let data = {song, status}
+      dispatch(publicOrPrivate(data));
+    } catch (err) {
+      console.log("handleSong", err.message);
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchPlaylist(user._id));
     dispatch(getCategories());
-    dispatch(getUploadedSongs({ _id: user._id }));
   }, []);
 
   useEffect(() => {
@@ -163,7 +200,24 @@ function AddNewFile() {
 
   useEffect(() => {
     dispatch(getUploadedSongs({ _id: user._id }));
-  }, [status == "success", deleteSongStatus == "success"]);
+  }, [
+    status == "success",
+    deleteSongStatus == "success",
+    updateSongStatus == "success",
+    publicOrPrivateStatus == 'success',
+  ]);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 800,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   const Container = styled.div`
     @font-face {
@@ -181,10 +235,76 @@ function AddNewFile() {
     .image-upload > input {
       display: none;
     }
+
+    #songlist {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #songlist td, #songlist th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    #songlist tr:nth-child(even){background-color: #f2f2f3;}
+    
+    #songlist tr:hover {background-color: #ddd;}
+    
+    #songlist th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4d4dff;
+      color: white;
   `;
-  const change = (e) => {
-    setFileUpload(e.target.files[0]);
-  };
+
+  const Logo = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    padding: 10px;
+  `;
+
+  const InforAvatar = styled.div`
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: relative;
+    margin: 15px auto;
+    border: 1px solid #ddd;
+    cursor: pointer;
+  `;
+  const InfoImg = styled.img`
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  `;
+  const InforSpan = styled.span`
+    position: absolute;
+    bottom: -15%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    color: orange;
+    transition: 0.3s ease-in-out;
+    background: #fff5;
+  `;
+  const Input = styled.input`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+  `;
+
   return (
     <Container>
       <div className="scrollbar" id="style-1">
@@ -228,11 +348,11 @@ function AddNewFile() {
           )}
         </div>
         <h1>Tải bài hát lên</h1>
-        <table>
+        <table id="songlist">
           <thead>
             <tr>
               <th colSpan={2}>Bài hát</th>
-              <th colSpan={3}></th>
+              <th colSpan={3}>Trạng thái</th>
               <th>Thời gian</th>
               <th>Hành động</th>
             </tr>
@@ -247,10 +367,31 @@ function AddNewFile() {
                   <td>{song.name}</td>
                   <td></td>
                   <td>
-                    <select>
-                      <option value={"2"}>Công khai</option>
-                      <option value={"1"}>Cá nhân</option>
-                    </select>
+                    <>
+                      {song.status == 1 ? (
+                        <>
+                          <select
+                            onChange={(e) => {
+                              handleSongStatus(e, song);
+                            }}
+                          >
+                            <option value={1}>Riêng tư</option>
+                            <option value={2}>Công khai</option>
+                          </select>
+                        </>
+                      ) : (
+                        <>
+                          <select
+                            onChange={(e) => {
+                              handleSongStatus(e, song);
+                            }}
+                          >
+                            <option value={2}>Công khai</option>
+                            <option value={1}>Riêng tư</option>
+                          </select>
+                        </>
+                      )}
+                    </>
                   </td>
                   <td></td>
                   <td>{song.duration}</td>
@@ -271,61 +412,98 @@ function AddNewFile() {
                 </tr>
               ))}
           </tbody>
+          <div>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <form>
+                <Box sx={style}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Chỉnh sửa bài hát
+                  </Typography>
+                  <TextField
+                    label="Tên bài hát"
+                    placeholder={`${editSong.name}`}
+                    name="name"
+                    onChange={(e) => {
+                      
+                      setName(e.target.value)
+                      console.log(name)
+                    }}
+                  />
+                  <TextField
+                    label="Ca sĩ"
+                    name="singerName"
+                    placeholder={`${editSong.singerName}`}
+                    onChange={(e) => {setSingerName(e.target.value)}}
+                  />
+                  {/* <Logo>
+                    <InforAvatar>
+                      <InfoImg
+                        src={
+                          avatar ? URL.createObjectURL(avatar) : editSong.image
+                        }
+                        style={{ filter: "invert(0)" }}
+                        alt="avatar"
+                      />
+                      <InforSpan>
+                        <i>
+                          <CameraAltIcon />
+                        </i>
+                        <p>Thay ảnh</p>
+                        <Input
+                          type="file"
+                          name="file"
+                          id="file_up"
+                          accept="image/*"
+                          onChange={changeAvatar}
+                        />
+                      </InforSpan>
+                    </InforAvatar>
+                  </Logo> */}
+                  <select
+                    select
+                    label="Thể loại"
+                    name="cate"
+                    onChange={(e) => {setCate(e.target.value)}}
+                  >
+                    {categories &&
+                      categories.map((cate) => {
+                        return (
+                          <option
+                            key={cate._id}
+                            name="cate"
+                            value={`${cate._id}`}
+                          >
+                            {cate.name}
+                          </option>
+                        );
+                      })}
+                  </select>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    Đóng
+                  </Button>
+                  <Button variant="contained" onClick={handleSubmit}>
+                    Lưu
+                  </Button>
+                </Box>
+              </form>
+            </Modal>
+          </div>
         </table>
         <div className="force-overflow"></div>
-      </div>
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Chỉnh sửa
-            </Typography>
-
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 3, width: "25ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="outlined-basic"
-                label={`${editSong.name}`}
-                variant="outlined"
-                name="name"
-                onChange={handleChange}
-              />
-              <TextField id="outlined-basic" label="Ca sĩ" variant="outlined" name="singerName" onChange={handleChange} />
-              <img
-                src={`${editSong.image}?w=100&h=100&fit=crop&auto=format`}
-                alt={`${editSong.name}`}
-                loading="lazy"
-              />
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Thể loại"
-                name="cate"
-                onChange={handleChange}
-              >
-                {categories &&
-                  categories.map((cate, index) => (
-                    <MenuItem key={index} value={cate._id}>
-                      {cate.name}
-                    </MenuItem>
-                  ))}
-              </TextField>
-              <Button variant="contained" onClick={() => {setOpen(false)}}>Đóng</Button>
-              <Button variant="contained" >Lưu</Button>
-            </Box>
-          </Box>
-        </Modal>
       </div>
     </Container>
   );
