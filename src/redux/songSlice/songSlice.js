@@ -5,6 +5,7 @@ const initialState = {
   status: "idle",
   getUploadSongsStatus: "idle",
   deleteSongStatus: "idle",
+  publicOrPrivateStatus: "idle",
   songs: [],
   loading: false,
   search: [],
@@ -38,6 +39,18 @@ export const searchSong = createAsyncThunk(
 
 export const deleteSongById = createAsyncThunk('song/deleteSong', (payload) => {
   const data = songApi.deleteSong(payload);
+  return data
+});
+
+export const updateSongInfo = createAsyncThunk('song/updateSong', async (payload) => {
+  console.log('12312312313', payload)
+  const data = await songApi.updateSong(payload);
+  console.log('444444',data);
+  return data
+});
+
+export const publicOrPrivate = createAsyncThunk('song/updateSong', (payload) => {
+  const data = songApi.publicOrPrivate(payload);
   return data
 });
 
@@ -96,6 +109,16 @@ const songSlice = createSlice({
     [deleteSongById.rejected] : (state, action) => {
       state.deleteSongStatus = 'false'
     },
+    [updateSongInfo.pending] : (state, action) => {
+      state.publicOrPrivateStatus = 'loading';
+    },
+    [updateSongInfo.fulfilled] : (state, action) => {
+      state.publicOrPrivateStatus = 'success';
+    },
+    [updateSongInfo.rejected] : (state, action) => {
+      state.publicOrPrivateStatus = 'false';
+    },
+  }
 });
 
 const { reducer, actions } = songSlice;
