@@ -59,7 +59,7 @@ function Player(props) {
             
             <Details song={props.songs[props.currentSongIndex]} />
             <Controls isPlaying={isPlaying} setIsPlaying={setIsPlaying} SkipSong={SkipSong} />
-            <p>Next up: <span>{props.songs[props.nextSongIndex].name} by {props.songs[props.nextSongIndex].author}</span></p>
+            <p>Next up: <span>{props.songs[props.nextSongIndex]?.name} by {props.songs[props.nextSongIndex].author}</span></p>
         </Container>
     )
 }

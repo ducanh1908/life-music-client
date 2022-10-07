@@ -1,3 +1,5 @@
+
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userApi from "./../../service/userService";
 import playlistApi from "./../../service/playlistService";
@@ -10,16 +12,15 @@ const initialState = {
   addSongToPlaylistStatus: 'idle',
 };
 
-export const uploadSong = createAsyncThunk(
-  "user/uploadSong",
+export const searchPlaylist = createAsyncThunk(
+  "/playlist/search",
   async (payload) => {
-    const data = await userApi.uploadSong(payload);
-    return data;
-  }
-);
-export const createPlaylist = createAsyncThunk(`createPlaylist/playlist`, async (payload) => {
-  const data = await playlistApi.createPlaylist(payload);
-  return data.playlists;
+    const res = await playlistApi.searchPlaylist(payload);
+    return res
+  });
+export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
+  const data = await userApi.uploadSong(payload);
+  return data;
 });
 
 // getplay list and user
@@ -42,14 +43,16 @@ export const addToPlaylist = createAsyncThunk(
     return data
   }
 );
+export const createPlaylist = createAsyncThunk(`/playlist`, async (payload) => {
+  
+    const data = await playlistApi.createPlaylist(payload);
+    return data.playlists;
+  });
 
 export const getPlaylistAndUser = createAsyncThunk("/playlists/:id", async (payload) => {
   const data = await playlistApi.getAllPlaylistUser(payload);
- 
   return data.playlists;
 });
-
-
 
 const playlistSlice = createSlice({
   name: "playlist",
@@ -83,16 +86,18 @@ const playlistSlice = createSlice({
     [addToPlaylist.rejected]: (state, action) => {
       state.addSongToPlaylistStatus = 'false';
     },
-    [createPlaylist.fulfilled] : (state, action) => {
-      state.playlists = action.payload;
-    },
     [getPlaylistAndUser.fulfilled] : (state, action) => {
         state.playlists = action.payload
     },
-  },
+    // [getPlaylistByUserId.fulfilled] : (state, action) => {
+    //   state.playlist = action.payload
+    // },
+    [searchPlaylist.fulfilled] : (state, action) => {
+        state.playlists = action.payload.playlists.length>0 ? action.payload.playlists : state.playlists
+    }
 
+}
 });
-
 const { reducer, actions } = playlistSlice;
 
 export default reducer;
