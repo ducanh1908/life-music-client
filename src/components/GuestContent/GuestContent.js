@@ -129,7 +129,7 @@ const GuestContent = () => {
     <Container>
       <Wrapper>
         <Top>
-          <TopTitle>Chào buổi sáng</TopTitle>
+          {/*<TopTitle>Chào buổi sáng</TopTitle>*/}
           {/* <Box sx={{ flexGrow: 1, marginTop:2 }}>
             <Grid container spacing={2} >
               <Grid item xs={4}>
@@ -162,7 +162,7 @@ const GuestContent = () => {
           <ListMe></ListMe>
         </Top>
         <Categories>
-          <TopTitle>Chào buổi sáng</TopTitle>
+          <TopTitle>Chào bạn</TopTitle>
           <Playlist>
             {playlistAdmin &&
               playlistAdmin.map((playlist) => (

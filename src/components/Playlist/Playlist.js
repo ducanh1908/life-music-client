@@ -229,10 +229,10 @@ const Playlist = () => {
           <div className={"body_nav"}>
             <div className={"left"}>
               <span>#</span>
-              <p>Title</p>
+              <p>Tên bài hát</p>
             </div>
             <div className={"center"}>
-              <p>Artist</p>
+              <p>Ca sỹ</p>
             </div>
             <div className={"right"}>
               <AccessTimeIcon />
