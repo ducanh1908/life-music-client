@@ -8,14 +8,12 @@ import { getSongById } from "../../redux/songSlice/currentSong";
 import { useEffect, useRef } from "react";
 
 function Audio({ song, trackIndex }) {
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(trackIndex);
-
-  const {
+  console.log("index ",trackIndex)
+  let {
     name = "",
     file = "",
     image = "",
-  } = currentTrackIndex !== -1 ? song[currentTrackIndex] : {};
-  console.log(song[trackIndex]);
+  } = trackIndex !== -1 ? song[trackIndex] : {};
   // let songSrc = `${file}`
   // const songRef = useRef(new Audio(songSrc))
 
@@ -26,15 +24,8 @@ function Audio({ song, trackIndex }) {
   const handleClickPre = () => {
     console.log(-1);
   };
-  useEffect(() => {
-    // songRef.current.pause()
-    // songRef.current = new Audio(songSrc)
-    // songRef.current.play()
 
-    setCurrentTrackIndex(trackIndex);
-  }, [trackIndex]);
-
-  console.log("onTrackSelect", { currentTrackIndex, name });
+  console.log("onTrackSelect", { trackIndex, name });
 
   return (
     <div className="playing">

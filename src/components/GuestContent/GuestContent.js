@@ -96,6 +96,7 @@ const PlaylistImage = styled.img`
 const PlaylistTitle = styled.p`
   color: #fff;
   font-size: 16px;
+  display: block;
   font-weight: 700;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -103,7 +104,7 @@ const PlaylistTitle = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   word-wrap: break-word;
-  padding: 10px 0;
+  /* padding: 10px 0; */
 `;
 const PlaylistSinger = styled.span`
   padding: 10px 0;
