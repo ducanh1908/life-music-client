@@ -27,6 +27,10 @@ const playlistApi = {
         const url = `/playlist/remove/${playlistId}`
         return apiClient.post(url, {songId});
     },
+    deletePlaylist(playlistId) {
+        const url = `/playlist/${playlistId}`
+        return apiClient.delete(url);
+    },
     getAllPlaylist(data) {
         const url = '/playlists'
         return apiClient.get(url, data);
