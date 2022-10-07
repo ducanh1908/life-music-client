@@ -1,13 +1,15 @@
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Avatar, Menu, MenuItem } from "@mui/material";
+import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
-import { Link, NavLink } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
+import {searchSong} from "../../redux/songSlice/songSlice";
+import {searchPlaylist} from "../../redux/playlistSlice/playlistSlice";
 
 const Container = styled.div`
 
@@ -104,8 +106,11 @@ const GuestNavbar = () => {
     dispatch(logout());
     navigate('/login');
   }
-
-  
+  const songs = useSelector(state => state.song.songs)
+   const handleChange = (e) => {
+        dispatch(searchSong(e.target.value));
+        // dispatch(searchPlaylist(e.target.value));
+    }
   return (
     <Container>
       <Left>
@@ -116,13 +121,14 @@ const GuestNavbar = () => {
       <Center>
         
         <HomeForm >
-       
+            <NavLink to={ '/search'} >
           <SearchButton>
             <SearchOutlinedIcon />
-          </SearchButton>
-          <Input placeholder="Bạn muốn nghe gì..." />
-      
-         
+          </SearchButton >
+          <Input placeholder="Bạn muốn nghe gì..."
+                 onChange = {handleChange}
+          />
+            </NavLink>
         </HomeForm>
       </Center>
       <Right>

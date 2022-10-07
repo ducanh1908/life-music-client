@@ -7,10 +7,12 @@ const playlistApi = {
         const url =`/playlist/${data.id}`;
         return apiClient.post(url, data);
     },
+
     getAllPlaylistUser(data) {
         const url = `/playlists/${data}`;
         return apiClient.get(url, data);
     },
+    
     getPlaylistById(data) {
         const url = `/playlist/${data}`
         return apiClient.get(url,data);
@@ -34,6 +36,10 @@ const playlistApi = {
     getSongToPlaylist(data) {
         const url = `/playlist-song/${data}`;
         return apiClient.get(url, data);
+    },
+    searchPlaylist(data) {
+        const url = `/playlist/search/${data}`;
+        return apiClient.get(url);
     }
 
 }

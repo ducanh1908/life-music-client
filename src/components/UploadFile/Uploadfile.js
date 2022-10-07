@@ -1,3 +1,4 @@
+
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "./firebase";
 import { useEffect, useState } from "react";
@@ -43,14 +44,14 @@ function AddNewFile() {
   const [updateSong, setUpdateSong] = React.useState({});
 
   let { uploadSongs, status, deleteSongStatus } = useSelector(
-    (state) => state.song
+      (state) => state.song
   );
   console.log("uploadSongs", uploadSongs);
   let categories = useSelector((state) => state.cate.categories);
   console.log("categories", categories);
 
   let isSongUploadedSuccess =
-    "success" === useSelector((state) => state.song.status);
+      "success" === useSelector((state) => state.song.status);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const dispatch = useDispatch();
@@ -148,124 +149,123 @@ function AddNewFile() {
 
   const Container = styled.div`
     background-color: #7a7a7a;
-
     .image-upload > input {
       display: none;
     }
   `;
   return (
-    <Container>
-      <div className="scrollbar" id="style-1">
-        <div className="image-upload">
-          <label htmlFor="file-input">
-            <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
-          </label>
-          <input
-            id="file-input"
-            type="file"
-            onChange={(event) => {
-              setFileUpload(event.target.files[0]);
-            }}
-          />
-        </div>
-        <button onClick={uploadFile}>Upload</button>
-        <h1>Tải bài hát lên</h1>
-        <table>
-          <thead>
+      <Container>
+        <div className="scrollbar" id="style-1">
+          <div className="image-upload">
+            <label htmlFor="file-input">
+              <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
+            </label>
+            <input
+                id="file-input"
+                type="file"
+                onChange={(event) => {
+                  setFileUpload(event.target.files[0]);
+                }}
+            />
+          </div>
+          <button onClick={uploadFile}>Upload</button>
+          <h1>Tải bài hát lên</h1>
+          <table>
+            <thead>
             <tr>
               <th colSpan={2}>Bài hát</th>
               <th colSpan={3}></th>
               <th>Thời gian</th>
               <th>Hành động</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             {uploadSongs.songs &&
-              uploadSongs.songs.map((song, index) => (
-                <tr key={index}>
-                  <td>
-                    <img width={50} src={song.image} alt="" />
-                  </td>
-                  <td>{song.name}</td>
-                  <td></td>
-                  <td>
-                    <select>
-                      <option value={"2"}>Công khai</option>
-                      <option value={"1"}>Cá nhân</option>
-                    </select>
-                  </td>
-                  <td></td>
-                  <td>{song.duration}</td>
-                  <td>
-                    <select onChange={(e) => handleSong(e)}>
-                      <option value={""}>-- Chọn --</option>
-                      <option value={`1,${song._id}`}>
-                        Thêm bài hát vào playlist{" "}
-                      </option>
-                      <option value={`2,${song._id}`}>Xóa bài hát</option>
-                      <option
-                        value={`3,${song._id}, ${song.name}, ${song.image}, ${song.singerName}`}
-                      >
-                        Chỉnh sửa
-                      </option>
-                    </select>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        <div className="force-overflow"></div>
-      </div>
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Chỉnh sửa
-            </Typography>
+                uploadSongs.songs.map((song, index) => (
+                    <tr key={index}>
+                      <td>
+                        <img width={50} src={song.image} alt="" />
+                      </td>
+                      <td>{song.name}</td>
+                      <td></td>
+                      <td>
+                        <select>
+                          <option value={"2"}>Công khai</option>
+                          <option value={"1"}>Cá nhân</option>
+                        </select>
+                      </td>
+                      <td></td>
+                      <td>{song.duration}</td>
+                      <td>
+                        <select onChange={(e) => handleSong(e)}>
+                          <option value={""}>-- Chọn --</option>
+                          <option value={`1,${song._id}`}>
+                            Thêm bài hát vào playlist{" "}
+                          </option>
+                          <option value={`2,${song._id}`}>Xóa bài hát</option>
+                          <option
+                              value={`3,${song._id}, ${song.name}, ${song.image}, ${song.singerName}`}
+                          >
+                            Chỉnh sửa
+                          </option>
+                        </select>
+                      </td>
+                    </tr>
+                ))}
+            </tbody>
+          </table>
+          <div className="force-overflow"></div>
+        </div>
+        <div>
+          <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Chỉnh sửa
+              </Typography>
 
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 3, width: "25ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="outlined-basic"
-                label={`${editSong.name}`}
-                variant="outlined"
-              />
-              <TextField id="outlined-basic" label="Ca sĩ" variant="outlined" />
-              <img
-                src={`${editSong.image}?w=100&h=100&fit=crop&auto=format`}
-                alt={`${editSong.name}`}
-                loading="lazy"
-              />
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Thể loại"
-                value={updateSong}
-                onChange={handleChange}
+              <Box
+                  component="form"
+                  sx={{
+                    "& > :not(style)": { m: 3, width: "25ch" },
+                  }}
+                  noValidate
+                  autoComplete="off"
               >
-                {categories &&
-                  categories.map((cate, index) => (
-                    <MenuItem key={index} value={cate._id}>
-                      {cate.name}
-                    </MenuItem>
-                  ))}
-              </TextField>
+                <TextField
+                    id="outlined-basic"
+                    label={`${editSong.name}`}
+                    variant="outlined"
+                />
+                <TextField id="outlined-basic" label="Ca sĩ" variant="outlined" />
+                <img
+                    src={`${editSong.image}?w=100&h=100&fit=crop&auto=format`}
+                    alt={`${editSong.name}`}
+                    loading="lazy"
+                />
+                <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Thể loại"
+                    value={updateSong}
+                    onChange={handleChange}
+                >
+                  {categories &&
+                      categories.map((cate, index) => (
+                          <MenuItem key={index} value={cate._id}>
+                            {cate.name}
+                          </MenuItem>
+                      ))}
+                </TextField>
+              </Box>
             </Box>
-          </Box>
-        </Modal>
-      </div>
-    </Container>
+          </Modal>
+        </div>
+      </Container>
   );
 }
 
