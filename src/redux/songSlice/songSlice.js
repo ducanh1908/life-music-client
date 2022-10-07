@@ -21,8 +21,8 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
 });
 
 export const fetchSong = createAsyncThunk("/songs", async (payload) => {
-
   const data = await songApi.getSong();
+  console.log(data)
   return data.songs;
 });
 export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload) => {
@@ -33,7 +33,6 @@ export const searchSong = createAsyncThunk(
     '/song/search',
     async (term) => {
       const res = await songApi.searchSong(term);
-      console.log(res)
       return res;
 } )
 

@@ -26,7 +26,7 @@ const songApi = {
         const url = `/cate`;
         return apiClient.get(url)
     },
-        searchSong(data) {
+    searchSong(data) {
             const url = `song/search/${data}`;
             return apiClient.get(url)
         }

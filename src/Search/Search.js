@@ -8,7 +8,6 @@ const Container = styled.div`
 background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ;
 overflow: auto;
 `
-
 const Songs = styled.div``
 const SongItem = styled.div`
 display: flex;
@@ -32,6 +31,7 @@ const SongSinger = styled.span`
 const Search = () => {
   const dispatch = useDispatch();
   const songs = useSelector(state => state.song.songs)
+  console.log(songs)
   const playlists = useSelector(state => state.playlist.playlist);
   console.log(playlists)
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
@@ -56,26 +56,26 @@ const Search = () => {
   }
   return (
       <Container>
-        {/*<div>*/}
-        {/*  {songs.map((song, index)=> (*/}
-        {/*      <SongItem key={index} onClick= {() => handlePlay(index)}>*/}
-        {/*        <p>{index + 1}</p>*/}
-        {/*        <SongImage  src={song.image}/>*/}
-        {/*        <SongName>{song.name}</SongName>*/}
-        {/*        <a href={song.file} >link</a>*/}
-        {/*      </SongItem>*/}
-        {/*  ))*/}
-        {/*  }*/}
-        {/*</div>*/}
         <div>
-          {playlists.map((playlist, index)=> (
-              <SongItem key={index} >
+          {songs.map((song, index)=> (
+              <SongItem key={index} onClick= {() => handlePlay(index)}>
                 <p>{index + 1}</p>
-                <SongImage  src={playlist.image}/>
-                <SongName>{playlist.name}</SongName>
+                <SongImage  src={song.image}/>
+                <SongName>{song.name}</SongName>
+                <a href={song.file} >link</a>
               </SongItem>
-          ))}
+          ))
+          }
         </div>
+        {/*<div>*/}
+        {/*  {playlists.map((playlist, index)=> (*/}
+        {/*      <SongItem key={index} >*/}
+        {/*        <p>{index + 1}</p>*/}
+        {/*        <SongImage  src={playlist.image}/>*/}
+        {/*        <SongName>{playlist.name}</SongName>*/}
+        {/*      </SongItem>*/}
+        {/*  ))}*/}
+        {/*</div>*/}
       </Container>
   )
 }
