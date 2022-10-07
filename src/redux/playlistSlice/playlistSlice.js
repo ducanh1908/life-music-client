@@ -30,6 +30,11 @@ export const getAllPlaylist = createAsyncThunk("/playlists", async (payload) => 
   return data.playlists;
 });
 
+export const getPlaylistAndUser = createAsyncThunk("/playlists/:id", async (payload) => {
+  const data = await playlistApi.getAllPlaylistUser(payload);
+
+  return data.playlists;
+});
 
 // export const getPlaylistByUserId = createAsyncThunk("/playlist/userid", async (payload) => {
 //   const data = await playlistApi.getPlaylistByUserId(payload);

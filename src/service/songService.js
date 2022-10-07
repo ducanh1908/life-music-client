@@ -4,11 +4,11 @@ import apiClient from './apiClient';
 const songApi = {
     getSong(data) {
         const url ='/songs';
-        return apiClient.get(url, data)
+        return apiClient.get(url, data);
     },
     getSongsByPlaylistId(data){
         const url =`/songs/${data}`;
-        return apiClient.get(url)
+        return apiClient.get(url);
     },
     uploadedSongs(data) {
         const url = '/song/uploaded';
@@ -29,6 +29,17 @@ const songApi = {
     searchSong(data) {
             const url = `song/search/${data}`;
             return apiClient.get(url)
-        }
+    },
+    updateSong (data) {
+        console.log('data 123123', data)
+        const url = `/song/${data.songId}`;
+        return apiClient.patch(url, data);
+    },
+    publicOrPrivate (data) {
+        console.log('publicOrPrivate', data)
+        const url = `/song/status/${data.song._id}`;
+        return apiClient.patch(url, data);
+    },
+
 }
 export default songApi;
