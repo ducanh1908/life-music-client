@@ -19,9 +19,9 @@ export const createPlaylist = createAsyncThunk(`/playlist`, async (payload) => {
     return data.playlists;
   });
 
-export const fetchPlaylist = createAsyncThunk("/playlist", async (payload) => {
+export const getPlaylistAndUser = createAsyncThunk("/playlists/:id", async (payload) => {
+  const data = await playlistApi.getAllPlaylistUser(payload);
  
-  const data = await playlistApi.getAllPlaylist(payload);
   return data.playlists;
 });
 
@@ -36,7 +36,7 @@ const playlistSlice = createSlice({
     [createPlaylist.fulfilled] : (state, action) => {
       state.playlists = action.payload;
     },
-    [fetchPlaylist.fulfilled] : (state, action) => {
+    [getPlaylistAndUser.fulfilled] : (state, action) => {
         state.playlists = action.payload
   },
 

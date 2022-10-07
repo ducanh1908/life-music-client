@@ -10,6 +10,7 @@ const initialState = {
 
 export const register = createAsyncThunk("user/register", async (payload) => {
   const data = await userApi.register(payload);
+  if(data.user)
   localStorage.setItem("user", JSON.stringify(data.user));
   return data.user;
 });
@@ -58,6 +59,7 @@ export const changePassword = createAsyncThunk("user/password", async (payload) 
   }
 
 });
+
 
 
 const userSlice = createSlice({

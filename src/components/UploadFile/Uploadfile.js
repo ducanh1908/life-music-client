@@ -1,57 +1,270 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { v4 } from "uuid";
-import { uploadSong, upSong } from "../../redux/songSlice/songSlice";
 import { storage } from "./firebase";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { v4 } from "uuid";
+import {
+  getUploadedSongs,
+  uploadSong,
+  deleteSongById,
+  upSong,
+} from "../../redux/songSlice/songSlice";
 
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
-import styled from 'styled-components';
+import "./uploadfile.css";
+import styled from "styled-components";
+import $ from "jquery";
+
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import { getCategories } from "../../redux/cateSlice/cateSlice";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 function AddNewFile() {
   const [fileUpload, setFileUpload] = useState(null);
-  const [fileUrls, setFileUrls] = useState([]);
-  const [newSong, setNewSong] = useState()
+  const [newSong, setNewSong] = useState({});
+  const [editSong, setEditSong] = useState({});
+  const [open, setOpen] = React.useState(false);
+  const [updateSong, setUpdateSong] = React.useState({});
+
+  let { uploadSongs, status, deleteSongStatus } = useSelector(
+    (state) => state.song
+  );
+  console.log("uploadSongs", uploadSongs);
+  let categories = useSelector((state) => state.cate.categories);
+  console.log("categories", categories);
+
+  let isSongUploadedSuccess =
+    "success" === useSelector((state) => state.song.status);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const dispatch = useDispatch();
-  const uploadFile = async () => {
-    if (fileUpload == null) return;
-    const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
-    await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
-    await getDownloadURL(snapshot.ref).then((url) => {
 
-
-         setNewSong({name: fileUpload.name, file: url})
-         setFileUrls((prev) => [...prev, url]);
-      });
-    });
-    
-    dispatch(upSong(newSong));
-    dispatch(uploadSong(newSong));
+  const getUploadSongs = (isSongUploadedSuccess) => {
+    if (isSongUploadedSuccess) {
+      dispatch(getUploadedSongs({ _id: user._id }));
+    } else {
+      console.log("tai bai hat that bai");
+    }
   };
 
-const Container = styled.div`
-background-color: #7a7a7a ;
-`
+  const uploadFile = async () => {
+    try {
+      if (fileUpload == null) return;
+      const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
+      await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
+        await getDownloadURL(snapshot.ref).then(async (url) => {
+          await getDuration(url).then((length) => {
+            let duration = length / 60;
+            duration = duration.toFixed(2);
+            setNewSong({
+              name: fileUpload.name.split(".")[0],
+              file: url,
+              duration: duration,
+            });
+            console.log("duration ", duration);
+          });
+        });
+      });
+      // dispatch(upSong(newSong));
+      dispatch(uploadSong(newSong));
+      getUploadSongs(isSongUploadedSuccess);
+    } catch (err) {
+      console.log("uploadFile", err.message);
+    }
+  };
+
+  const getDuration = (src) => {
+    try {
+      return new Promise(function (resolve) {
+        var audio = new Audio();
+        $(audio).on("loadedmetadata", function () {
+          resolve(audio.duration);
+        });
+        audio.src = src;
+      });
+    } catch (err) {
+      console.log("getDuration ", err.message);
+    }
+  };
+
+  const addSongToPlaylist = (id) => {};
+
+  const deleleSong = (songId) => {
+    try {
+      if (window.confirm("Press a button!") === true) {
+        dispatch(deleteSongById(songId));
+      }
+    } catch (err) {
+      console.log("deleleSong ", err.message);
+    }
+  };
+
+  const handleSong = (obj) => {
+    try {
+      let select = obj.target.value.split(",")[0];
+      let songId = obj.target.value.split(",")[1];
+      let name = obj.target.value.split(",")[2];
+      let image = obj.target.value.split(",")[3];
+      let singer = obj.target.value.split(",")[4];
+      if (select == 1) {
+        addSongToPlaylist(songId);
+      } else if (select == 2) {
+        deleleSong(songId);
+      } else if (select == 3) {
+        setEditSong({ name: name, image: image, singer: singer });
+        setOpen(true);
+      }
+    } catch (err) {
+      console.log("handleSong", err.message);
+    }
+  };
+
+  const handleChange = (event) => {
+    setUpdateSong(event.target.value);
+  };
+
+  const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getUploadedSongs({ _id: user._id }));
+  }, [status !== "idle", deleteSongStatus == "success"]);
+
+  const Container = styled.div`
+    background-color: #7a7a7a;
+
+    .image-upload > input {
+      display: none;
+    }
+  `;
   return (
     <Container>
-      <h1>Tải bài hát lên</h1>
-    
-    <input
-        type="file"
-        onChange={(event) => {
-          setFileUpload(event.target.files[0]);
-        }}
-      />
-      <button onClick={uploadFile}>Upload</button>
-      {fileUrls.map((url, index) => (
-        <AudioPlayer
-        autoPlay={false}
-        src={url}
-        onPlay={e => console.log("onPlay")}
-      />
-      ))}
+      <div className="scrollbar" id="style-1">
+        <div className="image-upload">
+          <label htmlFor="file-input">
+            <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
+          </label>
+          <input
+            id="file-input"
+            type="file"
+            onChange={(event) => {
+              setFileUpload(event.target.files[0]);
+            }}
+          />
+        </div>
+        <button onClick={uploadFile}>Upload</button>
+        <h1>Tải bài hát lên</h1>
+        <table>
+          <thead>
+            <tr>
+              <th colSpan={2}>Bài hát</th>
+              <th colSpan={3}></th>
+              <th>Thời gian</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            {uploadSongs.songs &&
+              uploadSongs.songs.map((song, index) => (
+                <tr key={index}>
+                  <td>
+                    <img width={50} src={song.image} alt="" />
+                  </td>
+                  <td>{song.name}</td>
+                  <td></td>
+                  <td>
+                    <select>
+                      <option value={"2"}>Công khai</option>
+                      <option value={"1"}>Cá nhân</option>
+                    </select>
+                  </td>
+                  <td></td>
+                  <td>{song.duration}</td>
+                  <td>
+                    <select onChange={(e) => handleSong(e)}>
+                      <option value={""}>-- Chọn --</option>
+                      <option value={`1,${song._id}`}>
+                        Thêm bài hát vào playlist{" "}
+                      </option>
+                      <option value={`2,${song._id}`}>Xóa bài hát</option>
+                      <option
+                        value={`3,${song._id}, ${song.name}, ${song.image}, ${song.singerName}`}
+                      >
+                        Chỉnh sửa
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+        <div className="force-overflow"></div>
+      </div>
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Chỉnh sửa
+            </Typography>
+
+            <Box
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 3, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="outlined-basic"
+                label={`${editSong.name}`}
+                variant="outlined"
+              />
+              <TextField id="outlined-basic" label="Ca sĩ" variant="outlined" />
+              <img
+                src={`${editSong.image}?w=100&h=100&fit=crop&auto=format`}
+                alt={`${editSong.name}`}
+                loading="lazy"
+              />
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Thể loại"
+                value={updateSong}
+                onChange={handleChange}
+              >
+                {categories &&
+                  categories.map((cate, index) => (
+                    <MenuItem key={index} value={cate._id}>
+                      {cate.name}
+                    </MenuItem>
+                  ))}
+              </TextField>
+            </Box>
+          </Box>
+        </Modal>
+      </div>
     </Container>
   );
 }
