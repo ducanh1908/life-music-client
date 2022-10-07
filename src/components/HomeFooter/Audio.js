@@ -1,44 +1,57 @@
-import React, { useState } from "react";
+import React from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getSongById } from "../../redux/songSlice/currentSong";
-import { useEffect, useRef } from "react";
+import styled from "styled-components";
 
-function Audio({ song, trackIndex }) {
-  console.log("index ",trackIndex)
+const Container = styled.div`
+  height: 70%;
+  width: 100%;
+  color: black;
+  z-index: 1;
+
+  .player-music {
+    display: block;
+    margin-right: 20px;
+  }
+`;
+
+function Audio({ song, trackIndex, setTrackIndex }) {
   let {
     name = "",
     file = "",
     image = "",
   } = trackIndex !== -1 ? song[trackIndex] : {};
-  // let songSrc = `${file}`
-  // const songRef = useRef(new Audio(songSrc))
 
   const dispatch = useDispatch();
   const handleClickNext = () => {
-    console.log(+1);
+    if (trackIndex < song.length - 1) {
+      setTrackIndex((next) => next + 1);
+    } else {
+      setTrackIndex(0);
+    }
   };
   const handleClickPre = () => {
-    console.log(-1);
+    if (trackIndex) {
+      setTrackIndex((pre) => pre - 1);
+    } else {
+      setTrackIndex(song.length - 1);
+    }
   };
 
-  console.log("onTrackSelect", { trackIndex, name });
-
   return (
-    <div className="playing">
+    <Container>
       <AudioPlayer
         className="player-music"
-        src={song.file}
+        src={file}
         layout="stacked-reverse"
         showSkipControls={true}
         showJumpControls={false}
         onClickNext={handleClickNext}
         onClickPrevious={handleClickPre}
       />
-    </div>
+    </Container>
   );
 }
 
