@@ -25,9 +25,11 @@ const Footer = () => {
   const dispatch = useDispatch();
   const songs = useSelector((state) => state.song.songs);
 
-
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
+  // if (props.onTrackSelect !== 0) {
+  //   setCurrentSongIndex(props.onTrackSelect)
+  // }
   useEffect(() => {
     dispatch(fetchSong());
   }, []);

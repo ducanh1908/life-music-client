@@ -8,12 +8,27 @@ import PlaylistModel from "./PlaylistModel";
 import { useDispatch, useSelector } from "react-redux";
 import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
 import { useParams } from "react-router";
-import { getPlaylistById } from "../../redux/playlistSlice/currentPlaylist";
+import {
+  getPlaylistById,
+  getSongToPlaylist,
+  removeSongFromPlaylist
+} from "../../redux/playlistSlice/currentPlaylist";
+import SongPlaylist from "../SongInPlaylist/SongPlaylist";
+import {unwrapResult} from "@reduxjs/toolkit";
+import {useSnackbar} from "notistack";
 
 const Container = styled.div`
   background-color: whitesmoke;
   position: relative;
   border-radius: 10px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+    border-radius: 10px;
+    &-thumb {
+      background-color: rgba(255, 255, 255,0.6);
+    }
+  }
 `;
 const Head = styled.div`
   position: relative;
@@ -32,8 +47,8 @@ const Head = styled.div`
   }
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 232px;
+    height: 232px;
     box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
   }
 
@@ -137,44 +152,66 @@ align-items: flex-start;
 `
 const Playlist = () => {
   const { id } = useParams();
-  const [list, setPlaylist] = useState({});
-
-
+  const songs = useSelector((state) => state.song.songs);
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
+  const currentSong = useSelector(
+      (state) => state.currentPlaylist.playlistAdmin
+  );
+  console.log(currentSong)
   const [model, setModel] = useState(false);
-
+  const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
+  const handleDeletePlaylist = async () => {
+    // const res = await deletePlayList(playlist._id, dispatch);
+    // if (res) history.push("/home");
+  };
+  const handleRemoveSong = async (songId) => {
+    const payload = { playlistId: currentPlaylist._id, songId };
+    try {
+      const action = await removeSongFromPlaylist({payload})
+      const resultAction = await dispatch(action);
+      const user = unwrapResult(resultAction);
+      enqueueSnackbar('Xoá bài hát khỏi playlist thành công', {variant: "success"});
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error.message, {variant: "error"});
+    }
 
+  };
   useEffect(() => {
     dispatch(getPlaylistById(id));
   }, [id]);
-
+  useEffect(()=> {
+    dispatch(getSongToPlaylist(id))
+  },[id]);
 
   return (
     <Container>
       <Fragment>
         {currentPlaylist && (
           <Head>
-            {/* <div className={"head_gradient"}></div> */}
 
             <Navbar>
               <Image  src={currentPlaylist.image}/>
               <PlaylistInfo>
                 <PlaylistTitle>Playlist</PlaylistTitle>
                 <PlaylistName>{currentPlaylist.name}</PlaylistName>
+                <span>{currentPlaylist.description}</span>
+
               </PlaylistInfo>
               <PlaylistAction>
               <IconButton onClick={() => setModel(true)}>
                 <EditIcon  sx={{width: '40px', height: "40px"}}/>
               </IconButton>
-              <IconButton>
+              <IconButton onClick={handleDeletePlaylist}>
                 <DeleteIcon sx={{width: '40px', height: "40px"}} />
               </IconButton>
               </PlaylistAction>
 
             </Navbar>
+
           </Head>
         )}
         <Body>
@@ -190,9 +227,33 @@ const Playlist = () => {
               <AccessTimeIcon />
             </div>
           </div>
+          {currentSong && currentSong.map((song) => (
+              <Fragment key={song._id}>
+                <SongPlaylist
+                    song={song}
+                    currentPlaylist={currentPlaylist}
+                    handleRemoveSong={handleRemoveSong}
+                />
+              </Fragment>
+          ))}
+          <hr/>
+          <h3>Đề Xuất</h3>
+          {songs.map((song) => (
+              <Fragment key={song._id}>
+                <SongPlaylist
+                    song={song}
+                    playlist={currentPlaylist}
+                    handleRemoveSong={handleRemoveSong}
+                />
+                {/*<img   width={'50px'}*/}
+                {/*height={'50px'} src={song.image}/>*/}
+                {/*<h3>{song.name}</h3>*/}
+                {/*<h3>{song.singer}</h3>*/}
+              </Fragment>
+          ))}
         </Body>
         {model && (
-          <PlaylistModel closeModel={() => setModel(false)} playlist={list} />
+          <PlaylistModel closeModel={() => setModel(false)} playlist={currentPlaylist} id={id} />
         )}
       </Fragment>
     </Container>

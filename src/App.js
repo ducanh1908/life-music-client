@@ -24,18 +24,7 @@ function App() {
   return (
    <Router>
     <Routes>
-      {/* <Route path='/register' element={<Register />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/' element={<Home />} >
-          <Route path='upload' element={<Upload />} /> 
-          <Route path='songs' element={<Song />} />     
-      </Route>
-      <Route path='profile' element={<Profile />} >
-            
-        <Route path=""  element={<Information />} />
-        <Route path="update" element={<UpdateProfile />} />
-        <Route path="password" element={<UpdatePassword />} />
-      </Route> */}
+     
 
       <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
@@ -47,7 +36,7 @@ function App() {
         <Route path="playlist/:id" element={<Playlist />} />
         <Route path ='song-list' element={<HomeFooter />} />
         {/* <Route path="search" element={<Search />} /> */}
-        <Route path="playlists/:id" element={<PlaylistAdmin />} />
+        <Route path="/playlists/:id" element={<PlaylistAdmin />} />
 
       </Route>
       <Route path='profile' element={<Profile />} >  
