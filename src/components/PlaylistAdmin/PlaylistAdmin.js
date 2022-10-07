@@ -1,16 +1,12 @@
-import styled from "styled-components";
-import { useState, useEffect, Fragment } from "react";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import PlaylistModel from "../Playlist/PlaylistModel";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
+import styled from "styled-components";
+
 import { useParams } from "react-router";
 import {
   getPlaylistById,
-  getSongToPlaylist,
+  getSongToPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
 
 const Container = styled.div`

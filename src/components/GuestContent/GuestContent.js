@@ -8,7 +8,7 @@ import styled from "styled-components";
 // import { style } from "@mui/material/styles";
 import { getAllPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
 import { useParams } from "react-router";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: "#3a3a3a",
@@ -66,17 +66,27 @@ const Playlist = styled.div`
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   margin-top: 30px;
+  .playlist-item {
+    text-decoration: none;
+  }
 `;
 const PlaylistItem = styled.div`
   width: 100%;
   height: 280px;
-  background-color: #3a3a3a;
+  background-color: rgba(255, 255, 255, 0.05);
+
   border-radius: 5px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 16px;
+  -webkit-box-shadow: 0px 0px 5px 3px rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 0px 5px 3px rgba(255, 255, 255, 0.1);
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 const PlaylistImage = styled.img`
   width: 159px;
@@ -101,7 +111,9 @@ const PlaylistSinger = styled.span`
   color: #a7a7a7;
 `;
 const GuestContent = () => {
-  const playlistAdmin = useSelector((state) => state.playlistAdmin.playlistAdmin);
+  const playlistAdmin = useSelector(
+    (state) => state.playlistAdmin.playlistAdmin
+  );
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -109,9 +121,9 @@ const GuestContent = () => {
     dispatch(getAllPlaylist());
   }, [id]);
 
-  const handleClickPlaylist =(id) => {
-    console.log(id)
-  }
+  const handleClickPlaylist = (id) => {
+    console.log(id);
+  };
   return (
     <Container>
       <Wrapper>
@@ -153,74 +165,17 @@ const GuestContent = () => {
           <Playlist>
             {playlistAdmin &&
               playlistAdmin.map((playlist) => (
-                <NavLink   to={`playlists/${playlist._id}`} key={playlist._id}>
-                  <PlaylistImage src={playlist.image} />
-                  <PlaylistTitle> {playlist.name}</PlaylistTitle>
-                  <PlaylistSinger>{playlist.singer}</PlaylistSinger>
-                </NavLink>
+                <PlaylistItem key={playlist._id}>
+                  <NavLink
+                    className="playlist-item"
+                    to={`playlists/${playlist._id}`}
+                  >
+                    <PlaylistImage src={playlist.image} />
+                    <PlaylistTitle> {playlist.name}</PlaylistTitle>
+                    <PlaylistSinger>{playlist.singer}</PlaylistSinger>
+                  </NavLink>
+                </PlaylistItem>
               ))}
-          </Playlist>
-        </Categories>
-
-        <Categories>
-          <TopTitle>Chào buổi sáng</TopTitle>
-          <Playlist>
-            <PlaylistItem>
-              <PlaylistImage src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default" />
-              <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-              <PlaylistSinger>
-                Wiz Khalifa, Big Sean, Future và nhiều hơn nữa
-              </PlaylistSinger>
-            </PlaylistItem>
-            <PlaylistItem>
-              <PlaylistImage src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default" />
-              <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-              <PlaylistSinger>
-                Wiz Khalifa, Big Sean, Future và nhiều hơn nữa
-              </PlaylistSinger>
-            </PlaylistItem>
-            <PlaylistItem>
-              <PlaylistImage src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default" />
-              <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-              <PlaylistSinger>
-                Wiz Khalifa, Big Sean, Future và nhiều hơn nữa
-              </PlaylistSinger>
-            </PlaylistItem>{" "}
-            <PlaylistItem>
-              <PlaylistImage src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default" />
-              <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-              <PlaylistSinger>
-                Wiz Khalifa, Big Sean, Future và nhiều hơn nữa
-              </PlaylistSinger>
-            </PlaylistItem>{" "}
-            <PlaylistItem>
-              <PlaylistImage src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default" />
-              <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-              <PlaylistSinger>
-                Wiz Khalifa, Big Sean, Future và nhiều hơn nữa
-              </PlaylistSinger>
-            </PlaylistItem>{" "}
-            <PlaylistItem>
-              <PlaylistImage src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default" />
-              <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-              <PlaylistSinger>
-                Wiz Khalifa, Big Sean, Future và nhiều hơn nữa
-              </PlaylistSinger>
-            </PlaylistItem>{" "}
-            <PlaylistItem>
-              <PlaylistImage src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default" />
-              <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-              <PlaylistSinger>
-                Wiz Khalifa, Big Sean, Future và nhiều hơn nữa
-              </PlaylistSinger>
-            </PlaylistItem>
-            <PlaylistItem>
-              <PlaylistImage src="https://seed-mix-image.spotifycdn.com/v6/img/artist/0QHgL1lAIqAw0HtD7YldmP/vi/default" />
-              <PlaylistTitle> Tuyển tập của DJ Khaled Mix</PlaylistTitle>
-              <PlaylistSinger>
-                Wiz Khalifa, Big Sean, Future và nhiều hơn nữa
-              </PlaylistSinger>
-            </PlaylistItem>
           </Playlist>
         </Categories>
 

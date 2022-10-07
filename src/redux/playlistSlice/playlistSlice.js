@@ -19,7 +19,7 @@ export const createPlaylist = createAsyncThunk(`/playlist`, async (payload) => {
     return data.playlists;
   });
 
-export const getPlaylistAndUser = createAsyncThunk("/playlist", async (payload) => {
+export const getPlaylistAndUser = createAsyncThunk("/playlists/:id", async (payload) => {
   const data = await playlistApi.getAllPlaylistUser(payload);
  
   return data.playlists;

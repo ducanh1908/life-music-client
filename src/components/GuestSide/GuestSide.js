@@ -195,15 +195,6 @@ const { isSubmitting } = form.formState;
               <ItemDesc>Tải lên bài hát</ItemDesc>
             </NavLink>
           </MenuItem>
-
-          <MenuItem>
-            <NavLink className='item-link' to={"/song"}>
-              <ItemIcon>
-                <DownloadForOfflineOutlinedIcon />
-              </ItemIcon>
-              <ItemDesc>Bài hát</ItemDesc>
-            </NavLink>
-          </MenuItem>
           <MenuItem>
             <NavLink className='item-link' to={"/song-list"}>
               <ItemIcon>

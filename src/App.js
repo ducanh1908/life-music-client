@@ -36,7 +36,7 @@ function App() {
         <Route path="playlist/:id" element={<Playlist />} />
         <Route path ='song-list' element={<HomeFooter />} />
         {/* <Route path="search" element={<Search />} /> */}
-        <Route path="playlists/:id" element={<PlaylistAdmin />} />
+        <Route path="/playlists/:id" element={<PlaylistAdmin />} />
 
       </Route>
       <Route path='profile' element={<Profile />} >  

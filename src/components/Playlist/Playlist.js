@@ -47,8 +47,8 @@ const Head = styled.div`
   }
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 232px;
+    height: 232px;
     box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
   }
 
