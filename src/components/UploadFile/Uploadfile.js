@@ -43,13 +43,7 @@ function AddNewFile() {
   const [editSong, setEditSong] = useState({});
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
-  const [updateSong, setUpdateSong] = useState({});
   const [avatar, setAvatar] = useState("");
-
-  const [name, setName] = useState("");
-  const [singerName, setSingerName] = useState("");
-  const [cate, setCate] = useState("");
-
 
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -141,36 +135,28 @@ function AddNewFile() {
     }
   };
 
-  const changeAvatar = (e) => {
-    const file = e.target.files[0];
-    setAvatar(file);
-  };
+  let updateSong = {};
+  let file;
 
-  const handleChange = (e) => {
-    setUpdateSong({
-      ...updateSong,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (value) => {
-    console.log('value ',value)
-    console.log('name', name);
-    console.log('cate', cate);
-    console.log('singerName', singerName);
+  
+  
+  const handleSubmit = async () => {
     let media;
-    if (avatar) {
-      media = await imageUpload([avatar]);
+    if (file) {
+      media = await imageUpload([file]);
     }
-    // let image = media[0].url;
+    console.log('media', media)
+    let image = media ? media[0].url : '';
+    if(image) {
+      updateSong.image = image;
+    }
     let songId = editSong._id;
-    // value.image = image;
-    value.songId = songId;
-    dispatch(updateSongInfo(value));
-    // console.log("media", media);
-
-    // console.log("updateSong", updateSong);
-
+    if(songId){
+      updateSong.songId = songId;
+    }
+    console.log('updateSong2',updateSong);
+    
+    dispatch(updateSongInfo(updateSong));
     handleClose();
   };
 
@@ -178,9 +164,6 @@ function AddNewFile() {
   const handleSongStatus = (e, song) => {
     try {
       let select = e.target.value.split(",")[0];
-      // console.log("select", select);
-
-      // console.log("song123", song);
       let status = select;
       let data = {song, status}
       dispatch(publicOrPrivate(data));
@@ -433,18 +416,18 @@ function AddNewFile() {
                     placeholder={`${editSong.name}`}
                     name="name"
                     onChange={(e) => {
-                      
-                      setName(e.target.value)
-                      console.log(name)
+                      updateSong.name = e.target.value;
                     }}
                   />
                   <TextField
                     label="Ca sĩ"
                     name="singerName"
                     placeholder={`${editSong.singerName}`}
-                    onChange={(e) => {setSingerName(e.target.value)}}
+                    onChange={(e) => {
+                      updateSong.singerName = e.target.value;
+                    }}
                   />
-                  {/* <Logo>
+                  <Logo>
                     <InforAvatar>
                       <InfoImg
                         src={
@@ -463,16 +446,18 @@ function AddNewFile() {
                           name="file"
                           id="file_up"
                           accept="image/*"
-                          onChange={changeAvatar}
+                          onChange={(e) => {file = e.target.files[0];}}
                         />
                       </InforSpan>
                     </InforAvatar>
-                  </Logo> */}
+                  </Logo>
                   <select
                     select
                     label="Thể loại"
                     name="cate"
-                    onChange={(e) => {setCate(e.target.value)}}
+                    onChange={(e) => {
+                      updateSong.cate = e.target.value;
+                    }}
                   >
                     {categories &&
                       categories.map((cate) => {

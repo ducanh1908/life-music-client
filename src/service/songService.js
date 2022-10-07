@@ -27,8 +27,9 @@ const songApi = {
         return apiClient.get(url);
     },
     updateSong (data) {
+        console.log('data 123123', data)
         const url = `/song/${data.songId}`;
-        return apiClient.patch(url);
+        return apiClient.patch(url, data);
     },
     publicOrPrivate (data) {
         console.log('publicOrPrivate', data)

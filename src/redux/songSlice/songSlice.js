@@ -35,8 +35,10 @@ export const deleteSongById = createAsyncThunk('song/deleteSong', (payload) => {
   return data
 });
 
-export const updateSongInfo = createAsyncThunk('song/updateSong', (payload) => {
-  const data = songApi.updateSong(payload);
+export const updateSongInfo = createAsyncThunk('song/updateSong', async (payload) => {
+  console.log('12312312313', payload)
+  const data = await songApi.updateSong(payload);
+  console.log('444444',data);
   return data
 });
 
