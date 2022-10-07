@@ -47,10 +47,10 @@ const Search = () => {
     });
   }, [currentSongIndex]);
 
-  // useEffect(() => {
-  //   // dispatch(fetchSong());
-  //   dispatch(getAllPlaylist());
-  // },[])
+  useEffect(() => {
+    dispatch(fetchSong());
+    dispatch(getAllPlaylist());
+  },[])
   const handlePlay =(idSong) => {
     // console.log(idSong)
   }
@@ -67,15 +67,15 @@ const Search = () => {
           ))
           }
         </div>
-        {/*<div>*/}
-        {/*  {playlists.map((playlist, index)=> (*/}
-        {/*      <SongItem key={index} >*/}
-        {/*        <p>{index + 1}</p>*/}
-        {/*        <SongImage  src={playlist.image}/>*/}
-        {/*        <SongName>{playlist.name}</SongName>*/}
-        {/*      </SongItem>*/}
-        {/*  ))}*/}
-        {/*</div>*/}
+        <div>
+          {playlists.map((playlist, index)=> (
+              <SongItem key={index} >
+                <p>{index + 1}</p>
+                <SongImage  src={playlist.image}/>
+                <SongName>{playlist.name}</SongName>
+              </SongItem>
+          ))}
+        </div>
       </Container>
   )
 }
