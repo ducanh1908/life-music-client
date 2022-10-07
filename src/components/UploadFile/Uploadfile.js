@@ -1,4 +1,3 @@
-
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "./firebase";
 import { useEffect, useState } from "react";
@@ -62,6 +61,7 @@ function AddNewFile() {
   const uploadFile = async () => {
     try {
       if (fileUpload == null) return;
+      dispatch(loading("loading"));
       const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
       await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
         await getDownloadURL(snapshot.ref).then(async (url) => {
@@ -73,7 +73,6 @@ function AddNewFile() {
               file: url,
               duration: duration,
             });
-            console.log("duration ", duration);
           });
         });
       });
@@ -138,15 +137,13 @@ function AddNewFile() {
 
   let updateSong = {};
   let file;
-
-  
   
   const handleSubmit = async () => {
     let media;
     if (file) {
       media = await imageUpload([file]);
     }
-    console.log('media', media)
+    console.log('file', file)
     let image = media ? media[0].url : '';
     if(image) {
       updateSong.image = image;
@@ -155,8 +152,6 @@ function AddNewFile() {
     if(songId){
       updateSong.songId = songId;
     }
-    console.log('updateSong2',updateSong);
-    
     dispatch(updateSongInfo(updateSong));
     handleClose();
   };
@@ -174,6 +169,7 @@ function AddNewFile() {
   };
 
   useEffect(() => {
+    dispatch(fetchPlaylist(user._id));
     dispatch(getCategories());
   }, []);
 
@@ -203,7 +199,18 @@ function AddNewFile() {
   };
 
   const Container = styled.div`
+    @font-face {
+      font-family: "MyWebFont";
+      src: url("webfont.eot"); /* IE9 Compat Modes */
+      src: url("webfont.eot?#iefix") format("embedded-opentype"),
+        /* IE6-IE8 */ url("webfont.woff2") format("woff2"),
+        /* Super Modern Browsers */ url("webfont.woff") format("woff"),
+        /* Pretty Modern Browsers */ url("webfont.ttf") format("truetype"),
+        /* Safari, Android, iOS */ url("webfont.svg#svgFontName") format("svg"); /* Legacy iOS */
+    }
+
     background-color: #7a7a7a;
+
     .image-upload > input {
       display: none;
     }
@@ -328,8 +335,8 @@ function AddNewFile() {
               <th>Thời gian</th>
               <th>Hành động</th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             {uploadSongs.songs &&
               uploadSongs.songs.map((song, index) => (
                 <tr key={index}>

@@ -15,6 +15,10 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
   const data = await userApi.uploadSong(payload);
   return data;
 });
+export const createPlaylist = createAsyncThunk(`createPlaylist/playlist`, async (payload) => {
+  const data = await playlistApi.createPlaylist(payload);
+  return data.playlists;
+});
 
 // getplay list and user
 export const fetchPlaylist = createAsyncThunk("fetchPlaylist/playlist", async (payload) => {
@@ -41,11 +45,8 @@ export const getPlaylistAndUser = createAsyncThunk("/playlists/:id", async (payl
   const data = await playlistApi.getAllPlaylistUser(payload);
   return data.playlists;
 });
-// get all play list
-export const getAllPlaylist = createAsyncThunk("/playlists", async (payload) => {
-  const data = await playlistApi.getAllPlaylist(payload);
-  return data.playlists;
-});
+
+
 
 
 // export const getPlaylistByUserId = createAsyncThunk("/playlist/userid", async (payload) => {
@@ -96,18 +97,11 @@ const playlistSlice = createSlice({
     [getPlaylistAndUser.fulfilled] : (state, action) => {
         state.playlists = action.payload
     },
-  },
-
-    [getAllPlaylist.fulfilled]: (state, action) => {
-      state.playlist = action.payload;
-    },
-    // [getPlaylistByUserId.fulfilled] : (state, action) => {
-    //   state.playlist = action.payload
-    // },
     [searchPlaylist.fulfilled] : (state, action) => {
         state.playlists = action.payload.playlists.length>0 ? action.payload.playlists : state.playlists
     }
-}
+  },
+
 });
 const { reducer, actions } = playlistSlice;
 

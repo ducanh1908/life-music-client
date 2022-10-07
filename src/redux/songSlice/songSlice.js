@@ -118,7 +118,7 @@ const songSlice = createSlice({
     [updateSongInfo.rejected] : (state, action) => {
       state.publicOrPrivateStatus = 'false';
     },
-  }
+  
 });
 
 const { reducer, actions } = songSlice;
