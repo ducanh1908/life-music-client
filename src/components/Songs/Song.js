@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { fetchSong } from '../../redux/songSlice/songSlice';
-import SearchNavBar from "../GuestNavbar/SearchNavBar";
-import {searchSongApi} from "../../service/searchService";
+import { fetchSong,searchSong } from '../../redux/songSlice/songSlice';
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Footer from "../Footer/Footer";
 
@@ -66,21 +64,10 @@ const Input = styled.input`
   background: transparent;
   color: #fff;
 `;
-
-
-
 const Song = () => {
   const dispatch = useDispatch();
   const songs = useSelector(state => state.song.songs)
   const [term,setTerm] = useState('');
-  console.log(songs.filter(song => song.name.toLowerCase().includes(term)))
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   if(term === '') return alert('Please enter search term')
-  //   dispatch(searchSongApi(term));
-  //   setTerm('')
-  // }
-
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
 

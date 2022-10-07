@@ -25,7 +25,10 @@ const songApi = {
     getCate() {
         const url = `/cate`;
         return apiClient.get(url)
-    }
-
+    },
+        searchSong(data) {
+            const url = `song/search/${data}`;
+            return apiClient.get(url)
+        }
 }
 export default songApi;

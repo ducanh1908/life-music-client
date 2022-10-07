@@ -19,6 +19,7 @@ import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
 import { createPlaylist, fetchPlaylist } from './../../redux/playlistSlice/playlistSlice';
+import {getAllPlaylist} from "../../redux/playlistSlice/playlistAdmin";
 
 const Container = styled.div`
   height: 100%;
@@ -137,10 +138,12 @@ const GuestSide = () => {
     resolver: yupResolver(schema),
   });
   
-  useEffect(()=> {
-    dispatch(fetchPlaylist(user._id))
+  // useEffect(()=> {
+  //   dispatch(fetchPlaylist(user._id))
+  // },[])
+  useEffect(() => {
+    dispatch((getAllPlaylist()))
   },[])
-
 const handleSubmit = async (data) => {
   
   try {

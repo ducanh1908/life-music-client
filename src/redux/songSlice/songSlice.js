@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userApi from "./../../service/userService";
 import songApi from "./../../service/songService";
-import searchSongApi from "../../service/searchService";
 const initialState = {
   status: "idle",
   getUploadSongsStatus: "idle",
@@ -33,7 +32,8 @@ export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload
 export const searchSong = createAsyncThunk(
     '/song/search',
     async (term) => {
-      const res = await searchSongApi.searchSong(term);
+      const res = await songApi.searchSong(term);
+      console.log(res)
       return res;
 } )
 

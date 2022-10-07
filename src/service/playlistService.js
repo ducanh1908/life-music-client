@@ -21,14 +21,13 @@ const playlistApi = {
         const url = '/playlists';
         return apiClient.get(url, data);
     },
-    getPlaylistByUserId(data) {
-        const url = `/playlists/${data}`
-        return apiClient.get(url,data);
-    },
+    // getPlaylistByUserId(data) {
+    //     const url = `/playlists/${data}`
+    //     return apiClient.get(url,data);
+    // },
     searchPlaylist(data) {
         const url = `/playlist/search/${data}`;
         return apiClient.get(url);
     }
-
 }
 export default playlistApi;

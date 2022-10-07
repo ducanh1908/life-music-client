@@ -15,9 +15,8 @@ import Register from './pages/Register/Register';
 import GuestContent from './components/GuestContent/GuestContent';
 import Library from './components/Library/Library';
 import Playlist from "./components/Playlist/Playlist";
-// import Search from './Search/Search';
 import PlaylistAdmin from './components/PlaylistAdmin/PlaylistAdmin';
-import Search from "./components/Search/search";
+import Search from "./Search/Search";
 
 function App() {
 
@@ -47,8 +46,6 @@ function App() {
         <Route path="playlist/:id" element={<Playlist />} />
         <Route path="playlist" element={<Playlist />} />
           <Route path='search' element={<Search />} />
-        <Route path ='song-list' element={<HomeFooter />} />
-        {/* <Route path="search" element={<Search />} /> */}
         <Route path="playlists/:id" element={<PlaylistAdmin />} />
 
       </Route>

@@ -8,10 +8,9 @@ import { useNavigate } from 'react-router';
 import {Link, NavLink} from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
-import {fetchSong, searchSong} from "../../redux/songSlice/songSlice";
-import SearchNavBar from "./SearchNavBar";
+import {searchSong} from "../../redux/songSlice/songSlice";
 import {searchPlaylist} from "../../redux/playlistSlice/playlistSlice";
-import {useEffect} from "react"
+
 const Container = styled.div`
 
   grid-column-gap: 10px;
@@ -112,16 +111,10 @@ const GuestNavbar = () => {
   const [term,setTerm] = useState('');
 
     const handleChange = (e) => {
-         setTerm(e.target.value);
-        dispatch(searchSong(term));
-        dispatch(searchPlaylist(term));
+        dispatch(searchSong(e.target.value));
+        dispatch(searchPlaylist(e.target.value));
     }
-  // const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     if(term === '') return alert('Please enter search term')
-  //     dispatch(searchSongApi(term));
-  //     setTerm('')
-  // }
+ 
   return (
     <Container>
       <Left>

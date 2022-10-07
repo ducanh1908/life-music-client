@@ -8,11 +8,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import {useDispatch} from "react-redux";
-import Footer from "../Footer/Footer";
 import {fetchSong,searchSong} from "../../redux/songSlice/songSlice";
-import SearchNavBar from "../GuestNavbar/SearchNavBar";
-import {NavLink} from "react-router-dom";
-import {fetchPlaylist} from "../../redux/playlistSlice/playlistSlice";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#3a3a3a",
   ...theme.typography.body2,

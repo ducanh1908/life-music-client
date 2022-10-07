@@ -30,15 +30,16 @@ export const getAllPlaylist = createAsyncThunk(
   "/playlists",
   async (payload) => {
     const data = await playlistApi.getAllPlaylist(payload);
+    console.log(data)
     return data.playlists;
   }
 );
 
 
-export const getPlaylistByUserId = createAsyncThunk("/playlist/userid", async (payload) => {
-  const data = await playlistApi.getPlaylistByUserId(payload);
-  return data.playlists;
-});
+// export const getPlaylistByUserId = createAsyncThunk("/playlist/userid", async (payload) => {
+//   const data = await playlistApi.getPlaylistByUserId(payload);
+//   return data.playlists;
+// });
 export const searchPlaylist = createAsyncThunk(
     "/playlist/search",
     async (payload) => {
@@ -59,7 +60,6 @@ const playlistSlice = createSlice({
     [fetchPlaylist.fulfilled]: (state, action) => {
       state.fetchPlaylistStatus = 'success';
       state.playlist = action.payload;
-      console.log('playlist action', action.payload)
     },
     [fetchPlaylist.rejected]: (state, action) => {
       state.fetchPlaylistStatus = 'false';
@@ -67,12 +67,11 @@ const playlistSlice = createSlice({
     [getAllPlaylist.fulfilled]: (state, action) => {
       state.playlist = action.payload;
     },
-    [getPlaylistByUserId.fulfilled] : (state, action) => {
-      state.playlist = action.payload
-    },
+    // [getPlaylistByUserId.fulfilled] : (state, action) => {
+    //   state.playlist = action.payload
+    // },
     [searchPlaylist.fulfilled] : (state, action) => {
         state.playlists = action.payload.playlists.length>0 ? action.payload.playlists : state.playlists
-        console.log(state.playlists);
     }
 }
 });
