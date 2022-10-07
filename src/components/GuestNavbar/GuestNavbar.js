@@ -109,7 +109,7 @@ const GuestNavbar = () => {
   const songs = useSelector(state => state.song.songs)
    const handleChange = (e) => {
         dispatch(searchSong(e.target.value));
-        // dispatch(searchPlaylist(e.target.value));
+        dispatch(searchPlaylist(e.target.value));
     }
   return (
     <Container>
