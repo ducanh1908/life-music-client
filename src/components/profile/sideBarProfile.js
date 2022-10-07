@@ -121,7 +121,6 @@ const SideBarProfile = () => {
         try {
             const action = await updateAvatar(avatar);
             const resultAction = await dispatch(action);
-            const user = unwrapResult(resultAction);
             enqueueSnackbar('Cập nhật ảnh đại diện thành công', {variant: "success"});
         } catch (error) {
             console.log(error);
