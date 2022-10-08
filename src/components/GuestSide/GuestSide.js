@@ -18,7 +18,6 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
-import { createPlaylist, getPlaylistAndUser } from './../../redux/playlistSlice/playlistSlice';
 
 const Container = styled.div`
   height: 100%;
