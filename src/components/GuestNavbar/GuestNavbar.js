@@ -56,6 +56,10 @@ const HomeForm = styled.div`
   &:focus {
     background-color: aqua;
   }
+  .nav-search {
+    display: flex;
+    align-items: center;
+  }
 `;
 const SearchButton = styled.button`
   display: flex;
@@ -109,7 +113,7 @@ const GuestNavbar = () => {
   const songs = useSelector(state => state.song.songs)
    const handleChange = (e) => {
         dispatch(searchSong(e.target.value));
-        // dispatch(searchPlaylist(e.target.value));
+        dispatch(searchPlaylist(e.target.value));
     }
   return (
     <Container>
@@ -121,7 +125,7 @@ const GuestNavbar = () => {
       <Center>
         
         <HomeForm >
-            <NavLink to={ '/search'} >
+            <NavLink className='nav-search' to={ '/search'} >
           <SearchButton>
             <SearchOutlinedIcon />
           </SearchButton >

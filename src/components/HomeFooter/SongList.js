@@ -58,6 +58,7 @@ const SongItem = styled.div`
   display: grid;
   color: #fff;
   grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
+  cursor: pointer;
   .col {
     display: flex;
     align-items: center;

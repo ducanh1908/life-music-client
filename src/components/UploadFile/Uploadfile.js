@@ -54,9 +54,7 @@ function AddNewFile() {
   let { playlists } = useSelector((state) => state.playlist);
   
   let categories = useSelector((state) => state.cate.categories);
-  console.log("categories", categories);
-  console.log("status upload", status);
-  console.log("uploadSongs", uploadSongs.songs);
+ 
 
   const uploadFile = async () => {
     try {

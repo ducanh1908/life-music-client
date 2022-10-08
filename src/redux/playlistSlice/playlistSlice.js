@@ -22,6 +22,10 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
   const data = await userApi.uploadSong(payload);
   return data;
 });
+export const createPlaylist = createAsyncThunk(`createPlaylist/playlist`, async (payload) => {
+  const data = await playlistApi.createPlaylist(payload);
+  return data.playlists;
+});
 
 // getplay list and user
 export const fetchPlaylist = createAsyncThunk("fetchPlaylist/playlist", async (payload) => {
@@ -43,11 +47,6 @@ export const addToPlaylist = createAsyncThunk(
     return data
   }
 );
-export const createPlaylist = createAsyncThunk(`/playlist`, async (payload) => {
-  
-    const data = await playlistApi.createPlaylist(payload);
-    return data.playlists;
-  });
 
 export const getPlaylistAndUser = createAsyncThunk("/playlists/:id", async (payload) => {
   const data = await playlistApi.getAllPlaylistUser(payload);
@@ -69,7 +68,6 @@ const playlistSlice = createSlice({
     [fetchPlaylist.fulfilled]: (state, action) => {
       state.fetchPlaylistStatus = 'success';
       state.playlist = action.payload;
-      console.log('playlist action', action.payload)
     },
     [fetchPlaylist.rejected]: (state, action) => {
       state.fetchPlaylistStatus = 'false';
@@ -86,17 +84,17 @@ const playlistSlice = createSlice({
     [addToPlaylist.rejected]: (state, action) => {
       state.addSongToPlaylistStatus = 'false';
     },
+    [createPlaylist.fulfilled] : (state, action) => {
+      state.playlists = action.payload;
+    },
     [getPlaylistAndUser.fulfilled] : (state, action) => {
         state.playlists = action.payload
     },
-    // [getPlaylistByUserId.fulfilled] : (state, action) => {
-    //   state.playlist = action.payload
-    // },
     [searchPlaylist.fulfilled] : (state, action) => {
         state.playlists = action.payload.playlists.length>0 ? action.payload.playlists : state.playlists
     }
+  },
 
-}
 });
 const { reducer, actions } = playlistSlice;
 
