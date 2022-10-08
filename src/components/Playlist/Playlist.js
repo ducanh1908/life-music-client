@@ -7,8 +7,9 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaylistModel from "./PlaylistModel";
 import { useDispatch, useSelector } from "react-redux";
 import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
-import { useParams } from "react-router";
+import { useNavigate, useParams} from "react-router";
 import {
+  deletePlaylist,
   getPlaylistById,
   getSongToPlaylist,
   removeSongFromPlaylist
@@ -152,6 +153,7 @@ align-items: flex-start;
 `
 const Playlist = () => {
   const { id } = useParams();
+  const navigate=useNavigate();
   const songs = useSelector((state) => state.song.songs);
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
@@ -159,11 +161,20 @@ const Playlist = () => {
   const currentSong = useSelector(
       (state) => state.currentPlaylist.playlistAdmin
   );
-  console.log(currentSong)
   const [model, setModel] = useState(false);
   const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
   const handleDeletePlaylist = async () => {
+    try {
+      const action = await deletePlaylist(currentPlaylist._id)
+      const resultAction = await dispatch(action);
+      const user = unwrapResult(resultAction);
+      enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
+      navigate("/")
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error.message, {variant: "error"});
+    }
     // const res = await deletePlayList(playlist._id, dispatch);
     // if (res) history.push("/home");
   };
@@ -218,10 +229,10 @@ const Playlist = () => {
           <div className={"body_nav"}>
             <div className={"left"}>
               <span>#</span>
-              <p>Title</p>
+              <p>Tên bài hát</p>
             </div>
             <div className={"center"}>
-              <p>Artist</p>
+              <p>Ca sỹ</p>
             </div>
             <div className={"right"}>
               <AccessTimeIcon />
@@ -245,10 +256,6 @@ const Playlist = () => {
                     playlist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
                 />
-                {/*<img   width={'50px'}*/}
-                {/*height={'50px'} src={song.image}/>*/}
-                {/*<h3>{song.name}</h3>*/}
-                {/*<h3>{song.singer}</h3>*/}
               </Fragment>
           ))}
         </Body>
