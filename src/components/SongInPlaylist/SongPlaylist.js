@@ -17,6 +17,7 @@ const Container= styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  //grid-template-columns: 1fr 1fr;
 
   &:hover {
     background-color: var(--light-black);
@@ -59,7 +60,7 @@ const Container= styled.div`
 
     p {
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 0.8rem;
       margin: 0;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
@@ -70,12 +71,12 @@ const Container= styled.div`
   }
 
   .right {
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: flex-end;
     position: relative;
     flex: 1;
-
+    grid-template-columns: 1fr 1fr 1fr;
     p {
       margin: 0 0.5rem 0 1rem;
       font-size: 1.2rem;

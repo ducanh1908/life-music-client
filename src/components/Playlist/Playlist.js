@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaylistModel from "./PlaylistModel";
 import { useDispatch, useSelector } from "react-redux";
-import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
+import {fetchSong, getSongsByPlaylistId} from "../../redux/songSlice/songSlice";
 import { useNavigate, useParams} from "react-router";
 import {
   deletePlaylist,
@@ -34,7 +34,7 @@ const Container = styled.div`
 const Head = styled.div`
   position: relative;
   display: flex;
-  height: 310px;
+  height: 250px;
   padding: 2rem;
   background-color: grey;
 
@@ -48,8 +48,8 @@ const Head = styled.div`
   }
 
   img {
-    width: 232px;
-    height: 232px;
+    width: 200px;
+    height: 200px;
     box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
   }
 
@@ -78,14 +78,15 @@ const Body = styled.div`
   padding: 1rem 3rem;
 
   .body_nav {
-    display: flex;
+    display: grid;
     justify-content: space-between;
     padding: 0.5rem 0;
     color: var(--light-white);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
     border-bottom: 1px solid var(--light-white);
     margin-bottom: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
 
     .left {
       display: flex;
@@ -114,12 +115,12 @@ const Body = styled.div`
     .right {
       flex: 1;
       display: flex;
-      justify-content: flex-end;
-      padding-right: 4rem;
-
+      justify-content:center;
+      padding-right: 2rem;
       svg {
         width: 2rem;
         height: 2rem;
+        align-content: center;
       }
     }
   }
@@ -141,7 +142,7 @@ margin-left: 20px;
 flex:1;
 `
 const PlaylistName = styled.h1`
-font-size:70px;
+font-size:50px;
 `
 const PlaylistTitle = styled.h1`
 
@@ -164,6 +165,15 @@ const Playlist = () => {
   const [model, setModel] = useState(false);
   const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPlaylistById(id));
+  }, []);
+  useEffect(()=> {
+    dispatch(getSongToPlaylist(id))
+  },[]);
+  useEffect(() => {
+    dispatch(fetchSong())
+  },[])
   const handleDeletePlaylist = async () => {
     try {
       const action = await deletePlaylist(currentPlaylist._id)
@@ -176,8 +186,6 @@ const Playlist = () => {
       console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});
     }
-    // const res = await deletePlayList(playlist._id, dispatch);
-    // if (res) history.push("/home");
   };
   const handleRemoveSong = async (songId) => {
     const payload = { playlistId: currentPlaylist._id, songId };
@@ -193,26 +201,19 @@ const Playlist = () => {
     }
 
   };
-  useEffect(() => {
-    dispatch(getPlaylistById(id));
-  }, [id]);
-  useEffect(()=> {
-    dispatch(getSongToPlaylist(id))
-  },[id]);
+
 
   return (
     <Container>
       <Fragment>
         {currentPlaylist && (
           <Head>
-
             <Navbar>
               <Image  src={currentPlaylist.image}/>
               <PlaylistInfo>
                 <PlaylistTitle>Playlist</PlaylistTitle>
                 <PlaylistName>{currentPlaylist.name}</PlaylistName>
                 <span>{currentPlaylist.description}</span>
-
               </PlaylistInfo>
               <PlaylistAction>
               <IconButton onClick={() => setModel(true)}>
@@ -250,7 +251,7 @@ const Playlist = () => {
               </Fragment>
           ))}
           <hr/>
-          <h3>Đề Xuất</h3>
+          <h3 style={{ paddingTop:30, fontSize:30}}>Bài Hát Đề Xuất</h3>
           {songs.map((song) => (
               <Fragment key={song._id}>
                 <SongPlaylist
