@@ -13,36 +13,36 @@ import {updateProfile} from "../../redux/userSlice/userSlice";
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
 const Container = styled.div`
-
-width: 70%;
+width: 100%;
 height: 100vh;
 display: flex;
 text-align: center;
 justify-content: center;
-background: linear-gradient(
-      rgba(255, 255, 255, 0.9),
-      rgba(255, 255, 255, 0.8)
-    ),
-    url("https://images.unsplash.com/photo-1488376739361-ed24c9beb6d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80");
+background-color: #333;
+border-radius: 10px;
 `
+
 const Wrapper = styled.div`
-margin-top: 10px;
+background-color: #fff;
+margin-top: 20px;
 height: 600px;
 width: 100%;
 max-width: 450px;
-
+-webkit-box-shadow: 5px 5px 24px 5px #000000; 
+box-shadow: 5px 5px 24px 5px #000000;
 `
 const Topbar = styled.div`
+margin-top:20px;
 
 `
 const Logo = styled.h1`
-
+margin-top: 20px;
 `
 const Title = styled.h1`
-margin-top:40px;
+margin-top:10px;
 `
 const Form = styled.div`
-margin-top:20px;
+
 width:100%;
 display: flex;
 flex-direction: column;
