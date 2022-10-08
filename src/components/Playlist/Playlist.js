@@ -171,6 +171,7 @@ const Playlist = () => {
       const user = unwrapResult(resultAction);
       enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
       navigate("/")
+      setTimeout(window.location.reload(),5000)
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});
@@ -185,6 +186,7 @@ const Playlist = () => {
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
       enqueueSnackbar('Xoá bài hát khỏi playlist thành công', {variant: "success"});
+      setTimeout(window.location.reload(),5000)
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});

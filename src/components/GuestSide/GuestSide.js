@@ -153,7 +153,7 @@ const handleSubmit = async (data) => {
       const resultAction = await dispatch(action);
       const playlists = unwrapResult(resultAction);
       enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
-      // navigate('/playlist')
+    setTimeout(window.location.reload(),5000)
   } catch (error) {
     console.log(error.message);
     enqueueSnackbar(error.message, { variant: "error" });

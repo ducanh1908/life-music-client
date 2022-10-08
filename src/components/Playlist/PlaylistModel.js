@@ -5,11 +5,12 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {updatePlaylist} from "../../redux/playlistSlice/currentPlaylist";
+import {getPlaylistById, updatePlaylist} from "../../redux/playlistSlice/currentPlaylist";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {useSnackbar} from "notistack";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import {useNavigate} from "react-router";
 
 const Container = styled.div`
   width: 30rem;
@@ -128,14 +129,13 @@ const PlaylistModel = ({closeModel, playlist, id}) => {
     const {name, description} = playlistData;
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
+    const navigate=useNavigate()
     useEffect(() => {
         setPlaylistData(playlist)
     }, [playlist])
-
     const changeAvatar = (e) => {
         const file = e.target.files[0]
             setAvatar(file)
-
     }
     const handleInput = e => {
         const {name, value} = e.target
@@ -148,6 +148,7 @@ const PlaylistModel = ({closeModel, playlist, id}) => {
             const resultAction = await dispatch(action);
             const user = unwrapResult(resultAction);
             enqueueSnackbar('Cập nhật thành công', {variant: "success"});
+            window.location.reload();
         } catch (error) {
             console.log(error);
             enqueueSnackbar(error.message, {variant: "error"});
