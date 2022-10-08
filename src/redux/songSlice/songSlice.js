@@ -22,8 +22,8 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
 });
 
 export const fetchSong = createAsyncThunk("/songs", async (payload) => {
-
   const data = await songApi.getSong();
+  console.log(data)
   return data.songs;
 });
 export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload) => {
@@ -76,13 +76,13 @@ const songSlice = createSlice({
       state.songs = action.payload;
     },
     [uploadSong.pending] : (state, action) => {
-      state.status = 'loading';
+      state.status = 'loading'
     },
     [uploadSong.fulfilled] : (state, action) => {
       state.status = 'success';
     },
     [uploadSong.rejected] : (state, action) => {
-      state.status = 'false';
+      state.status = 'false'
     },
     [getUploadedSongs.pending] : (state, action) => {
       state.getUploadSongsStatus = 'loading';
@@ -118,8 +118,9 @@ const songSlice = createSlice({
     [updateSongInfo.rejected] : (state, action) => {
       state.publicOrPrivateStatus = 'false';
     },
+  
 });
 
 const { reducer, actions } = songSlice;
-export const { loading, changeStatus, changeDeleteSongStatus } = actions;
+export const {upSong, loading, changeStatus, changeDeleteSongStatus } = actions;
 export default reducer;

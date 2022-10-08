@@ -10,15 +10,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 const Container = styled.div`
-  width: 70%;
+  width: 100%;
   height: 100vh;
   padding: 50px;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.8)
-    ),
-    url("https://images.unsplash.com/photo-1488376739361-ed24c9beb6d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80");
+  background-color: #333;
+  border-radius: 10px;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 `;
+
+
 
 const Info = styled.div`
   display: flex;
@@ -29,6 +32,13 @@ const Info = styled.div`
 const Desc = styled.h2``;
 
 
+const Warrper = styled.div`
+width: 550px;
+height: 70%;
+background-color: #fff;
+-webkit-box-shadow: 5px 5px 24px 5px #000000; 
+box-shadow: 5px 5px 24px 5px #000000;
+`;
 
 function createData(name, calories) {
   return { name, calories };
@@ -45,14 +55,15 @@ const Information = () => {
   ];
   return (
     <Container>
+      <Warrper>
       <Desc>
-        <Typography variant="h4" component="h1">Tổng Quan Tài Khoản</Typography>
+        <Typography variant="h4" component="h1" sx={{ marginTop: '30px'}}>Tổng Quan Tài Khoản</Typography>
         <Typography variant="h5" component="h3" sx={{ marginBottom: '30px '}}>
           Hồ Sơ
         </Typography>
       </Desc>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 450, height: 300 }} aria-label="caption table">
+        <Table sx={{width: '100%', height:"100%" }} aria-label="caption table">
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.name}>
@@ -60,14 +71,15 @@ const Information = () => {
                   {row.name}
                 </TableCell>
                 <TableCell align="left">{row.calories}</TableCell>
-                <TableCell align="left">{row.fat}</TableCell>
-                <TableCell align="left">{row.carbs}</TableCell>
-                <TableCell align="left">{row.protein}</TableCell>
+                {/* <TableCell align="left">{row.fat}</TableCell> */}
+                {/* <TableCell align="left">{row.carbs}</TableCell>
+                <TableCell align="left">{row.protein}</TableCell> */}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      </Warrper>
     </Container>
   );
 

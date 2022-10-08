@@ -12,23 +12,19 @@ const songApi = {
     },
     uploadedSongs(data) {
         const url = '/song/uploaded';
-        return apiClient.get(url, data)
+        return apiClient.get(url, data);
     },
     getSongById(data) {
         const url = `/song/${data}`;
-        return apiClient.get(url, data)
+        return apiClient.get(url, data);
     },
     deleteSong(data) {
         const url = `/song/${data}`;
-        return apiClient.delete(url)
+        return apiClient.delete(url);
     },
     getCate() {
         const url = `/cate`;
-        return apiClient.get(url)
-    },
-    searchSong(data) {
-            const url = `song/search/${data}`;
-            return apiClient.get(url)
+        return apiClient.get(url);
     },
     updateSong (data) {
         console.log('data 123123', data)
@@ -40,6 +36,9 @@ const songApi = {
         const url = `/song/status/${data.song._id}`;
         return apiClient.patch(url, data);
     },
-
+    searchSong(data) {
+            const url = `song/search/${data}`;
+            return apiClient.get(url)
+        },
 }
 export default songApi;

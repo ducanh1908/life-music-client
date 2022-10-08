@@ -32,14 +32,17 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding-left: 30px;
+  /* align-items: center;
+  justify-content: center; */
 `;
 const Menu = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   color: #b3b3b3;
+  align-items: flex-start;
+  
 `;
 const MenuItem = styled.div`
 .item-link {
@@ -69,11 +72,13 @@ const CreateList = styled.div`
   color: #b3b3b3;
   cursor: pointer;
   display:flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  
   .profile-item {
     color: #b3b3b3;
     text-decoration: none;
+    display: flex;
+    
+    align-items: flex-start ;
     
     &:hover {
     color: #fff;

@@ -57,6 +57,10 @@ const HomeForm = styled.div`
   &:focus {
     background-color: aqua;
   }
+  .nav-search {
+    display: flex;
+    align-items: center;
+  }
 `;
 const SearchButton = styled.button`
   display: flex;
@@ -126,7 +130,7 @@ const GuestNavbar = () => {
       <Center>
         
         <HomeForm >
-            <NavLink to={ '/search'} >
+            <NavLink className='nav-search' to={ '/search'} >
           <SearchButton>
             <SearchOutlinedIcon />
           </SearchButton >

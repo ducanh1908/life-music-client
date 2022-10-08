@@ -5,14 +5,16 @@ import GuestNavbar from '../GuestNavbar/GuestNavbar';
 import SideBarProfile from "./sideBarProfile";
 
 const Container=styled.div`
-    background-color: #333;
+    background-color: #040404;
     
    display: grid;
    grid-template-rows: 10vh 90vh;
     overflow: hidden;
 `
 const Body = styled.div`
-display:flex;
+display:grid;
+grid-template-columns: 25vw 74vw;
+gap : 20px;
 `
 const Profile = () => {
     return (
