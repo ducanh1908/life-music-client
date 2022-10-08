@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { getAllPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
+import Slider from './../Slider/Slider';
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: "#3a3a3a",
@@ -111,6 +112,9 @@ const PlaylistSinger = styled.span`
   font-size: 14px;
   color: #a7a7a7;
 `;
+const Header = styled.div`
+height: 250px;
+`
 const GuestContent = () => {
   const playlistAdmin = useSelector(
     (state) => state.playlistAdmin.playlistAdmin
@@ -128,6 +132,10 @@ const GuestContent = () => {
   return (
     <Container>
       <Wrapper>
+        <Header>
+
+        <Slider />
+        </Header>
         <Top>
           <TopTitle>Chào buổi sáng</TopTitle>
           {/* <Box sx={{ flexGrow: 1, marginTop:2 }}>
