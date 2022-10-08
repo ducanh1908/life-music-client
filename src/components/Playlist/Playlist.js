@@ -7,7 +7,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaylistModel from "./PlaylistModel";
 import { useDispatch, useSelector } from "react-redux";
 import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
-import {useNavigate, useParams} from "react-router";
+import { useNavigate, useParams} from "react-router";
 import {
   deletePlaylist,
   getPlaylistById,
@@ -153,7 +153,7 @@ align-items: flex-start;
 `
 const Playlist = () => {
   const { id } = useParams();
-  const navigate=useNavigate()
+  const navigate=useNavigate();
   const songs = useSelector((state) => state.song.songs);
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
@@ -170,7 +170,7 @@ const Playlist = () => {
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
       enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
-      navigate('/')
+      navigate("/")
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});

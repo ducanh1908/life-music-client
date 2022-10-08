@@ -36,6 +36,9 @@ const songApi = {
         const url = `/song/status/${data.song._id}`;
         return apiClient.patch(url, data);
     },
-    
+    searchSong(data) {
+            const url = `song/search/${data}`;
+            return apiClient.get(url)
+        },
 }
 export default songApi;

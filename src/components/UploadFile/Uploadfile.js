@@ -137,15 +137,13 @@ function AddNewFile() {
 
   let updateSong = {};
   let file;
-
-  
   
   const handleSubmit = async () => {
     let media;
     if (file) {
       media = await imageUpload([file]);
     }
-    console.log('media', media)
+    console.log('file', file)
     let image = media ? media[0].url : '';
     if(image) {
       updateSong.image = image;
@@ -154,8 +152,6 @@ function AddNewFile() {
     if(songId){
       updateSong.songId = songId;
     }
-    console.log('updateSong2',updateSong);
-    
     dispatch(updateSongInfo(updateSong));
     handleClose();
   };

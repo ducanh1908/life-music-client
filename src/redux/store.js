@@ -14,8 +14,7 @@ export const store = configureStore({
         song : songReducer,
         playlist: playlistReducer,
         currentPlaylist: currentPlaylistReducer,
-        currentSong: currentSongReducer
-,
+        currentSong: currentSongReducer,
         cate : cateReducer,
         playlistAdmin: playlistAdminReducer
     }

@@ -16,8 +16,7 @@ import Button from '@mui/material/Button';
 
 const Container2 = styled.div`
 
-  background-color: transparent;
-    width:30vw;
+  background-color: #333;
   height: 100vh;
   border-radius:10px;
   display: flex;
