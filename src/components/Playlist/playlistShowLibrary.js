@@ -52,13 +52,13 @@ const PlaylistShowLibrary = ({ playlists }) => {
             <Container>
                 {playlists.map((playlist) => (
                     <PlaylistItem key={playlist._id}>
-                        <NavLink
+                        <Link
                             className="playlist-item"
-                            to={`playlists/${playlist._id}`}
+                            to={`/playlist/${playlist._id}`}
                         >
                             <PlaylistImage src={playlist.image} />
                             <PlaylistTitle> {playlist.name}</PlaylistTitle>
-                        </NavLink>
+                        </Link>
                     </PlaylistItem>
                 ))}
             </Container>
