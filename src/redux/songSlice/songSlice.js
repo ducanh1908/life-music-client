@@ -43,9 +43,7 @@ export const deleteSongById = createAsyncThunk('song/deleteSong', (payload) => {
 });
 
 export const updateSongInfo = createAsyncThunk('song/updateSong', async (payload) => {
-  console.log('12312312313', payload)
   const data = await songApi.updateSong(payload);
-  console.log('444444',data);
   return data
 });
 
@@ -101,7 +99,6 @@ const songSlice = createSlice({
     [searchSong.fulfilled] : (state, action) => {
       state.search = action.payload;
       state.songs = action.payload.length >0 ? action.payload : state.songs;
-    }
     },
     [deleteSongById.fulfilled] : (state, action) => {
       state.deleteSongStatus = 'success';
@@ -118,7 +115,7 @@ const songSlice = createSlice({
     [updateSongInfo.rejected] : (state, action) => {
       state.publicOrPrivateStatus = 'false';
     },
-  
+  }
 });
 
 const { reducer, actions } = songSlice;

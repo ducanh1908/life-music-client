@@ -79,6 +79,14 @@ const InforAvatar=styled.div`
   margin: 15px auto;
   border: 1px solid #ddd;
   cursor: pointer;
+
+  :hover span {
+    bottom: -15%;
+  }
+
+,:: -webkit-file-upload-button {
+  cursor: pointer;
+}
 `
 const InfoImg=styled.img`
   width: 100%;
@@ -88,7 +96,7 @@ const InfoImg=styled.img`
 `
 const InforSpan=styled.span`
   position: absolute;
-  bottom: -15%;
+  bottom: -100%;
   left: 0;
   width: 100%;
   height: 50%;
@@ -96,6 +104,7 @@ const InforSpan=styled.span`
   color: orange;
   transition: 0.3s ease-in-out;
   background: #fff5;
+  
 `
 const Input = styled.input`
   position: absolute;
@@ -105,6 +114,7 @@ const Input = styled.input`
   height: 100%;
   cursor: pointer;
   opacity: 0;
+  
 `
 const SideBarProfile = () => {
     const user = useSelector(state=> state.user.user)

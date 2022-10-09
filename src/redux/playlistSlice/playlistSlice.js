@@ -1,3 +1,5 @@
+
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userApi from "./../../service/userService";
 import playlistApi from "./../../service/playlistService";
@@ -10,7 +12,12 @@ const initialState = {
   addSongToPlaylistStatus: 'idle',
 };
 
-
+export const searchPlaylist = createAsyncThunk(
+  "/playlist/search",
+  async (payload) => {
+    const res = await playlistApi.searchPlaylist(payload);
+    return res
+  });
 export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
   const data = await userApi.uploadSong(payload);
   return data;
@@ -46,19 +53,6 @@ export const getPlaylistAndUser = createAsyncThunk("/playlists/:id", async (payl
   return data.playlists;
 });
 
-
-
-
-// export const getPlaylistByUserId = createAsyncThunk("/playlist/userid", async (payload) => {
-//   const data = await playlistApi.getPlaylistByUserId(payload);
-//   return data.playlists;
-// });
-export const searchPlaylist = createAsyncThunk(
-    "/playlist/search",
-    async (payload) => {
-      const res = await playlistApi.searchPlaylist(payload);
-      return res
-    })
 const playlistSlice = createSlice({
   name: "playlist",
   initialState,
@@ -74,7 +68,6 @@ const playlistSlice = createSlice({
     [fetchPlaylist.fulfilled]: (state, action) => {
       state.fetchPlaylistStatus = 'success';
       state.playlist = action.payload;
-      console.log('playlist action', action.payload)
     },
     [fetchPlaylist.rejected]: (state, action) => {
       state.fetchPlaylistStatus = 'false';

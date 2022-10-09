@@ -1,119 +1,100 @@
-// import React from 'react'
-// import styled  from 'styled-components';
+import React,{useEffect} from 'react';
+import styled from "styled-components";
+import { Fragment} from "react";
+import {useSelector} from "react-redux";
+import { useDispatch } from 'react-redux';
+import {fetchSong} from "../../redux/songSlice/songSlice";
+import {getPlaylistAndUser} from "../../redux/playlistSlice/playlistSlice";
+import {NavLink} from "react-router-dom";
+import PlaylistShowLibrary from "../Playlist/playlistShowLibrary";
+const Container=styled.div`
+  //padding: 2rem 0;
+  //display: flex;
+  //flex-direction: column;
+  //position: relative;
+  //min-height: 80vh;
+  background-color: grey;
+  overflow: auto;
+  
 
+  .results_container {
+    margin: 2rem;
+    display: grid;
+    z-index: 2;
+    grid-template-columns: 1.5fr 2fr;
 
-// const Container = styled.div`
+    .songs_container {
+      flex: 2;
+    }
 
-// background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ;
-// `
-// const Navbar = styled.div``
-// const Menu = styled.div ``
-// const MenuItem = styled.ul ``
-// const MenuTitle = styled.li ``
-// const Library = () => {
-//   return (
-//     <Container>
-//       <Navbar>
+    .playlists_container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+`
+const SongItem = styled.div`
+  display: flex;
+  margin: 10px;
+  /* background-color: #7a7a7a; */
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const SongImage = styled.img`
+  width: 50px;
+  height: 50px;
+`;
+const SongName = styled.p`
+  color:#fff;
+  `
+const SongSinger = styled.span`
 
-//       </Navbar>
+`;
 
-       
-//     </Container>
-//   )
-// }
+const Library = () => {
+    const dispatch = useDispatch()
+    const songs = useSelector((state) => state.song.songs);
+    const isLoggedInUser = useSelector(state => state.user.user )
+    const isLoggedIn = !!isLoggedInUser._id;
+    const user = useSelector(state=> state.user.user);
+    const playlists = useSelector (state => state.playlist.playlists);
+    useEffect(()=> {
+        dispatch(getPlaylistAndUser(user._id))
+    },[])
+    console.log("songs",songs);
+    useEffect(() => {
+        dispatch(fetchSong())
+    },[])
+    return (
+        <Container>
+          <div className={"results_container"}>
+              <div className={"songs_container"}>
+                  {songs && songs.map((song)=>(
+                      <Fragment key={song._id}>
+                          <SongItem >
+                              <SongImage src={song.image}></SongImage>
+                              <SongName>{song.name}</SongName>
+                              <SongSinger>{song.singer}</SongSinger>
+                          </SongItem>
+                      </Fragment>
+                  ))}
+              </div>
 
-// export default Library
-
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import SongList from '../HomeFooter/SongList';
-import PlaylistAdmin from './../PlaylistAdmin/PlaylistAdmin';
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+              <div className={"playlists_container"}>
+                  {
+                      playlists &&(
+                          isLoggedIn &&
+                          (
+                              <PlaylistShowLibrary playlists={playlists}/>
+                          )
+                      )
+                  }
+              </div>
+          </div>
+        </Container>
+    );
 };
 
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
-}
-
-export default function FullWidthTabs() {
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
-
-  return (
-    <Box sx={{ bgcolor: 'background.paper', width: 500 }}>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-        >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-        <PlaylistAdmin />
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-        <PlaylistAdmin />
-        
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-        <PlaylistAdmin />
-
-        </TabPanel>
-      </SwipeableViews>
-    </Box>
-  );
-}
+export default Library;

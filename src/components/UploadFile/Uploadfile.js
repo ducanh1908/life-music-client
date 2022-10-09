@@ -35,7 +35,7 @@ import {
   addToPlaylist,
   fetchPlaylist,
 } from "../../redux/playlistSlice/playlistSlice";
-import {imageUpload} from "./avatarUpload";
+import { imageUpload } from "../../components/UploadFile/avatarUpload";
 
 function AddNewFile() {
   const [fileUpload, setFileUpload] = useState(null);
@@ -52,11 +52,9 @@ function AddNewFile() {
     (state) => state.song
   );
   let { playlists } = useSelector((state) => state.playlist);
-
+  
   let categories = useSelector((state) => state.cate.categories);
-  console.log("categories", categories);
-  console.log("status upload", status);
-  console.log("uploadSongs", uploadSongs.songs);
+
 
   const uploadFile = async () => {
     try {
@@ -137,7 +135,7 @@ function AddNewFile() {
 
   let updateSong = {};
   let file;
-
+  
   const handleSubmit = async () => {
     let media;
     if (file) {
@@ -199,6 +197,15 @@ function AddNewFile() {
   };
 
   const Container = styled.div`
+    @font-face {
+      font-family: "MyWebFont";
+      src: url("webfont.eot"); /* IE9 Compat Modes */
+      src: url("webfont.eot?#iefix") format("embedded-opentype"),
+        /* IE6-IE8 */ url("webfont.woff2") format("woff2"),
+        /* Super Modern Browsers */ url("webfont.woff") format("woff"),
+        /* Pretty Modern Browsers */ url("webfont.ttf") format("truetype"),
+        /* Safari, Android, iOS */ url("webfont.svg#svgFontName") format("svg"); /* Legacy iOS */
+    }
     background-color: whitesmoke;
     position: relative;
     border-radius: 10px;
@@ -218,6 +225,14 @@ function AddNewFile() {
     }
     #songlist tbody tr:hover {
       background-color: rgba(0, 0, 0, 0.7)}
+  `;
+  const Logo = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    padding: 10px;
   `;
   const Head = styled.div`
     position: relative;
@@ -255,15 +270,6 @@ function AddNewFile() {
     display: block;
     object-fit: cover;
   `;
-  const Logo = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    padding: 10px;
-  `;
-
   const InforSpan = styled.span`
     position: absolute;
     bottom: -15%;
