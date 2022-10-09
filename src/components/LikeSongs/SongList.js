@@ -2,8 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Like from "../Like/like";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -91,24 +92,33 @@ const Wrapper = styled.div`
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
 `;
+const LikeWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+`;
+const LikeIcon = styled.div`
+  display: block;
+  width: 100%;
+  height: auto;
+`;
+
 const SongList = ({ song, onTrackSelect }) => {
   const dispatch = useDispatch();
-  console.log('song', song);
+  console.log("song", song);
   const handleClick = (id, index) => {
     onTrackSelect(index);
   };
   return (
     <Container>
       <Head>
-        
-          <Navbar>
-            <Image src="https://images.unsplash.com/photo-1458560871784-56d23406c091?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
-            <PlaylistInfo>
-              <PlaylistTitle>Playlist</PlaylistTitle>
-              <PlaylistName>Những bài hát yêu thích</PlaylistName>
-            </PlaylistInfo>
-          </Navbar>
-      
+        <Navbar>
+          <Image src="https://images.unsplash.com/photo-1458560871784-56d23406c091?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
+          <PlaylistInfo>
+            <PlaylistTitle>Playlist</PlaylistTitle>
+            <PlaylistName>Những bài hát yêu thích</PlaylistName>
+          </PlaylistInfo>
+        </Navbar>
       </Head>
       <Wrapper>
         <Body>
@@ -134,8 +144,13 @@ const SongList = ({ song, onTrackSelect }) => {
                     <SongSinger>{item.singerName}</SongSinger>
                   </SongDetail>
                 </SongInfo>
-                <SongName className="col">{song.album}</SongName>
-                <SongTime className="col">{song.duration}</SongTime>
+                <SongName className="col">{item.album}</SongName>
+                <LikeWrapper>
+                  <LikeIcon>
+                    <Like></Like>
+                  </LikeIcon>
+                  <SongTime className="col">{item.duration}</SongTime>
+                </LikeWrapper>
               </SongItem>
             ))}
         </Song>

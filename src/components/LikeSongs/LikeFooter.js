@@ -28,7 +28,6 @@ const LikeSongs = () => {
   const song = useSelector((state) => state.song.likedSongs);
   const [trackIndex, setTrackIndex] = useState(-1);
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log('likedSongs ',song)
 
   useEffect(() => {
     dispatch(likedSongs(user._id));

@@ -5,7 +5,7 @@ import { IconButton, CircularProgress } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import styled from "styled-components";
-const Container= styled.div`
+const Container = styled.div`
   .like_btn {
     .like_filled {
       color: var(--primary);
@@ -23,26 +23,26 @@ const Container= styled.div`
       }
     }
   }
-`
+`;
 
 const Like = ({ songId }) => {
-    const { user, likeSongProgress } = useSelector((state) => state.user);
-    const [progress, setProgress] = useState(false);
-    const dispatch = useDispatch();
+  const { user, likeSongProgress } = useSelector((state) => state.user);
+  const data = useSelector((state) => state.user);
+  console.log('data', data);
+  const [progress, setProgress] = useState(false);
+  const dispatch = useDispatch();
 
-    const handleLikeSong = async (songId) => {
-        // setProgress(true);
-        // const res = await likeSong(songId, dispatch);
-        // res && setProgress(false);
-    };
+  const handleLikeSong = async (songId) => {
+    setProgress(!progress);
 
-    return (
-        <Container>
-            <IconButton
-                className={"like_btn"}
-                onClick={() => handleLikeSong(songId)}
-            >
-                {likeSongProgress && progress ? (
+    // const res = await likeSong(songId, dispatch);
+    // res && setProgress(false);
+  };
+
+  return (
+    <Container>
+      <IconButton className={"like_btn"} onClick={() => handleLikeSong(songId)}>
+      {likeSongProgress && progress ? (
                     <CircularProgress style={{ color: "#1ed760" }} size="2rem" />
                 ) : (
                     <Fragment>
@@ -54,10 +54,9 @@ const Like = ({ songId }) => {
                         {/*)}*/}
                     </Fragment>
                 )}
-            </IconButton>
-        </Container>
-
-    );
+      </IconButton>
+    </Container>
+  );
 };
 
 export default Like;
