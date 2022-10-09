@@ -116,7 +116,7 @@ const Body = styled.div`
       flex: 1;
       display: flex;
       justify-content:center;
-      padding-right: 2rem;
+      padding-right: 3rem;
       svg {
         width: 2rem;
         height: 2rem;
@@ -167,10 +167,10 @@ const Playlist = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPlaylistById(id));
-  }, []);
+  }, [id]);
   useEffect(()=> {
     dispatch(getSongToPlaylist(id))
-  },[]);
+  },[id]);
   useEffect(() => {
     dispatch(fetchSong())
   },[])

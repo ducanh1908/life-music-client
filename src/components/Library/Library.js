@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import { Fragment} from "react";
 import {useSelector} from "react-redux";
@@ -7,14 +7,20 @@ import {fetchSong} from "../../redux/songSlice/songSlice";
 import {getPlaylistAndUser} from "../../redux/playlistSlice/playlistSlice";
 import {NavLink} from "react-router-dom";
 import PlaylistShowLibrary from "../Playlist/playlistShowLibrary";
+import DetailSong from "../HomeFooter/DetailSong";
+import Audio from "../HomeFooter/Audio";
+const Total = styled.div`
+  display: grid;
+  grid-template-rows: 75vh 15vh;
+`
 const Container=styled.div`
   //padding: 2rem 0;
-  //display: flex;
   //flex-direction: column;
   //position: relative;
   //min-height: 80vh;
   background-color: grey;
   overflow: auto;
+  
   
 
   .results_container {
@@ -36,7 +42,7 @@ const Container=styled.div`
 const SongItem = styled.div`
   display: flex;
   margin: 10px;
-  /* background-color: #7a7a7a; */
+   background-color: #7a7a7a; 
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
@@ -52,6 +58,12 @@ const SongName = styled.p`
 const SongSinger = styled.span`
 
 `;
+const Footer = styled.div`
+height: 20%;
+  background-color: #333;
+display: grid;
+grid-template-columns: 1fr 2fr;
+`
 
 const Library = () => {
     const dispatch = useDispatch()
@@ -60,41 +72,56 @@ const Library = () => {
     const isLoggedIn = !!isLoggedInUser._id;
     const user = useSelector(state=> state.user.user);
     const playlists = useSelector (state => state.playlist.playlists);
+    const [trackIndex, setTrackIndex] = useState(-1)
+    const handleClick = (id, index) => {
+        onTrackSelect(index);
+    };
+    const onTrackSelect = (index)=> {
+        setTrackIndex(index)
+    }
     useEffect(()=> {
         dispatch(getPlaylistAndUser(user._id))
     },[])
-    console.log("songs",songs);
     useEffect(() => {
         dispatch(fetchSong())
     },[])
     return (
-        <Container>
-          <div className={"results_container"}>
-              <div className={"songs_container"}>
-                  {songs && songs.map((song)=>(
-                      <Fragment key={song._id}>
-                          <SongItem >
-                              <SongImage src={song.image}></SongImage>
-                              <SongName>{song.name}</SongName>
-                              <SongSinger>{song.singer}</SongSinger>
-                          </SongItem>
-                      </Fragment>
-                  ))}
-              </div>
+        <Total>
+            <Container>
+                <div className={"results_container"}>
+                    <div className={"songs_container"}>
+                        {songs && songs.map((song,index)=>(
+                            <Fragment key={song._id}>
+                                <SongItem onClick={() => handleClick(song._id, index)}>
+                                    <SongImage src={song.image}></SongImage>
+                                    <SongName>{song.name}</SongName>
+                                    <SongSinger>{song.singer}</SongSinger>
+                                </SongItem>
+                            </Fragment>
 
-              <div className={"playlists_container"}>
-                  {
-                      playlists &&(
-                          isLoggedIn &&
-                          (
-                              <PlaylistShowLibrary playlists={playlists}/>
-                          )
-                      )
+                        ))}
+                    </div>
 
-                  }
-              </div>
-          </div>
-        </Container>
+                    <div className={"playlists_container"}>
+                        {
+                            playlists &&(
+                                isLoggedIn &&
+                                (
+                                    <PlaylistShowLibrary playlists={playlists}/>
+                                )
+                            )
+
+                        }
+                    </div>
+                </div>
+            </Container>
+            {songs &&
+                <Footer>
+                    <DetailSong song = {songs}  trackIndex={trackIndex}/>
+                    <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
+                </Footer>}
+        </Total>
+
     );
 };
 
