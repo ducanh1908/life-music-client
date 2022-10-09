@@ -17,7 +17,13 @@ import {
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {useSnackbar} from "notistack";
-
+import DetailSong from "../HomeFooter/DetailSong";
+import Audio from "../HomeFooter/Audio";
+import React from "react";
+const Total = styled.div`
+  display: grid;
+  grid-template-rows: 75vh 15vh;
+`
 const Container = styled.div`
   background-color: whitesmoke;
   position: relative;
@@ -152,6 +158,12 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 `
+const Footer = styled.div`
+height: 20%;
+  background-color: #333;
+display: grid;
+grid-template-columns: 1fr 2fr;
+`
 const Playlist = () => {
   const { id } = useParams();
   const navigate=useNavigate();
@@ -174,6 +186,10 @@ const Playlist = () => {
   useEffect(() => {
     dispatch(fetchSong())
   },[])
+  const [trackIndex, setTrackIndex] = useState(-1)
+  const onTrackSelect = (index)=> {
+    setTrackIndex(index)
+  }
   const handleDeletePlaylist = async () => {
     try {
       const action = await deletePlaylist(currentPlaylist._id)
@@ -202,8 +218,8 @@ const Playlist = () => {
 
   };
 
-
   return (
+      <Total>
     <Container>
       <Fragment>
         {currentPlaylist && (
@@ -223,9 +239,7 @@ const Playlist = () => {
                 <DeleteIcon sx={{width: '40px', height: "40px"}} />
               </IconButton>
               </PlaylistAction>
-
             </Navbar>
-
           </Head>
         )}
         <Body>
@@ -247,17 +261,20 @@ const Playlist = () => {
                     song={song}
                     currentPlaylist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
+                    onTrackSelect={onTrackSelect}
                 />
               </Fragment>
           ))}
           <hr/>
           <h3 style={{ paddingTop:30, fontSize:30}}>Bài Hát Đề Xuất</h3>
-          {songs.map((song) => (
+          {songs.map((song,index) => (
               <Fragment key={song._id}>
                 <SongPlaylist
+                    index={index}
                     song={song}
                     playlist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
+                    onTrackSelect={onTrackSelect}
                 />
               </Fragment>
           ))}
@@ -267,6 +284,12 @@ const Playlist = () => {
         )}
       </Fragment>
     </Container>
+        {songs &&
+            <Footer>
+              <DetailSong song = {songs }  trackIndex={trackIndex}/>
+              <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
+            </Footer>}
+      </Total>
   );
 };
 

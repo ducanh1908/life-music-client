@@ -17,6 +17,7 @@ height: 60px;
 `
 const SongName = styled.span`
 margin: 20px;
+  color: palevioletred;
 `
 const SongSinger = styled.div`
 `
@@ -27,7 +28,7 @@ const DetailSong = ({song, trackIndex}) => {
     image = "",
   } = trackIndex !== -1 ? song[trackIndex] : {};
 
-  console.log({image})
+  console.log({name})
   return (
      
     <Container>

@@ -74,11 +74,8 @@ const Library = () => {
     const playlists = useSelector (state => state.playlist.playlists);
     const [trackIndex, setTrackIndex] = useState(-1)
     const handleClick = (id, index) => {
-        onTrackSelect(index);
+        setTrackIndex(index);
     };
-    const onTrackSelect = (index)=> {
-        setTrackIndex(index)
-    }
     useEffect(()=> {
         dispatch(getPlaylistAndUser(user._id))
     },[])
