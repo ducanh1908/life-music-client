@@ -31,9 +31,9 @@ const SongSinger = styled.span`
 const Search = () => {
   const dispatch = useDispatch();
   const songs = useSelector(state => state.song.songs)
-  console.log(songs)
+  // console.log(songs)
   const playlists = useSelector(state => state.playlist.playlist);
-  console.log(playlists)
+  // console.log(playlists)
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
 

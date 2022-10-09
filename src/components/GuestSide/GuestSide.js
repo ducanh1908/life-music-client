@@ -185,7 +185,7 @@ const { isSubmitting } = form.formState;
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <NavLink className='item-link'>
+            <NavLink className='item-link'> 
               <ItemIcon>
                 <FavoriteIcon />
               </ItemIcon>
