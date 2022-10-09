@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import Box from "@mui/material/Box";
@@ -195,7 +196,7 @@ const { isSubmitting } = form.formState;
           <MenuItem>
             <NavLink className='item-link' to={"/upload"}>
               <ItemIcon>
-                <DownloadForOfflineOutlinedIcon />
+                <CloudUploadOutlinedIcon />
               </ItemIcon>
               <ItemDesc>Tải lên bài hát</ItemDesc>
             </NavLink>
