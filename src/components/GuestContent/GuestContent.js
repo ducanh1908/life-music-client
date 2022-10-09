@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 // import { style } from "@mui/material/styles";
-import { getAllPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
-import Slider from './../Slider/Slider';
-
+import { getAllPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
+import Slider from "./../Slider/Slider";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { InstallDesktopSharp } from "@mui/icons-material";
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: "#3a3a3a",
 //   ...theme.typography.body2,
@@ -73,9 +73,8 @@ const Playlist = styled.div`
 `;
 const PlaylistItem = styled.div`
   width: 100%;
-  height: 280px;
+  height: 100%;
   background-color: rgba(255, 255, 255, 0.05);
-
   border-radius: 5px;
 
   display: flex;
@@ -113,9 +112,70 @@ const PlaylistSinger = styled.span`
   color: #a7a7a7;
 `;
 const Header = styled.div`
-height: 250px;
-`
+  height: 250px;
+`;
+
+const NewSong = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+`;
+const SongInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 10px;
+  flex: 1;
+`;
+const SongItem = styled.div`
+  background-color: transparent;
+
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  color: #fff;
+  height: 80px;
+  .move-icon {
+    display: none;
+  }
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    .move-icon {
+     display: block;
+     
+    }
+  }
+`;
+
+const SongImg = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  margin-left: 10px;
+`;
+const SongName = styled.span`
+  display: flex;
+  
+`;
+const SongSinger = styled.span``;
+
 const GuestContent = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const idPop = open ? 'simple-popover' : undefined;
+
+
   const playlistAdmin = useSelector(
     (state) => state.playlistAdmin.playlistAdmin
   );
@@ -133,11 +193,107 @@ const GuestContent = () => {
     <Container>
       <Wrapper>
         <Header>
-
-        <Slider />
+          <Slider />
         </Header>
         <Top>
-          <TopTitle>Chào buổi sáng</TopTitle>
+          <TopTitle>Mới phát hành</TopTitle>
+          <NewSong>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+            </SongItem>
+
+          </NewSong>
+          
+          
+      <Popover
+        id={InstallDesktopSharp}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+      </Popover>
           {/* <Box sx={{ flexGrow: 1, marginTop:2 }}>
             <Grid container spacing={2} >
               <Grid item xs={4}>
@@ -167,9 +323,41 @@ const GuestContent = () => {
               </Grid>
             </Grid>
           </Box> */}
-          <ListMe></ListMe>
+          {/* <ListMe></ListMe> */}
         </Top>
         <Categories>
+          <TopTitle>Chào buổi sáng</TopTitle>
+          <Playlist>
+            {playlistAdmin &&
+              playlistAdmin.map((playlist) => (
+                <PlaylistItem key={playlist._id}>
+                  <NavLink
+                    className="playlist-item"
+                    to={`playlists/${playlist._id}`}
+                  >
+                    <PlaylistImage src={playlist.image} />
+                    <PlaylistTitle> {playlist.name}</PlaylistTitle>
+                    <PlaylistSinger>{playlist.singer}</PlaylistSinger>
+                  </NavLink>
+                </PlaylistItem>
+              ))}
+          </Playlist>
+          <TopTitle>Chào buổi sáng</TopTitle>
+          <Playlist>
+            {playlistAdmin &&
+              playlistAdmin.map((playlist) => (
+                <PlaylistItem key={playlist._id}>
+                  <NavLink
+                    className="playlist-item"
+                    to={`playlists/${playlist._id}`}
+                  >
+                    <PlaylistImage src={playlist.image} />
+                    <PlaylistTitle> {playlist.name}</PlaylistTitle>
+                    <PlaylistSinger>{playlist.singer}</PlaylistSinger>
+                  </NavLink>
+                </PlaylistItem>
+              ))}
+          </Playlist>
           <TopTitle>Chào buổi sáng</TopTitle>
           <Playlist>
             {playlistAdmin &&

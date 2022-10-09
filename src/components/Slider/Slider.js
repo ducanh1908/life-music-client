@@ -20,7 +20,7 @@ import { Pagination, Navigation } from "swiper";
     text-align: center;
     font-size: 18px;
     background: transparent;
-    border-radius: 20px; 
+    border-radius: 10px; 
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -40,7 +40,7 @@ import { Pagination, Navigation } from "swiper";
   width: 100%;
   height: 210px;
   object-fit: cover;
-  border-radius: 20px;
+  border-radius: 10px;
   `
 
 
