@@ -18,6 +18,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
+import {getPlaylistAndUser,createPlaylist} from "../../redux/playlistSlice/playlistSlice";
 
 const Container = styled.div`
   height: 100%;
@@ -239,7 +240,7 @@ const { isSubmitting } = form.formState;
           <Typography id="modal-modal-title" variant="h6" component="h2">
            Tạo Playlist
           </Typography>
-        
+
             <form onSubmit={form.handleSubmit(handleSubmit)}>
               {isSubmitting && (
                 <LinearProgress

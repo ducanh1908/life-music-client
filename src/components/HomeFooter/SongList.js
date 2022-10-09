@@ -112,7 +112,6 @@ const SongList = ({ song, onTrackSelect }) => {
         <Body>
           <BodyTitle>#</BodyTitle>
           <BodyTitle>Tên bài hát</BodyTitle>
-
           <BodyTitle>Album</BodyTitle>
           <BodyTitle>
             <AccessTimeIcon />

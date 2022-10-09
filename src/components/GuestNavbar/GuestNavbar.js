@@ -101,7 +101,6 @@ const GuestNavbar = () => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-    const songs = useSelector(state => state.song.songs)
     const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

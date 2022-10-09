@@ -30,10 +30,10 @@ const SongSinger = styled.span`
 `;
 const Search = () => {
   const dispatch = useDispatch();
-  const songs = useSelector(state => state.song.songs)
-  console.log(songs)
-  const playlists = useSelector(state => state.playlist.playlist);
-  console.log(playlists)
+  const songs = useSelector(state => state.song.songs);
+  const playlistAdmin = useSelector(
+      (state) => state.playlistAdmin.playlistAdmin
+  );
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
 
@@ -68,7 +68,7 @@ const Search = () => {
           }
         </div>
         <div>
-          {playlists.map((playlist, index)=> (
+          {playlistAdmin.map((playlist, index)=> (
               <SongItem key={index} >
                 <p>{index + 1}</p>
                 <SongImage  src={playlist.image}/>
