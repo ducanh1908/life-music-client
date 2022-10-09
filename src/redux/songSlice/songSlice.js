@@ -6,10 +6,12 @@ const initialState = {
   getUploadSongsStatus: "idle",
   deleteSongStatus: "idle",
   publicOrPrivateStatus: "idle",
+  likedSongsStatus: "idle",
   songs: [],
   loading: false,
   search: [],
-  uploadSongs: []
+  uploadSongs: [],
+  likedSongs: [],
 };
 export const getUploadedSongs = createAsyncThunk("user/getUploadedSongs", async (payload) => {
   const data = await songApi.uploadedSongs(payload);
@@ -44,11 +46,18 @@ export const deleteSongById = createAsyncThunk('song/deleteSong', (payload) => {
 
 export const updateSongInfo = createAsyncThunk('song/updateSong', async (payload) => {
   const data = await songApi.updateSong(payload);
+  console.log('data', data)
   return data
 });
 
 export const publicOrPrivate = createAsyncThunk('song/updateSong', (payload) => {
   const data = songApi.publicOrPrivate(payload);
+  return data
+});
+
+export const likedSongs = createAsyncThunk('song/likedSongs', (payload) => {
+  console.log('likedSongs payload ', payload)
+  const data = songApi.likedSongList(payload);
   return data
 });
 
@@ -114,6 +123,16 @@ const songSlice = createSlice({
     },
     [updateSongInfo.rejected] : (state, action) => {
       state.publicOrPrivateStatus = 'false';
+    },
+    [likedSongs.pending] : (state, action) => {
+      state.likedSongsStatus = 'loading'
+    },
+    [likedSongs.fulfilled] : (state, action) => {
+      state.likedSongsStatus = 'success';
+      state.likedSongs = action.payload.userDoc.likeSongs;
+    },
+    [likedSongs.rejected] : (state, action) => {
+      state.likedSongsStatus = 'false'
     },
   }
 });

@@ -18,6 +18,7 @@ import Playlist from "./components/Playlist/Playlist";
 import PlaylistAdmin from './components/PlaylistAdmin/PlaylistAdmin';
 import HomeFooter from './components/HomeFooter/HomeFooter';
 import Search from "./Search/Search";
+import LikeSongs from './components/LikeSongs/LikeFooter';
 
 function App() {
 
@@ -46,7 +47,7 @@ function App() {
         <Route path='library' element={<Library />} />
         <Route path="playlist/:id" element={<Playlist />} />
         <Route path ='song-list' element={<HomeFooter />} />
-        {/* <Route path ='liked-song' element={<HomeFooter />} /> */}
+        <Route path ='liked-song' element={<LikeSongs />} />
          <Route path="search" element={<Search />} />
         <Route path="playlists/:id" element={<PlaylistAdmin />} />
 
