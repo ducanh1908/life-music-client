@@ -141,7 +141,6 @@ function AddNewFile() {
     if (file) {
       media = await imageUpload([file]);
     }
-    console.log('file', file)
     let image = media ? media[0].url : '';
     if(image) {
       updateSong.image = image;
@@ -285,19 +284,6 @@ function AddNewFile() {
   return (
     <Container>
       <div className="scrollbar" id="style-1">
-        {/* <div className="image-upload">
-          <label htmlFor="file-input">
-            <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
-          </label>
-          <input
-            id="file-input"
-            type="file"
-            onChange={(event) => {
-              setFileUpload(event.target.files[0]);
-            }}
-          />
-        </div> */}
-        {/* <button onClick={uploadFile}>Upload</button> */}
         <div>
           <Button
             variant="contained"

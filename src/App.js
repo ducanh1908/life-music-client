@@ -46,6 +46,7 @@ function App() {
         <Route path='library' element={<Library />} />
         <Route path="playlist/:id" element={<Playlist />} />
         <Route path ='song-list' element={<HomeFooter />} />
+        {/* <Route path ='liked-song' element={<HomeFooter />} /> */}
          <Route path="search" element={<Search />} />
         <Route path="playlists/:id" element={<PlaylistAdmin />} />
 
