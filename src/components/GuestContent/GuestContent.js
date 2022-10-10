@@ -11,6 +11,8 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { InstallDesktopSharp } from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: "#3a3a3a",
 //   ...theme.typography.body2,
@@ -139,12 +141,15 @@ const SongItem = styled.div`
   height: 80px;
   .move-icon {
     display: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
   }
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
     .move-icon {
      display: block;
-     
+     backgroundColor: "#fff",
     }
   }
 `;
@@ -204,81 +209,11 @@ const GuestContent = () => {
                 <SongName>Nguyệt Thượng Hạ Lưu</SongName>
                 <SongSinger>Đạt G</SongSinger>
               </SongInfo>
+              <IconButton >
               <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+              </IconButton>
             </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-
+           
           </NewSong>
           
           
