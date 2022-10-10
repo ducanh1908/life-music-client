@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import Box from "@mui/material/Box";
@@ -18,7 +19,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
-import { createPlaylist, getPlaylistAndUser } from './../../redux/playlistSlice/playlistSlice';
+import {getPlaylistAndUser,createPlaylist} from "../../redux/playlistSlice/playlistSlice";
 
 const Container = styled.div`
   height: 100%;
@@ -33,14 +34,17 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding-left: 30px;
+  /* align-items: center;
+  justify-content: center; */
 `;
 const Menu = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   color: #b3b3b3;
+  align-items: flex-start;
+  
 `;
 const MenuItem = styled.div`
 .item-link {
@@ -70,11 +74,13 @@ const CreateList = styled.div`
   color: #b3b3b3;
   cursor: pointer;
   display:flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  
   .profile-item {
     color: #b3b3b3;
     text-decoration: none;
+    display: flex;
+    
+    align-items: flex-start ;
     
     &:hover {
     color: #fff;
@@ -144,10 +150,17 @@ const GuestSide = () => {
 const handleSubmit = async (data) => {
   
   try {
-    const action = await createPlaylist(data);
-      const resultAction = await dispatch(action);
-      const playlists = unwrapResult(resultAction);
-      enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
+    if(isLoggedIn) {
+
+      const action = await createPlaylist(data);
+        const resultAction = await dispatch(action);
+        const playlists = unwrapResult(resultAction);
+        enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
+      setTimeout(window.location.reload(),5000)
+    }
+    else {
+      enqueueSnackbar("Vui lòng đăng nhập tài khoản", { variant: "error" });
+    }
       // navigate('/playlist')
   } catch (error) {
     console.log(error.message);
@@ -170,7 +183,8 @@ const { isSubmitting } = form.formState;
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <NavLink className='item-link'  onClick={handleOpen}>
+
+              <NavLink className='item-link'  onClick={handleOpen}>
               <ItemIcon>
                 {" "}
                 <ControlPointIcon />
@@ -179,7 +193,7 @@ const { isSubmitting } = form.formState;
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <NavLink className='item-link'>
+            <NavLink className='item-link' to={"/liked-song"}> 
               <ItemIcon>
                 <FavoriteIcon />
               </ItemIcon>
@@ -190,7 +204,7 @@ const { isSubmitting } = form.formState;
           <MenuItem>
             <NavLink className='item-link' to={"/upload"}>
               <ItemIcon>
-                <DownloadForOfflineOutlinedIcon />
+                <CloudUploadOutlinedIcon />
               </ItemIcon>
               <ItemDesc>Tải lên bài hát</ItemDesc>
             </NavLink>
@@ -235,7 +249,7 @@ const { isSubmitting } = form.formState;
           <Typography id="modal-modal-title" variant="h6" component="h2">
            Tạo Playlist
           </Typography>
-        
+
             <form onSubmit={form.handleSubmit(handleSubmit)}>
               {isSubmitting && (
                 <LinearProgress

@@ -17,7 +17,6 @@ height: 60px;
 `
 const SongName = styled.span`
 margin: 20px;
-  color: palevioletred;
 `
 const SongSinger = styled.div`
 `
@@ -26,12 +25,14 @@ const DetailSong = ({song, trackIndex}) => {
     name = "",
     file = "",
     image = "",
-  } = trackIndex !== -1 ? song[trackIndex] :{} ;
-    console.log({name})
+  } = trackIndex !== -1 ? song[trackIndex] : {};
+
+  console.log({image})
   return (
+     
     <Container>
-      <SongImage src={image ? image :"https://images.unsplash.com/photo-1458560871784-56d23406c091?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"} />
-      <SongName >{ name.slice(0, 15)} </SongName>
+      <SongImage src={image} />
+      <SongName >{name.slice(0, 15)} </SongName> 
       </Container>
   )
 }

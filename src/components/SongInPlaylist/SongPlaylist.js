@@ -17,6 +17,7 @@ const Container= styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  //grid-template-columns: 1fr 1fr;
 
   &:hover {
     background-color: var(--light-black);
@@ -59,7 +60,7 @@ const Container= styled.div`
 
     p {
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 0.8rem;
       margin: 0;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
@@ -70,12 +71,12 @@ const Container= styled.div`
   }
 
   .right {
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: flex-end;
     position: relative;
     flex: 1;
-
+    grid-template-columns: 1fr 1fr 1fr;
     p {
       margin: 0 0.5rem 0 1rem;
       font-size: 1.2rem;
@@ -91,40 +92,22 @@ const Container= styled.div`
   }
 `
 
-const SongPlaylist = ({ song, currentPlaylist, handleRemoveSong }) => {
+const SongPlaylist = ({ song,index, currentPlaylist, handleRemoveSong,onTrackSelect }) => {
     const [menu, setMenu] = useState(false);
     // const { currentSong } = useSelector((state) => state.audioPlayer);
     const dispatch = useDispatch();
-    const handleChange = () => {
-        // if (currentSong && currentSong.action === "play") {
-        //     const payload = {
-        //         song: song,
-        //         action: "pause",
-        //     };
-        //     dispatch(setCurrentSong(payload));
-        // } else {
-        //     const payload = {
-        //         song: song,
-        //         action: "play",
-        //     };
-        //     dispatch(setCurrentSong(payload));
-        // }
+    const handleClick = (id, index) => {
+        onTrackSelect(index);
     };
 
     return (
         <Container >
             <div className={"left"}>
-                <IconButton onClick={handleChange} className={"play_btn"}>
-                    {/*{currentSong &&*/}
-                    {/*currentSong.action === "play" &&*/}
-                    {/*currentSong.song._id === song._id ? (*/}
-                    {/*    <PauseIcon />*/}
-                    {/*) : (*/}
-                    {/*    <PlayArrowIcon />*/}
-                    {/*)}*/}
+                <IconButton onClick={() => handleClick(song._id, index,)} className={"play_btn"}>
+                    <PlayArrowIcon />
                 </IconButton>
                 <img src={song.image} alt="song_img" />
-                <p>{song.name}</p>
+                <p >{song.name}</p>
             </div>
             <div className={"center"}>
                 <p>{song.singer}</p>

@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { addSongToPlaylist } from "../../redux/playListSlice/apiCalls";
 import { ClickAwayListener } from "@mui/material";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import styled from "styled-components";
 import {addSongToPlaylist, updatePlaylist} from "../../redux/playlistSlice/currentPlaylist";
 import {unwrapResult} from "@reduxjs/toolkit";
@@ -68,6 +68,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
             const resultAction = await dispatch(action);
             const user = unwrapResult(resultAction);
             enqueueSnackbar('Thêm bài hát thành công', {variant: "success"});
+            setTimeout(window.location.reload(),5000)
         } catch (error) {
             console.log(error);
             enqueueSnackbar(error.message, {variant: "error"});
@@ -81,7 +82,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
                     <div className={"playlist_option"}>
                         <p>Add to Playlist</p>
                         <Fragment>
-                            <ArrowRightIcon />
+                            <ArrowLeftIcon />
                             <div className={"playlists"}>
                                 {playlists.map((playlist) => (
                                     <div

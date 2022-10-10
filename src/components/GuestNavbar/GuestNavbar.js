@@ -1,13 +1,16 @@
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Avatar, Menu, MenuItem } from "@mui/material";
+import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
-import { Link, NavLink } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
+import {fetchSong, searchSong} from "../../redux/songSlice/songSlice";
+import {searchPlaylist} from "../../redux/playlistSlice/playlistSlice";
+import {getAllPlaylist} from "../../redux/playlistSlice/playlistAdmin";
 
 const Container = styled.div`
 
@@ -54,6 +57,10 @@ const HomeForm = styled.div`
   &:focus {
     background-color: aqua;
   }
+  .nav-search {
+    display: flex;
+    align-items: center;
+  }
 `;
 const SearchButton = styled.button`
   display: flex;
@@ -94,7 +101,7 @@ const GuestNavbar = () => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+    const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -104,8 +111,14 @@ const GuestNavbar = () => {
     dispatch(logout());
     navigate('/login');
   }
-
-  
+    useEffect(() => {
+        dispatch(fetchSong());
+        dispatch(getAllPlaylist());
+    },[])
+   const handleChange = (e) => {
+        dispatch(searchSong(e.target.value));
+        dispatch(searchPlaylist(e.target.value));
+    }
   return (
     <Container>
       <Left>
@@ -116,13 +129,14 @@ const GuestNavbar = () => {
       <Center>
         
         <HomeForm >
-       
+            <NavLink className='nav-search' to={ '/search'} >
           <SearchButton>
             <SearchOutlinedIcon />
-          </SearchButton>
-          <Input placeholder="Bạn muốn nghe gì..." />
-      
-         
+          </SearchButton >
+          <Input placeholder="Bạn muốn nghe gì..."
+                 onChange = {handleChange}
+          />
+            </NavLink>
         </HomeForm>
       </Center>
       <Right>
