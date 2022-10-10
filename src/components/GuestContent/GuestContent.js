@@ -17,15 +17,6 @@ import Button from '@mui/material/Button';
 import { InstallDesktopSharp } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: "#3a3a3a",
-//   ...theme.typography.body2,
-//   textAlign: "center",
-//   display: 'flex',
-//   alignItems: "center",
-//   height: theme.spacing(12),
-//   color:'#fff',
-// }));
 
 const Container = styled.div`
   height: 100%;
@@ -234,36 +225,7 @@ const GuestContent = () => {
       >
         <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
       </Popover>
-          {/* <Box sx={{ flexGrow: 1, marginTop:2 }}>
-            <Grid container spacing={2} >
-              <Grid item xs={4}>
-                <Item >
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                  <PlayArrowRoundedIcon />
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-            </Grid>
-          </Box> */}
-          {/* <ListMe></ListMe> */}
+         
         </Top>
         <Categories>
           <TopTitle>Chào buổi sáng</TopTitle>
@@ -282,38 +244,8 @@ const GuestContent = () => {
                 </PlaylistItem>
               ))}
           </Playlist>
-          <TopTitle>Chào buổi sáng</TopTitle>
-          <Playlist>
-            {playlistAdmin &&
-              playlistAdmin.map((playlist) => (
-                <PlaylistItem key={playlist._id}>
-                  <NavLink
-                    className="playlist-item"
-                    to={`playlists/${playlist._id}`}
-                  >
-                    <PlaylistImage src={playlist.image} />
-                    <PlaylistTitle> {playlist.name}</PlaylistTitle>
-                    <PlaylistSinger>{playlist.singer}</PlaylistSinger>
-                  </NavLink>
-                </PlaylistItem>
-              ))}
-          </Playlist>
-          <TopTitle>Chào buổi sáng</TopTitle>
-          <Playlist>
-            {playlistAdmin &&
-              playlistAdmin.map((playlist) => (
-                <PlaylistItem key={playlist._id}>
-                  <NavLink
-                    className="playlist-item"
-                    to={`playlists/${playlist._id}`}
-                  >
-                    <PlaylistImage src={playlist.image} />
-                    <PlaylistTitle> {playlist.name}</PlaylistTitle>
-                    <PlaylistSinger>{playlist.singer}</PlaylistSinger>
-                  </NavLink>
-                </PlaylistItem>
-              ))}
-          </Playlist>
+         
+          
         </Categories>
 
         {/* <Footer /> */}

@@ -10,7 +10,7 @@ const Container = styled.div`
   max-height: 100vh;
   background-color: #040404;
   display: grid;
-  grid-template-rows:10vh 75vh 15vh  ;
+  grid-template-rows:10vh 90vh ;
   grid-row-gap: 5px;
   overflow: hidden;
 `;
@@ -36,7 +36,7 @@ const Home = () => {
       <Outlet />
    </Body>
    {/* <HomeFooter /> */}
-   <Footer />
+   {/* <Footer /> */}
   </Container> 
   );
 };
