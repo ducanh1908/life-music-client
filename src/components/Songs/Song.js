@@ -92,6 +92,7 @@ console.log(index)
             <SongImage src={item.image}></SongImage>
             <SongName>{item.name}</SongName>
             <SongSinger>{item.singer}</SongSinger>
+            
           </SongItem>
 
       ))}

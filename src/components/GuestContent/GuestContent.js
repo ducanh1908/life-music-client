@@ -6,7 +6,7 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 // import { style } from "@mui/material/styles";
-import { getAllPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
+import { getAllPlaylist, getRandomPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import Slider from "./../Slider/Slider";
@@ -175,8 +175,6 @@ const GuestContent = () => {
 
   const open = Boolean(anchorEl);
   const idPop = open ? 'simple-popover' : undefined;
-
-
   const playlistAdmin = useSelector(
     (state) => state.playlistAdmin.playlistAdmin
   );
@@ -187,6 +185,9 @@ const GuestContent = () => {
     dispatch(getAllPlaylist());
   }, [id]);
 
+  useEffect(()=>{
+    dispatch(getRandomPlaylist())
+  },[])
   const handleClickPlaylist = (id) => {
     console.log(id);
   };
@@ -211,8 +212,6 @@ const GuestContent = () => {
             </SongItem>
            
           </NewSong>
-
-
       <Popover
         id={InstallDesktopSharp}
         open={open}
@@ -227,6 +226,26 @@ const GuestContent = () => {
       </Popover>
          
         </Top>
+        <Categories>
+          <TopTitle>Đề xuất cho bạn</TopTitle>
+          <Playlist>
+            {playlistAdmin &&
+              playlistAdmin.map((playlist) => (
+                <PlaylistItem key={playlist._id}>
+                  <NavLink
+                    className="playlist-item"
+                    to={`playlists/${playlist._id}`}
+                  >
+                    <PlaylistImage src={playlist.image} />
+                    <PlaylistTitle> {playlist.name}</PlaylistTitle>
+                    <PlaylistSinger>{playlist.singer}</PlaylistSinger>
+                  </NavLink>
+                </PlaylistItem>
+              ))}
+          </Playlist>
+         
+          
+        </Categories>
         <Categories>
           <TopTitle>Chào buổi sáng</TopTitle>
           <Playlist>
