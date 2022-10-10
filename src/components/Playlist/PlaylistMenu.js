@@ -68,6 +68,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
             const resultAction = await dispatch(action);
             const user = unwrapResult(resultAction);
             enqueueSnackbar('Thêm bài hát thành công', {variant: "success"});
+            setTimeout(window.location.reload(),5000)
         } catch (error) {
             console.log(error);
             enqueueSnackbar(error.message, {variant: "error"});

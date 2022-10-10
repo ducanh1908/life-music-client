@@ -155,6 +155,7 @@ const handleSubmit = async (data) => {
         const resultAction = await dispatch(action);
         const playlists = unwrapResult(resultAction);
         enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
+      setTimeout(window.location.reload(),5000)
     }
     else {
       enqueueSnackbar("Vui lòng đăng nhập tài khoản", { variant: "error" });
@@ -181,14 +182,14 @@ const { isSubmitting } = form.formState;
             </NavLink>
           </MenuItem>
           <MenuItem>
-          
+
               <NavLink className='item-link'  onClick={handleOpen}>
               <ItemIcon>
+                {" "}
                 <ControlPointIcon />
               </ItemIcon>
               <ItemDesc>Tạo playlist</ItemDesc>
             </NavLink>
-            
           </MenuItem>
           <MenuItem>
             <NavLink className='item-link'>
@@ -235,40 +236,36 @@ const { isSubmitting } = form.formState;
         }
 
       </Wrapper>
-     
-          <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-           
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-             Tạo Playlist
-            </Typography>
-          
-              <form onSubmit={form.handleSubmit(handleSubmit)}>
-                {isSubmitting && (
-                  <LinearProgress
-                  sx={{width:'100%',color: "grey.500" }}
-                  color="secondary" 
-                  />
-                )}      
-                <Form>
-                {/* <InputField name="id" form={form} value={""} hidden /> */}
-                <InputField name="name" form={form} />
-                <Button sx={{ mt:1,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
-                Thêm mới
-                </Button>
-              </Form>
-              </form>         
-          </Box>
-        </Modal>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+         
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+           Tạo Playlist
+          </Typography>
         
-       
-      
-     
+            <form onSubmit={form.handleSubmit(handleSubmit)}>
+              {isSubmitting && (
+                <LinearProgress
+                sx={{width:'100%',color: "grey.500" }}
+                color="secondary" 
+                />
+              )}      
+              <Form>
+              {/* <InputField name="id" form={form} value={""} hidden /> */}
+              <InputField name="name" form={form} />
+              <Button sx={{ mt:1,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
+              Thêm mới
+              </Button>
+            </Form>
+            </form>         
+        </Box>
+      </Modal>
     </Container>
   );
 };

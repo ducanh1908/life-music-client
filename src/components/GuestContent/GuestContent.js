@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 // import { style } from "@mui/material/styles";
+import { getAllPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
-import { getAllPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
 import Slider from "./../Slider/Slider";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Popover from '@mui/material/Popover';
@@ -75,8 +79,9 @@ const Playlist = styled.div`
 `;
 const PlaylistItem = styled.div`
   width: 100%;
-  height: 100%;
+  height: 280px;
   background-color: rgba(255, 255, 255, 0.05);
+
   border-radius: 5px;
 
   display: flex;
@@ -215,8 +220,8 @@ const GuestContent = () => {
             </SongItem>
            
           </NewSong>
-          
-          
+
+
       <Popover
         id={InstallDesktopSharp}
         open={open}

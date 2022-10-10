@@ -90,7 +90,7 @@ const UpdateProfile = (props) => {
         },
         resolver: yupResolver(schema),
     });
-
+    console.log(form)
 
     const handleSubmit = async (data) => {
         try {
@@ -114,7 +114,6 @@ const UpdateProfile = (props) => {
                     <Title>Cập nhật hồ sơ</Title>
                 </Topbar>
                 <Form>
-
                     <form onSubmit={form.handleSubmit(handleSubmit)} className="form-input">
                         {isSubmitting && (
                             <LinearProgress
@@ -123,7 +122,6 @@ const UpdateProfile = (props) => {
 
                             />
                         )}
-                      
                         <InputField name="fullname" label="Nhập Họ tên" form={form} />
                         <InputField name="email" label="Nhập email của bạn" form={form} />
                         <InputField name="address" label="Nhập địa chỉ của bạn" form={form} />
