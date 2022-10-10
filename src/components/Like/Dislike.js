@@ -5,6 +5,7 @@ import { IconButton, CircularProgress } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import styled from "styled-components";
 import { getAllLikedSongs, likeOrNot } from "../../redux/songSlice/songSlice";
+import { useSnackbar } from "notistack";
 
 const Container = styled.div`
   .like_btn {
@@ -27,6 +28,7 @@ const Container = styled.div`
 `;
 
 const Dislike = (props) => {
+const { enqueueSnackbar } = useSnackbar();
   let songId = props.songId;
   let likeId = props.likeId;
   let dislikeStatus = useSelector((state) => 
@@ -35,7 +37,7 @@ const Dislike = (props) => {
   const dispatch = useDispatch();
   let userId = JSON.parse(localStorage.getItem('user'))._id;
 
-  const handleLikeSong = async () => {
+  const handleDisLikeSong = async () => {
     let data = {
       userId: userId,
       songId: songId,
@@ -43,12 +45,14 @@ const Dislike = (props) => {
       likeId: likeId
     }
      dispatch(likeOrNot(data))
+     enqueueSnackbar('Đã xóa bài hát khỏi danh sách yêu thích', { variant: "success" });
+     window.location.reload()
   };
 
 
   return (
     <Container>
-      <IconButton className={"like_btn"} onClick={() => handleLikeSong()}>
+      <IconButton className={"like_btn"} onClick={() => handleDisLikeSong()}>
       { dislikeStatus == 'loading' ? (
                     <CircularProgress style={{ color: "#1ed760" }} size="2rem" />
                 ) : (

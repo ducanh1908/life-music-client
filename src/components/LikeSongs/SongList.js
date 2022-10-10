@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Dislike from "../Like/Dislike";
-import { changelikeOrNotStatus, getAllLikedSongs } from "../../redux/songSlice/songSlice";
+import {
+  changelikeOrNotStatus,
+  getAllLikedSongs,
+} from "../../redux/songSlice/songSlice";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -88,9 +91,7 @@ const Wrapper = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
 `;
 
-
 const SongList = ({ song, onTrackSelect }) => {
-
   const handleClick = (id, index) => {
     onTrackSelect(index);
   };
@@ -131,7 +132,7 @@ const SongList = ({ song, onTrackSelect }) => {
                   </SongDetail>
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
-                    <Dislike songId={item._id} likeId={item.like}/>
+                <Dislike songId={item._id} likeId={item.like} />
               </SongItem>
             ))}
         </Song>
