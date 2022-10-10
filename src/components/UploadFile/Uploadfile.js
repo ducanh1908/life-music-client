@@ -54,9 +54,7 @@ function AddNewFile() {
   let { playlists } = useSelector((state) => state.playlist);
   
   let categories = useSelector((state) => state.cate.categories);
-  console.log("categories", categories);
-  console.log("status upload", status);
-  console.log("uploadSongs", uploadSongs.songs);
+
 
   const uploadFile = async () => {
     try {
@@ -191,7 +189,7 @@ function AddNewFile() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 800,
+    width: "100%",
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -208,36 +206,26 @@ function AddNewFile() {
         /* Pretty Modern Browsers */ url("webfont.ttf") format("truetype"),
         /* Safari, Android, iOS */ url("webfont.svg#svgFontName") format("svg"); /* Legacy iOS */
     }
-
-    background-color: #7a7a7a;
-
-    .image-upload > input {
-      display: none;
-    }
-
+    background-color: whitesmoke;
+    position: relative;
+    border-radius: 10px;
+    overflow: auto;
     #songlist {
       font-family: Arial, Helvetica, sans-serif;
       border-collapse: collapse;
       width: 100%;
-    }
-    
-    #songlist td, #songlist th {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-    
-    #songlist tr:nth-child(even){background-color: #f2f2f3;}
-    
-    #songlist tr:hover {background-color: #ddd;}
-    
+      color: white;
+    };
     #songlist th {
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: left;
-      background-color: #4d4dff;
-      color: white;
+      color: black;
+      border-bottom: 1px solid #ccc;
+    }
+    #songlist tbody tr:hover {
+      background-color: rgba(0, 0, 0, 0.7)}
   `;
-
   const Logo = styled.div`
     display: flex;
     flex-direction: column;
@@ -245,6 +233,25 @@ function AddNewFile() {
     justify-content: center;
     align-content: center;
     padding: 10px;
+  `;
+  const Head = styled.div`
+    position: relative;
+    padding: 1rem 3rem;
+
+    display: flex;
+    height: 180px;
+    background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
+  `;
+  const Wrapper = styled.div`
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
+  `
+  const Body = styled.div`
+    grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
+    //text-transform: uppercase;
+    color: #3b3b3b;
+    border-bottom: 1px solid #ccc;
   `;
 
   const InforAvatar = styled.div`
@@ -286,206 +293,214 @@ function AddNewFile() {
 
   return (
     <Container>
-      <div className="scrollbar" id="style-1">
-        {/* <div className="image-upload">
-          <label htmlFor="file-input">
-            <img src="https://icons.iconarchive.com/icons/iconsmind/outline/32/Upload-2-icon.png" />
-          </label>
-          <input
-            id="file-input"
-            type="file"
-            onChange={(event) => {
-              setFileUpload(event.target.files[0]);
-            }}
-          />
-        </div> */}
-        {/* <button onClick={uploadFile}>Upload</button> */}
-        <div>
-          <Button
-            variant="contained"
-            component="label"
-            onChange={(event) => {
-              setFileUpload(event.target.files[0]);
-            }}
-          >
-            Chọn tệp
-            <input hidden accept="file/*" multiple type="file" />
-          </Button>
-          {status == "loading" ? (
-            <LoadingButton
-              loading
-              loadingPosition="start"
-              startIcon={<SaveIcon />}
-              variant="outlined"
-            >
-              Loading...
-            </LoadingButton>
-          ) : (
-            <Button variant="contained" onClick={uploadFile}>
-              Up tệp
-            </Button>
-          )}
-        </div>
-        <h1>Tải bài hát lên</h1>
-        <table id="songlist">
-          <thead>
-            <tr>
-              <th colSpan={2}>Bài hát</th>
-              <th colSpan={3}>Trạng thái</th>
-              <th>Thời gian</th>
-              <th>Hành động</th>
-            </tr>
-          </thead>
-          <tbody>
-            {uploadSongs.songs &&
-              uploadSongs.songs.map((song, index) => (
-                <tr key={index}>
-                  <td>
-                    <img width={50} src={song.image} alt="" />
-                  </td>
-                  <td>{song.name}</td>
-                  <td></td>
-                  <td>
-                    <>
-                      {song.status == 1 ? (
-                        <>
-                          <select
-                            onChange={(e) => {
-                              handleSongStatus(e, song);
-                            }}
-                          >
-                            <option value={1}>Riêng tư</option>
-                            <option value={2}>Công khai</option>
-                          </select>
-                        </>
-                      ) : (
-                        <>
-                          <select
-                            onChange={(e) => {
-                              handleSongStatus(e, song);
-                            }}
-                          >
-                            <option value={2}>Công khai</option>
-                            <option value={1}>Riêng tư</option>
-                          </select>
-                        </>
-                      )}
-                    </>
-                  </td>
-                  <td></td>
-                  <td>{song.duration}</td>
-                  <td>
-                    <select onChange={(e) => handleSong(e)}>
-                      <option value={""}>-- Chọn --</option>
-                      <option value={`1,${song._id}`}>
-                        Thêm bài hát vào playlist{" "}
-                      </option>
-                      <option value={`2,${song._id}`}>Xóa bài hát</option>
-                      <option
-                        value={`3,${song._id}, ${song.name}, ${song.image}, ${song.singerName}`}
-                      >
-                        Chỉnh sửa
-                      </option>
-                    </select>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-          <div>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <form>
-                <Box sx={style}>
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h6"
-                    component="h2"
-                  >
-                    Chỉnh sửa bài hát
-                  </Typography>
-                  <TextField
-                    label="Tên bài hát"
-                    placeholder={`${editSong.name}`}
-                    name="name"
-                    onChange={(e) => {
-                      updateSong.name = e.target.value;
-                    }}
-                  />
-                  <TextField
-                    label="Ca sĩ"
-                    name="singerName"
-                    placeholder={`${editSong.singerName}`}
-                    onChange={(e) => {
-                      updateSong.singerName = e.target.value;
-                    }}
-                  />
-                  <Logo>
-                    <InforAvatar>
-                      <InfoImg
-                        src={
-                          avatar ? URL.createObjectURL(avatar) : editSong.image
-                        }
-                        style={{ filter: "invert(0)" }}
-                        alt="avatar"
-                      />
-                      <InforSpan>
-                        <i>
-                          <CameraAltIcon />
-                        </i>
-                        <p>Thay ảnh</p>
-                        <Input
-                          type="file"
-                          name="file"
-                          id="file_up"
-                          accept="image/*"
-                          onChange={(e) => {file = e.target.files[0];}}
-                        />
-                      </InforSpan>
-                    </InforAvatar>
-                  </Logo>
-                  <select
-                    select
-                    label="Thể loại"
-                    name="cate"
-                    onChange={(e) => {
-                      updateSong.cate = e.target.value;
-                    }}
-                  >
-                    {categories &&
-                      categories.map((cate) => {
-                        return (
-                          <option
-                            key={cate._id}
-                            name="cate"
-                            value={`${cate._id}`}
-                          >
-                            {cate.name}
-                          </option>
-                        );
-                      })}
-                  </select>
-                  <Button
+        <div id="style-1">
+          <Head>
+          <div >
+            <Button sx={{borderRadius:'200px'}}
                     variant="contained"
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  >
-                    Đóng
-                  </Button>
-                  <Button variant="contained" onClick={handleSubmit}>
-                    Lưu
-                  </Button>
-                </Box>
-              </form>
-            </Modal>
+                    color="inherit"
+                component="label"
+                onChange={(event) => {
+                  setFileUpload(event.target.files[0]);
+                }}
+            >
+              Chọn tệp
+              <input hidden accept="file/*" multiple type="file" />
+            </Button>
+            {status == "loading" ? (
+                <LoadingButton
+                    loading
+                    loadingPosition="start"
+                    startIcon={<SaveIcon />}
+                    variant="outlined"
+                >
+                  Loading...
+                </LoadingButton>
+            ) : (
+                <Button color="inherit"
+                        sx={{borderRadius:'200px' , width:'100px' }}
+                        variant="contained"
+                        onClick={uploadFile}>
+                  Up tệp
+                </Button>
+            )}
           </div>
-        </table>
-        <div className="force-overflow"></div>
-      </div>
+            <div style={{marginLeft: "20px"}}>
+              <h1>Tải bài hát lên</h1>
+            </div>
+
+          </Head>
+          <Wrapper>
+            <Body>
+              <table id="songlist">
+                <thead>
+                <tr>
+                  <th colSpan={2}>Bài hát</th>
+                  <th colSpan={3}>Trạng thái</th>
+                  <th>Thời gian</th>
+                  <th>Hành động</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                {uploadSongs.songs &&
+                    uploadSongs.songs.map((song, index) => (
+                        <tr key={index} >
+                          <td>
+                            <img width={50} src={song.image} alt="" />
+                          </td>
+                          <td>{song.name}</td>
+                          <td></td>
+                          <td>
+                            <>
+                              {song.status == 1 ? (
+                                  <>
+                                    <select style={{height:"30px" , width:"90px" }}
+                                        onChange={(e) => {
+                                          handleSongStatus(e, song);
+                                        }}
+                                    >
+                                      <option value={1}>Riêng tư</option>
+                                      <option value={2}>Công khai</option>
+                                    </select>
+                                  </>
+                              ) : (
+                                  <>
+                                    <select
+                                        onChange={(e) => {
+                                          handleSongStatus(e, song);
+                                        }}
+                                    >
+                                      <option value={2}>Công khai</option>
+                                      <option value={1}>Riêng tư</option>
+                                    </select>
+                                  </>
+                              )}
+                            </>
+                          </td>
+                          <td></td>
+                          <td>{song.duration}</td>
+                          <td>
+                            <select style={{height:"30px" , width:"90px"}}
+                                onChange={(e) => handleSong(e)}>
+                              <option value={""}>-- Chọn --</option>
+                              <option value={`1,${song._id}`}>
+                                Thêm bài hát vào playlist{" "}
+                              </option>
+                              <option value={`2,${song._id}`}>Xóa bài hát</option>
+                              <option
+                                  value={`3,${song._id}, ${song.name}, ${song.image}, ${song.singerName}`}
+                              >
+                                Chỉnh sửa
+                              </option>
+                            </select>
+                          </td>
+                        </tr>
+                    ))}
+                </tbody>
+                <div>
+                  <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                  >
+                    <form>
+                      <Box sx={style}>
+                        <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2"
+                        >
+                          Chỉnh sửa bài hát
+                        </Typography>
+                        <TextField
+                            label="Tên bài hát"
+                            placeholder={`${editSong.name}`}
+                            name="name"
+                            onChange={(e) => {
+                              updateSong.name = e.target.value;
+                            }}
+                        />
+                        <TextField
+                            label="Ca sĩ"
+                            name="singerName"
+                            placeholder={`${editSong.singerName}`}
+                            onChange={(e) => {
+                              updateSong.singerName = e.target.value;
+                            }}
+                        />
+                        <Logo>
+                          <InforAvatar>
+                            <InfoImg
+                                src={
+                                  avatar ? URL.createObjectURL(avatar) : editSong.image
+                                }
+                                style={{ filter: "invert(0)" }}
+                                alt="avatar"
+                            />
+                            <InforSpan>
+                              <i>
+                                <CameraAltIcon />
+                              </i>
+                              <p>Thay ảnh</p>
+                              <Input
+                                  type="file"
+                                  name="file"
+                                  id="file_up"
+                                  accept="image/*"
+                                  onChange={(e) => {file = e.target.files[0];}}
+                              />
+                            </InforSpan>
+                          </InforAvatar>
+                        </Logo>
+
+                        <select style={{width: "100px", height: "35px"}}
+                            select
+                            label="Thể loại"
+                            name="cate"
+                            onChange={(e) => {
+                              updateSong.cate = e.target.value;
+                            }}
+                        >
+                          {categories &&
+                              categories.map((cate) => {
+                                return (
+                                    <option
+                                        key={cate._id}
+                                        name="cate"
+                                        value={`${cate._id}`}
+                                    >
+                                      {cate.name}
+                                    </option>
+                                );
+                              })}
+                        </select>
+                        <Button color="inherit"
+                                sx={{borderRadius:'200px' , width:'100px' }}
+                            variant="contained"
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                        >
+                          Đóng
+                        </Button>
+                        <Button color="inherit"
+                                sx={{borderRadius:'200px' , width:'100px' }}
+                            variant="contained"
+                            onClick={handleSubmit}>
+                          Lưu
+                        </Button>
+                      </Box>
+                    </form>
+                  </Modal>
+                </div>
+              </table>
+              <div className="force-overflow"></div>
+            </Body>
+
+          </Wrapper>
+        </div>
+
     </Container>
   );
 }

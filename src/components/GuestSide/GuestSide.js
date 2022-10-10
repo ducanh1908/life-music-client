@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOfflineOutlined";
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import Box from "@mui/material/Box";
@@ -18,7 +19,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
-import { createPlaylist, getPlaylistAndUser } from './../../redux/playlistSlice/playlistSlice';
+import {getPlaylistAndUser,createPlaylist} from "../../redux/playlistSlice/playlistSlice";
 
 const Container = styled.div`
   height: 100%;
@@ -192,7 +193,7 @@ const { isSubmitting } = form.formState;
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <NavLink className='item-link'>
+            <NavLink className='item-link'> 
               <ItemIcon>
                 <FavoriteIcon />
               </ItemIcon>
@@ -203,7 +204,7 @@ const { isSubmitting } = form.formState;
           <MenuItem>
             <NavLink className='item-link' to={"/upload"}>
               <ItemIcon>
-                <DownloadForOfflineOutlinedIcon />
+                <CloudUploadOutlinedIcon />
               </ItemIcon>
               <ItemDesc>Tải lên bài hát</ItemDesc>
             </NavLink>
@@ -248,7 +249,7 @@ const { isSubmitting } = form.formState;
           <Typography id="modal-modal-title" variant="h6" component="h2">
            Tạo Playlist
           </Typography>
-        
+
             <form onSubmit={form.handleSubmit(handleSubmit)}>
               {isSubmitting && (
                 <LinearProgress

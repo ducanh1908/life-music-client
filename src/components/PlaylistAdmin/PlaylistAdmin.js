@@ -25,7 +25,7 @@ const Container = styled.div`
 const Head = styled.div`
   position: relative;
   display: flex;
-  height: 310px;
+  height: 250px;
   padding: 2rem;
   background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
 `;
@@ -36,8 +36,8 @@ const Navbar = styled.div`
   align-items: center;
 `;
 const Image = styled.img`
-  width: 232px;
-  height: 232px;
+  width: 200px;
+  height: 200px;
   box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
 `;
 const PlaylistInfo = styled.div`

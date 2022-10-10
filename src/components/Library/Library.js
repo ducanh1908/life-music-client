@@ -16,12 +16,12 @@ const Total = styled.div`
 `
 const Container=styled.div`
   //padding: 2rem 0;
+  //display: flex;
   //flex-direction: column;
   //position: relative;
   //min-height: 80vh;
   background-color: grey;
   overflow: auto;
-  
   
 
   .results_container {
@@ -113,14 +113,12 @@ const Library = () => {
                     </div>
                 </div>
             </Container>
-            {/*{songs &&*/}
-            {/*    <Footerdivdiv>*/}
-            {/*        <DetailSong song = {songs}  trackIndex={trackIndex}/>*/}
-            {/*        <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />*/}
-            {/*    </Footerdivdiv>}*/}
-            {
-                songs && <Footer songs={songs}/>
-            }
+            {songs &&
+                <Footerdiv>
+                    <DetailSong song = {songs}  trackIndex={trackIndex}/>
+                    <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
+                </Footerdiv>}
+
         </Total>
 
     );

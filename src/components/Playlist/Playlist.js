@@ -42,7 +42,7 @@ const Head = styled.div`
   display: flex;
   height: 250px;
   padding: 2rem;
-  background-color: grey;
+  background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
 
   .head_gradient {
     position: absolute;

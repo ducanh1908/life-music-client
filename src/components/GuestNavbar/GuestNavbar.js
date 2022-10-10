@@ -2,14 +2,15 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
 import {Link, NavLink} from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
-import {searchSong} from "../../redux/songSlice/songSlice";
+import {fetchSong, searchSong} from "../../redux/songSlice/songSlice";
 import {searchPlaylist} from "../../redux/playlistSlice/playlistSlice";
+import {getAllPlaylist} from "../../redux/playlistSlice/playlistAdmin";
 
 const Container = styled.div`
 
@@ -100,7 +101,7 @@ const GuestNavbar = () => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+    const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -110,7 +111,10 @@ const GuestNavbar = () => {
     dispatch(logout());
     navigate('/login');
   }
-  const songs = useSelector(state => state.song.songs)
+    useEffect(() => {
+        dispatch(fetchSong());
+        dispatch(getAllPlaylist());
+    },[])
    const handleChange = (e) => {
         dispatch(searchSong(e.target.value));
         dispatch(searchPlaylist(e.target.value));
