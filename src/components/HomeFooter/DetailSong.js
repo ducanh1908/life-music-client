@@ -27,7 +27,7 @@ const DetailSong = ({song, trackIndex}) => {
     file = "",
     image = "",
   } = trackIndex !== -1 ? song[trackIndex] :{} ;
-
+    console.log({name})
   return (
     <Container>
       <SongImage src={image ? image :"https://images.unsplash.com/photo-1458560871784-56d23406c091?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"} />
