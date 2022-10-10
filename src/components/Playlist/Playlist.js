@@ -209,12 +209,9 @@ const Playlist = () => {
           const resultAction = await dispatch(action);
           const user = unwrapResult(resultAction);
           enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
-          Swal.fire(
-              'Đã Xoá'
-          )
           navigate("/")
-          // setTimeout(window.location.reload(),  20000)
         }
+        setTimeout(window.location.reload(),  5000)
       })
 
     } catch (error) {
@@ -274,7 +271,8 @@ const Playlist = () => {
               <AccessTimeIcon />
             </div>
           </div>
-          {currentSong && currentSong.map((song) => (
+          {currentSong &&
+              currentSong.map((song) => (
               <Fragment key={song._id} >
                 <SongPlaylist
                     song={song}
