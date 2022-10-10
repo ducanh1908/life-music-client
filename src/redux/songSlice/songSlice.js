@@ -6,10 +6,16 @@ const initialState = {
   getUploadSongsStatus: "idle",
   deleteSongStatus: "idle",
   publicOrPrivateStatus: "idle",
+  likedSongsStatus: "idle",
+  getAllLikedSongsStatus: "idle",
+  likeOrNotStatus: "idle",
   songs: [],
   loading: false,
   search: [],
-  uploadSongs: []
+  uploadSongs: [],
+  likedSongs: [],
+  getAllLikedSongs: {},
+  likeOrNot: {}
 };
 export const getUploadedSongs = createAsyncThunk("user/getUploadedSongs", async (payload) => {
   const data = await songApi.uploadedSongs(payload);
@@ -23,7 +29,6 @@ export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) =>
 
 export const fetchSong = createAsyncThunk("/songs", async (payload) => {
   const data = await songApi.getSong();
-  console.log(data)
   return data.songs;
 });
 export const getSongsByPlaylistId = createAsyncThunk("/songs/id", async (payload) => {
@@ -35,7 +40,7 @@ export const searchSong = createAsyncThunk(
     async (term) => {
       const res = await songApi.searchSong(term);
       return res;
-} )
+});
 
 export const deleteSongById = createAsyncThunk('song/deleteSong', (payload) => {
   const data = songApi.deleteSong(payload);
@@ -49,6 +54,21 @@ export const updateSongInfo = createAsyncThunk('song/updateSong', async (payload
 
 export const publicOrPrivate = createAsyncThunk('song/updateSong', (payload) => {
   const data = songApi.publicOrPrivate(payload);
+  return data
+});
+
+export const likedSongs = createAsyncThunk('song/likedSongs', (payload) => {
+  const data = songApi.likedSongList(payload);
+  return data
+});
+
+export const getAllLikedSongs = createAsyncThunk('song/getAllLikedSongs', (payload) => {
+  const data = songApi.getAllLikedSongs(payload);
+  return data
+});
+
+export const likeOrNot = createAsyncThunk('song/likeOrNot', (payload) => {
+  const data = songApi.likeOrNot(payload);
   return data
 });
 
@@ -122,9 +142,40 @@ const songSlice = createSlice({
     [updateSongInfo.rejected] : (state, action) => {
       state.publicOrPrivateStatus = 'false';
     },
+    [likedSongs.pending] : (state, action) => {
+      state.likedSongsStatus = 'loading'
+    },
+    [likedSongs.fulfilled] : (state, action) => {
+      state.likedSongsStatus = 'success';
+      state.likedSongs = action.payload.userDoc.likeSongs;
+    },
+    [likedSongs.rejected] : (state, action) => {
+      state.likedSongsStatus = 'false';
+    },
+    [getAllLikedSongs.pending] : (state, action) => {
+      state.getAllLikedSongsStatus = 'loading'
+    },
+    [getAllLikedSongs.fulfilled] : (state, action) => {
+      state.getAllLikedSongsStatus = 'success';
+      state.getAllLikedSongs = action.payload.userDoc.likeSongs;
+    },
+    [getAllLikedSongs.rejected] : (state, action) => {
+      state.getAllLikedSongsStatus = 'false';
+    },
+    [likeOrNot.pending] : (state, action) => {
+      state.likeOrNotStatus = 'loading';
+    },
+    [likeOrNot.fulfilled] : (state, action) => {
+      state.likeOrNotStatus = 'success';
+      state.likeOrNot = action.payload;
+      console.log('likeOrNot ', action.payload)
+    },
+    [likeOrNot.rejected] : (state, action) => {
+      state.likeOrNotStatus = 'false';
+    },
   }
 });
 
 const { reducer, actions } = songSlice;
-export const {upSong, loading, changeStatus, changeDeleteSongStatus } = actions;
+export const {upSong, loading, changeStatus, changeDeleteSongStatus} = actions;
 export default reducer;

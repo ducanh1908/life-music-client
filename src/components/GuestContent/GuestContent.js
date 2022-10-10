@@ -6,19 +6,17 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 // import { style } from "@mui/material/styles";
-import { getAllPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
+import { getAllPlaylist, getRandomPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
+import Slider from "./../Slider/Slider";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { InstallDesktopSharp } from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: "#3a3a3a",
-//   ...theme.typography.body2,
-//   textAlign: "center",
-//   display: 'flex',
-//   alignItems: "center",
-//   height: theme.spacing(12),
-//   color:'#fff',
-// }));
 
 const Container = styled.div`
   height: 100%;
@@ -111,7 +109,72 @@ const PlaylistSinger = styled.span`
   font-size: 14px;
   color: #a7a7a7;
 `;
+const Header = styled.div`
+  height: 250px;
+`;
+
+const NewSong = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+`;
+const SongInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 10px;
+  flex: 1;
+`;
+const SongItem = styled.div`
+  background-color: transparent;
+
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  color: #fff;
+  height: 80px;
+  .move-icon {
+    display: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    .move-icon {
+     display: block;
+     backgroundColor: "#fff",
+    }
+  }
+`;
+
+const SongImg = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  margin-left: 10px;
+`;
+const SongName = styled.span`
+  display: flex;
+  
+`;
+const SongSinger = styled.span``;
+
 const GuestContent = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const idPop = open ? 'simple-popover' : undefined;
   const playlistAdmin = useSelector(
     (state) => state.playlistAdmin.playlistAdmin
   );
@@ -122,47 +185,49 @@ const GuestContent = () => {
     dispatch(getAllPlaylist());
   }, [id]);
 
+  useEffect(()=>{
+    dispatch(getRandomPlaylist())
+  },[])
   const handleClickPlaylist = (id) => {
     console.log(id);
   };
   return (
     <Container>
       <Wrapper>
+        <Header>
+          <Slider />
+        </Header>
         <Top>
-          {/*<TopTitle>Chào buổi sáng</TopTitle>*/}
-          {/* <Box sx={{ flexGrow: 1, marginTop:2 }}>
-            <Grid container spacing={2} >
-              <Grid item xs={4}>
-                <Item >
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                  <PlayArrowRoundedIcon />
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-            </Grid>
-          </Box> */}
-          <ListMe></ListMe>
+          <TopTitle>Mới phát hành</TopTitle>
+          <NewSong>
+            <SongItem>
+              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+              <SongInfo>
+                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
+                <SongSinger>Đạt G</SongSinger>
+              </SongInfo>
+              <IconButton >
+              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+              </IconButton>
+            </SongItem>
+           
+          </NewSong>
+      <Popover
+        id={InstallDesktopSharp}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+      </Popover>
+         
         </Top>
         <Categories>
-          <TopTitle>Chào bạn</TopTitle>
+          <TopTitle>Đề xuất cho bạn</TopTitle>
           <Playlist>
             {playlistAdmin &&
               playlistAdmin.map((playlist) => (
@@ -178,6 +243,28 @@ const GuestContent = () => {
                 </PlaylistItem>
               ))}
           </Playlist>
+         
+          
+        </Categories>
+        <Categories>
+          <TopTitle>Chào buổi sáng</TopTitle>
+          <Playlist>
+            {playlistAdmin &&
+              playlistAdmin.map((playlist) => (
+                <PlaylistItem key={playlist._id}>
+                  <NavLink
+                    className="playlist-item"
+                    to={`playlists/${playlist._id}`}
+                  >
+                    <PlaylistImage src={playlist.image} />
+                    <PlaylistTitle> {playlist.name}</PlaylistTitle>
+                    <PlaylistSinger>{playlist.singer}</PlaylistSinger>
+                  </NavLink>
+                </PlaylistItem>
+              ))}
+          </Playlist>
+         
+          
         </Categories>
 
         {/* <Footer /> */}

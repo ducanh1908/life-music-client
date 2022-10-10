@@ -8,7 +8,13 @@ import {
   getPlaylistById,
   getSongToPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
-
+import DetailSong from "../HomeFooter/DetailSong";
+import Audio from "../HomeFooter/Audio";
+import React from "react";
+const Total = styled.div`
+  display: grid;
+  grid-template-rows: 75vh 15vh;
+`
 const Container = styled.div`
   background-color: whitesmoke;
   position: relative;
@@ -19,7 +25,7 @@ const Container = styled.div`
 const Head = styled.div`
   position: relative;
   display: flex;
-  height: 310px;
+  height: 250px;
   padding: 2rem;
   background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
 `;
@@ -30,8 +36,8 @@ const Navbar = styled.div`
   align-items: center;
 `;
 const Image = styled.img`
-  width: 232px;
-  height: 232px;
+  width: 200px;
+  height: 200px;
   box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
 `;
 const PlaylistInfo = styled.div`
@@ -55,7 +61,8 @@ const Body = styled.div`
   color: #3b3b3b;
   border-bottom: 1px solid #ccc;
 `;
-const BodyTitle = styled.p``;
+const BodyTitle = styled.p`
+`;
 
 
 
@@ -98,6 +105,12 @@ const Wrapper = styled.div`
 height: 100%;
 background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
 `
+const Footer = styled.div`
+height: 20%;
+  background-color: #333;
+display: grid;
+grid-template-columns: 1fr 2fr;
+`
 const PlaylistAdmin = () => {
   const { id } = useParams();
   const [list, setPlaylist] = useState({});
@@ -120,8 +133,13 @@ const PlaylistAdmin = () => {
   useEffect(() => {
     dispatch(getSongToPlaylist(id));
   }, []);
+    const [trackIndex, setTrackIndex] = useState(-1)
+    const handleClick = (id, index) => {
+        setTrackIndex(index);
+    };
 
   return (
+      <Total>
     <Container>
       <Head>
         {currentPlaylist && (
@@ -138,7 +156,6 @@ const PlaylistAdmin = () => {
       <Body>
         <BodyTitle>#</BodyTitle>
         <BodyTitle>Tên bài hát</BodyTitle>
-
         <BodyTitle>Album</BodyTitle>
         <BodyTitle>
           <AccessTimeIcon />
@@ -147,7 +164,7 @@ const PlaylistAdmin = () => {
       <Song>
         {currentSong &&
           currentSong.map((song, index) => (
-            <SongItem>
+            <SongItem onClick={() => handleClick(song._id, index)}>
               <SongIndex className="col">{index +1 }</SongIndex>
               <SongInfo className="col">
               <SongImage src={song.image} />
@@ -163,6 +180,15 @@ const PlaylistAdmin = () => {
       </Song>
       </Wrapper>
     </Container>
+          {
+              currentSong &&
+              <Footer>
+                  <DetailSong song = {currentSong }  trackIndex={trackIndex}/>
+                  <Audio song={currentSong} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
+              </Footer>
+          }
+
+      </Total>
   );
 };
 

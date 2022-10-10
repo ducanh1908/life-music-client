@@ -55,7 +55,6 @@ function AddNewFile() {
   
   let categories = useSelector((state) => state.cate.categories);
 
-
   const uploadFile = async () => {
     try {
       if (fileUpload == null) return;
@@ -141,7 +140,6 @@ function AddNewFile() {
     if (file) {
       media = await imageUpload([file]);
     }
-    console.log('file', file)
     let image = media ? media[0].url : '';
     if(image) {
       updateSong.image = image;
@@ -226,6 +224,7 @@ function AddNewFile() {
     #songlist tbody tr:hover {
       background-color: rgba(0, 0, 0, 0.7)}
   `;
+
   const Logo = styled.div`
     display: flex;
     flex-direction: column;

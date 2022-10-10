@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaylistModel from "./PlaylistModel";
 import { useDispatch, useSelector } from "react-redux";
-import { getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
+import {fetchSong, getSongsByPlaylistId} from "../../redux/songSlice/songSlice";
 import { useNavigate, useParams} from "react-router";
 import {
   deletePlaylist,
@@ -17,7 +17,14 @@ import {
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {useSnackbar} from "notistack";
-
+import DetailSong from "../HomeFooter/DetailSong";
+import Audio from "../HomeFooter/Audio";
+import React from "react";
+import Swal from "sweetalert2";
+const Total = styled.div`
+  display: grid;
+  grid-template-rows: 75vh 15vh;
+`
 const Container = styled.div`
   background-color: whitesmoke;
   position: relative;
@@ -34,9 +41,9 @@ const Container = styled.div`
 const Head = styled.div`
   position: relative;
   display: flex;
-  height: 310px;
+  height: 250px;
   padding: 2rem;
-  background-color: grey;
+  background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
 
   .head_gradient {
     position: absolute;
@@ -48,8 +55,8 @@ const Head = styled.div`
   }
 
   img {
-    width: 232px;
-    height: 232px;
+    width: 200px;
+    height: 200px;
     box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
   }
 
@@ -78,14 +85,15 @@ const Body = styled.div`
   padding: 1rem 3rem;
 
   .body_nav {
-    display: flex;
+    display: grid;
     justify-content: space-between;
     padding: 0.5rem 0;
     color: var(--light-white);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
     border-bottom: 1px solid var(--light-white);
     margin-bottom: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
 
     .left {
       display: flex;
@@ -114,12 +122,12 @@ const Body = styled.div`
     .right {
       flex: 1;
       display: flex;
-      justify-content: flex-end;
-      padding-right: 4rem;
-
+      justify-content:center;
+      padding-right: 3rem;
       svg {
         width: 2rem;
         height: 2rem;
+        align-content: center;
       }
     }
   }
@@ -141,7 +149,7 @@ margin-left: 20px;
 flex:1;
 `
 const PlaylistName = styled.h1`
-font-size:70px;
+font-size:50px;
 `
 const PlaylistTitle = styled.h1`
 
@@ -150,6 +158,12 @@ const PlaylistAction = styled.div`
 display: flex;
 flex-direction: column;
 align-items: flex-start;
+`
+const Footer = styled.div`
+height: 20%;
+  background-color: #333;
+display: grid;
+grid-template-columns: 1fr 2fr;
 `
 const Playlist = () => {
   const { id } = useParams();
@@ -161,22 +175,52 @@ const Playlist = () => {
   const currentSong = useSelector(
       (state) => state.currentPlaylist.playlistAdmin
   );
+  console.log(currentSong)
   const [model, setModel] = useState(false);
+  const [playAudio,setPlayAudio]=useState(true)
   const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPlaylistById(id));
+  }, [id]);
+  useEffect(()=> {
+    dispatch(getSongToPlaylist(id))
+  },[id]);
+  useEffect(() => {
+    dispatch(fetchSong())
+  },[])
+  const [trackIndex, setTrackIndex] = useState(-1)
+  const onTrackSelect = (index)=> {
+    setTrackIndex(index)
+  }
   const handleDeletePlaylist = async () => {
     try {
-      const action = await deletePlaylist(currentPlaylist._id)
-      const resultAction = await dispatch(action);
-      const user = unwrapResult(resultAction);
-      enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
-      navigate("/")
+      Swal.fire({
+        title: 'Bạn có chắc muốn xoá Playlist?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'grey',
+        cancelButtonColor: '#d33',
+        confirmButtonText: ' Tôi Chắc chắn',
+        cancelButtonText: 'Tôi nghĩ lại rồi'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const action = await deletePlaylist(currentPlaylist._id,navigate)
+          const resultAction = await dispatch(action);
+          const user = unwrapResult(resultAction);
+          enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
+          Swal.fire(
+              'Đã Xoá'
+          )
+          navigate("/")
+          // setTimeout(window.location.reload(),  20000)
+        }
+      })
+
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});
     }
-    // const res = await deletePlayList(playlist._id, dispatch);
-    // if (res) history.push("/home");
   };
   const handleRemoveSong = async (songId) => {
     const payload = { playlistId: currentPlaylist._id, songId };
@@ -185,32 +229,26 @@ const Playlist = () => {
       const resultAction = await dispatch(action);
       const user = unwrapResult(resultAction);
       enqueueSnackbar('Xoá bài hát khỏi playlist thành công', {variant: "success"});
+      setTimeout(window.location.reload(),5000)
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});
     }
 
   };
-  useEffect(() => {
-    dispatch(getPlaylistById(id));
-  }, [id]);
-  useEffect(()=> {
-    dispatch(getSongToPlaylist(id))
-  },[id]);
 
   return (
+      <Total>
     <Container>
       <Fragment>
         {currentPlaylist && (
           <Head>
-
             <Navbar>
               <Image  src={currentPlaylist.image}/>
               <PlaylistInfo>
                 <PlaylistTitle>Playlist</PlaylistTitle>
                 <PlaylistName>{currentPlaylist.name}</PlaylistName>
                 <span>{currentPlaylist.description}</span>
-
               </PlaylistInfo>
               <PlaylistAction>
               <IconButton onClick={() => setModel(true)}>
@@ -220,9 +258,7 @@ const Playlist = () => {
                 <DeleteIcon sx={{width: '40px', height: "40px"}} />
               </IconButton>
               </PlaylistAction>
-
             </Navbar>
-
           </Head>
         )}
         <Body>
@@ -239,22 +275,25 @@ const Playlist = () => {
             </div>
           </div>
           {currentSong && currentSong.map((song) => (
-              <Fragment key={song._id}>
+              <Fragment key={song._id} >
                 <SongPlaylist
                     song={song}
                     currentPlaylist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
+                    // onTrackSelect={onTrackSelect}
                 />
               </Fragment>
           ))}
           <hr/>
-          <h3>Đề Xuất</h3>
-          {songs.map((song) => (
+          <h3 style={{ paddingTop:30, fontSize:30}}>Bài Hát Đề Xuất</h3>
+          {songs.map((song,index) => (
               <Fragment key={song._id}>
                 <SongPlaylist
+                    index={index}
                     song={song}
                     playlist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
+                    onTrackSelect={onTrackSelect}
                 />
               </Fragment>
           ))}
@@ -264,6 +303,11 @@ const Playlist = () => {
         )}
       </Fragment>
     </Container>
+        <Footer>
+          <DetailSong song={songs} trackIndex={trackIndex}/>
+          <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex}/>
+        </Footer>
+      </Total>
   );
 };
 

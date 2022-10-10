@@ -150,10 +150,17 @@ const GuestSide = () => {
 const handleSubmit = async (data) => {
   
   try {
-    const action = await createPlaylist(data);
-      const resultAction = await dispatch(action);
-      const playlists = unwrapResult(resultAction);
-      enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
+    if(isLoggedIn) {
+
+      const action = await createPlaylist(data);
+        const resultAction = await dispatch(action);
+        const playlists = unwrapResult(resultAction);
+        enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
+      setTimeout(window.location.reload(),5000)
+    }
+    else {
+      enqueueSnackbar("Vui lòng đăng nhập tài khoản", { variant: "error" });
+    }
       // navigate('/playlist')
   } catch (error) {
     console.log(error.message);
@@ -176,7 +183,8 @@ const { isSubmitting } = form.formState;
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <NavLink className='item-link'  onClick={handleOpen}>
+
+              <NavLink className='item-link'  onClick={handleOpen}>
               <ItemIcon>
                 {" "}
                 <ControlPointIcon />
@@ -185,7 +193,7 @@ const { isSubmitting } = form.formState;
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <NavLink className='item-link'> 
+            <NavLink className='item-link' to={"/liked-song"}> 
               <ItemIcon>
                 <FavoriteIcon />
               </ItemIcon>

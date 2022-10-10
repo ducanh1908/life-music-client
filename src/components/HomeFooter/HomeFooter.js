@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 
 
 const Container = styled.div`
-
   display: grid;
   grid-template-rows: 75vh 15vh;
 `;
@@ -45,7 +44,6 @@ const [trackIndex, setTrackIndex] = useState(-1)
       song && (
       <Wraper>
       <Body>
-        
         <SongList song = {song} onTrackSelect={onTrackSelect} />
       </Body>
       <Footer>
