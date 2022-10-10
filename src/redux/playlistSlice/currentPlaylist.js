@@ -45,9 +45,9 @@ const {id,avatar,name,description}=payload
   return data;
 })
 
-export const getSongToPlaylist = createAsyncThunk("/songToplaylis/", async (payload) => {
+export const getSongToPlaylist = createAsyncThunk("playlist/getSongToPlaylist", async (payload) => {
   const data = await playlistApi.getSongToPlaylist(payload);
-
+  console.log('getSongToPlaylist',data);
   return data.data.songs
   
   })
