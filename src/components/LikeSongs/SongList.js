@@ -1,10 +1,9 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Like from "../Like/like";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import Dislike from "../Like/Dislike";
+import { changelikeOrNotStatus, getAllLikedSongs } from "../../redux/songSlice/songSlice";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -39,11 +38,7 @@ const PlaylistName = styled.h1`
   font-size: 70px;
 `;
 const PlaylistTitle = styled.h1``;
-const PlaylistAction = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
+
 const Body = styled.div`
   padding: 1rem 3rem;
   display: grid;
@@ -92,23 +87,14 @@ const Wrapper = styled.div`
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
 `;
-const LikeWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-`;
-const LikeIcon = styled.div`
-  display: block;
-  width: 100%;
-  height: auto;
-`;
+
 
 const SongList = ({ song, onTrackSelect }) => {
-  const dispatch = useDispatch();
-  console.log("song", song);
+
   const handleClick = (id, index) => {
     onTrackSelect(index);
   };
+
   return (
     <Container>
       <Head>
@@ -145,12 +131,7 @@ const SongList = ({ song, onTrackSelect }) => {
                   </SongDetail>
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
-                <LikeWrapper>
-                  <LikeIcon>
-                    <Like></Like>
-                  </LikeIcon>
-                  <SongTime className="col">{item.duration}</SongTime>
-                </LikeWrapper>
+                    <Dislike songId={item._id} likeId={item.like}/>
               </SongItem>
             ))}
         </Song>

@@ -426,7 +426,10 @@ function AddNewFile() {
                           name="file"
                           id="file_up"
                           accept="image/*"
-                          onChange={(e) => {file = e.target.files[0];}}
+                          onChange={(e) => {
+                            file = e.target.files[0];
+                            setAvatar(file);
+                          }}
                         />
                       </InforSpan>
                     </InforAvatar>

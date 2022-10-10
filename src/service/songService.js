@@ -41,5 +41,14 @@ const songApi = {
     const url = `/song/likedlist/${data}`;
     return apiClient.get(url);
   },
+  getAllLikedSongs(data) {
+    const url = `/song/likedlist/${data}`
+    return apiClient.get(url)
+  },
+  likeOrNot(data) {
+    console.log('data dislike', data);
+    const url = `/song/like/${data.songId}`
+    return apiClient.post(url, data)
+  }
 };
 export default songApi;

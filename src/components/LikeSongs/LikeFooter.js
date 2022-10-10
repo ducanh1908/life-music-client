@@ -4,7 +4,7 @@ import Audio from "./Audio";
 import DetailSong from "./DetailSong";
 import SongList from "./SongList";
 import { useDispatch } from "react-redux";
-import { fetchSong, likedSongs } from "../../redux/songSlice/songSlice";
+import { getAllLikedSongs, likedSongs } from "../../redux/songSlice/songSlice";
 import { useSelector } from "react-redux";
 
 const Container = styled.div`
@@ -24,14 +24,23 @@ const Footer = styled.div`
 `;
 
 const LikeSongs = () => {
+  const [likeStatus, setLikeStatus] = useState(null)
   const dispatch = useDispatch();
   const song = useSelector((state) => state.song.likedSongs);
+  const songlist = useSelector((state) => state.song.getAllLikedSongs);
   const [trackIndex, setTrackIndex] = useState(-1);
   const user = JSON.parse(localStorage.getItem('user'));
+  const likeOrNotStatus = useSelector((state) => state.song.likeOrNotStatus)
+  // setLikeStatus(likeOrNotStatus);
 
   useEffect(() => {
     dispatch(likedSongs(user._id));
+    dispatch(getAllLikedSongs(user._id));
   }, []);
+
+  useEffect(() => {
+    dispatch(getAllLikedSongs(user._id));
+  }, [likeOrNotStatus])
 
   const onTrackSelect = (index) => {
     setTrackIndex(index);
