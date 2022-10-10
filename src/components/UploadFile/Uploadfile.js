@@ -29,8 +29,7 @@ import TextField from "@mui/material/TextField";
 import { getCategories } from "../../redux/cateSlice/cateSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
+
 import {
   addToPlaylist,
   fetchPlaylist,
@@ -396,7 +395,7 @@ function AddNewFile() {
                         </tr>
                     ))}
                 </tbody>
-                <div>
+                
                   <Modal
                       open={open}
                       onClose={handleClose}
@@ -447,7 +446,10 @@ function AddNewFile() {
                                   name="file"
                                   id="file_up"
                                   accept="image/*"
-                                  onChange={(e) => {file = e.target.files[0];}}
+                                  onChange={(e) => {
+                                    file = e.target.files[0]
+                                    setAvatar(file)
+                                  }}
                               />
                             </InforSpan>
                           </InforAvatar>
@@ -492,7 +494,7 @@ function AddNewFile() {
                       </Box>
                     </form>
                   </Modal>
-                </div>
+               
               </table>
               <div className="force-overflow"></div>
             </Body>

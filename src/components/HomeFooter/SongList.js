@@ -140,7 +140,7 @@ const SongList = ({ song, onTrackSelect }) => {
                   </SongDetail>
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
-                <Like songId={item._id} />
+                <Like track={song} />
                 <SongTime className="col">{item.duration}</SongTime>
               </SongItem>
             ))}

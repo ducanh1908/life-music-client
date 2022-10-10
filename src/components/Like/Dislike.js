@@ -28,6 +28,7 @@ const Container = styled.div`
 `;
 
 const Dislike = (props) => {
+const [like, setLike] = useState(false);
 const { enqueueSnackbar } = useSnackbar();
   let songId = props.songId;
   let likeId = props.likeId;

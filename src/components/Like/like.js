@@ -3,7 +3,6 @@
 // // import { likeSong } from "../../redux/userSlice/apiCalls";
 // import { IconButton, CircularProgress } from "@mui/material";
 // import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
 // import styled from "styled-components";
 // const Container= styled.div`
 //   .like_btn {
@@ -65,14 +64,15 @@
 // export default Like;
 
 
-import { useState, Fragment } from "react";
+
+import { useState, Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { likeSong } from "../../redux/userSlice/apiCalls";
 import { IconButton, CircularProgress } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import styled from "styled-components";
 import { getAllLikedSongs, likeOrNot } from "../../redux/songSlice/songSlice";
 import { useSnackbar } from "notistack";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Container = styled.div`
   .like_btn {
@@ -95,40 +95,47 @@ const Container = styled.div`
 `;
 
 const Like = (props) => {
-  console.log('props ', props);
-const { enqueueSnackbar } = useSnackbar();
-  let songId = props.song._id;
-  let likeId = props.song.like;
-  
-  let likeStatus = useSelector((state) => 
-    state.song.likeOrNotStatus
-  );
+  const [islike, setIsLiked] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  let songId = props.track._id;
+  let likeId = props.track.like;
+
+  let likeStatus = useSelector((state) => state.song.likeOrNotStatus);
   const dispatch = useDispatch();
-  let userId = JSON.parse(localStorage.getItem('user'))._id;
+  let userId = JSON.parse(localStorage.getItem("user"))._id;
 
   const handleLikeSong = async () => {
     let data = {
       userId: userId,
       songId: songId,
       like: true,
-      likeId: likeId
-    }
-    console.log('data handleLikeSong', data)
-     dispatch(likeOrNot(data))
-     enqueueSnackbar('Đã thêm bài hát vào danh sách yêu thích', { variant: "success" });
+      likeId: likeId,
+    };
+    console.log("data handleLikeSong", data);
+    dispatch(likeOrNot(data));
+    enqueueSnackbar("Đã thêm bài hát vào danh sách yêu thích", {
+      variant: "success",
+    });
   };
 
+  // // useEffect(() => {
+  // //   dispatch()
+  // // }, [])
 
   return (
     <Container>
       <IconButton className={"like_btn"} onClick={() => handleLikeSong()}>
-      { likeStatus == 'loading' ? (
-                    <CircularProgress style={{ color: "#1ed760" }} size="2rem" />
-                ) : (
-                    <Fragment>
-                        <FavoriteBorderIcon className={"like_outlined"} />
-                    </Fragment>
-                )}
+        {likeStatus == "loading" ? (
+          <CircularProgress style={{ color: "#1ed760" }} size="2rem" />
+        ) : (
+          <Fragment>
+            {Like ? (
+              <FavoriteIcon className={"like_filled"} />
+            ) : (
+              <FavoriteBorderIcon className={"like_outlined"} />
+            )}
+          </Fragment>
+        )}
       </IconButton>
     </Container>
   );

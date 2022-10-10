@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { setCurrentSong } from "../../redux/audioPlayer";
-// import Like from "../Like";
 import { IconButton } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -93,19 +92,20 @@ const Container = styled.div`
 `;
 
 const SongPlaylist = ({
-  
   song,
   index,
   currentPlaylist,
   handleRemoveSong,
   onTrackSelect,
 }) => {
+  console.log('SongPlaylist - song ', song)
   const [menu, setMenu] = useState(false);
   // const { currentSong } = useSelector((state) => state.audioPlayer);
   const dispatch = useDispatch();
   const handleClick = (id, index) => {
     onTrackSelect(index);
   };
+
 
   return (
     <Container>
@@ -123,7 +123,7 @@ const SongPlaylist = ({
         <p>{song.singer}</p>
       </div>
       <div className={"right"}>
-        <Like song={song} />
+        <Like track={song} />
         <p>{song.duration}</p>
         <IconButton className={"menu_btn"} onClick={() => setMenu(true)}>
           <MoreHorizIcon />

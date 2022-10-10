@@ -169,13 +169,14 @@ const Playlist = () => {
   const { id } = useParams();
   const navigate=useNavigate();
   const songs = useSelector((state) => state.song.songs);
+  console.log('songs ', songs)
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
   const currentSong = useSelector(
       (state) => state.currentPlaylist.playlistAdmin
   );
-  console.log(currentSong)
+  console.log('currentSong ', currentSong)
   const [model, setModel] = useState(false);
   const [playAudio,setPlayAudio]=useState(true)
   const {enqueueSnackbar} = useSnackbar();
@@ -218,7 +219,7 @@ const Playlist = () => {
       })
 
     } catch (error) {
-      console.log(error);
+      console.log('handleDeletePlaylist ', error);
       enqueueSnackbar(error.message, {variant: "error"});
     }
   };
@@ -231,7 +232,7 @@ const Playlist = () => {
       enqueueSnackbar('Xoá bài hát khỏi playlist thành công', {variant: "success"});
       setTimeout(window.location.reload(),5000)
     } catch (error) {
-      console.log(error);
+      console.log('handleRemoveSong ', error);
       enqueueSnackbar(error.message, {variant: "error"});
     }
 
