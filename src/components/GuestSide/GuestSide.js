@@ -8,13 +8,13 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import Modal from "@mui/material/Modal";
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useSnackbar } from "notistack";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
@@ -44,20 +44,18 @@ const Menu = styled.div`
   flex-direction: column;
   color: #b3b3b3;
   align-items: flex-start;
-  
 `;
 const MenuItem = styled.div`
-.item-link {
-  display: flex;
-  padding: 8px 0;
-  text-decoration: none;
-  color: #b3b3b3;
-  cursor: pointer;
-  &:hover {
-    color: #fff;
+  .item-link {
+    display: flex;
+    padding: 8px 0;
+    text-decoration: none;
+    color: #b3b3b3;
+    cursor: pointer;
+    &:hover {
+      color: #fff;
+    }
   }
-}
- 
 `;
 const ItemIcon = styled.div``;
 const ItemDesc = styled.p`
@@ -73,18 +71,18 @@ const Hr = styled.div`
 const CreateList = styled.div`
   color: #b3b3b3;
   cursor: pointer;
-  display:flex;
-  
+  display: flex;
+
   .profile-item {
     color: #b3b3b3;
     text-decoration: none;
     display: flex;
-    
-    align-items: flex-start ;
-    
+
+    align-items: flex-start;
+
     &:hover {
-    color: #fff;
-  }
+      color: #fff;
+    }
   }
 `;
 const ListTitle = styled.p`
@@ -92,99 +90,137 @@ const ListTitle = styled.p`
   font-weight: 500;
 `;
 const Form = styled.div`
- width: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-
-`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const style = {
   position: "absolute",
   display: "flex",
   background: "grey",
- flexDirection: "column",
- alginItem:"center",
- justifyContent: "center",
+  flexDirection: "column",
+  alginItem: "center",
+  justifyContent: "center",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
   border: "1px solid #000",
-  borderRadius:"20px",
+  borderRadius: "20px",
   boxShadow: 24,
-  p: 4
+  p: 4,
 };
+
+const MenuUser = styled.div`
+ display: flex;
+  color: #b3b3b3;
+  align-items: flex-start;
+  margin: 10px 0;
+  cursor: pointer;
+  &:hover {
+    color: #fff;
+  }
+`
 const schema = yup
   .object()
   .shape({
-    name: yup.string()
-    .required("Tên Playlist không được để trống")
-    .min(2, "Tên Playlist quá ngắn")
-    .max(25, "Tên Playlist quá 25 ký tự "),
+    name: yup
+      .string()
+      .required("Tên Playlist không được để trống")
+      .min(2, "Tên Playlist quá ngắn")
+      .max(25, "Tên Playlist quá 25 ký tự "),
   })
   .required();
+
 const GuestSide = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoggedInUser = useSelector(state => state.user.user )
+  const isLoggedInUser = useSelector((state) => state.user.user);
   const isLoggedIn = !!isLoggedInUser._id;
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    if (isLoggedIn) {
+      setOpen(true);
+    } else {
+      enqueueSnackbar("Vui lòng đăng nhập tài khoản", { variant: "error" });
+    }
+  };
   const handleClose = () => setOpen(false);
-  const user = useSelector(state=> state.user.user);
-  const playlists = useSelector (state => state.playlist.playlists)
+  const user = useSelector((state) => state.user.user);
+  const playlists = useSelector((state) => state.playlist.playlists);
   const { enqueueSnackbar } = useSnackbar();
   const form = useForm({
     defaultValues: {
       name: "",
-      id:`${user._id}`
+      id: `${user._id}`,
     },
     resolver: yupResolver(schema),
   });
-  
-  useEffect(()=> {
-    dispatch(getPlaylistAndUser(user._id))
-  },[])
 
-const handleSubmit = async (data) => {
-  
-  try {
-    if(isLoggedIn) {
+  useEffect(() => {
+    dispatch(getPlaylistAndUser(user._id));
+  }, []);
 
-      const action = await createPlaylist(data);
+  const handleSubmit = async (data) => {
+    try {
+      if (isLoggedIn) {
+        const action = await createPlaylist(data);
         const resultAction = await dispatch(action);
         const playlists = unwrapResult(resultAction);
-        enqueueSnackbar("Bạn đã tạo playlist thành công", { variant: "success" });
-      setTimeout(window.location.reload(),5000)
+        enqueueSnackbar("Bạn đã tạo playlist thành công", {
+          variant: "success",
+        });
+        setTimeout(window.location.reload(), 5000);
+      } else {
+        enqueueSnackbar("Vui lòng đăng nhập tài khoản", { variant: "error" });
+      }
+      // navigate('/playlist')
+    } catch (error) {
+      console.log(error.message);
+      enqueueSnackbar(error.message, { variant: "error" });
     }
-    else {
+  };
+  const handleClick = () => {
+    if (isLoggedIn) {
+      
+    } else {
       enqueueSnackbar("Vui lòng đăng nhập tài khoản", { variant: "error" });
     }
-      // navigate('/playlist')
-  } catch (error) {
-    console.log(error.message);
-    enqueueSnackbar(error.message, { variant: "error" });
-  }
-};
-
-const { isSubmitting } = form.formState;
+  };
+  const { isSubmitting } = form.formState;
   return (
     <Container>
       <Wrapper>
         <Menu>
-          <MenuItem>
-            <NavLink className='item-link' to={"/library"}>
+          <MenuItem onClick={() => handleClick()}>
+
+            {
+              isLoggedIn &&  (
+                <>
+                <NavLink className="item-link" to={"/library"}>
               <ItemIcon>
-                {" "}
                 <LibraryMusicIcon />
               </ItemIcon>
               <ItemDesc>Thư viện</ItemDesc>
             </NavLink>
+                </>
+              )
+            }
+           {!isLoggedIn && (
+            <MenuUser>
+              <ItemIcon>
+              <LibraryMusicIcon />
+              </ItemIcon>
+              <ItemDesc>Thư viện</ItemDesc>
+            </MenuUser>
+           )}
+             
+           
           </MenuItem>
           <MenuItem>
-
-              <NavLink className='item-link'  onClick={handleOpen}>
+            <NavLink className="item-link" onClick={handleOpen}>
               <ItemIcon>
                 {" "}
                 <ControlPointIcon />
@@ -192,25 +228,60 @@ const { isSubmitting } = form.formState;
               <ItemDesc>Tạo playlist</ItemDesc>
             </NavLink>
           </MenuItem>
-          <MenuItem>
-            <NavLink className='item-link' to={"/liked-song"}> 
+          <MenuItem onClick={() => handleClick()}>
+           {
+            isLoggedIn && (
+              <>
+               <NavLink className="item-link" to={"/liked-song"}> 
               <ItemIcon>
                 <FavoriteIcon />
               </ItemIcon>
               <ItemDesc>Bài hát đã thích</ItemDesc>
             </NavLink>
+              </>
+            )
+           }
+           {
+            !isLoggedIn && (
+            <MenuUser>
+              <ItemIcon>
+                <FavoriteIcon />
+              </ItemIcon>
+              <ItemDesc>Bài hát đã thích</ItemDesc>
+            </MenuUser>
+
+            )
+           }
           </MenuItem>
 
-          <MenuItem>
-            <NavLink className='item-link' to={"/upload"}>
+          <MenuItem onClick={() => handleClick()}>
+
+            {
+              isLoggedIn && (
+                <NavLink className="item-link" to={"/upload"}>
               <ItemIcon>
                 <CloudUploadOutlinedIcon />
               </ItemIcon>
               <ItemDesc>Tải lên bài hát</ItemDesc>
             </NavLink>
+              )
+            }
+             {
+              !isLoggedIn && (
+<MenuUser>
+              <ItemIcon>
+                <DownloadForOfflineOutlinedIcon />
+              </ItemIcon>
+              <ItemDesc>Tải lên bài hát</ItemDesc>
+            </MenuUser>
+              )
+             }
+            
           </MenuItem>
           <MenuItem>
-            <NavLink className='item-link' to={"/song-list"}>
+
+
+            <NavLink className="item-link" to={"/song-list"}>
               <ItemIcon>
                 <DownloadForOfflineOutlinedIcon />
               </ItemIcon>
@@ -220,22 +291,16 @@ const { isSubmitting } = form.formState;
         </Menu>
         <Hr />
 
-        {
-          playlists &&(
-                isLoggedIn &&
-                (playlists.length >0 &&
-                    playlists.map((item,index)=>(
-                          
-                        <CreateList key={index} >
-                          <NavLink to={`/playlist/${item._id}`}  className="profile-item">
-                          <ListTitle>{item.name}</ListTitle>
-                          </NavLink>
-                        </CreateList>
-                    )))
-            )
-
-        }
-
+        {playlists &&
+          isLoggedIn &&
+          playlists.length > 0 &&
+          playlists.map((item, index) => (
+            <CreateList key={index}>
+              <NavLink to={`/playlist/${item._id}`} className="profile-item">
+                <ListTitle>{item.name}</ListTitle>
+              </NavLink>
+            </CreateList>
+          ))}
       </Wrapper>
 
       <Modal
@@ -245,26 +310,31 @@ const { isSubmitting } = form.formState;
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-         
           <Typography id="modal-modal-title" variant="h6" component="h2">
-           Tạo Playlist
+            Tạo Playlist
           </Typography>
 
-            <form onSubmit={form.handleSubmit(handleSubmit)}>
-              {isSubmitting && (
-                <LinearProgress
-                sx={{width:'100%',color: "grey.500" }}
-                color="secondary" 
-                />
-              )}      
-              <Form>
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            {isSubmitting && (
+              <LinearProgress
+                sx={{ width: "100%", color: "grey.500" }}
+                color="secondary"
+              />
+            )}
+            <Form>
               {/* <InputField name="id" form={form} value={""} hidden /> */}
               <InputField name="name" form={form} />
-              <Button sx={{ mt:1,p:2,width:'50%' ,borderRadius:'500px'}} disabled={isSubmitting} type="submit"  variant="contained" color="inherit">
-              Thêm mới
+              <Button
+                sx={{ mt: 1, p: 2, width: "50%", borderRadius: "500px" }}
+                disabled={isSubmitting}
+                type="submit"
+                variant="contained"
+                color="inherit"
+              >
+                Thêm mới
               </Button>
             </Form>
-            </form>         
+          </form>
         </Box>
       </Modal>
     </Container>

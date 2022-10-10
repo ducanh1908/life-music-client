@@ -179,7 +179,9 @@ const GuestContent = () => {
     (state) => state.playlistAdmin.playlistAdmin
   );
   const { id } = useParams();
-
+  const playlistRandom = useSelector(
+    (state) => state.playlistAdmin.playlistRandom
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllPlaylist());
@@ -229,8 +231,8 @@ const GuestContent = () => {
         <Categories>
           <TopTitle>Đề xuất cho bạn</TopTitle>
           <Playlist>
-            {playlistAdmin &&
-              playlistAdmin.map((playlist) => (
+            {playlistRandom &&
+              playlistRandom.map((playlist) => (
                 <PlaylistItem key={playlist._id}>
                   <NavLink
                     className="playlist-item"

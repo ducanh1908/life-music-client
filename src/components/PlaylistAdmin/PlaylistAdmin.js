@@ -36,9 +36,9 @@ const Navbar = styled.div`
   align-items: center;
 `;
 const Image = styled.img`
-  width: 200px;
-  height: 200px;
-  box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
+  width: 232px;
+  height: 232px;
+  /* box-shadow: 0 4px 60px rgb(0 0 0 / 50%); */
 `;
 const PlaylistInfo = styled.div`
   margin-left: 20px;
