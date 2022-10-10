@@ -137,7 +137,7 @@ const SongList = ({ song, onTrackSelect }) => {
                   <SongImage src={item.image} />
                   <SongDetail>
                     <SongName>{item.name.slice(0, 15)}</SongName>
-                    <SongSinger>{item.singer} ducanh</SongSinger>
+                    <SongSinger>{item.singer}</SongSinger>
                   </SongDetail>
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
