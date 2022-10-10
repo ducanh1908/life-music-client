@@ -117,7 +117,7 @@ const GuestNavbar = () => {
     },[])
    const handleChange = (e) => {
         dispatch(searchSong(e.target.value));
-        dispatch(searchPlaylist(e.target.value));
+        // dispatch(searchPlaylist(e.target.value));
     }
   return (
     <Container>
