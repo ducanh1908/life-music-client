@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { likeSong } from "../../redux/userSlice/apiCalls";
 import { IconButton, CircularProgress } from "@mui/material";
@@ -28,39 +28,33 @@ const Container = styled.div`
 `;
 
 const Dislike = (props) => {
-const [like, setLike] = useState(false);
-const { enqueueSnackbar } = useSnackbar();
+  const [like, setLike] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
   let songId = props.songId;
   let likeId = props.likeId;
-  let dislikeStatus = useSelector((state) => 
-    state.song.likeOrNotStatus
-  )
   const dispatch = useDispatch();
-  let userId = JSON.parse(localStorage.getItem('user'))._id;
+  let userId = JSON.parse(localStorage.getItem("user"))._id;
 
   const handleDisLikeSong = async () => {
     let data = {
       userId: userId,
       songId: songId,
       like: false,
-      likeId: likeId
-    }
-     dispatch(likeOrNot(data))
-     enqueueSnackbar('Đã xóa bài hát khỏi danh sách yêu thích', { variant: "success" });
-     window.location.reload()
+      likeId: likeId,
+    };
+    dispatch(likeOrNot(data));
+    enqueueSnackbar("Đã xóa bài hát khỏi danh sách yêu thích", {
+      variant: "success",
+    });
+    setLike(false)
   };
-
 
   return (
     <Container>
       <IconButton className={"like_btn"} onClick={() => handleDisLikeSong()}>
-      { dislikeStatus == 'loading' ? (
-                    <CircularProgress style={{ color: "#1ed760" }} size="2rem" />
-                ) : (
-                    <Fragment>
-                        <FavoriteBorderIcon className={"like_outlined"} />
-                    </Fragment>
-                )}
+        <Fragment>
+          <FavoriteBorderIcon className={"like_outlined"} />
+        </Fragment>
       </IconButton>
     </Container>
   );
