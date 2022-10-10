@@ -271,8 +271,11 @@ const Playlist = () => {
               <AccessTimeIcon />
             </div>
           </div>
-          {currentSong &&
-              currentSong.map((song) => (
+          <div>
+
+          </div>
+          {currentSong
+             ? currentSong.map((song) => (
               <Fragment key={song._id} >
                 <SongPlaylist
                     song={song}
@@ -281,7 +284,9 @@ const Playlist = () => {
                     // onTrackSelect={onTrackSelect}
                 />
               </Fragment>
-          ))}
+          ))
+          :<h1 style={{ paddingTop:30, fontSize:30}}>Chưa có bài hát</h1>
+          }
           <hr/>
           <h3 style={{ paddingTop:30, fontSize:30}}>Bài Hát Đề Xuất</h3>
           {songs.map((song,index) => (
