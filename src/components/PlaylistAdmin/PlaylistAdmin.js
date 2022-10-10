@@ -61,7 +61,8 @@ const Body = styled.div`
   color: #3b3b3b;
   border-bottom: 1px solid #ccc;
 `;
-const BodyTitle = styled.p``;
+const BodyTitle = styled.p`
+`;
 
 
 

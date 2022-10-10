@@ -194,12 +194,16 @@ const Playlist = () => {
   }
   const handleDeletePlaylist = async () => {
     try {
-      const action = await deletePlaylist(currentPlaylist._id)
-      const resultAction = await dispatch(action);
-      const user = unwrapResult(resultAction);
-      enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
-      navigate("/")
-      setTimeout(window.location.reload(),5000)
+      let confirm = window.confirm('Bạn có thực sự muốn xoá')
+      if(confirm){
+        const action = await deletePlaylist(currentPlaylist._id,navigate)
+        const resultAction = await dispatch(action);
+        const user = unwrapResult(resultAction);
+        enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
+        navigate("/")
+        setTimeout(window.location.reload(),5000)
+      }
+
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});
