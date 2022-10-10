@@ -174,7 +174,9 @@ const Playlist = () => {
   const currentSong = useSelector(
       (state) => state.currentPlaylist.playlistAdmin
   );
+  console.log(currentSong)
   const [model, setModel] = useState(false);
+  const [playAudio,setPlayAudio]=useState(true)
   const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -256,12 +258,12 @@ const Playlist = () => {
             </div>
           </div>
           {currentSong && currentSong.map((song) => (
-              <Fragment key={song._id}>
+              <Fragment key={song._id} >
                 <SongPlaylist
                     song={song}
                     currentPlaylist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
-                    onTrackSelect={onTrackSelect}
+                    // onTrackSelect={onTrackSelect}
                 />
               </Fragment>
           ))}
@@ -284,11 +286,10 @@ const Playlist = () => {
         )}
       </Fragment>
     </Container>
-        {songs &&
-            <Footer>
-              <DetailSong song = {songs }  trackIndex={trackIndex}/>
-              <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
-            </Footer>}
+        <Footer>
+          <DetailSong song={songs} trackIndex={trackIndex}/>
+          <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex}/>
+        </Footer>
       </Total>
   );
 };

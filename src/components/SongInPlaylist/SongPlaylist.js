@@ -103,7 +103,7 @@ const SongPlaylist = ({ song,index, currentPlaylist, handleRemoveSong,onTrackSel
     return (
         <Container >
             <div className={"left"}>
-                <IconButton onClick={() => handleClick(song._id, index)} className={"play_btn"}>
+                <IconButton onClick={() => handleClick(song._id, index,)} className={"play_btn"}>
                     <PlayArrowIcon />
                 </IconButton>
                 <img src={song.image} alt="song_img" />
