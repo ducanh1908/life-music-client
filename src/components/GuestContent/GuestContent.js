@@ -15,15 +15,8 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { InstallDesktopSharp } from "@mui/icons-material";
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: "#3a3a3a",
-//   ...theme.typography.body2,
-//   textAlign: "center",
-//   display: 'flex',
-//   alignItems: "center",
-//   height: theme.spacing(12),
-//   color:'#fff',
-// }));
+import IconButton from "@mui/material/IconButton";
+
 
 const Container = styled.div`
   height: 100%;
@@ -144,12 +137,15 @@ const SongItem = styled.div`
   height: 80px;
   .move-icon {
     display: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
   }
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
     .move-icon {
      display: block;
-     
+     backgroundColor: "#fff",
     }
   }
 `;
@@ -209,81 +205,11 @@ const GuestContent = () => {
                 <SongName>Nguyệt Thượng Hạ Lưu</SongName>
                 <SongSinger>Đạt G</SongSinger>
               </SongInfo>
+              <IconButton >
               <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+              </IconButton>
             </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
-              <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
-              </SongInfo>
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
-            </SongItem>
-
+           
           </NewSong>
 
 
@@ -299,36 +225,7 @@ const GuestContent = () => {
       >
         <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
       </Popover>
-          {/* <Box sx={{ flexGrow: 1, marginTop:2 }}>
-            <Grid container spacing={2} >
-              <Grid item xs={4}>
-                <Item >
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                  <PlayArrowRoundedIcon />
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-              <Grid item xs={4}>
-                 <Item>
-                  <ListMeImg src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
-                  <ListMeTitle>Lil Baby</ListMeTitle>
-                </Item>
-              </Grid>
-            </Grid>
-          </Box> */}
-          {/* <ListMe></ListMe> */}
+         
         </Top>
         <Categories>
           <TopTitle>Chào buổi sáng</TopTitle>
@@ -347,38 +244,8 @@ const GuestContent = () => {
                 </PlaylistItem>
               ))}
           </Playlist>
-          <TopTitle>Chào buổi sáng</TopTitle>
-          <Playlist>
-            {playlistAdmin &&
-              playlistAdmin.map((playlist) => (
-                <PlaylistItem key={playlist._id}>
-                  <NavLink
-                    className="playlist-item"
-                    to={`playlists/${playlist._id}`}
-                  >
-                    <PlaylistImage src={playlist.image} />
-                    <PlaylistTitle> {playlist.name}</PlaylistTitle>
-                    <PlaylistSinger>{playlist.singer}</PlaylistSinger>
-                  </NavLink>
-                </PlaylistItem>
-              ))}
-          </Playlist>
-          <TopTitle>Chào buổi sáng</TopTitle>
-          <Playlist>
-            {playlistAdmin &&
-              playlistAdmin.map((playlist) => (
-                <PlaylistItem key={playlist._id}>
-                  <NavLink
-                    className="playlist-item"
-                    to={`playlists/${playlist._id}`}
-                  >
-                    <PlaylistImage src={playlist.image} />
-                    <PlaylistTitle> {playlist.name}</PlaylistTitle>
-                    <PlaylistSinger>{playlist.singer}</PlaylistSinger>
-                  </NavLink>
-                </PlaylistItem>
-              ))}
-          </Playlist>
+         
+          
         </Categories>
 
         {/* <Footer /> */}
