@@ -98,7 +98,6 @@ const SongPlaylist = ({
   handleRemoveSong,
   onTrackSelect,
 }) => {
-  console.log('SongPlaylist - song ', song)
   const [menu, setMenu] = useState(false);
   // const { currentSong } = useSelector((state) => state.audioPlayer);
   const dispatch = useDispatch();

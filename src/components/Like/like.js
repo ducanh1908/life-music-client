@@ -67,10 +67,10 @@
 
 import { useState, Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IconButton, CircularProgress } from "@mui/material";
+import { IconButton } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import styled from "styled-components";
-import { getAllLikedSongs, likeOrNot } from "../../redux/songSlice/songSlice";
+import { likeOrNot } from "../../redux/songSlice/songSlice";
 import { useSnackbar } from "notistack";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
@@ -95,7 +95,7 @@ const Container = styled.div`
 `;
 
 const Like = (props) => {
-  const [islike, setIsLiked] = useState(false);
+  const [islike, setIsLiked] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   let songId = props.track._id;
   let likeId = props.track.like;
@@ -104,18 +104,30 @@ const Like = (props) => {
   const dispatch = useDispatch();
   let userId = JSON.parse(localStorage.getItem("user"))._id;
 
+  const toggle = () => {
+    setIsLiked(!islike);
+  }
+
   const handleLikeSong = async () => {
     let data = {
       userId: userId,
       songId: songId,
-      like: true,
+      like: islike,
       likeId: likeId,
     };
     console.log("data handleLikeSong", data);
+    toggle();
     dispatch(likeOrNot(data));
-    enqueueSnackbar("Đã thêm bài hát vào danh sách yêu thích", {
-      variant: "success",
-    });
+    if(islike) {
+      enqueueSnackbar("Đã thêm bài hát vào danh sách yêu thích", {
+        variant: "success",
+      });
+    } else {
+      enqueueSnackbar("Đã xóa bài hát khỏi danh sách yêu thích", {
+        variant: "success",
+      });
+    }
+
   };
 
   // // useEffect(() => {
@@ -125,17 +137,13 @@ const Like = (props) => {
   return (
     <Container>
       <IconButton className={"like_btn"} onClick={() => handleLikeSong()}>
-        {likeStatus == "loading" ? (
-          <CircularProgress style={{ color: "#1ed760" }} size="2rem" />
-        ) : (
           <Fragment>
-            {Like ? (
-              <FavoriteIcon className={"like_filled"} />
-            ) : (
+            {islike ? (
               <FavoriteBorderIcon className={"like_outlined"} />
+            ) : (
+              <FavoriteIcon className={"like_filled"} />
             )}
           </Fragment>
-        )}
       </IconButton>
     </Container>
   );
