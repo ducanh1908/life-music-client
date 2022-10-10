@@ -9,6 +9,7 @@ import {NavLink} from "react-router-dom";
 import PlaylistShowLibrary from "../Playlist/playlistShowLibrary";
 import DetailSong from "../HomeFooter/DetailSong";
 import Audio from "../HomeFooter/Audio";
+import Footer from "../Footer/Footer";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
@@ -58,7 +59,7 @@ const SongName = styled.p`
 const SongSinger = styled.span`
 
 `;
-const Footer = styled.div`
+const Footerdiv = styled.div`
 height: 20%;
   background-color: #333;
 display: grid;
@@ -78,7 +79,7 @@ const Library = () => {
     };
     useEffect(()=> {
         dispatch(getPlaylistAndUser(user._id))
-    },[])
+    },[user._id])
     useEffect(() => {
         dispatch(fetchSong())
     },[])
@@ -112,11 +113,14 @@ const Library = () => {
                     </div>
                 </div>
             </Container>
-            {songs &&
-                <Footer>
-                    <DetailSong song = {songs}  trackIndex={trackIndex}/>
-                    <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
-                </Footer>}
+            {/*{songs &&*/}
+            {/*    <Footerdivdiv>*/}
+            {/*        <DetailSong song = {songs}  trackIndex={trackIndex}/>*/}
+            {/*        <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />*/}
+            {/*    </Footerdivdiv>}*/}
+            {
+                songs && <Footer songs={songs}/>
+            }
         </Total>
 
     );

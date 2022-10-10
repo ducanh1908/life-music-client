@@ -49,7 +49,7 @@ const Footer = () => {
   return (
     <Container>
       {
-       ( songs.length > 0) && ( <Player  currentSongIndex={currentSongIndex} 
+       ( songs.length > 0) && ( <Player  currentSongIndex={currentSongIndex}
         setCurrentSongIndex={setCurrentSongIndex} 
         nextSongIndex={nextSongIndex} 
         songs={songs}/>)
