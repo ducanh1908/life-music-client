@@ -46,7 +46,7 @@ const Dislike = (props) => {
     enqueueSnackbar("Đã xóa bài hát khỏi danh sách yêu thích", {
       variant: "success",
     });
-    setLike(false)
+    window.location.reload();
   };
 
   return (
