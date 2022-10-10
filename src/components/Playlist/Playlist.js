@@ -20,6 +20,7 @@ import {useSnackbar} from "notistack";
 import DetailSong from "../HomeFooter/DetailSong";
 import Audio from "../HomeFooter/Audio";
 import React from "react";
+import Swal from "sweetalert2";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
@@ -194,15 +195,27 @@ const Playlist = () => {
   }
   const handleDeletePlaylist = async () => {
     try {
-      let confirm = window.confirm('Bạn có thực sự muốn xoá')
-      if(confirm){
-        const action = await deletePlaylist(currentPlaylist._id,navigate)
-        const resultAction = await dispatch(action);
-        const user = unwrapResult(resultAction);
-        enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
-        navigate("/")
-        setTimeout(window.location.reload(),5000)
-      }
+      Swal.fire({
+        title: 'Bạn có chắc muốn xoá Playlist?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'grey',
+        cancelButtonColor: '#d33',
+        confirmButtonText: ' Tôi Chắc chắn',
+        cancelButtonText: 'Tôi nghĩ lại rồi'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const action = await deletePlaylist(currentPlaylist._id,navigate)
+          const resultAction = await dispatch(action);
+          const user = unwrapResult(resultAction);
+          enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
+          Swal.fire(
+              'Đã Xoá'
+          )
+          navigate("/")
+          // setTimeout(window.location.reload(),  20000)
+        }
+      })
 
     } catch (error) {
       console.log(error);

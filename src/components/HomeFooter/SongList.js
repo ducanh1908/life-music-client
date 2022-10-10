@@ -1,7 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { IconButton } from '@mui/material';
+import Like from "../Like/like";
+
+
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -57,7 +62,7 @@ const SongItem = styled.div`
   padding: 0.5rem 3rem;
   display: grid;
   color: #fff;
-  grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
+  grid-template-columns: 0.2fr 3fr 2fr 0.5fr 0.2fr;
   cursor: pointer;
   .col {
     display: flex;
@@ -90,6 +95,8 @@ const Wrapper = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
 `;
 const SongList = ({ song, onTrackSelect }) => {
+  const [menu, setMenu] = useState(false);
+  console.log(song)
   const dispatch = useDispatch();
 
   const handleClick = (id, index) => {
@@ -132,8 +139,9 @@ const SongList = ({ song, onTrackSelect }) => {
                     <SongSinger>{item.singer} ducanh</SongSinger>
                   </SongDetail>
                 </SongInfo>
-                <SongName className="col">{song.album}</SongName>
-                <SongTime className="col">{song.duration}</SongTime>
+                <SongName className="col">{item.album}</SongName>
+                <Like songId={item._id} />
+                <SongTime className="col">{item.duration}</SongTime>
               </SongItem>
             ))}
         </Song>

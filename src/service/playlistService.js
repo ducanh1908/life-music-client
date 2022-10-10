@@ -44,6 +44,10 @@ const playlistApi = {
     searchPlaylist(data) {
         const url = `/playlist/search/${data}`;
         return apiClient.get(url);
+    },
+    getRandomPlaylist(data) {
+        const url = "/playlist-random";
+        return apiClient.get(url, data);
     }
 
 }
