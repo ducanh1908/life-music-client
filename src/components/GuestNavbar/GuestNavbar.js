@@ -1,16 +1,15 @@
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import {Avatar, debounce, Menu, MenuItem, Typography} from "@mui/material";
+import { Avatar, debounce, Menu, MenuItem } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import React, {useState, useEffect, useCallback} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
-import {Link, NavLink} from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { getAllPlaylist, searchPlaylist } from "../../redux/playlistSlice/playlistAdmin";
+import { fetchSong, searchSong } from "../../redux/songSlice/songSlice";
 import { logout } from "../../redux/userSlice/userSlice";
-import {fetchSong, searchSong} from "../../redux/songSlice/songSlice";
-import {searchPlaylist} from "../../redux/playlistSlice/playlistSlice";
-import {getAllPlaylist} from "../../redux/playlistSlice/playlistAdmin";
 
 const Container = styled.div`
 
@@ -117,11 +116,11 @@ const GuestNavbar = () => {
     },[])
     const debounceList = useCallback(debounce((nextValue) => {
         dispatch(searchSong(nextValue));
-        // dispatch(searchPlaylist(nextValue));
+        dispatch(searchPlaylist(nextValue));
 
         if (nextValue === '') {
             dispatch(fetchSong());
-            // dispatch(getAllPlaylist());
+            dispatch(getAllPlaylist());
         }
     }, 300))
    const handleChange = (e) => {

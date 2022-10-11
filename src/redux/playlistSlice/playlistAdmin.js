@@ -18,7 +18,12 @@ export const getRandomPlaylist = createAsyncThunk("/playlist-random", async (pay
  const data = await playlistApi.getRandomPlaylist(payload);
  return data;
 });
-
+export const searchPlaylist = createAsyncThunk(
+  "/playlist/search",
+  async (payload) => {
+    const res = await playlistApi.searchPlaylist(payload);
+    return res.playlists
+  });
 const playlistAdminSlice = createSlice({
   name: "playlistAdmin",
   initialState,
@@ -30,6 +35,9 @@ const playlistAdminSlice = createSlice({
     [getRandomPlaylist.fulfilled]: (state, action) => {
       state.playlistRandom = action.payload;
     },
+    [searchPlaylist.fulfilled] : (state, action) => {
+      state.playlists = action.payload
+  }
   },
 });
 

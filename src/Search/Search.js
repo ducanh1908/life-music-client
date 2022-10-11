@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {fetchSong,searchSong} from "../redux/songSlice/songSlice";
 import {getAllPlaylist} from "../redux/playlistSlice/playlistAdmin";
+import PlaylistAdmin from './../components/PlaylistAdmin/PlaylistAdmin';
 
 const Container = styled.div`
 background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ;
@@ -31,12 +32,11 @@ const SongSinger = styled.span`
 const Search = () => {
   const dispatch = useDispatch();
   const songs = useSelector(state => {
-    console.log(state)
     return state.song.songs
   })
-  // console.log(songs)
-  const playlists = useSelector(state => state.playlist.playlist);
-  // console.log(playlists)
+ 
+  const playlists = useSelector(state => state.playlistAdmin.playlistAdmin);
+
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
 
