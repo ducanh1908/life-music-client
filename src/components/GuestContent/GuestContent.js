@@ -47,6 +47,7 @@ const Wrapper = styled.div``;
 
 const Top = styled.div``;
 const TopTitle = styled.h1`
+
   color: #ffffff;
   display: flex;
   align-items: start;
@@ -211,6 +212,8 @@ const GuestContent = () => {
     <Container>
       <Wrapper>
         <Header>
+        <TopTitle>Sản phẩm sắp phát hành</TopTitle>
+
           <Slider />
         </Header>
         <Top>

@@ -11,10 +11,11 @@ import { Pagination, Navigation } from "swiper";
   
 
   const Container = styled.div`
-  
+
   .mySwiper {
      width: 100%;
      height: 100%;
+   
  } 
  .swiper-slider {
     text-align: center;

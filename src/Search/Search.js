@@ -30,7 +30,10 @@ const SongSinger = styled.span`
 `;
 const Search = () => {
   const dispatch = useDispatch();
-  const songs = useSelector(state => state.song.songs)
+  const songs = useSelector(state => {
+    console.log(state)
+    return state.song.songs
+  })
   // console.log(songs)
   const playlists = useSelector(state => state.playlist.playlist);
   // console.log(playlists)
@@ -47,10 +50,10 @@ const Search = () => {
     });
   }, [currentSongIndex]);
 
-  // useEffect(() => {
-  //   // dispatch(fetchSong());
-  //   dispatch(getAllPlaylist());
-  // },[])
+  useEffect(() => {
+    dispatch(fetchSong());
+    dispatch(getAllPlaylist());
+  },[])
   const handlePlay =(idSong) => {
     // console.log(idSong)
   }
@@ -67,15 +70,18 @@ const Search = () => {
           ))
           }
         </div>
-        {/*<div>*/}
-        {/*  {playlists.map((playlist, index)=> (*/}
-        {/*      <SongItem key={index} >*/}
-        {/*        <p>{index + 1}</p>*/}
-        {/*        <SongImage  src={playlist.image}/>*/}
-        {/*        <SongName>{playlist.name}</SongName>*/}
-        {/*      </SongItem>*/}
-        {/*  ))}*/}
-        {/*</div>*/}
+       <div>
+
+         {playlists.map((playlist, index)=> (
+             <SongItem key={index} >
+               <p>{index + 1}</p>
+               <SongImage  src={playlist.image}/>
+               <SongName>{playlist.name}</SongName>
+             </SongItem>
+         ))
+}
+        
+       </div>
       </Container>
   )
 }

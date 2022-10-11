@@ -123,9 +123,17 @@ const songSlice = createSlice({
       state.songs = action.payload;
     },
     [searchSong.fulfilled] : (state, action) => {
-      state.search = action.payload;
-      state.songs = action.payload.length >0 ? action.payload : state.songs;
+      // state.songs = action.payload
+      // state.songs = action.payload.length >0 ? action.payload : state.songs;
+      state.songs = action.payload;
     },
+    // [searchSong.pending] : (state, action) => {
+    //   state.status = 'loading'
+    // },
+    // [searchSong.rejected] : (state, action) => {
+    //   state.status = 'loading'
+    //
+    // },
     [deleteSongById.fulfilled] : (state, action) => {
       state.deleteSongStatus = 'success';
     },

@@ -91,7 +91,7 @@ const playlistSlice = createSlice({
         state.playlists = action.payload
     },
     [searchPlaylist.fulfilled] : (state, action) => {
-        state.playlists = action.payload.playlists.length>0 ? action.payload.playlists : state.playlists
+        state.playlists = action.payload
     }
   },
 
