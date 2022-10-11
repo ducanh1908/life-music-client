@@ -12,14 +12,11 @@ import {
   updateSongInfo,
   publicOrPrivate,
 } from "../../redux/songSlice/songSlice";
-
 import { useSnackbar } from "notistack";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-
 import "./uploadfile.css";
 import styled from "styled-components";
 import $ from "jquery";
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -29,12 +26,12 @@ import TextField from "@mui/material/TextField";
 import { getCategories } from "../../redux/cateSlice/cateSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-
 import {
   addToPlaylist,
   fetchPlaylist,
 } from "../../redux/playlistSlice/playlistSlice";
 import { imageUpload } from "../../components/UploadFile/avatarUpload";
+import Swal from "sweetalert2";
 
 function AddNewFile() {
   const [fileUpload, setFileUpload] = useState(null);
@@ -94,13 +91,21 @@ function AddNewFile() {
 
   const deleleSong = (songId) => {
     try {
-      if (window.confirm("Press a button!") === true) {
-        dispatch(deleteSongById(songId));
-        dispatch(changeDeleteSongStatus("idle"));
-        enqueueSnackbar("Đã xóa bài hát", {
-          variant: "warning",
-        });
-      }
+      Swal.fire({
+        title: 'Bạn có chắc muốn xoá Playlist?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'grey',
+        cancelButtonColor: '#d33',
+        confirmButtonText: ' Tôi Chắc chắn',
+        cancelButtonText: 'Tôi nghĩ lại rồi'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          dispatch(deleteSongById(songId));
+          dispatch(changeDeleteSongStatus("idle"));
+          enqueueSnackbar('Xoá bài hát thành công', {variant: "success"});
+        }
+      })
     } catch (err) {
       console.log("deleleSong ", err.message);
     }
@@ -207,6 +212,10 @@ function AddNewFile() {
     boxShadow: 24,
     p: 4,
   };
+  const Total = styled.div`
+    display: grid;
+    grid-template-rows: 75vh 15vh;
+  `
 
   const Container = styled.div`
     @font-face {
@@ -305,6 +314,7 @@ function AddNewFile() {
   `;
 
   return (
+      <Total>
       <Container>
         <div id="style-1">
           <Head>
@@ -517,8 +527,8 @@ function AddNewFile() {
 
           </Wrapper>
         </div>
-
       </Container>
+      </Total>
   );
 }
 
