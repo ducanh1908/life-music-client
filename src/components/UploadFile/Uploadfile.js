@@ -58,6 +58,7 @@ function AddNewFile() {
     let categories = useSelector((state) => state.cate.categories);
     const songs = uploadSongs.songs
     let updateSong = {};
+    let file;
 
     const uploadFile = async () => {
         try {
@@ -157,7 +158,6 @@ function AddNewFile() {
 
     const handleSubmit = async () => {
         let media;
-        console.log('file image ', file);
 
         if (avatar) {
             media = await imageUpload([avatar]);
