@@ -14,6 +14,7 @@ const initialState = {
   search: [],
   uploadSongs: [],
   likedSongs: [],
+  songRandom:[],
   getAllLikedSongs: {},
   likeOrNot: {}
 };
@@ -70,6 +71,11 @@ export const getAllLikedSongs = createAsyncThunk('song/getAllLikedSongs', (paylo
 export const likeOrNot = createAsyncThunk('song/likeOrNot', (payload) => {
   const data = songApi.likeOrNot(payload);
   return data
+});
+
+export const getSongRandom = createAsyncThunk('song/SongRandom', (payload) => {
+  const data = songApi.getSongRandom(payload);
+  return data;
 });
 
 const songSlice = createSlice({
@@ -167,6 +173,10 @@ const songSlice = createSlice({
     [likeOrNot.rejected] : (state, action) => {
       state.likeOrNotStatus = 'false';
     },
+
+    [getSongRandom.fulfilled]: (state, action) => {
+    state.songRandom = action.payload
+    }
   }
 });
 

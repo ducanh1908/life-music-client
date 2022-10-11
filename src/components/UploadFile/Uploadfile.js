@@ -514,7 +514,6 @@ function AddNewFile() {
               </table>
               <div className="force-overflow"></div>
             </Body>
-
           </Wrapper>
         </div>
 

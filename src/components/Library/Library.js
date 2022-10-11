@@ -28,15 +28,18 @@ const Container=styled.div`
     margin: 2rem;
     display: grid;
     z-index: 2;
-    grid-template-columns: 1.5fr 2fr;
+    grid-template-columns: 1fr 2fr;
 
     .songs_container {
       flex: 2;
     }
 
     .playlists_container {
+      width: 100%;
+      height: 320px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
     }
   }
 `
@@ -61,7 +64,6 @@ const SongSinger = styled.span`
 `;
 const Footerdiv = styled.div`
 height: 20%;
-  background-color: #333;
 display: grid;
 grid-template-columns: 1fr 2fr;
 `
@@ -101,6 +103,8 @@ const Library = () => {
                     </div>
 
                     <div className={"playlists_container"}>
+                     
+
                         {
                             playlists &&(
                                 isLoggedIn &&
