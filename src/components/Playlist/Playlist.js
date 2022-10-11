@@ -15,7 +15,7 @@ import {
   getSongToPlaylist,
   removeSongFromPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
-import { fetchSong } from "../../redux/songSlice/songSlice";
+import { fetchSong, getAllLikedSongs } from "../../redux/songSlice/songSlice";
 import Audios from "../HomeFooter/Audio";
 import DetailSong from "../HomeFooter/DetailSong";
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
@@ -177,13 +177,17 @@ const Playlist = () => {
   const [model, setModel] = useState(false);
   const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
+  let user = JSON.parse(localStorage.getItem('user'));
+  let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs)
+  
   useEffect(() => {
     dispatch(getPlaylistById(id));
   }, [id]);
   useEffect(()=> {
-    dispatch(getSongToPlaylist(id))
+    dispatch(getSongToPlaylist(id));
   },[id]);
   useEffect(() => {
+    dispatch(getAllLikedSongs(user._id));
     dispatch(fetchSong())
   },[])
   const [trackIndex, setTrackIndex] = useState(-1)
@@ -284,6 +288,7 @@ const Playlist = () => {
           {songs.map((song,index) => (
               <Fragment key={song._id}>
                 <SongPlaylist
+                    allLikedSongs={allLikedSongs}
                     index={index}
                     song={song}
                     playlist={currentPlaylist}

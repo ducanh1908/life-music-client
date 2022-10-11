@@ -15,7 +15,7 @@ const initialState = {
   uploadSongs: [],
   likedSongs: [],
   songRandom:[],
-  getAllLikedSongs: {},
+  getAllLikedSongs: [],
   likeOrNot: {}
 };
 export const getUploadedSongs = createAsyncThunk("user/getUploadedSongs", async (payload) => {
@@ -165,7 +165,6 @@ const songSlice = createSlice({
     [getAllLikedSongs.fulfilled] : (state, action) => {
       state.getAllLikedSongsStatus = 'success';
       state.getAllLikedSongs = action.payload.userDoc.likeSongs;
-      console.log('getAllLikedSongs', action.payload.userDoc.likeSongs)
     },
     [getAllLikedSongs.rejected] : (state, action) => {
       state.getAllLikedSongsStatus = 'false';
@@ -176,7 +175,6 @@ const songSlice = createSlice({
     [likeOrNot.fulfilled] : (state, action) => {
       state.likeOrNotStatus = 'success';
       state.likeOrNot = action.payload;
-      console.log('likeOrNot ', action.payload)
     },
     [likeOrNot.rejected] : (state, action) => {
       state.likeOrNotStatus = 'false';
