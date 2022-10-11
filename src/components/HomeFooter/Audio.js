@@ -23,7 +23,6 @@ function Audio({ song, trackIndex, setTrackIndex }) {
     file = "",
     image = "",
   } = trackIndex !== -1 ? song[trackIndex] : {};
-  console.log("sss",trackIndex)
   const dispatch = useDispatch();
   const handleClickNext = () => {
     if (trackIndex < song.length - 1) {

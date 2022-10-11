@@ -151,6 +151,7 @@ const songSlice = createSlice({
     [getAllLikedSongs.fulfilled] : (state, action) => {
       state.getAllLikedSongsStatus = 'success';
       state.getAllLikedSongs = action.payload.userDoc.likeSongs;
+      console.log('getAllLikedSongs', action.payload.userDoc.likeSongs)
     },
     [getAllLikedSongs.rejected] : (state, action) => {
       state.getAllLikedSongsStatus = 'false';

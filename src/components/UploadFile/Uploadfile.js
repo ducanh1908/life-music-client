@@ -69,7 +69,7 @@ function AddNewFile() {
 
   const uploadFile = async () => {
     try {
-      if (fileUpload ==　undefined) return;
+      if (fileUpload == null) return;
       dispatch(loading("loading"));
       const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
       await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
@@ -368,7 +368,7 @@ function AddNewFile() {
                 <tbody id="tbody">
                 {uploadSongs.songs &&
                     uploadSongs.songs.map((song, index) => (
-                        <tr key={index} onClick={() => handleClick(song._id, index)}>
+                        <tr key={index} >
                           <td>
                             <img width={50} src={song.image} alt="" />
                           </td>
@@ -421,7 +421,7 @@ function AddNewFile() {
                         </tr>
                     ))}
                 </tbody>
-                <div>
+
                   <Modal
                       open={open}
                       onClose={handleClose}
@@ -472,7 +472,10 @@ function AddNewFile() {
                                   name="file"
                                   id="file_up"
                                   accept="image/*"
-                                  onChange={(e)=>(file=e.target.files[0])}
+                                  onChange={(e) => {
+                                    file = e.target.files[0]
+                                    setAvatar(file)
+                                  }}
                               />
                             </InforSpan>
                           </InforAvatar>
@@ -517,7 +520,7 @@ function AddNewFile() {
                       </Box>
                     </form>
                   </Modal>
-                </div>
+
               </table>
               <div className="force-overflow"></div>
             </Body>
