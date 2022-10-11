@@ -9,8 +9,13 @@ export const imageUpload = async (images) => {
 
         const res = await fetch("https://api.cloudinary.com/v1_1/dqz5udx7r/upload", {
             method: "POST",
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin' ,
             body: formData
-        })
+        }).catch(function (erro) {
+            console.log('upload Cloudiary',  erro.message);
+        });
 
         const data = await res.json()
         imgArr.push({public_id: data.public_id, url: data.secure_url})

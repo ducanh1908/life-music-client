@@ -159,6 +159,7 @@ function AddNewFile() {
 
   let updateSong = {};
   let file;
+  
   const handleSubmit = async () => {
     let media;
     if (file) {
@@ -174,6 +175,9 @@ function AddNewFile() {
     }
     dispatch(updateSongInfo(updateSong));
     handleClose();
+    enqueueSnackbar("Cập nhật thành công", {
+      variant: "success",
+    });
   };
 
 
@@ -183,6 +187,9 @@ function AddNewFile() {
       let status = select;
       let data = {song, status}
       dispatch(publicOrPrivate(data));
+        enqueueSnackbar("Chuyển trạng thái thành công", {
+          variant: "success",
+        });
     } catch (err) {
       console.log("handleSong", err.message);
     }
