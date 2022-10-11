@@ -133,7 +133,7 @@ const PlaylistAdmin = () => {
     dispatch(getSongToPlaylist(id));
   }, []);
     const [trackIndex, setTrackIndex] = useState(-1)
-    const onTrackSelect = (id, index) => {
+    const handleClick = (id, index) => {
         setTrackIndex(index);
     };
 console.log(trackIndex)
@@ -163,33 +163,33 @@ console.log(trackIndex)
       <Song>
         {currentSong &&
           currentSong.map((song, index) => (
-            <Fragment key={song._id}>
-            <SongPlaylist
-                index={index}
-                song={song}
-                playlist={currentPlaylist}
-                onTrackSelect={onTrackSelect}
-            />
-          </Fragment>
+          //   <Fragment key={song._id}>
+          //   <SongPlaylist
+          //       index={index}
+          //       song={song}
+          //       playlist={currentPlaylist}
+          //       onTrackSelect={onTrackSelect}
+          //   />
+          // </Fragment>
 
-            // <SongItem onClick={() => handleClick(song._id, index)}>
-            //   <SongIndex className="col">{index +1 }</SongIndex>
-            //   <SongInfo className="col">
-            //     <SongImage src={song.image} />
-            //     <SongDetail>
-            //     <SongName>{song.name}</SongName>
-            //     <SongSinger>{song.singerName}</SongSinger>
-            //     </SongDetail>
-            //   </SongInfo>
-            //   <SongName className="col">{song.album}</SongName>  
-            //   <SongTime className="col">{song.duration}</SongTime>
-            // </SongItem>
+            <SongItem onClick={() => handleClick(song._id, index)}>
+              <SongIndex className="col">{index +1 }</SongIndex>
+              <SongInfo className="col">
+                <SongImage src={song.image} />
+                <SongDetail>
+                <SongName>{song.name}</SongName>
+                <SongSinger>{song.singerName}</SongSinger>
+                </SongDetail>
+              </SongInfo>
+              <SongName className="col">{song.album}</SongName>  
+              <SongTime className="col">{song.duration}</SongTime>
+            </SongItem>
           ))}
       </Song>
       </Wrapper>
-      {model && (
+      {/* {model && (
           <PlaylistModel closeModel={() => setModel(false)} playlist={currentPlaylist} id={id} />
-        )}
+        )} */}
     </Container>
           {
               currentSong &&
@@ -198,7 +198,6 @@ console.log(trackIndex)
                   <Audio song={currentSong} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
               </Footer>
           }
-
       </Total>
   );
 };
