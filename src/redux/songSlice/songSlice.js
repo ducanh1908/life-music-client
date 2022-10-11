@@ -117,8 +117,9 @@ const songSlice = createSlice({
       state.songs = action.payload;
     },
     [searchSong.fulfilled] : (state, action) => {
-      state.songs = action.payload
+      // state.songs = action.payload
       // state.songs = action.payload.length >0 ? action.payload : state.songs;
+      state.songs = action.payload;
     },
     // [searchSong.pending] : (state, action) => {
     //   state.status = 'loading'
