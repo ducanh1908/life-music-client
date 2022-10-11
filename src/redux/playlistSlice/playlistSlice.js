@@ -12,7 +12,6 @@ const initialState = {
   addSongToPlaylistStatus: 'idle',
 };
 
-
 export const uploadSong = createAsyncThunk("user/uploadSong", async (payload) => {
   const data = await userApi.uploadSong(payload);
   return data;
@@ -32,13 +31,14 @@ export const getAllPlaylist = createAsyncThunk(
   "/playlists",
   async (payload) => {
     const data = await playlistApi.getAllPlaylist(payload);
+    console.log(data)
     return data.playlists;
   }
 );
 export const addToPlaylist = createAsyncThunk(
   "addToPlaylist/playlist/addsong/:songId",
   async (payload) => {
-    const data = await playlistApi.addSongToPlaylist(payload);
+    const data = await playlistApi.addSongPlaylist(payload);
     return data
   }
 );
