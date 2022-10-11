@@ -1,8 +1,8 @@
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
+import {Avatar, debounce, Menu, MenuItem, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import React, { useState,useEffect } from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router';
 import {Link, NavLink} from "react-router-dom";
@@ -115,10 +115,27 @@ const GuestNavbar = () => {
         dispatch(fetchSong());
         dispatch(getAllPlaylist());
     },[])
+    const debounceList = useCallback(debounce((nextValue) => {
+        dispatch(searchSong(nextValue));
+        // dispatch(searchPlaylist(nextValue));
+
+        if (nextValue === '') {
+            dispatch(fetchSong());
+            // dispatch(getAllPlaylist());
+        }
+    }, 300))
    const handleChange = (e) => {
-        dispatch(searchSong(e.target.value));
-        dispatch(searchPlaylist(e.target.value));
+       // e.target.value = e.target.value.replace(/[^\w\s]+/g, '')
+       debounceList(e.target.value)
     }
+
+    // const handleChange = (e) => {
+    //          dispatch(searchSong(e.target.value));
+    //          // dispatch(searchPlaylist(e.target.value))
+    //     if (e.target.value ===  '') {
+    //         dispatch(fetchSong())
+    //     }
+    // }
   return (
     <Container>
       <Left>
@@ -134,7 +151,8 @@ const GuestNavbar = () => {
             <SearchOutlinedIcon />
           </SearchButton >
           <Input placeholder="Bạn muốn nghe gì..."
-                 onChange = {handleChange}
+                 // onChange = {handleChange}
+              onKeyUp = {handleChange}
           />
             </NavLink>
         </HomeForm>
