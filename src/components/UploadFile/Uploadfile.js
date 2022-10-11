@@ -12,11 +12,14 @@ import {
   updateSongInfo,
   publicOrPrivate,
 } from "../../redux/songSlice/songSlice";
+
 import { useSnackbar } from "notistack";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+
 import "./uploadfile.css";
 import styled from "styled-components";
 import $ from "jquery";
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -32,19 +35,7 @@ import {
   fetchPlaylist,
 } from "../../redux/playlistSlice/playlistSlice";
 import { imageUpload } from "../../components/UploadFile/avatarUpload";
-import Swal from "sweetalert2";
-import DetailSong from "../HomeFooter/DetailSong";
-import Audio from "../HomeFooter/Audio";
-const Total = styled.div`
-  display: grid;
-  grid-template-rows: 75vh 15vh;
-`
-const Footer = styled.div`
-height: 20%;
-  background-color: #333;
-display: grid;
-grid-template-columns: 1fr 2fr;
-`
+
 function AddNewFile() {
   const [fileUpload, setFileUpload] = useState(null);
   const [newSong, setNewSong] = useState({});
@@ -52,10 +43,8 @@ function AddNewFile() {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [avatar, setAvatar] = useState("");
-  const [trackIndex, setTrackIndex] = useState(-1)
-  const handleClick = (id, index) => {
-    setTrackIndex(index);
-  };
+  const { enqueueSnackbar } = useSnackbar();
+
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -68,7 +57,7 @@ function AddNewFile() {
 
   const uploadFile = async () => {
     try {
-      if (fileUpload ==　undefined) return;
+      if (fileUpload == null) return;
       dispatch(loading("loading"));
       const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
       await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
@@ -105,23 +94,13 @@ function AddNewFile() {
 
   const deleleSong = (songId) => {
     try {
-      Swal.fire({
-        title: 'Bạn có chắc muốn xoá Bài hát này?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: 'grey',
-        cancelButtonColor: '#d33',
-        confirmButtonText: ' Tôi Chắc chắn',
-        cancelButtonText: 'Tôi nghĩ lại rồi'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          dispatch(deleteSongById(songId));
-          dispatch(changeDeleteSongStatus("idle"));
-          Swal.fire(
-              'Đã Xoá'
-          )
-        }
-      })
+      if (window.confirm("Press a button!") === true) {
+        dispatch(deleteSongById(songId));
+        dispatch(changeDeleteSongStatus("idle"));
+        enqueueSnackbar("Đã xóa bài hát", {
+          variant: "warning",
+        });
+      }
     } catch (err) {
       console.log("deleleSong ", err.message);
     }
@@ -157,9 +136,12 @@ function AddNewFile() {
   };
 
   let updateSong = {};
-  let file;
+  var file;
+  
   const handleSubmit = async () => {
     let media;
+    console.log('file image ', file);
+
     if (file) {
       media = await imageUpload([file]);
     }
@@ -171,8 +153,14 @@ function AddNewFile() {
     if(songId){
       updateSong.songId = songId;
     }
+
+    console.log('updateSong ', updateSong)
+
     dispatch(updateSongInfo(updateSong));
     handleClose();
+    enqueueSnackbar("Cập nhật thành công", {
+      variant: "success",
+    });
   };
 
 
@@ -182,6 +170,9 @@ function AddNewFile() {
       let status = select;
       let data = {song, status}
       dispatch(publicOrPrivate(data));
+        enqueueSnackbar("Chuyển trạng thái thành công", {
+          variant: "success",
+        });
     } catch (err) {
       console.log("handleSong", err.message);
     }
@@ -314,7 +305,6 @@ function AddNewFile() {
   `;
 
   return (
-      <Total>
     <Container>
         <div id="style-1">
           <Head>
@@ -369,7 +359,7 @@ function AddNewFile() {
                     uploadSongs.songs.map((song, index) => (
                         <tr key={index} >
                           <td>
-                            <img width={50} src={song.image} alt="" onClick={() => handleClick(song._id, index)}/>
+                            <img width={50} src={song.image} alt="" />
                           </td>
                           <td>{song.name}</td>
                           <td></td>
@@ -471,7 +461,11 @@ function AddNewFile() {
                                   name="file"
                                   id="file_up"
                                   accept="image/*"
-                                  onChange={(e)=>(file=e.target.files[0])}
+                                  onChange={(e) => {
+                                    file = e.target.files[0];
+                                    setAvatar(file);
+                                    console.log('aofjaoiwfjaiwf - file', file);
+                                  }}
                               />
                             </InforSpan>
                           </InforAvatar>
@@ -523,15 +517,8 @@ function AddNewFile() {
 
           </Wrapper>
         </div>
+
     </Container>
-        {
-            uploadSongs.songs &&
-            <Footer>
-              <DetailSong song = {uploadSongs.songs}  trackIndex={trackIndex}/>
-              <Audio song={uploadSongs.songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
-            </Footer>
-        }
-      </Total>
   );
 }
 
