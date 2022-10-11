@@ -1,12 +1,10 @@
-import React, {useState} from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { IconButton } from '@mui/material';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import Like from "../Like/like";
 
 
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -95,6 +93,9 @@ const Wrapper = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
 `;
 const SongList = ({ song, onTrackSelect }) => {
+  const isLoggedInUser = useSelector(state => state.user.user )
+ 
+  const isLoggedIn = !!isLoggedInUser._id;
   const [menu, setMenu] = useState(false);
 
   const dispatch = useDispatch();
@@ -140,7 +141,10 @@ const SongList = ({ song, onTrackSelect }) => {
                   </SongDetail>
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
-                <Like track={item} />
+                {
+                  isLoggedIn && ( <Like track={item} />)
+                }
+               
                 <SongTime className="col">{item.duration}</SongTime>
               </SongItem>
             ))}

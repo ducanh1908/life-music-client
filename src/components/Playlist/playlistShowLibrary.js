@@ -1,11 +1,7 @@
 import React,{ Fragment } from 'react';
 import {Link, NavLink} from "react-router-dom";
 import styled from "styled-components";
-const Container=styled.div`
-    display: grid;
-  grid-template-columns: 1fr 1fr ;
-  gap: 40px;
-`
+
 const PlaylistItem = styled.div`
   width: 100%;
   height: 100%;
@@ -42,14 +38,14 @@ const PlaylistTitle = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   word-wrap: break-word;
-  /* padding: 10px 0; */
+  
 `;
 
 const PlaylistShowLibrary = ({ playlists }) => {
     return (
 
         <Fragment>
-            <Container>
+          
                 {playlists.map((playlist) => (
                     <PlaylistItem key={playlist._id}>
                         <Link
@@ -61,8 +57,7 @@ const PlaylistShowLibrary = ({ playlists }) => {
                         </Link>
                     </PlaylistItem>
                 ))}
-            </Container>
-
+            
         </Fragment>
 
     );

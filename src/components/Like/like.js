@@ -130,10 +130,6 @@ const Like = (props) => {
 
   };
 
-  // // useEffect(() => {
-  // //   dispatch()
-  // // }, [])
-
   return (
     <Container>
       <IconButton className={"like_btn"} onClick={() => handleLikeSong()}>

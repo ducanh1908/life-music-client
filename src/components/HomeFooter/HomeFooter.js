@@ -1,25 +1,24 @@
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Audio from "./Audio";
 import DetailSong from "./DetailSong";
 import SongList from "./SongList";
-import { useDispatch } from 'react-redux';
 import { fetchSong } from './../../redux/songSlice/songSlice';
-import { useSelector } from 'react-redux';
-
 
 const Container = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
 `;
-const Wraper = styled.div``;
+const Wrapper = styled.div`
+
+`;
 const Body = styled.div`
   height: 100%;
   overflow: auto;
 `;
 const Footer = styled.div`
-  height: 100%;
-  background-color: #333;
+
   display: grid;
   grid-template-columns: 1fr 2fr;
 `;
@@ -36,10 +35,11 @@ const HomeFooter = () => {
   const onTrackSelect = (index) => {
     setTrackIndex(index);
   };
+
   return (
     <Container>
       {song && (
-        <Wraper>
+        <Wrapper>
           <Body>
             <SongList song={song} onTrackSelect={onTrackSelect} />
           </Body>
@@ -51,7 +51,7 @@ const HomeFooter = () => {
               setTrackIndex={setTrackIndex}
             />
           </Footer>
-        </Wraper>
+        </Wrapper>
       )}
     </Container>
   );

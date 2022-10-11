@@ -6,23 +6,29 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 // import { style } from "@mui/material/styles";
-import { getAllPlaylist, getRandomPlaylist } from "./../../redux/playlistSlice/playlistAdmin";
+import {
+  getAllPlaylist,
+  getRandomPlaylist,
+} from "./../../redux/playlistSlice/playlistAdmin";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import Slider from "./../Slider/Slider";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import { InstallDesktopSharp } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
-
+import { getSongRandom } from "./../../redux/songSlice/songSlice";
+import Footer from './../Footer/Footer';
 
 const Container = styled.div`
   height: 100%;
   width: 100%;
   border-radius: 10px;
   padding: 24px 24px 0;
+  /* display: grid;
+  grid-template-rows: 75vh; */
   overflow: auto;
   &::-webkit-scrollbar {
     width: 0.8rem;
@@ -116,6 +122,7 @@ const Header = styled.div`
 const NewSong = styled.div`
   display: grid;
   width: 100%;
+  margin-top: 20px;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 `;
@@ -144,8 +151,8 @@ const SongItem = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
     .move-icon {
-     display: block;
-     backgroundColor: "#fff",
+      display: block;
+      backgroundcolor: "#fff";
     }
   }
 `;
@@ -158,7 +165,6 @@ const SongImg = styled.img`
 `;
 const SongName = styled.span`
   display: flex;
-  
 `;
 const SongSinger = styled.span``;
 
@@ -174,7 +180,7 @@ const GuestContent = () => {
   };
 
   const open = Boolean(anchorEl);
-  const idPop = open ? 'simple-popover' : undefined;
+  const idPop = open ? "simple-popover" : undefined;
   const playlistAdmin = useSelector(
     (state) => state.playlistAdmin.playlistAdmin
   );
@@ -182,14 +188,22 @@ const GuestContent = () => {
   const playlistRandom = useSelector(
     (state) => state.playlistAdmin.playlistRandom
   );
+  const songRandom = useSelector((state) => state.song.songRandom)
+  console.log(songRandom);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getAllPlaylist());
   }, [id]);
 
-  useEffect(()=>{
-    dispatch(getRandomPlaylist())
-  },[])
+  useEffect(() => {
+    dispatch(getRandomPlaylist());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getSongRandom());
+
+  }, []);
   const handleClickPlaylist = (id) => {
     console.log(id);
   };
@@ -202,31 +216,41 @@ const GuestContent = () => {
         <Top>
           <TopTitle>Mới phát hành</TopTitle>
           <NewSong>
-            <SongItem>
-              <SongImg src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_webp/cover/2/b/8/d/2b8dbff3412931b01539c1aac4a3f905.jpg" />
+          {
+            songRandom && songRandom.map((song, index) => (
+              <SongItem key={song._id}>
+              <SongImg src={song.image} />
               <SongInfo>
-                <SongName>Nguyệt Thượng Hạ Lưu</SongName>
-                <SongSinger>Đạt G</SongSinger>
+                <SongName>N{song.name}</SongName>
+                <SongSinger>{song.singerName}</SongSinger>
               </SongInfo>
-              <IconButton >
-              <MoreVertIcon className="move-icon" aria-describedby={idPop} variant="contained" onClick={handleClick}/>
+              <IconButton>
+                <MoreVertIcon
+                  className="move-icon"
+                  aria-describedby={idPop}
+                  variant="contained"
+                  onClick={handleClick}
+                />
               </IconButton>
             </SongItem>
+            )
+
+            )
+          }
            
           </NewSong>
-      <Popover
-        id={InstallDesktopSharp}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-      >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-      </Popover>
-         
+          <Popover
+            id={InstallDesktopSharp}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+          </Popover>
         </Top>
         <Categories>
           <TopTitle>Đề xuất cho bạn</TopTitle>
@@ -245,8 +269,6 @@ const GuestContent = () => {
                 </PlaylistItem>
               ))}
           </Playlist>
-         
-          
         </Categories>
         <Categories>
           <TopTitle>Chào buổi sáng</TopTitle>
@@ -265,12 +287,11 @@ const GuestContent = () => {
                 </PlaylistItem>
               ))}
           </Playlist>
-         
-          
         </Categories>
 
         {/* <Footer /> */}
       </Wrapper>
+      
     </Container>
   );
 };

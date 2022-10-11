@@ -46,9 +46,13 @@ const songApi = {
     return apiClient.get(url)
   },
   likeOrNot(data) {
-    console.log('data dislike', data);
+  
     const url = `/song/like/${data.songId}`
     return apiClient.post(url, data)
+  }, 
+  getSongRandom(data) {
+    const url = '/song-random';
+    return apiClient.get(url, data)
   }
 };
 export default songApi;

@@ -3,6 +3,8 @@ import { useEffect, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useParams } from "react-router";
+import { IconButton } from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import {
   getPlaylistById,
   getSongToPlaylist
@@ -10,12 +12,12 @@ import {
 import DetailSong from "../HomeFooter/DetailSong";
 import Audios from "../HomeFooter/Audio";
 import React from "react";
-import SongPlaylist from './../SongInPlaylist/SongPlaylist';
-import PlaylistModel from './../Playlist/PlaylistModel';
+import SongPlaylist from "./../SongInPlaylist/SongPlaylist";
+import PlaylistModel from "./../Playlist/PlaylistModel";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
-`
+`;
 const Container = styled.div`
   background-color: whitesmoke;
   position: relative;
@@ -57,35 +59,30 @@ const PlaylistAction = styled.div`
 const Body = styled.div`
   padding: 1rem 3rem;
   display: grid;
-  grid-template-columns:0.2fr 3fr 2fr 0.2fr;
+  grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
   text-transform: uppercase;
   color: #3b3b3b;
   border-bottom: 1px solid #ccc;
 `;
-const BodyTitle = styled.p`
-`;
-
-
+const BodyTitle = styled.p``;
 
 const Song = styled.div``;
 
 const SongItem = styled.div`
-   padding: 0.5rem 3rem;
+  padding: 0.5rem 3rem;
   display: grid;
-  color: #fff;
-  grid-template-columns:0.2fr 3fr 2fr 0.2fr;
+  /* color: #fff; */
+  grid-template-columns: 0.2fr 0.1fr 3fr 2fr 0.2fr;
   .col {
     display: flex;
-   align-items: center;
+    align-items: center;
   }
   &:hover {
-    background-color: rgba(0,0,0,0.7)
+    background-color: rgba(0, 0, 0, 0.7);
   }
 `;
 
-const SongName = styled.span`
-
-`;
+const SongName = styled.span``;
 const SongDetail = styled.span`
 display: flex;
 flex-direction: column;
@@ -103,14 +100,14 @@ const SongTime = styled.span``;
 const SongInfo = styled.div``;
 
 const Wrapper = styled.div`
-height: 100%;
-background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
-`
+  height: 100%;
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%); */
+`;
 const Footer = styled.div`
-background-color: black;
-display: grid;
-grid-template-columns: 1fr 2fr;
-`
+  background-color: black;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+`;
 const PlaylistAdmin = () => {
   const { id } = useParams();
 
@@ -136,6 +133,7 @@ const PlaylistAdmin = () => {
     const handleClick = (id, index) => {
         setTrackIndex(index);
     };
+console.log(trackIndex)
   return (
       <Total>
     <Container>
