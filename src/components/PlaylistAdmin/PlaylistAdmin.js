@@ -121,7 +121,10 @@ const PlaylistAdmin = () => {
   const [model, setModel] = useState(false);
 
   const dispatch = useDispatch();
-
+  const [trackIndex, setTrackIndex] = useState(-1)
+  const handleClick = (id, index) => {
+    setTrackIndex(index);
+  };
   useEffect(() => {
     dispatch(getPlaylistById(id));
   }, [id]);
@@ -129,11 +132,7 @@ const PlaylistAdmin = () => {
   useEffect(() => {
     dispatch(getSongToPlaylist(id));
   }, []);
-    const [trackIndex, setTrackIndex] = useState(-1)
-    const handleClick = (id, index) => {
-        setTrackIndex(index);
-    };
-console.log(trackIndex)
+
   return (
       <Total>
     <Container>
