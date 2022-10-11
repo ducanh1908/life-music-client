@@ -28,6 +28,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import PlaylistMenu from "../Playlist/PlaylistMenu";
 import {
   addToPlaylist,
   fetchPlaylist,
@@ -51,6 +52,8 @@ function AddNewFile() {
   const [newSong, setNewSong] = useState({});
   const [editSong, setEditSong] = useState({});
   const [open, setOpen] = useState(false);
+  const [menu, setMenu] = useState(false);
+
   const handleClose = () => setOpen(false);
   const [avatar, setAvatar] = useState("");
   const [trackIndex, setTrackIndex] = useState(-1)
@@ -59,7 +62,6 @@ function AddNewFile() {
   };
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
-
   let { uploadSongs, status, deleteSongStatus, publicOrPrivateStatus, updateSongStatus } = useSelector(
     (state) => state.song
   );
@@ -134,17 +136,14 @@ function AddNewFile() {
     }
   };
 
-  // const addSongToPlaylist = (value) => {
-  //   dispatch(addToPlaylist(value))
-  // };
 
   const handleSong = (obj) => {
     try {
       let select = obj.target.value.split(",")[0];
       let songId = obj.target.value.split(",")[1];
+
       if (select == 1) {
-        //
-        // addSongToPlaylist({songId, playlistId});
+
       } else if (select == 2) {
         deleleSong(songId);
       } else if (select == 3) {
@@ -217,6 +216,17 @@ function AddNewFile() {
     boxShadow: 24,
     p: 4,
   };
+  const sty = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "10%",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  }
 
   const Container = styled.div`
     @font-face {
@@ -407,9 +417,6 @@ function AddNewFile() {
                             <select style={{height:"30px" , width:"90px"}}
                                 onChange={(e) => handleSong(e)}>
                               <option value={""}>-- Chọn --</option>
-                              <option value={`1,${song._id}`}>
-                                Thêm bài hát vào playlist{" "}
-                              </option>
                               <option value={`2,${song._id}`}>Xóa bài hát</option>
                               <option
                                   value={`3,${song._id}, ${song.name}, ${song.image}, ${song.singerName}`}
