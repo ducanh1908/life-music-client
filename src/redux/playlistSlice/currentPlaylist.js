@@ -69,13 +69,12 @@ const currentPlaylistSlice = createSlice({
     },
     [deletePlaylist.fulfilled] : (state, action) => {
       state.playlist = action.payload;
-
     },
     [getSongToPlaylist.fulfilled] : (state, action) => {
       state.playlistAdmin = action.payload;
     },
     [removeSongFromPlaylist.fulfilled] : (state, action) => {
-      state.playlistAdmin = action.payload;
+      state.playlistAdmin = state.playlistAdmin.filter(item => item._id!==action.payload);
     },
 
 }
