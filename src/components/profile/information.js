@@ -29,7 +29,12 @@ const Info = styled.div`
   width: 50%;
 `;
 
-const Desc = styled.h2``;
+const Desc = styled.div`
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 
 const Warrper = styled.div`
@@ -59,7 +64,7 @@ const Information = () => {
       <Desc>
         <Typography variant="h4" component="h1" sx={{ marginTop: '30px'}}>Tổng Quan Tài Khoản</Typography>
         <Typography variant="h5" component="h3" sx={{ marginBottom: '30px '}}>
-          Hồ Sơ
+          Hồ Sơ Người Dùng
         </Typography>
       </Desc>
       <TableContainer component={Paper}>
