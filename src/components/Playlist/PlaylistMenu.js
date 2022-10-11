@@ -61,6 +61,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
     const navigate = useNavigate()
+    console.log(333)
     const handleAddToPlaylist = async (songId, playlistId) => {
         const payload = { songId,playlistId }
         try {

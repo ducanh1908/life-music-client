@@ -9,21 +9,14 @@ import {NavLink} from "react-router-dom";
 import PlaylistShowLibrary from "../Playlist/playlistShowLibrary";
 import DetailSong from "../HomeFooter/DetailSong";
 import Audios from "../HomeFooter/Audio";
-import Footer from "../Footer/Footer";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
 `
 const Container=styled.div`
-  //padding: 2rem 0;
-  //display: flex;
-  //flex-direction: column;
-  //position: relative;
-  //min-height: 80vh;
   background-color: grey;
   overflow: auto;
   
-
   .results_container {
     margin: 2rem;
     display: grid;
@@ -103,8 +96,6 @@ const Library = () => {
                     </div>
 
                     <div className={"playlists_container"}>
-                     
-
                         {
                             playlists &&(
                                 isLoggedIn &&

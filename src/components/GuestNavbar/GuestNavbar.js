@@ -9,8 +9,7 @@ import {Link, NavLink} from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../../redux/userSlice/userSlice";
 import {fetchSong, searchSong} from "../../redux/songSlice/songSlice";
-import {searchPlaylist} from "../../redux/playlistSlice/playlistSlice";
-import {getAllPlaylist} from "../../redux/playlistSlice/playlistAdmin";
+import {getAllPlaylist,searchPlaylist} from "../../redux/playlistSlice/playlistAdmin";
 
 const Container = styled.div`
 
@@ -117,11 +116,11 @@ const GuestNavbar = () => {
     },[])
     const debounceList = useCallback(debounce((nextValue) => {
         dispatch(searchSong(nextValue));
-        // dispatch(searchPlaylist(nextValue));
+        dispatch(searchPlaylist(nextValue));
 
         if (nextValue === '') {
             dispatch(fetchSong());
-            // dispatch(getAllPlaylist());
+            dispatch(getAllPlaylist());
         }
     }, 300))
    const handleChange = (e) => {
