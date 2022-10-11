@@ -26,8 +26,7 @@ import TextField from "@mui/material/TextField";
 import { getCategories } from "../../redux/cateSlice/cateSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
+
 import {
   addToPlaylist,
   fetchPlaylist,
@@ -421,7 +420,7 @@ function AddNewFile() {
                         </tr>
                     ))}
                 </tbody>
-                <div>
+                
                   <Modal
                       open={open}
                       onClose={handleClose}
@@ -517,7 +516,7 @@ function AddNewFile() {
                       </Box>
                     </form>
                   </Modal>
-                </div>
+               
               </table>
               <div className="force-overflow"></div>
             </Body>

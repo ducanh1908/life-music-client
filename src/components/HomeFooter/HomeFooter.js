@@ -39,7 +39,7 @@ const HomeFooter = () => {
   return (
     <Container>
       {song && (
-        <Wrapper>
+        <Wraper>
           <Body>
             <SongList song={song} onTrackSelect={onTrackSelect} />
           </Body>
@@ -51,7 +51,7 @@ const HomeFooter = () => {
               setTrackIndex={setTrackIndex}
             />
           </Footer>
-        </Wrapper>
+        </Wraper>
       )}
     </Container>
   );

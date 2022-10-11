@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { setCurrentSong } from "../../redux/audioPlayer";
-// import Like from "../Like";
 import { IconButton } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -10,7 +9,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import styled from "styled-components";
 import Like from "../Like/like";
 import PlaylistMenu from "../Playlist/PlaylistMenu";
-const Container= styled.div`
+const Container = styled.div`
   width: 100%;
   height: 6rem;
   border-radius: 0.5rem;
@@ -90,45 +89,55 @@ const Container= styled.div`
       }
     }
   }
-`
+`;
 
-const SongPlaylist = ({ song,index, currentPlaylist, handleRemoveSong,onTrackSelect }) => {
-    const [menu, setMenu] = useState(false);
-    // const { currentSong } = useSelector((state) => state.audioPlayer);
-    const dispatch = useDispatch();
-    const handleClick = (id, index) => {
-        onTrackSelect(index);
-    };
+const SongPlaylist = ({
+  song,
+  index,
+  currentPlaylist,
+  handleRemoveSong,
+  onTrackSelect,
+}) => {
+  const [menu, setMenu] = useState(false);
+  // const { currentSong } = useSelector((state) => state.audioPlayer);
+  const dispatch = useDispatch();
+  const handleClick = (id, index) => {
+    onTrackSelect(index);
+  };
 
-    return (
-        <Container >
-            <div className={"left"}>
-                <IconButton onClick={() => handleClick(song._id, index,)} className={"play_btn"}>
-                    <PlayArrowIcon />
-                </IconButton>
-                <img src={song.image} alt="song_img" />
-                <p >{song.name}</p>
-            </div>
-            <div className={"center"}>
-                <p>{song.singer}</p>
-            </div>
-            <div className={"right"}>
-                <Like songId={song._id} />
-                <p>{song.duration}</p>
-                <IconButton className={"menu_btn"} onClick={() => setMenu(true)}>
-                    <MoreHorizIcon />
-                </IconButton>
-                {menu && (
-                    <PlaylistMenu
-                        currentPlaylist={currentPlaylist}
-                        song={song}
-                        handleRemoveSong={handleRemoveSong}
-                        closeMenu={() => setMenu(false)}
-                    />
-                )}
-            </div>
-        </Container>
-    );
+
+  return (
+    <Container>
+      <div className={"left"}>
+        <IconButton
+          onClick={() => handleClick(song._id, index)}
+          className={"play_btn"}
+        >
+          <PlayArrowIcon />
+        </IconButton>
+        <img src={song.image} alt="song_img" />
+        <p>{song.name}</p>
+      </div>
+      <div className={"center"}>
+        <p>{song.singer}</p>
+      </div>
+      <div className={"right"}>
+        <Like track={song} />
+        <p>{song.duration}</p>
+        <IconButton className={"menu_btn"} onClick={() => setMenu(true)}>
+          <MoreHorizIcon />
+        </IconButton>
+        {menu && (
+          <PlaylistMenu
+            currentPlaylist={currentPlaylist}
+            song={song}
+            handleRemoveSong={handleRemoveSong}
+            closeMenu={() => setMenu(false)}
+          />
+        )}
+      </div>
+    </Container>
+  );
 };
 
 export default SongPlaylist;

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import playlistApi from "./../../service/playlistService"
-
+import playlistApi from "./../../service/playlistService";
 
 const initialState = {
   playlistAdmin: [],
@@ -23,7 +22,14 @@ export const getRandomPlaylist = createAsyncThunk("/playlist-random", async (pay
 const playlistAdminSlice = createSlice({
   name: "playlistAdmin",
   initialState,
-  reducers: { 
+  reducers: {},
+  extraReducers: {
+    [getAllPlaylist.fulfilled]: (state, action) => {
+      state.playlistAdmin = action.payload;
+    },
+    [getRandomPlaylist.fulfilled]: (state, action) => {
+      state.playlistAdmin = action.payload;
+    },
   },
   extraReducers : {
     

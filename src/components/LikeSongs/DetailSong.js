@@ -27,7 +27,6 @@ const DetailSong = ({song, trackIndex}) => {
     image = "",
   } = trackIndex !== -1 ? song[trackIndex] : {};
 
-  console.log({image})
   return (
      
     <Container>
