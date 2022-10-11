@@ -92,7 +92,8 @@ function AddNewFile() {
   const deleleSong = (songId) => {
     try {
       Swal.fire({
-        title: 'Bạn có chắc muốn xoá Playlist?',
+        title: 'Bạn có chắc muốn xoá Bài hát ',
+        text: "Bài hát này đỉnh vãi nuôn ý",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: 'grey',

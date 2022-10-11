@@ -11,13 +11,14 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
 `;
+
 const Wraper = styled.div``;
 const Body = styled.div`
   height: 100%;
   overflow: auto;
 `;
 const Footer = styled.div`
-  height: 100%;
+  height: 10%;
   background-color: #333;
   display: grid;
   grid-template-columns: 1fr 2fr;

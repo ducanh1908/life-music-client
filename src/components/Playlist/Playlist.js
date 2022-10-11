@@ -207,8 +207,9 @@ const Playlist = () => {
           const user = unwrapResult(resultAction);
           enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
           navigate("/")
+          setTimeout(window.location.reload(),  5000)
         }
-        setTimeout(window.location.reload(),  5000)
+
       })
 
     } catch (error) {
