@@ -115,7 +115,7 @@ const Like = (props) => {
       like: islike,
       likeId: likeId,
     };
-    console.log("data handleLikeSong", data);
+    
     toggle();
     dispatch(likeOrNot(data));
     if(islike) {

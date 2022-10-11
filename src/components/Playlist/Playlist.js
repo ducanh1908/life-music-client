@@ -15,7 +15,7 @@ import {
   getSongToPlaylist,
   removeSongFromPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
-import { fetchSong } from "../../redux/songSlice/songSlice";
+import { fetchSong, getSongRandom } from "../../redux/songSlice/songSlice";
 import Audios from "../HomeFooter/Audio";
 import DetailSong from "../HomeFooter/DetailSong";
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
@@ -167,7 +167,8 @@ grid-template-columns: 1fr 2fr;
 const Playlist = () => {
   const { id } = useParams();
   const navigate=useNavigate();
-  const songs = useSelector((state) => state.song.songs);
+  const songs = useSelector((state) => state.song.songRandom);
+  console.log(songs)
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
@@ -186,6 +187,9 @@ const Playlist = () => {
   useEffect(() => {
     dispatch(fetchSong())
   },[])
+  useEffect(() => {
+    dispatch(getSongRandom())
+   },[])
   const [trackIndex, setTrackIndex] = useState(-1)
   const onTrackSelect = (index)=> {
     setTrackIndex(index)

@@ -57,6 +57,7 @@ const Wrapper = styled.div``;
 
 const Top = styled.div``;
 const TopTitle = styled.h1`
+
   color: #ffffff;
   display: flex;
   align-items: start;
@@ -199,7 +200,7 @@ const GuestContent = () => {
     (state) => state.playlistAdmin.playlistRandom
   );
   const songRandom = useSelector((state) => state.song.songRandom)
-  console.log(songRandom);
+
   const dispatch = useDispatch();
   const [trackIndex, setTrackIndex] = useState(-1)
   const handleClickSong = (id, index) => {
@@ -225,6 +226,8 @@ const GuestContent = () => {
     <Container>
       <Wrapper>
         <Header>
+        <TopTitle>Sản phẩm sắp phát hành</TopTitle>
+
           <Slider />
         </Header>
         <Top>

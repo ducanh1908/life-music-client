@@ -7,13 +7,14 @@ import { IconButton } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import {
   getPlaylistById,
-  getSongToPlaylist
+  getSongToPlaylist,
 } from "../../redux/playlistSlice/currentPlaylist";
 import DetailSong from "../HomeFooter/DetailSong";
 import Audios from "../HomeFooter/Audio";
 import React from "react";
 import SongPlaylist from "./../SongInPlaylist/SongPlaylist";
 import PlaylistModel from "./../Playlist/PlaylistModel";
+import Like from "../Like/like";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
@@ -72,7 +73,7 @@ const SongItem = styled.div`
   padding: 0.5rem 3rem;
   display: grid;
   /* color: #fff; */
-  grid-template-columns: 0.2fr 0.1fr 3fr 2fr 0.2fr;
+  grid-template-columns: 0.2fr 3fr 2fr 0.2fr 0.2fr;
   .col {
     display: flex;
     align-items: center;
@@ -84,9 +85,9 @@ const SongItem = styled.div`
 
 const SongName = styled.span``;
 const SongDetail = styled.span`
-display: flex;
-flex-direction: column;
-margin-left:10px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 `;
 const SongSinger = styled.span``;
 
@@ -110,7 +111,9 @@ const Footer = styled.div`
 `;
 const PlaylistAdmin = () => {
   const { id } = useParams();
+  const isLoggedInUser = useSelector((state) => state.user.user);
 
+  const isLoggedIn = !!isLoggedInUser._id;
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
@@ -121,7 +124,7 @@ const PlaylistAdmin = () => {
   const [model, setModel] = useState(false);
 
   const dispatch = useDispatch();
-  const [trackIndex, setTrackIndex] = useState(-1)
+  const [trackIndex, setTrackIndex] = useState(-1);
   const handleClick = (id, index) => {
     setTrackIndex(index);
   };
@@ -134,67 +137,77 @@ const PlaylistAdmin = () => {
   }, []);
 
   return (
-      <Total>
-    <Container>
-      <Head>
-        {currentPlaylist && (
-          <Navbar>
-            <Image src={currentPlaylist.image} />
-            <PlaylistInfo>
-              <PlaylistTitle>Playlist</PlaylistTitle>
-              <PlaylistName>{currentPlaylist.name}</PlaylistName>
-            </PlaylistInfo>
-          </Navbar>
-        )}
-      </Head>
-          <Wrapper>
-      <Body>
-        <BodyTitle>#</BodyTitle>
-        <BodyTitle>Tên bài hát</BodyTitle>
-        <BodyTitle>Album</BodyTitle>
-        <BodyTitle>
-          <AccessTimeIcon />
-        </BodyTitle>
-      </Body>
-      <Song>
-        {currentSong &&
-          currentSong.map((song, index) => (
-          //   <Fragment key={song._id}>
-          //   <SongPlaylist
-          //       index={index}
-          //       song={song}
-          //       playlist={currentPlaylist}
-          //       onTrackSelect={onTrackSelect}
-          //   />
-          // </Fragment>
-
-            <SongItem onClick={() => handleClick(song._id, index)}>
-              <SongIndex className="col">{index +1 }</SongIndex>
-              <SongInfo className="col">
-                <SongImage src={song.image} />
-                <SongDetail>
-                <SongName>{song.name}</SongName>
-                <SongSinger>{song.singerName}</SongSinger>
-                </SongDetail>
-              </SongInfo>
-              <SongName className="col">{song.album}</SongName>  
-              <SongTime className="col">{song.duration}</SongTime>
-            </SongItem>
-          ))}
-      </Song>
-      </Wrapper>
-      {/* {model && (
-          <PlaylistModel closeModel={() => setModel(false)} playlist={currentPlaylist} id={id} />
-        )} */}
-    </Container>
-          {
+    <Total>
+      <Container>
+        <Head>
+          {currentPlaylist && (
+            <Navbar>
+              <Image src={currentPlaylist.image} />
+              <PlaylistInfo>
+                <PlaylistTitle>Playlist</PlaylistTitle>
+                <PlaylistName>{currentPlaylist.name}</PlaylistName>
+              </PlaylistInfo>
+            </Navbar>
+          )}
+        </Head>
+        <Wrapper>
+          <Body>
+            <BodyTitle>#</BodyTitle>
+            <BodyTitle>Tên bài hát</BodyTitle>
+            <BodyTitle>Album</BodyTitle>
+            <BodyTitle>
+              <AccessTimeIcon />
+            </BodyTitle>
+          </Body>
+          <Song>
+            {isLoggedIn &&
               currentSong &&
-              <Footer>
-                  <DetailSong song = {currentSong}  trackIndex={trackIndex}/>
-                  <Audios song={currentSong} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
-              </Footer>
-          }
-      </Total>
+              currentSong.map((song, index) => (
+                <SongItem onClick={() => handleClick(song._id, index)}>
+                  <SongIndex className="col">{index + 1}</SongIndex>
+                  <SongInfo className="col">
+                    <SongImage src={song.image} />
+                    <SongDetail>
+                      <SongName>{song.name}</SongName>
+                      <SongSinger>{song.singerName}</SongSinger>
+                    </SongDetail>
+                  </SongInfo>
+                  <SongName className="col">{song.album}</SongName>
+                  <Like track={song} />
+                  <SongTime className="col">{song.duration}</SongTime>
+                </SongItem>
+              ))}
+            {!isLoggedIn &&
+              currentSong &&
+              currentSong.map((song, index) => (
+                <SongItem onClick={() => handleClick(song._id, index)}>
+                  <SongIndex className="col">{index + 1}</SongIndex>
+                  <SongInfo className="col">
+                    <SongImage src={song.image} />
+                    <SongDetail>
+                      <SongName>{song.name}</SongName>
+                      <SongSinger>{song.singerName}</SongSinger>
+                    </SongDetail>
+                  </SongInfo>
+                  <SongName className="col">{song.album}</SongName>
+                  <SongName className="col"></SongName>
+                  <SongTime className="col">{song.duration}</SongTime>
+                </SongItem>
+              ))}
+          </Song>
+        </Wrapper>
+      </Container>
+      {currentSong && (
+        <Footer>
+          <DetailSong song={currentSong} trackIndex={trackIndex} />
+          <Audios
+            song={currentSong}
+            trackIndex={trackIndex}
+            setTrackIndex={setTrackIndex}
+          />
+        </Footer>
+      )}
+    </Total>
   );
 };
 
