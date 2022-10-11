@@ -8,7 +8,7 @@ import {
   getSongToPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
 import DetailSong from "../HomeFooter/DetailSong";
-import Audio from "../HomeFooter/Audio";
+import Audios from "../HomeFooter/Audio";
 import React from "react";
 import SongPlaylist from './../SongInPlaylist/SongPlaylist';
 import PlaylistModel from './../Playlist/PlaylistModel';
@@ -136,7 +136,6 @@ const PlaylistAdmin = () => {
     const handleClick = (id, index) => {
         setTrackIndex(index);
     };
-console.log(trackIndex)
   return (
       <Total>
     <Container>
@@ -195,7 +194,7 @@ console.log(trackIndex)
               currentSong &&
               <Footer>
                   <DetailSong song = {currentSong}  trackIndex={trackIndex}/>
-                  <Audio song={currentSong} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
+                  <Audios song={currentSong} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
               </Footer>
           }
       </Total>

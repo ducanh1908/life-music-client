@@ -17,7 +17,7 @@ const Container = styled.div`
   }
 `;
 
-function Audio({ song, trackIndex, setTrackIndex }) {
+function Audios({ song, trackIndex, setTrackIndex }) {
   let {
     name = "",
     file = "",
@@ -54,4 +54,4 @@ function Audio({ song, trackIndex, setTrackIndex }) {
   );
 }
 
-export default Audio;
+export default Audios;
