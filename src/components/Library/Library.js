@@ -8,7 +8,7 @@ import {getPlaylistAndUser} from "../../redux/playlistSlice/playlistSlice";
 import {NavLink} from "react-router-dom";
 import PlaylistShowLibrary from "../Playlist/playlistShowLibrary";
 import DetailSong from "../HomeFooter/DetailSong";
-import Audio from "../HomeFooter/Audio";
+import Audios from "../HomeFooter/Audio";
 import Footer from "../Footer/Footer";
 const Total = styled.div`
   display: grid;
@@ -119,7 +119,7 @@ const Library = () => {
             {songs &&
                 <Footerdiv>
                     <DetailSong song = {songs}  trackIndex={trackIndex}/>
-                    <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
+                    <Audios song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
                 </Footerdiv>}
 
         </Total>

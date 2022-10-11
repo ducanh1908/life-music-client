@@ -16,7 +16,7 @@ import {
   removeSongFromPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
 import { fetchSong, getSongRandom } from "../../redux/songSlice/songSlice";
-import Audio from "../HomeFooter/Audio";
+import Audios from "../HomeFooter/Audio";
 import DetailSong from "../HomeFooter/DetailSong";
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
 import PlaylistModel from "./PlaylistModel";
@@ -211,8 +211,9 @@ const Playlist = () => {
           const user = unwrapResult(resultAction);
           enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
           navigate("/")
+          setTimeout(window.location.reload(),  5000)
         }
-        setTimeout(window.location.reload(),  5000)
+
       })
 
     } catch (error) {
@@ -303,7 +304,7 @@ const Playlist = () => {
     </Container>
         <Footer>
           <DetailSong song={songs} trackIndex={trackIndex}/>
-          <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex}/>
+          <Audios song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex}/>
         </Footer>
       </Total>
   );

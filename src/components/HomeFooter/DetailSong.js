@@ -20,7 +20,7 @@ const SongDetail = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 20px;
-  margin: 20px;
+  margin-left: 10px;
 `;
 const SongSinger = styled.div`
   color: palevioletred;
