@@ -95,17 +95,29 @@ const Container = styled.div`
 `;
 
 const Like = (props) => {
-  const [islike, setIsLiked] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   let songId = props.track._id;
   let likeId = props.track.like;
 
-  let likeStatus = useSelector((state) => state.song.likeOrNotStatus);
   const dispatch = useDispatch();
   let userId = JSON.parse(localStorage.getItem("user"))._id;
 
+  const CheckLike = (data) => {
+    if(data) {
+      let likedlist = JSON.parse(JSON.stringify(data));
+      let array = [];
+      likedlist && likedlist.forEach(element => {
+          array.push(element._id)
+      });
+      if(array.includes(songId)) return false;
+      return true;
+    }
+  }
+  var islike;
+  islike = CheckLike(props.allLikedSongs);
+
   const toggle = () => {
-    setIsLiked(!islike);
+    islike = !islike;
   }
 
   const handleLikeSong = async () => {
