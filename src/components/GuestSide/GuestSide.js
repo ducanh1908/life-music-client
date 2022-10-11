@@ -236,7 +236,7 @@ const GuestSide = () => {
            {
             isLoggedIn && (
               <>
-               <NavLink className="item-link">
+               <NavLink className="item-link" to={'/liked-song'}>
               <ItemIcon>
                 <FavoriteIcon />
               </ItemIcon>

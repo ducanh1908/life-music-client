@@ -57,6 +57,7 @@ function AddNewFile() {
   const handleClick = (id, index) => {
     setTrackIndex(index);
   };
+  const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
 
