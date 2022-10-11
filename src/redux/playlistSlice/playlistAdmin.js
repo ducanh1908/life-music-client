@@ -15,7 +15,7 @@ export const getAllPlaylist = createAsyncThunk("/playlists", async (payload) => 
 });
 export const getRandomPlaylist = createAsyncThunk("/playlist-random", async (payload) => {
  const data = await playlistApi.getRandomPlaylist(payload);
- return data.playlists;
+ return data;
 });
 
 const playlistAdminSlice = createSlice({

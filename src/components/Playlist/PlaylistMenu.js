@@ -103,12 +103,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
                             </p>
                         </div>
                     )}
-                    {/*<div className={"option"}>*/}
-                    {/*    <p>Go to artist</p>*/}
-                    {/*</div>*/}
-                    {/*<div className={"option"}>*/}
-                    {/*    <p>Share</p>*/}
-                    {/*</div>*/}
+                    
                 </div>
             </ClickAwayListener>
         </Container>

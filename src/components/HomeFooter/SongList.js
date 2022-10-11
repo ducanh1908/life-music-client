@@ -96,7 +96,7 @@ const Wrapper = styled.div`
 `;
 const SongList = ({ song, onTrackSelect }) => {
   const [menu, setMenu] = useState(false);
-  console.log(song)
+
   const dispatch = useDispatch();
 
   const handleClick = (id, index) => {

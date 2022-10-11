@@ -74,9 +74,8 @@ const InforAvatar = styled.div`
   cursor: pointer;
   :hover span {
     bottom: -15%;
-  }
-
-,:: -webkit-file-upload-button {
+  };
+  ::-webkit-file-upload-button {
   cursor: pointer;
 }
 `

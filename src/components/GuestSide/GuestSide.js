@@ -81,7 +81,6 @@ const CreateList = styled.div`
     color: #b3b3b3;
     text-decoration: none;
     display: flex;
-
     align-items: flex-start;
 
     &:hover {
@@ -264,7 +263,7 @@ const GuestSide = () => {
               isLoggedIn && (
                 <NavLink className="item-link" to={"/upload"}>
               <ItemIcon>
-                <DownloadForOfflineOutlinedIcon />
+                <CloudUploadOutlinedIcon />
               </ItemIcon>
               <ItemDesc>Tải lên bài hát</ItemDesc>
             </NavLink>
@@ -283,7 +282,7 @@ const GuestSide = () => {
 
           </MenuItem>
           <MenuItem>
-            <NavLink className="item-link" to={"/song-list"}>
+            <NavLink className='item-link' to={"/song-list"}>
               <ItemIcon>
                 <DownloadForOfflineOutlinedIcon />
               </ItemIcon>

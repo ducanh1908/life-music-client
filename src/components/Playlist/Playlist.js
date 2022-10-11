@@ -1,26 +1,25 @@
-import styled from "styled-components";
-import { useState, useEffect, Fragment } from "react";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import PlaylistModel from "./PlaylistModel";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from "@mui/material/IconButton";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useSnackbar } from "notistack";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchSong, getSongsByPlaylistId} from "../../redux/songSlice/songSlice";
-import { useNavigate, useParams} from "react-router";
+import { useNavigate, useParams } from "react-router";
+import styled from "styled-components";
+import Swal from "sweetalert2";
 import {
   deletePlaylist,
   getPlaylistById,
   getSongToPlaylist,
   removeSongFromPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
-import SongPlaylist from "../SongInPlaylist/SongPlaylist";
-import {unwrapResult} from "@reduxjs/toolkit";
-import {useSnackbar} from "notistack";
-import DetailSong from "../HomeFooter/DetailSong";
+import { fetchSong } from "../../redux/songSlice/songSlice";
 import Audio from "../HomeFooter/Audio";
-import React from "react";
-import Swal from "sweetalert2";
+import DetailSong from "../HomeFooter/DetailSong";
+import SongPlaylist from "../SongInPlaylist/SongPlaylist";
+import PlaylistModel from "./PlaylistModel";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
@@ -208,8 +207,8 @@ const Playlist = () => {
           const user = unwrapResult(resultAction);
           enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
           navigate("/")
-           setTimeout(window.location.reload(),  20000)
         }
+        setTimeout(window.location.reload(),  5000)
       })
 
     } catch (error) {
@@ -226,7 +225,7 @@ const Playlist = () => {
       enqueueSnackbar('Xoá bài hát khỏi playlist thành công', {variant: "success"});
       setTimeout(window.location.reload(),5000)
     } catch (error) {
-      console.log('handleRemoveSong ', error);
+      console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});
     }
 

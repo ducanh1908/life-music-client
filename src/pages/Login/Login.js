@@ -14,6 +14,7 @@ import InputField from "../../components/FormControler/InputField/InputField";
 import PasswordField from "../../components/FormControler/PasswordField/PasswordField";
 import { login } from "../../redux/userSlice/userSlice";
 import CircularProgress from '@mui/material/CircularProgress';
+import { NavLink } from "react-router-dom";
 const Container = styled.div`
 width: 100%;
 height: 100vh;
@@ -35,6 +36,9 @@ max-width: 450px;
 `
 const Topbar = styled.div`
 padding: 40px 0 32px;
+.logo-link {
+  text-decoration: none;
+}
 `
 const Logo = styled.h1`
 color:#333;
@@ -102,9 +106,11 @@ const Login = (props) => {
     <Container>
       <Wrapper>
         <Topbar>
+          <NavLink to={'/'} className='logo-link'>
           <Typography variant="h2" sx={{color: "#333"}}>
           Music Life 
           </Typography>
+          </NavLink>
         <Title>Để tiếp tục, hãy đăng nhập vào Music Life.</Title>
         </Topbar>
       <Form>

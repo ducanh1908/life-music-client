@@ -199,95 +199,95 @@ function AddNewFile() {
     };
 
     const Container = styled.div`
-    background-color: whitesmoke;
-    position: relative;
-    border-radius: 10px;
-    overflow: auto;
-    #songlist {
-      font-family: Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
+      background-color: whitesmoke;
+      position: relative;
+      border-radius: 10px;
+      overflow: auto;
+      #songlist {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
 
-    };
+      };
 
 
-    #songlist tr:hover {background-color: #ddd;}
-    #songlist tr{
-    }
-    #songlist th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      color: black;
-      border-bottom: 1px solid #ccc;
-    }
-  `;
+      #songlist tr:hover {background-color: #ddd;}
+      #songlist tr{
+      }
+      #songlist th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        color: black;
+        border-bottom: 1px solid #ccc;
+      }
+    `;
 
     const Head = styled.div`
-    position: relative;
-    display: flex;
-    height: 150px;
-    padding: 2rem;
-    background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
-  `;
+      position: relative;
+      display: flex;
+      height: 150px;
+      padding: 2rem;
+      background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
+    `;
     const Wrapper = styled.div`
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
-  `
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
+    `
     const Body = styled.div`
-    padding: 1rem 3rem;
-    grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
-    //text-transform: uppercase;
-    color: #3b3b3b;
-    border-bottom: 1px solid #ccc;
-  `;
+      padding: 1rem 3rem;
+      grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
+      //text-transform: uppercase;
+      color: #3b3b3b;
+      border-bottom: 1px solid #ccc;
+    `;
 
     const InforAvatar = styled.div`
-    width: 150px;
-    height: 150px;
-    overflow: hidden;
-    border-radius: 50%;
-    position: relative;
-    margin: 15px auto;
-    border: 1px solid #ddd;
-    cursor: pointer;
-  `;
+      width: 150px;
+      height: 150px;
+      overflow: hidden;
+      border-radius: 50%;
+      position: relative;
+      margin: 15px auto;
+      border: 1px solid #ddd;
+      cursor: pointer;
+    `;
     const InfoImg = styled.img`
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-  `;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    `;
     const Logo = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    padding: 10px;
-  `;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      padding: 10px;
+    `;
 
     const InforSpan = styled.span`
-    position: absolute;
-    bottom: -15%;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    text-align: center;
-    color: orange;
-    transition: 0.3s ease-in-out;
-    background: #fff5;
-  `;
+      position: absolute;
+      bottom: -15%;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      text-align: center;
+      color: orange;
+      transition: 0.3s ease-in-out;
+      background: #fff5;
+    `;
     const Input = styled.input`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    opacity: 0;
-  `;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      opacity: 0;
+    `;
 
     return (
         <Container>

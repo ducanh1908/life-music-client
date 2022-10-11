@@ -12,11 +12,14 @@ import {
   updateSongInfo,
   publicOrPrivate,
 } from "../../redux/songSlice/songSlice";
+
 import { useSnackbar } from "notistack";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+
 import "./uploadfile.css";
 import styled from "styled-components";
 import $ from "jquery";
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -26,26 +29,13 @@ import TextField from "@mui/material/TextField";
 import { getCategories } from "../../redux/cateSlice/cateSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
+
 import {
   addToPlaylist,
   fetchPlaylist,
 } from "../../redux/playlistSlice/playlistSlice";
 import { imageUpload } from "../../components/UploadFile/avatarUpload";
-import Swal from "sweetalert2";
-import DetailSong from "../HomeFooter/DetailSong";
-import Audio from "../HomeFooter/Audio";
-const Total = styled.div`
-  display: grid;
-  grid-template-rows: 75vh 15vh;
-`
-const Footer = styled.div`
-height: 20%;
-  background-color: #333;
-display: grid;
-grid-template-columns: 1fr 2fr;
-`
+
 function AddNewFile() {
   const [fileUpload, setFileUpload] = useState(null);
   const [newSong, setNewSong] = useState({});
@@ -53,19 +43,16 @@ function AddNewFile() {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [avatar, setAvatar] = useState("");
-  const [trackIndex, setTrackIndex] = useState(-1)
-  const handleClick = (id, index) => {
-    setTrackIndex(index);
-  };
-  const {enqueueSnackbar} = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
+
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
 
   let { uploadSongs, status, deleteSongStatus, publicOrPrivateStatus, updateSongStatus } = useSelector(
-    (state) => state.song
+      (state) => state.song
   );
   let { playlists } = useSelector((state) => state.playlist);
-  
+
   let categories = useSelector((state) => state.cate.categories);
 
   const uploadFile = async () => {
@@ -107,23 +94,13 @@ function AddNewFile() {
 
   const deleleSong = (songId) => {
     try {
-      Swal.fire({
-        title: 'Bạn có chắc muốn xoá Bài hát này?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: 'grey',
-        cancelButtonColor: '#d33',
-        confirmButtonText: ' Tôi Chắc chắn',
-        cancelButtonText: 'Tôi nghĩ lại rồi'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          dispatch(deleteSongById(songId));
-          dispatch(changeDeleteSongStatus("idle"));
-          Swal.fire(
-              'Đã Xoá'
-          )
-        }
-      })
+      if (window.confirm("Press a button!") === true) {
+        dispatch(deleteSongById(songId));
+        dispatch(changeDeleteSongStatus("idle"));
+        enqueueSnackbar("Đã xóa bài hát", {
+          variant: "warning",
+        });
+      }
     } catch (err) {
       console.log("deleleSong ", err.message);
     }
@@ -159,10 +136,12 @@ function AddNewFile() {
   };
 
   let updateSong = {};
-  let file;
-  
+  var file;
+
   const handleSubmit = async () => {
     let media;
+    console.log('file image ', file);
+
     if (file) {
       media = await imageUpload([file]);
     }
@@ -174,6 +153,9 @@ function AddNewFile() {
     if(songId){
       updateSong.songId = songId;
     }
+
+    console.log('updateSong ', updateSong)
+
     dispatch(updateSongInfo(updateSong));
     handleClose();
     enqueueSnackbar("Cập nhật thành công", {
@@ -188,9 +170,9 @@ function AddNewFile() {
       let status = select;
       let data = {song, status}
       dispatch(publicOrPrivate(data));
-        enqueueSnackbar("Chuyển trạng thái thành công", {
-          variant: "success",
-        });
+      enqueueSnackbar("Chuyển trạng thái thành công", {
+        variant: "success",
+      });
     } catch (err) {
       console.log("handleSong", err.message);
     }
@@ -323,40 +305,39 @@ function AddNewFile() {
   `;
 
   return (
-      <Total>
-    <Container>
+      <Container>
         <div id="style-1">
           <Head>
-          <div >
-            <Button sx={{borderRadius:'200px'}}
-                    variant="contained"
-                    color="inherit"
-                component="label"
-                onChange={(event) => {
-                  setFileUpload(event.target.files[0]);
-                }}
-            >
-              Chọn tệp
-              <input hidden accept="file/*" multiple type="file" />
-            </Button>
-            {status == "loading" ? (
-                <LoadingButton
-                    loading
-                    loadingPosition="start"
-                    startIcon={<SaveIcon />}
-                    variant="outlined"
-                >
-                  Loading...
-                </LoadingButton>
-            ) : (
-                <Button color="inherit"
-                        sx={{borderRadius:'200px' , width:'100px' }}
-                        variant="contained"
-                        onClick={uploadFile}>
-                  Up tệp
-                </Button>
-            )}
-          </div>
+            <div >
+              <Button sx={{borderRadius:'200px'}}
+                      variant="contained"
+                      color="inherit"
+                      component="label"
+                      onChange={(event) => {
+                        setFileUpload(event.target.files[0]);
+                      }}
+              >
+                Chọn tệp
+                <input hidden accept="file/*" multiple type="file" />
+              </Button>
+              {status == "loading" ? (
+                  <LoadingButton
+                      loading
+                      loadingPosition="start"
+                      startIcon={<SaveIcon />}
+                      variant="outlined"
+                  >
+                    Loading...
+                  </LoadingButton>
+              ) : (
+                  <Button color="inherit"
+                          sx={{borderRadius:'200px' , width:'100px' }}
+                          variant="contained"
+                          onClick={uploadFile}>
+                    Up tệp
+                  </Button>
+              )}
+            </div>
             <div style={{marginLeft: "20px"}}>
               <h1>Tải bài hát lên</h1>
             </div>
@@ -387,9 +368,9 @@ function AddNewFile() {
                               {song.status == 1 ? (
                                   <>
                                     <select style={{height:"30px" , width:"90px" }}
-                                        onChange={(e) => {
-                                          handleSongStatus(e, song);
-                                        }}
+                                            onChange={(e) => {
+                                              handleSongStatus(e, song);
+                                            }}
                                     >
                                       <option value={1}>Riêng tư</option>
                                       <option value={2}>Công khai</option>
@@ -413,7 +394,7 @@ function AddNewFile() {
                           <td>{song.duration}</td>
                           <td>
                             <select style={{height:"30px" , width:"90px"}}
-                                onChange={(e) => handleSong(e)}>
+                                    onChange={(e) => handleSong(e)}>
                               <option value={""}>-- Chọn --</option>
                               <option value={`1,${song._id}`}>
                                 Thêm bài hát vào playlist{" "}
@@ -430,104 +411,105 @@ function AddNewFile() {
                     ))}
                 </tbody>
 
-                  <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                  >
-                    <form>
-                      <Box sx={style}>
-                        <Typography
-                            id="modal-modal-title"
-                            variant="h6"
-                            component="h2"
-                        >
-                          Chỉnh sửa bài hát
-                        </Typography>
-                        <TextField
-                            label="Tên bài hát"
-                            placeholder={`${editSong.name}`}
-                            name="name"
-                            onChange={(e) => {
-                              updateSong.name = e.target.value;
-                            }}
-                        />
-                        <TextField
-                            label="Ca sĩ"
-                            name="singerName"
-                            placeholder={`${editSong.singerName}`}
-                            onChange={(e) => {
-                              updateSong.singerName = e.target.value;
-                            }}
-                        />
-                        <Logo>
-                          <InforAvatar>
-                            <InfoImg
-                                src={
-                                  avatar ? URL.createObjectURL(avatar) : editSong.image
-                                }
-                                style={{ filter: "invert(0)" }}
-                                alt="avatar"
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                  <form>
+                    <Box sx={style}>
+                      <Typography
+                          id="modal-modal-title"
+                          variant="h6"
+                          component="h2"
+                      >
+                        Chỉnh sửa bài hát
+                      </Typography>
+                      <TextField
+                          label="Tên bài hát"
+                          placeholder={`${editSong.name}`}
+                          name="name"
+                          onChange={(e) => {
+                            updateSong.name = e.target.value;
+                          }}
+                      />
+                      <TextField
+                          label="Ca sĩ"
+                          name="singerName"
+                          placeholder={`${editSong.singerName}`}
+                          onChange={(e) => {
+                            updateSong.singerName = e.target.value;
+                          }}
+                      />
+                      <Logo>
+                        <InforAvatar>
+                          <InfoImg
+                              src={
+                                avatar ? URL.createObjectURL(avatar) : editSong.image
+                              }
+                              style={{ filter: "invert(0)" }}
+                              alt="avatar"
+                          />
+                          <InforSpan>
+                            <i>
+                              <CameraAltIcon />
+                            </i>
+                            <p>Thay ảnh</p>
+                            <Input
+                                type="file"
+                                name="file"
+                                id="file_up"
+                                accept="image/*"
+                                onChange={(e) => {
+                                  file = e.target.files[0];
+                                  setAvatar(file);
+                                  console.log('aofjaoiwfjaiwf - file', file);
+                                }}
                             />
-                            <InforSpan>
-                              <i>
-                                <CameraAltIcon />
-                              </i>
-                              <p>Thay ảnh</p>
-                              <Input
-                                  type="file"
-                                  name="file"
-                                  id="file_up"
-                                  accept="image/*"
-                                  onChange={(e) => {
-                                    file = e.target.files[0]
-                                    setAvatar(file)
-                                  }}
-                              />
-                            </InforSpan>
-                          </InforAvatar>
-                        </Logo>
+                          </InforSpan>
+                        </InforAvatar>
+                      </Logo>
 
-                        <select style={{width: "100px", height: "35px"}}
-                            select
-                            label="Thể loại"
-                            name="cate"
-                            onChange={(e) => {
-                              updateSong.cate = e.target.value;
-                            }}
-                        >
-                          {categories &&
-                              categories.map((cate) => {
-                                return (
-                                    <option
-                                        key={cate._id}
-                                        name="cate"
-                                        value={`${cate._id}`}
-                                    >
-                                      {cate.name}
-                                    </option>
-                                );
-                              })}
-                        </select>
-                        <Button color="inherit"
-                                sx={{borderRadius:'200px' , width:'100px' }}
-                            variant="contained"
-                            onClick={() => {
-                              setOpen(false);
-                            }}
-                        >
-                          Đóng
-                        </Button>
-                        <Button color="inherit"
-                                sx={{borderRadius:'200px' , width:'100px' }}
-                            variant="contained"
-                            onClick={handleSubmit}>
-                          Lưu
-                        </Button>
-                      </Box>
-                    </form>
-                  </Modal>
+                      <select style={{width: "100px", height: "35px"}}
+                              select
+                              label="Thể loại"
+                              name="cate"
+                              onChange={(e) => {
+                                updateSong.cate = e.target.value;
+                              }}
+                      >
+                        {categories &&
+                            categories.map((cate) => {
+                              return (
+                                  <option
+                                      key={cate._id}
+                                      name="cate"
+                                      value={`${cate._id}`}
+                                  >
+                                    {cate.name}
+                                  </option>
+                              );
+                            })}
+                      </select>
+                      <Button color="inherit"
+                              sx={{borderRadius:'200px' , width:'100px' }}
+                              variant="contained"
+                              onClick={() => {
+                                setOpen(false);
+                              }}
+                      >
+                        Đóng
+                      </Button>
+                      <Button color="inherit"
+                              sx={{borderRadius:'200px' , width:'100px' }}
+                              variant="contained"
+                              onClick={handleSubmit}>
+                        Lưu
+                      </Button>
+                    </Box>
+                  </form>
+                </Modal>
 
               </table>
               <div className="force-overflow"></div>
@@ -535,15 +517,8 @@ function AddNewFile() {
 
           </Wrapper>
         </div>
-    </Container>
-        {
-            uploadSongs.songs &&
-            <Footer>
-              <DetailSong song = {uploadSongs.songs}  trackIndex={trackIndex}/>
-              <Audio song={uploadSongs.songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
-            </Footer>
-        }
-      </Total>
+
+      </Container>
   );
 }
 
