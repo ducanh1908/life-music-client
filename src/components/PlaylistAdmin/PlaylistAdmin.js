@@ -1,8 +1,7 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-
 import { useParams } from "react-router";
 import {
   getPlaylistById,
@@ -11,6 +10,8 @@ import {
 import DetailSong from "../HomeFooter/DetailSong";
 import Audio from "../HomeFooter/Audio";
 import React from "react";
+import SongPlaylist from './../SongInPlaylist/SongPlaylist';
+import PlaylistModel from './../Playlist/PlaylistModel';
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
@@ -106,14 +107,12 @@ height: 100%;
 background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
 `
 const Footer = styled.div`
-height: 20%;
-  background-color: #333;
+background-color: black;
 display: grid;
 grid-template-columns: 1fr 2fr;
 `
 const PlaylistAdmin = () => {
   const { id } = useParams();
-  const [list, setPlaylist] = useState({});
 
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
@@ -134,10 +133,10 @@ const PlaylistAdmin = () => {
     dispatch(getSongToPlaylist(id));
   }, []);
     const [trackIndex, setTrackIndex] = useState(-1)
-    const handleClick = (id, index) => {
+    const onTrackSelect = (id, index) => {
         setTrackIndex(index);
     };
-
+console.log(trackIndex)
   return (
       <Total>
     <Container>
@@ -164,26 +163,38 @@ const PlaylistAdmin = () => {
       <Song>
         {currentSong &&
           currentSong.map((song, index) => (
-            <SongItem onClick={() => handleClick(song._id, index)}>
-              <SongIndex className="col">{index +1 }</SongIndex>
-              <SongInfo className="col">
-              <SongImage src={song.image} />
-              <SongDetail>
-              <SongName>{song.name}</SongName>
-              <SongSinger>{song.singer} ducanh</SongSinger>
-              </SongDetail>
-              </SongInfo>
-              <SongName className="col">{song.album}</SongName>  
-              <SongTime className="col">{song.duration}</SongTime>
-            </SongItem>
+            <Fragment key={song._id}>
+            <SongPlaylist
+                index={index}
+                song={song}
+                playlist={currentPlaylist}
+                onTrackSelect={onTrackSelect}
+            />
+          </Fragment>
+
+            // <SongItem onClick={() => handleClick(song._id, index)}>
+            //   <SongIndex className="col">{index +1 }</SongIndex>
+            //   <SongInfo className="col">
+            //     <SongImage src={song.image} />
+            //     <SongDetail>
+            //     <SongName>{song.name}</SongName>
+            //     <SongSinger>{song.singerName}</SongSinger>
+            //     </SongDetail>
+            //   </SongInfo>
+            //   <SongName className="col">{song.album}</SongName>  
+            //   <SongTime className="col">{song.duration}</SongTime>
+            // </SongItem>
           ))}
       </Song>
       </Wrapper>
+      {model && (
+          <PlaylistModel closeModel={() => setModel(false)} playlist={currentPlaylist} id={id} />
+        )}
     </Container>
           {
               currentSong &&
               <Footer>
-                  <DetailSong song = {currentSong }  trackIndex={trackIndex}/>
+                  <DetailSong song = {currentSong}  trackIndex={trackIndex}/>
                   <Audio song={currentSong} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
               </Footer>
           }
