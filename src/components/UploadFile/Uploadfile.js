@@ -368,9 +368,9 @@ function AddNewFile() {
                 <tbody id="tbody">
                 {uploadSongs.songs &&
                     uploadSongs.songs.map((song, index) => (
-                        <tr key={index} >
+                        <tr key={index} onClick={() => handleClick(song._id, index)}>
                           <td>
-                            <img width={50} src={song.image} alt="" onClick={() => handleClick(song._id, index)}/>
+                            <img width={50} src={song.image} alt="" />
                           </td>
                           <td>{song.name}</td>
                           <td></td>

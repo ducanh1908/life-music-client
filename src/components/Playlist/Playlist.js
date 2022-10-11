@@ -175,9 +175,7 @@ const Playlist = () => {
   const currentSong = useSelector(
       (state) => state.currentPlaylist.playlistAdmin
   );
-  console.log(currentSong)
   const [model, setModel] = useState(false);
-  const [playAudio,setPlayAudio]=useState(true)
   const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -210,8 +208,8 @@ const Playlist = () => {
           const user = unwrapResult(resultAction);
           enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
           navigate("/")
+          // setTimeout(window.location.reload(),  5000)
         }
-        setTimeout(window.location.reload(),  5000)
       })
 
     } catch (error) {
@@ -275,22 +273,21 @@ const Playlist = () => {
 
           </div>
           {currentSong
-             ? currentSong.map((song) => (
+             && currentSong.map((song) => (
               <Fragment key={song._id} >
                 <SongPlaylist
                     song={song}
                     currentPlaylist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
-                    // onTrackSelect={onTrackSelect}
+                    onTrackSelect={onTrackSelect}
                 />
               </Fragment>
           ))
-          :<h1 style={{ paddingTop:30, fontSize:30}}>Chưa có bài hát</h1>
           }
           <hr/>
           <h3 style={{ paddingTop:30, fontSize:30}}>Bài Hát Đề Xuất</h3>
           {songs.map((song,index) => (
-              <Fragment key={song._id}>
+              <Fragment key={song._id} >
                 <SongPlaylist
                     index={index}
                     song={song}
@@ -306,10 +303,11 @@ const Playlist = () => {
         )}
       </Fragment>
     </Container>
-        <Footer>
-          <DetailSong song={songs} trackIndex={trackIndex}/>
-          <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex}/>
-        </Footer>
+            <Footer>
+              <DetailSong song={songs} trackIndex={trackIndex}/>
+              <Audio song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex}/>
+            </Footer>
+
       </Total>
   );
 };
