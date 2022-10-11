@@ -43,6 +43,7 @@ function AddNewFile() {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [avatar, setAvatar] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -96,6 +97,9 @@ function AddNewFile() {
       if (window.confirm("Press a button!") === true) {
         dispatch(deleteSongById(songId));
         dispatch(changeDeleteSongStatus("idle"));
+        enqueueSnackbar("Đã xóa bài hát", {
+          variant: "warning",
+        });
       }
     } catch (err) {
       console.log("deleleSong ", err.message);
@@ -132,10 +136,12 @@ function AddNewFile() {
   };
 
   let updateSong = {};
-  let file;
+  var file;
   
   const handleSubmit = async () => {
     let media;
+    console.log('file image ', file);
+
     if (file) {
       media = await imageUpload([file]);
     }
@@ -147,8 +153,14 @@ function AddNewFile() {
     if(songId){
       updateSong.songId = songId;
     }
+
+    console.log('updateSong ', updateSong)
+
     dispatch(updateSongInfo(updateSong));
     handleClose();
+    enqueueSnackbar("Cập nhật thành công", {
+      variant: "success",
+    });
   };
 
 
@@ -158,6 +170,9 @@ function AddNewFile() {
       let status = select;
       let data = {song, status}
       dispatch(publicOrPrivate(data));
+        enqueueSnackbar("Chuyển trạng thái thành công", {
+          variant: "success",
+        });
     } catch (err) {
       console.log("handleSong", err.message);
     }
@@ -447,8 +462,9 @@ function AddNewFile() {
                                   id="file_up"
                                   accept="image/*"
                                   onChange={(e) => {
-                                    file = e.target.files[0]
-                                    setAvatar(file)
+                                    file = e.target.files[0];
+                                    setAvatar(file);
+                                    console.log('aofjaoiwfjaiwf - file', file);
                                   }}
                               />
                             </InforSpan>
