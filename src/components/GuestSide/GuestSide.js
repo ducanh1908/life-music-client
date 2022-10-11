@@ -19,7 +19,10 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
 import InputField from "../../components/FormControler/InputField/InputField";
-import {getPlaylistAndUser,createPlaylist} from "../../redux/playlistSlice/playlistSlice";
+import {
+  createPlaylist,
+  getPlaylistAndUser,
+} from "./../../redux/playlistSlice/playlistSlice";
 
 const Container = styled.div`
   height: 100%;
@@ -44,6 +47,7 @@ const Menu = styled.div`
   flex-direction: column;
   color: #b3b3b3;
   align-items: flex-start;
+  
 `;
 const MenuItem = styled.div`
   .item-link {
@@ -77,7 +81,6 @@ const CreateList = styled.div`
     color: #b3b3b3;
     text-decoration: none;
     display: flex;
-
     align-items: flex-start;
 
     &:hover {
@@ -133,7 +136,6 @@ const schema = yup
       .max(25, "Tên Playlist quá 25 ký tự "),
   })
   .required();
-
 const GuestSide = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -184,7 +186,7 @@ const GuestSide = () => {
   };
   const handleClick = () => {
     if (isLoggedIn) {
-      
+
     } else {
       enqueueSnackbar("Vui lòng đăng nhập tài khoản", { variant: "error" });
     }
@@ -201,6 +203,7 @@ const GuestSide = () => {
                 <>
                 <NavLink className="item-link" to={"/library"}>
               <ItemIcon>
+                {" "}
                 <LibraryMusicIcon />
               </ItemIcon>
               <ItemDesc>Thư viện</ItemDesc>
@@ -216,8 +219,8 @@ const GuestSide = () => {
               <ItemDesc>Thư viện</ItemDesc>
             </MenuUser>
            )}
-             
-           
+
+
           </MenuItem>
           <MenuItem>
             <NavLink className="item-link" onClick={handleOpen}>
@@ -232,7 +235,7 @@ const GuestSide = () => {
            {
             isLoggedIn && (
               <>
-               <NavLink className="item-link" to={"/liked-song"}> 
+               <NavLink className="item-link" to={'/liked-song'}>
               <ItemIcon>
                 <FavoriteIcon />
               </ItemIcon>
@@ -276,12 +279,10 @@ const GuestSide = () => {
             </MenuUser>
               )
              }
-            
+
           </MenuItem>
           <MenuItem>
-
-
-            <NavLink className="item-link" to={"/song-list"}>
+            <NavLink className='item-link' to={"/song-list"}>
               <ItemIcon>
                 <DownloadForOfflineOutlinedIcon />
               </ItemIcon>
@@ -313,7 +314,6 @@ const GuestSide = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Tạo Playlist
           </Typography>
-
           <form onSubmit={form.handleSubmit(handleSubmit)}>
             {isSubmitting && (
               <LinearProgress

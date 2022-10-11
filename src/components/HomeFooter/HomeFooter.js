@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { fetchSong } from "./../../redux/songSlice/songSlice";
 import Audio from "./Audio";
 import DetailSong from "./DetailSong";
 import SongList from "./SongList";
+import { fetchSong } from './../../redux/songSlice/songSlice';
 
 const Container = styled.div`
   display: grid;

@@ -54,7 +54,12 @@ align-items: center;
 `
 const FormInput = styled.div`
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 `
+
 
 const Bottom = styled.div`
 margin-top: 20px;

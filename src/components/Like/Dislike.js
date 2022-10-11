@@ -1,11 +1,11 @@
-import { useState, Fragment, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { likeSong } from "../../redux/userSlice/apiCalls";
-import { IconButton, CircularProgress } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useState, Fragment } from "react";
+import { useDispatch } from "react-redux";
+import { IconButton } from "@mui/material";
 import styled from "styled-components";
-import { getAllLikedSongs, likeOrNot } from "../../redux/songSlice/songSlice";
+import { likeOrNot } from "../../redux/songSlice/songSlice";
 import { useSnackbar } from "notistack";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
 
 const Container = styled.div`
   .like_btn {
@@ -53,7 +53,7 @@ const Dislike = (props) => {
     <Container>
       <IconButton className={"like_btn"} onClick={() => handleDisLikeSong()}>
         <Fragment>
-          <FavoriteBorderIcon className={"like_outlined"} />
+         <FavoriteIcon className={"like_filled"} />
         </Fragment>
       </IconButton>
     </Container>

@@ -168,7 +168,6 @@ const Playlist = () => {
   const { id } = useParams();
   const navigate=useNavigate();
   const songs = useSelector((state) => state.song.songs);
-  console.log('songs ', songs)
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
@@ -176,7 +175,6 @@ const Playlist = () => {
       (state) => state.currentPlaylist.playlistAdmin
   );
   const [model, setModel] = useState(false);
-  const [playAudio,setPlayAudio]=useState(true)
   const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -214,7 +212,7 @@ const Playlist = () => {
       })
 
     } catch (error) {
-      console.log('handleDeletePlaylist ', error);
+      console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});
     }
   };
@@ -227,7 +225,7 @@ const Playlist = () => {
       enqueueSnackbar('Xoá bài hát khỏi playlist thành công', {variant: "success"});
       setTimeout(window.location.reload(),5000)
     } catch (error) {
-      console.log('handleRemoveSong ', error);
+      console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});
     }
 
@@ -270,11 +268,7 @@ const Playlist = () => {
               <AccessTimeIcon />
             </div>
           </div>
-          <div>
-
-          </div>
-          {currentSong
-             ? currentSong.map((song) => (
+          {currentSong && currentSong.map((song) => (
               <Fragment key={song._id} >
                 <SongPlaylist
                     song={song}
@@ -283,9 +277,7 @@ const Playlist = () => {
                     // onTrackSelect={onTrackSelect}
                 />
               </Fragment>
-          ))
-          :<h1 style={{ paddingTop:30, fontSize:30}}>Chưa có bài hát</h1>
-          }
+          ))}
           <hr/>
           <h3 style={{ paddingTop:30, fontSize:30}}>Bài Hát Đề Xuất</h3>
           {songs.map((song,index) => (

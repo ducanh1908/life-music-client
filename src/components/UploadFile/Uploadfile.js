@@ -49,10 +49,10 @@ function AddNewFile() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   let { uploadSongs, status, deleteSongStatus, publicOrPrivateStatus, updateSongStatus } = useSelector(
-    (state) => state.song
+      (state) => state.song
   );
   let { playlists } = useSelector((state) => state.playlist);
-  
+
   let categories = useSelector((state) => state.cate.categories);
 
   const uploadFile = async () => {
@@ -308,36 +308,36 @@ function AddNewFile() {
     <Container>
         <div id="style-1">
           <Head>
-          <div >
-            <Button sx={{borderRadius:'200px'}}
-                    variant="contained"
-                    color="inherit"
-                component="label"
-                onChange={(event) => {
-                  setFileUpload(event.target.files[0]);
-                }}
-            >
-              Chọn tệp
-              <input hidden accept="file/*" multiple type="file" />
-            </Button>
-            {status == "loading" ? (
-                <LoadingButton
-                    loading
-                    loadingPosition="start"
-                    startIcon={<SaveIcon />}
-                    variant="outlined"
-                >
-                  Loading...
-                </LoadingButton>
-            ) : (
-                <Button color="inherit"
-                        sx={{borderRadius:'200px' , width:'100px' }}
-                        variant="contained"
-                        onClick={uploadFile}>
-                  Up tệp
-                </Button>
-            )}
-          </div>
+            <div >
+              <Button sx={{borderRadius:'200px'}}
+                      variant="contained"
+                      color="inherit"
+                      component="label"
+                      onChange={(event) => {
+                        setFileUpload(event.target.files[0]);
+                      }}
+              >
+                Chọn tệp
+                <input hidden accept="file/*" multiple type="file" />
+              </Button>
+              {status == "loading" ? (
+                  <LoadingButton
+                      loading
+                      loadingPosition="start"
+                      startIcon={<SaveIcon />}
+                      variant="outlined"
+                  >
+                    Loading...
+                  </LoadingButton>
+              ) : (
+                  <Button color="inherit"
+                          sx={{borderRadius:'200px' , width:'100px' }}
+                          variant="contained"
+                          onClick={uploadFile}>
+                    Up tệp
+                  </Button>
+              )}
+            </div>
             <div style={{marginLeft: "20px"}}>
               <h1>Tải bài hát lên</h1>
             </div>
@@ -368,9 +368,9 @@ function AddNewFile() {
                               {song.status == 1 ? (
                                   <>
                                     <select style={{height:"30px" , width:"90px" }}
-                                        onChange={(e) => {
-                                          handleSongStatus(e, song);
-                                        }}
+                                            onChange={(e) => {
+                                              handleSongStatus(e, song);
+                                            }}
                                     >
                                       <option value={1}>Riêng tư</option>
                                       <option value={2}>Công khai</option>
@@ -394,7 +394,7 @@ function AddNewFile() {
                           <td>{song.duration}</td>
                           <td>
                             <select style={{height:"30px" , width:"90px"}}
-                                onChange={(e) => handleSong(e)}>
+                                    onChange={(e) => handleSong(e)}>
                               <option value={""}>-- Chọn --</option>
                               <option value={`1,${song._id}`}>
                                 Thêm bài hát vào playlist{" "}
@@ -471,46 +471,46 @@ function AddNewFile() {
                           </InforAvatar>
                         </Logo>
 
-                        <select style={{width: "100px", height: "35px"}}
-                            select
-                            label="Thể loại"
-                            name="cate"
-                            onChange={(e) => {
-                              updateSong.cate = e.target.value;
-                            }}
-                        >
-                          {categories &&
-                              categories.map((cate) => {
-                                return (
-                                    <option
-                                        key={cate._id}
-                                        name="cate"
-                                        value={`${cate._id}`}
-                                    >
-                                      {cate.name}
-                                    </option>
-                                );
-                              })}
-                        </select>
-                        <Button color="inherit"
-                                sx={{borderRadius:'200px' , width:'100px' }}
-                            variant="contained"
-                            onClick={() => {
-                              setOpen(false);
-                            }}
-                        >
-                          Đóng
-                        </Button>
-                        <Button color="inherit"
-                                sx={{borderRadius:'200px' , width:'100px' }}
-                            variant="contained"
-                            onClick={handleSubmit}>
-                          Lưu
-                        </Button>
-                      </Box>
-                    </form>
-                  </Modal>
-               
+                      <select style={{width: "100px", height: "35px"}}
+                              select
+                              label="Thể loại"
+                              name="cate"
+                              onChange={(e) => {
+                                updateSong.cate = e.target.value;
+                              }}
+                      >
+                        {categories &&
+                            categories.map((cate) => {
+                              return (
+                                  <option
+                                      key={cate._id}
+                                      name="cate"
+                                      value={`${cate._id}`}
+                                  >
+                                    {cate.name}
+                                  </option>
+                              );
+                            })}
+                      </select>
+                      <Button color="inherit"
+                              sx={{borderRadius:'200px' , width:'100px' }}
+                              variant="contained"
+                              onClick={() => {
+                                setOpen(false);
+                              }}
+                      >
+                        Đóng
+                      </Button>
+                      <Button color="inherit"
+                              sx={{borderRadius:'200px' , width:'100px' }}
+                              variant="contained"
+                              onClick={handleSubmit}>
+                        Lưu
+                      </Button>
+                    </Box>
+                  </form>
+                </Modal>
+
               </table>
               <div className="force-overflow"></div>
             </Body>
