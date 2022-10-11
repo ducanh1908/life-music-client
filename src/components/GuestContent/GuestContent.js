@@ -20,8 +20,14 @@ import Button from "@mui/material/Button";
 import { InstallDesktopSharp } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import { getSongRandom } from "./../../redux/songSlice/songSlice";
-import Footer from './../Footer/Footer';
+import {useState} from "react";
+import DetailSong from "../HomeFooter/DetailSong";
+import Audios from "../HomeFooter/Audio";
 
+const Total = styled.div`
+  display: grid;
+  grid-template-rows: 75vh 15vh;
+`;
 const Container = styled.div`
   height: 100%;
   width: 100%;
@@ -42,7 +48,11 @@ const Container = styled.div`
     rgba(255, 255, 255, 0.1)
   );
 `;
-
+const Footer = styled.div`
+  background-color: black;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+`;
 const Wrapper = styled.div``;
 
 const Top = styled.div``;
@@ -191,7 +201,10 @@ const GuestContent = () => {
   const songRandom = useSelector((state) => state.song.songRandom)
   console.log(songRandom);
   const dispatch = useDispatch();
-
+  const [trackIndex, setTrackIndex] = useState(-1)
+  const handleClickSong = (id, index) => {
+    setTrackIndex(index);
+  };
   useEffect(() => {
     dispatch(getAllPlaylist());
   }, [id]);
@@ -208,17 +221,18 @@ const GuestContent = () => {
     console.log(id);
   };
   return (
+      <Total>
     <Container>
       <Wrapper>
         <Header>
           <Slider />
         </Header>
         <Top>
-          <TopTitle>Mới phát hành</TopTitle>
+          <TopTitle>Có thể bạn muốn nghe</TopTitle>
           <NewSong>
           {
             songRandom && songRandom.map((song, index) => (
-              <SongItem key={song._id}>
+              <SongItem key={song._id} onClick={() => handleClickSong(song._id, index)}>
               <SongImg src={song.image} />
               <SongInfo>
                 <SongName>N{song.name}</SongName>
@@ -288,11 +302,16 @@ const GuestContent = () => {
               ))}
           </Playlist>
         </Categories>
-
-        {/* <Footer /> */}
       </Wrapper>
-      
     </Container>
+        {
+          songRandom &&
+            <Footer>
+              <DetailSong song = {songRandom}  trackIndex={trackIndex}/>
+              <Audios song={songRandom} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
+            </Footer>
+        }
+      </Total>
   );
 };
 
