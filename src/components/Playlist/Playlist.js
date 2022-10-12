@@ -277,6 +277,7 @@ const Playlist = () => {
           {currentSong && currentSong.map((song) => (
               <Fragment key={song._id} >
                 <SongPlaylist
+                    allLikedSongs={allLikedSongs}
                     song={song}
                     currentPlaylist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
