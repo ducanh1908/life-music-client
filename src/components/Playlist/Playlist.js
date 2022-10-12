@@ -15,10 +15,8 @@ import {
   getSongToPlaylist,
   removeSongFromPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
-
-
-import { fetchSong, getAllLikedSongs, getSongRandom } from "../../redux/songSlice/songSlice";
-
+import { getPlaylistAndUser } from "../../redux/playlistSlice/playlistSlice";
+import { fetchSong, getAllLikedSongs, getSongRandom, getSongsByPlaylistId } from "../../redux/songSlice/songSlice";
 import Audios from "../HomeFooter/Audio";
 import DetailSong from "../HomeFooter/DetailSong";
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
@@ -212,12 +210,11 @@ const Playlist = () => {
         cancelButtonText: 'Tôi nghĩ lại rồi'
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const action = await deletePlaylist(currentPlaylist._id,navigate)
-          const resultAction = await dispatch(action);
-          const user = unwrapResult(resultAction);
+        dispatch(deletePlaylist(currentPlaylist._id,navigate)).then(() => {
+          dispatch(getPlaylistAndUser(user._id))
+        })
           enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
-          navigate("/")
-          setTimeout(window.location.reload(),  5000)
+          navigate('/')
         }
 
       })
@@ -230,11 +227,11 @@ const Playlist = () => {
   const handleRemoveSong = async (songId) => {
     const payload = { playlistId: currentPlaylist._id, songId };
     try {
-      const action = await removeSongFromPlaylist({payload})
-      const resultAction = await dispatch(action);
-      const user = unwrapResult(resultAction);
+      dispatch(removeSongFromPlaylist({payload})).then(() => {
+        dispatch(getSongToPlaylist(id))
+      });
       enqueueSnackbar('Xoá bài hát khỏi playlist thành công', {variant: "success"});
-      setTimeout(window.location.reload(),5000)
+      // setTimeout(window.location.reload(),5000)
     } catch (error) {
       console.log(error);
       enqueueSnackbar(error.message, {variant: "error"});
