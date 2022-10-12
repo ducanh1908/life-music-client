@@ -180,7 +180,6 @@ const Playlist = () => {
   const dispatch = useDispatch();
   let user = JSON.parse(localStorage.getItem('user'));
   let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs)
-  // let likeStatus = useSelector((state) => state.song.getAllLikedSongsStatus);
   
   useEffect(() => {
     dispatch(getPlaylistById(id));
@@ -195,6 +194,7 @@ const Playlist = () => {
   useEffect(() => {
     dispatch(getSongRandom())
    },[])
+ 
   const [trackIndex, setTrackIndex] = useState(-1)
   const onTrackSelect = (index)=> {
     setTrackIndex(index)

@@ -400,8 +400,8 @@ function AddNewFile() {
                                                                         handleSongStatus(e, song);
                                                                     }}
                                                             >
-                                                                <option value={1}>Riêng tư</option>
                                                                 <option value={2}>Công khai</option>
+                                                                <option value={1}>Riêng tư</option>
                                                             </select>
                                                         </>
                                                     ) : (
@@ -411,8 +411,9 @@ function AddNewFile() {
                                                                     handleSongStatus(e, song);
                                                                 }}
                                                             >
-                                                                <option value={2}>Công khai</option>
                                                                 <option value={1}>Riêng tư</option>
+                                                                <option value={2}>Công khai</option>
+                                                                
                                                             </select>
                                                         </>
                                                     )}
