@@ -87,10 +87,10 @@ const Body = styled.div`
     display: grid;
     justify-content: space-between;
     padding: 0.5rem 0;
-    color: var(--light-white);
+    /* color: var(--light-white); */
     font-size: 1.2rem;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--light-white);
+    border-bottom: 1px solid #fff;
     margin-bottom: 1rem;
     grid-template-columns: 1fr 1fr 1fr;
 

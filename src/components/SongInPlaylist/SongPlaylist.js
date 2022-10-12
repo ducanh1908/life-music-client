@@ -43,7 +43,7 @@ const Container = styled.div`
     }
 
     p {
-      font-size: 1.4rem;
+      font-size: 20px;
       font-weight: 500;
       margin-left: 1rem;
       -webkit-line-clamp: 1;

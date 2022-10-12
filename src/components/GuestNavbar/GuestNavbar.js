@@ -58,8 +58,10 @@ const HomeForm = styled.div`
     background-color: aqua;
   }
   .nav-search {
+    text-decoration: none;
     display: flex;
     align-items: center;
+    width: 100%;
   }
 `;
 const SearchButton = styled.button`
@@ -79,8 +81,9 @@ const Input = styled.input`
   height: 100%;
   padding: 0 10px;
   border: 0;
-  flex: 1;
+  flex: 2;
   outline: none;
+  text-decoration: none;
   background: transparent;
   color: #fff;
 `;
