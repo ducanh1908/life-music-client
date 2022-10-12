@@ -3,27 +3,24 @@ import styled from "styled-components";
 import { Fragment} from "react";
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
-import {fetchSong} from "../../redux/songSlice/songSlice";
+import {fetchSong, getSongRandom} from "../../redux/songSlice/songSlice";
 import {getPlaylistAndUser} from "../../redux/playlistSlice/playlistSlice";
 import {NavLink} from "react-router-dom";
 import PlaylistShowLibrary from "../Playlist/playlistShowLibrary";
 import DetailSong from "../HomeFooter/DetailSong";
 import Audios from "../HomeFooter/Audio";
-import Footer from "../Footer/Footer";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
 `
 const Container=styled.div`
-  //padding: 2rem 0;
-  //display: flex;
-  //flex-direction: column;
-  //position: relative;
-  //min-height: 80vh;
+  //background: linear-gradient(
+  //        rgba(255, 255, 255, 0.1),
+  //        rgba(255, 255, 255, 0.1)
+  //);
   background-color: grey;
   overflow: auto;
   
-
   .results_container {
     margin: 2rem;
     display: grid;
@@ -49,7 +46,7 @@ const SongItem = styled.div`
    background-color: #7a7a7a; 
   padding: 0 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
 `;
 const SongImage = styled.img`
@@ -58,6 +55,7 @@ const SongImage = styled.img`
 `;
 const SongName = styled.p`
   color:#fff;
+  margin-left: 20px;
   `
 const SongSinger = styled.span`
 
@@ -70,7 +68,7 @@ grid-template-columns: 1fr 2fr;
 
 const Library = () => {
     const dispatch = useDispatch()
-    const songs = useSelector((state) => state.song.songs);
+    const songRandom = useSelector((state) => state.song.songRandom)
     const isLoggedInUser = useSelector(state => state.user.user )
     const isLoggedIn = !!isLoggedInUser._id;
     const user = useSelector(state=> state.user.user);
@@ -83,14 +81,14 @@ const Library = () => {
         dispatch(getPlaylistAndUser(user._id))
     },[user._id])
     useEffect(() => {
-        dispatch(fetchSong())
-    },[])
+        dispatch(getSongRandom());
+    }, []);
     return (
         <Total>
             <Container>
                 <div className={"results_container"}>
                     <div className={"songs_container"}>
-                        {songs && songs.map((song,index)=>(
+                        {songRandom && songRandom.map((song,index)=>(
                             <Fragment key={song._id}>
                                 <SongItem onClick={() => handleClick(song._id, index)}>
                                     <SongImage src={song.image}></SongImage>
@@ -103,8 +101,6 @@ const Library = () => {
                     </div>
 
                     <div className={"playlists_container"}>
-                     
-
                         {
                             playlists &&(
                                 isLoggedIn &&
@@ -116,10 +112,10 @@ const Library = () => {
                     </div>
                 </div>
             </Container>
-            {songs &&
+            {songRandom &&
                 <Footerdiv>
-                    <DetailSong song = {songs}  trackIndex={trackIndex}/>
-                    <Audios song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
+                    <DetailSong song = {songRandom}  trackIndex={trackIndex}/>
+                    <Audios song={songRandom} trackIndex={trackIndex} setTrackIndex={setTrackIndex} />
                 </Footerdiv>}
 
         </Total>

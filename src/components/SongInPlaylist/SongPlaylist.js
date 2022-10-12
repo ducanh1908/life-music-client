@@ -43,7 +43,7 @@ const Container = styled.div`
     }
 
     p {
-      font-size: 1.4rem;
+      font-size: 20px;
       font-weight: 500;
       margin-left: 1rem;
       -webkit-line-clamp: 1;
@@ -100,6 +100,7 @@ const SongPlaylist = ({
   onTrackSelect,
 }) => {
   const [menu, setMenu] = useState(false);
+
   // const { currentSong } = useSelector((state) => state.audioPlayer);
   const dispatch = useDispatch();
   const handleClick = (id, index) => {

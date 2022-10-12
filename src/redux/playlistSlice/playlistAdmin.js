@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import playlistApi from "./../../service/playlistService";
 
@@ -10,11 +10,9 @@ const initialState = {
 
 // get all play list
 export const getAllPlaylist = createAsyncThunk("/playlists", async (payload) => {
-    const data = await playlistApi.getAllPlaylist(payload);
-    console.log(data)
-    return data.playlists;
+  const data = await playlistApi.getAllPlaylist(payload);
+  return data.playlists;
 });
-
 export const getRandomPlaylist = createAsyncThunk("/playlist-random", async (payload) => {
  const data = await playlistApi.getRandomPlaylist(payload);
  return data;
@@ -44,6 +42,6 @@ const playlistAdminSlice = createSlice({
   },
 });
 
-const {reducer, actions} = playlistAdminSlice;
+const { reducer, actions } = playlistAdminSlice;
 
 export default reducer;

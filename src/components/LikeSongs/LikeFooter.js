@@ -19,7 +19,6 @@ const Body = styled.div`
 `;
 const Footer = styled.div`
   height: 10%;
-  background-color: #333;
   display: grid;
   grid-template-columns: 1fr 2fr;
 `;

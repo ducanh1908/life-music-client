@@ -59,7 +59,7 @@ const Song = styled.div``;
 const SongItem = styled.div`
   padding: 0.5rem 3rem;
   display: grid;
-  color: #fff;
+
   grid-template-columns: 0.2fr 3fr 2fr 0.5fr 0.2fr;
   cursor: pointer;
   .col {
@@ -71,7 +71,10 @@ const SongItem = styled.div`
   }
 `;
 
-const SongName = styled.span``;
+const SongName = styled.span`
+font-size:20px;
+font-weight:500;
+`;
 const SongDetail = styled.span`
   display: flex;
   flex-direction: column;
@@ -90,11 +93,11 @@ const SongInfo = styled.div``;
 
 const Wrapper = styled.div`
   height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%); */
 `;
 const SongList = ({ song, onTrackSelect }) => {
   const isLoggedInUser = useSelector(state => state.user.user )
- 
+  let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs)
   const isLoggedIn = !!isLoggedInUser._id;
   const [menu, setMenu] = useState(false);
 
@@ -118,9 +121,9 @@ const SongList = ({ song, onTrackSelect }) => {
       </Head>
       <Wrapper>
         <Body>
-          <BodyTitle>#</BodyTitle>
+          <BodyTitle></BodyTitle>
           <BodyTitle>Tên bài hát</BodyTitle>
-          <BodyTitle>Album</BodyTitle>
+          <BodyTitle></BodyTitle>
           <BodyTitle>
             <AccessTimeIcon />
           </BodyTitle>
@@ -137,12 +140,12 @@ const SongList = ({ song, onTrackSelect }) => {
                   <SongImage src={item.image} />
                   <SongDetail>
                     <SongName>{item.name.slice(0, 15)}</SongName>
-                    <SongSinger>{item.singer}</SongSinger>
+                    <SongSinger>{item.singerName}</SongSinger>
                   </SongDetail>
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
                 {
-                  isLoggedIn && ( <Like track={item} />)
+                  isLoggedIn && ( <Like track={item} allLikedSongs={allLikedSongs} />)
                 }
                
                 <SongTime className="col">{item.duration}</SongTime>

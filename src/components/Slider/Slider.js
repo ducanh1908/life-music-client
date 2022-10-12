@@ -12,13 +12,13 @@ import { NavLink } from "react-router-dom";
   
 
   const Container = styled.div`
-
   .mySwiper {
-     width: 100%;
-     height: 100%;
-   
- } 
- .swiper-slider {
+    width: 100%;
+    height: 100%;
+    
+  } 
+  .swiper-slider {
+ 
     text-align: center;
     font-size: 18px;
     background: transparent;
@@ -35,6 +35,7 @@ import { NavLink } from "react-router-dom";
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+    
   }
  
   `

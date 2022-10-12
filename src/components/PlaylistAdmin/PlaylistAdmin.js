@@ -15,6 +15,7 @@ import React from "react";
 import SongPlaylist from "./../SongInPlaylist/SongPlaylist";
 import PlaylistModel from "./../Playlist/PlaylistModel";
 import Like from "../Like/like";
+import { getAllLikedSongs } from "../../redux/songSlice/songSlice";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
@@ -112,6 +113,7 @@ const Footer = styled.div`
 const PlaylistAdmin = () => {
   const { id } = useParams();
   const isLoggedInUser = useSelector((state) => state.user.user);
+  let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs);
 
   const isLoggedIn = !!isLoggedInUser._id;
   const currentPlaylist = useSelector(
@@ -134,6 +136,7 @@ const PlaylistAdmin = () => {
 
   useEffect(() => {
     dispatch(getSongToPlaylist(id));
+    dispatch(getAllLikedSongs(isLoggedInUser._id));
   }, []);
 
   return (
@@ -152,9 +155,9 @@ const PlaylistAdmin = () => {
         </Head>
         <Wrapper>
           <Body>
-            <BodyTitle>#</BodyTitle>
-            <BodyTitle>Tên bài hát</BodyTitle>
-            <BodyTitle>Album</BodyTitle>
+            <BodyTitle></BodyTitle>
+            <BodyTitle>Bài hát</BodyTitle>
+            <BodyTitle></BodyTitle>
             <BodyTitle>
               <AccessTimeIcon />
             </BodyTitle>
@@ -173,7 +176,7 @@ const PlaylistAdmin = () => {
                     </SongDetail>
                   </SongInfo>
                   <SongName className="col">{song.album}</SongName>
-                  <Like track={song} />
+                  <Like track={song} allLikedSongs={allLikedSongs}/>
                   <SongTime className="col">{song.duration}</SongTime>
                 </SongItem>
               ))}

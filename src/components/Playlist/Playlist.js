@@ -15,8 +15,7 @@ import {
   getSongToPlaylist,
   removeSongFromPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
-
-import {fetchSong,getSongRandom,getAllLikedSongs} from "../../redux/songSlice/songSlice";
+import { fetchSong, getAllLikedSongs, getSongRandom } from "../../redux/songSlice/songSlice";
 import Audios from "../HomeFooter/Audio";
 import DetailSong from "../HomeFooter/DetailSong";
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
@@ -88,10 +87,10 @@ const Body = styled.div`
     display: grid;
     justify-content: space-between;
     padding: 0.5rem 0;
-    color: var(--light-white);
+    /* color: var(--light-white); */
     font-size: 1.2rem;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--light-white);
+    border-bottom: 1px solid #fff;
     margin-bottom: 1rem;
     grid-template-columns: 1fr 1fr 1fr;
 
@@ -161,7 +160,6 @@ align-items: flex-start;
 `
 const Footer = styled.div`
 height: 20%;
-  background-color: #333;
 display: grid;
 grid-template-columns: 1fr 2fr;
 `
@@ -267,11 +265,11 @@ const Playlist = () => {
         <Body>
           <div className={"body_nav"}>
             <div className={"left"}>
-              <span>#</span>
-              <p>Tên bài hát</p>
+              <span></span>
+              <p>Bài hát</p>
             </div>
             <div className={"center"}>
-              <p>Ca sỹ</p>
+              <p></p>
             </div>
             <div className={"right"}>
               <AccessTimeIcon />
@@ -280,6 +278,7 @@ const Playlist = () => {
           {currentSong && currentSong.map((song) => (
               <Fragment key={song._id} >
                 <SongPlaylist
+                    allLikedSongs={allLikedSongs}
                     song={song}
                     currentPlaylist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
