@@ -81,7 +81,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
             <ClickAwayListener onClickAway={closeMenu}>
                 <div className={"menu"} onClick={closeMenu}>
                     <div className={"playlist_option"}>
-                        <p>Add to Playlist</p>
+                        <p>Thêm bài hát vào Playlist</p>
                         <Fragment>
                             <ArrowLeftIcon />
                             <div className={"playlists"}>
@@ -100,7 +100,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
                     {currentPlaylist && currentPlaylist.user === user._id && (
                         <div className={"option"}>
                             <p onClick={() => handleRemoveSong(song._id)}>
-                                Remove from Playlist
+                                Xoá bài hát ra khỏi Playlist
                             </p>
                         </div>
                     )}
