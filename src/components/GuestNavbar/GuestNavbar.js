@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { getAllPlaylist, searchPlaylist } from "../../redux/playlistSlice/playlistAdmin";
 import { fetchSong, searchSong } from "../../redux/songSlice/songSlice";
 import { logout } from "../../redux/userSlice/userSlice";
-
+import Tooltip from '@mui/material/Tooltip';
 const Container = styled.div`
 
   grid-column-gap: 10px;
@@ -24,7 +24,8 @@ const Container = styled.div`
 const Left = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items:flex-start;
+  margin-left: 30px;  
   justify-content: center;
 `;
 
@@ -96,6 +97,7 @@ const GuestNavbar = () => {
   const isLoggedInUser = useSelector(state => state.user.user )
 
   const isLoggedIn = !!isLoggedInUser._id;
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -167,19 +169,21 @@ const GuestNavbar = () => {
           )}
 
 {isLoggedIn && (
-  <Avatar
-   onClick={handleClick}
-    alt="Duc Anh"
-    src={isLoggedInUser.profileImage}
-    sx={{ width: 50, height: 50, cursor: 'pointer'}}
-  />
+  <Tooltip title={isLoggedInUser.fullname} placement="left" sx={{fontSize:'20px'}}>
+
+    <Avatar
+     onClick={handleClick}
+      alt="Duc Anh"
+      src={isLoggedInUser.profileImage}
+      sx={{ width: 50, height: 50, cursor: 'pointer'}}
+    />
+  </Tooltip>
 
 )}
         </Stack>
       </Right>
 
       <Menu
-      
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}

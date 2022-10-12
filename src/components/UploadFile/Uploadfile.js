@@ -55,7 +55,7 @@ grid-template-rows: 75vh 15vh;
 `
 const Footerdiv = styled.div`
 height: 20%;
-background-color: #333;
+
 display: grid;
 grid-template-columns: 1fr 2fr;
 `
@@ -106,9 +106,9 @@ padding: 10px;
 const Head = styled.div`
 position: relative;
 padding: 1rem 3rem;
-
 display: flex;
 height: 180px;
+flex-direction: column;
 background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
 `;
 const Wrapper = styled.div`
@@ -121,6 +121,7 @@ grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
 //text-transform: uppercase;
 color: #3b3b3b;
 border-bottom: 1px solid #ccc;
+margin: 20px;
 `;
 
 const InforAvatar = styled.div`
@@ -169,6 +170,14 @@ margin-top: 30px;
   display: flex;
   justify-content: space-around;
 `
+const SongImg = styled.img`
+height: 50px;
+width: 50px;
+`
+const SongName = styled.span``
+const Inputfile = styled.input`
+
+`
 function AddNewFile() {
     const [fileUpload, setFileUpload] = useState(null);
     const [newSong, setNewSong] = useState({});
@@ -192,7 +201,7 @@ function AddNewFile() {
     let categories = useSelector((state) => state.cate.categories);
     const songs = uploadSongs.songs
     let updateSong = {};
-    var file;
+    let file;
 
     const uploadFile = async () => {
         try {
@@ -292,10 +301,9 @@ function AddNewFile() {
 
     const handleSubmit = async () => {
         let media;
-        console.log('file image ', file);
 
-        if (file) {
-            media = await imageUpload([file]);
+        if (avatar) {
+            media = await imageUpload([avatar]);
         }
         let image = media ? media[0].url : '';
         if (image) {
@@ -352,7 +360,10 @@ function AddNewFile() {
                 <div id="style-1">
                     <Head>
                         <div>
-                            <Button sx={{borderRadius: '200px'}}
+                            <h1>Tải bài hát lên</h1>
+                        </div>
+                        <div>
+                            <Button sx={{borderRadius: '200px', m:2}}
                                     variant="contained"
                                     color="inherit"
                                     component="label"
@@ -360,8 +371,8 @@ function AddNewFile() {
                                         setFileUpload(event.target.files[0]);
                                     }}
                             >
-                                Chọn tệp
-                                <input hidden accept="file/*" multiple type="file"/>
+                             
+                                <Inputfile accept="file/*" multiple type="file"/>
                             </Button>
                             {status == "loading" ? (
                                 <LoadingButton
@@ -381,9 +392,7 @@ function AddNewFile() {
                                 </Button>
                             )}
                         </div>
-                        <div style={{marginLeft: "20px"}}>
-                            <h1>Tải bài hát lên</h1>
-                        </div>
+                        
                     </Head>
                     <Wrapper>
                         <Body>
@@ -401,9 +410,9 @@ function AddNewFile() {
                                     uploadSongs.songs.map((song, index) => (
                                         <tr key={index}>
                                             <td onClick={() => handleClick(song._id, index)}>
-                                                <img width={50} src={song.image} alt=""/>
+                                              <SongImg width={50} src={song.image} alt=""/>
                                             </td>
-                                            <td>{song.name}</td>
+                                            <td><SongName>{song.name}</SongName></td>
                                             <td></td>
                                             <td>
                                                 <>
@@ -490,7 +499,6 @@ function AddNewFile() {
                                                             onChange={(e) => {
                                                                 file = e.target.files[0];
                                                                 setAvatar(file);
-                                                                console.log('aofjaoiwfjaiwf - file', file);
                                                             }}
                                                         />
                                                     </InforSpan>

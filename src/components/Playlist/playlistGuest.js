@@ -41,25 +41,25 @@ const PlaylistTitle = styled.p`
   
 `;
 
-const PlaylistShowLibrary = ({ playlists }) => {
+const PlaylistGuest = ({ playlists }) => {
     return (
 
         <Fragment>
-                {playlists.map((playlist) => (
-                    <PlaylistItem key={playlist._id}>
-                        <Link
-                            className="playlist-item"
-                            to={`/playlist/${playlist._id}`}
-                        >
-                            <PlaylistImage src={playlist.image} />
-                            <PlaylistTitle> {playlist.name}</PlaylistTitle>
-                        </Link>
-                    </PlaylistItem>
-                ))}
-            
+            {playlists.map((playlist) => (
+                <PlaylistItem key={playlist._id}>
+                    <Link
+                        className="playlist-item"
+                        to={`/playlists/${playlist._id}`}
+                    >
+                        <PlaylistImage src={playlist.image} />
+                        <PlaylistTitle> {playlist.name}</PlaylistTitle>
+                    </Link>
+                </PlaylistItem>
+            ))}
+
         </Fragment>
 
     );
 };
 
-export default PlaylistShowLibrary;
+export default PlaylistGuest;
