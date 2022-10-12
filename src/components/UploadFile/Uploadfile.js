@@ -197,13 +197,7 @@ function AddNewFile() {
             dispatch(loading("loading"));
             const fileRef = ref(storage, `files/${fileUpload.name + v4()}`);
             await uploadBytes(fileRef, fileUpload).then(async (snapshot) => {
-
                 await getDownloadURL(snapshot.ref).then(async (url) => {
-                    setNewSong({
-                        name: fileUpload.name.split(".")[0],
-                        file: url,
-                        duration: 5,
-                    });
                     await getDuration(url).then((length) => {
                         let duration = length / 60;
                         duration = duration.toFixed(2);
