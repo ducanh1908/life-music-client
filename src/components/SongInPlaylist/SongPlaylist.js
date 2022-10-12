@@ -100,6 +100,7 @@ const SongPlaylist = ({
   onTrackSelect,
 }) => {
   const [menu, setMenu] = useState(false);
+
   // const { currentSong } = useSelector((state) => state.audioPlayer);
   const dispatch = useDispatch();
   const handleClick = (id, index) => {
