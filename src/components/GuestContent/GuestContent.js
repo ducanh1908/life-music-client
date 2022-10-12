@@ -235,7 +235,7 @@ const GuestContent = () => {
               <SongItem key={song._id} onClick={() => handleClickSong(song._id, index)}>
               <SongImg src={song.image} />
               <SongInfo>
-                <SongName>N{song.name}</SongName>
+                <SongName>{song.name}</SongName>
                 <SongSinger>{song.singerName}</SongSinger>
               </SongInfo>
               <IconButton>
