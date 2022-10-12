@@ -7,7 +7,8 @@ import styled from "styled-components";
 import {addSongToPlaylist, updatePlaylist} from "../../redux/playlistSlice/currentPlaylist";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {useSnackbar} from "notistack";
-import {useNavigate} from "react-router";
+import {useNavigate, useParams } from "react-router";
+import { getPlaylistAndUser } from "../../redux/playlistSlice/playlistSlice";
 
 const Container= styled.div`
   .menu,
@@ -60,16 +61,16 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
+    const { id } = useParams();
     const navigate = useNavigate()
-    console.log(333)
     const handleAddToPlaylist = async (songId, playlistId) => {
         const payload = { songId,playlistId }
         try {
-            const action = await addSongToPlaylist({payload})
-            const resultAction = await dispatch(action);
-            const user = unwrapResult(resultAction);
+            dispatch(addSongToPlaylist({payload})).then(() => {
+                dispatch(getPlaylistAndUser(id))
+            })
             enqueueSnackbar('Thêm bài hát thành công', {variant: "success"});
-            setTimeout(window.location.reload(),5000)
+            // window.location.reload()
         } catch (error) {
             console.log(error);
             enqueueSnackbar(error.message, {variant: "error"});
