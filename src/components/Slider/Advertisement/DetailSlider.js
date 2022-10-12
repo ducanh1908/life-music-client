@@ -66,7 +66,6 @@ const BodyTitle = styled.p`
   padding: 1.5rem;
   color: white;
   background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
-  
 `
 const Wrapper = styled.div`
   height: 100%;

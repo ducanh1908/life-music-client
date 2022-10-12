@@ -7,7 +7,8 @@ import styled from "styled-components";
 import {addSongToPlaylist, updatePlaylist} from "../../redux/playlistSlice/currentPlaylist";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {useSnackbar} from "notistack";
-import {useNavigate} from "react-router";
+import {useNavigate, useParams } from "react-router";
+import { getPlaylistAndUser } from "../../redux/playlistSlice/playlistSlice";
 
 const Container= styled.div`
   .menu,
@@ -16,7 +17,7 @@ const Container= styled.div`
     width: 15rem;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    background-color: grey;
+    background-color: whitesmoke;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     position: absolute;
     top: 0%;
@@ -24,14 +25,13 @@ const Container= styled.div`
 
     .option,
     .playlist_option {
-      font-size: 1.4rem;
+      font-size: 1rem;
       padding: 0.5rem;
       border-radius: 0.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-
       svg {
         width: 2rem;
         height: 2rem;
@@ -60,16 +60,16 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
+    const { id } = useParams();
     const navigate = useNavigate()
-    console.log(333)
     const handleAddToPlaylist = async (songId, playlistId) => {
         const payload = { songId,playlistId }
         try {
-            const action = await addSongToPlaylist({payload})
-            const resultAction = await dispatch(action);
-            const user = unwrapResult(resultAction);
+            dispatch(addSongToPlaylist({payload})).then(() => {
+                dispatch(getPlaylistAndUser(id))
+            })
             enqueueSnackbar('Thêm bài hát thành công', {variant: "success"});
-            setTimeout(window.location.reload(),5000)
+            // window.location.reload()
         } catch (error) {
             console.log(error);
             enqueueSnackbar(error.message, {variant: "error"});
@@ -81,7 +81,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
             <ClickAwayListener onClickAway={closeMenu}>
                 <div className={"menu"} onClick={closeMenu}>
                     <div className={"playlist_option"}>
-                        <p>Add to Playlist</p>
+                        <p style={{fontSize:'17px'}}>Thêm bài hát vào Playlist</p>
                         <Fragment>
                             <ArrowLeftIcon />
                             <div className={"playlists"}>
@@ -91,7 +91,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
                                         onClick={() => handleAddToPlaylist(song._id,playlist._id)}
                                         key={playlist._id}
                                     >
-                                        <p>{playlist.name}</p>
+                                        <p style={{fontSize:'17px'}}>{playlist.name}</p>
                                     </div>
                                 ))}
                             </div>
@@ -99,8 +99,8 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
                     </div>
                     {currentPlaylist && currentPlaylist.user === user._id && (
                         <div className={"option"}>
-                            <p onClick={() => handleRemoveSong(song._id)}>
-                                Remove from Playlist
+                            <p onClick={() => handleRemoveSong(song._id)} style={{fontSize:'17px'}}>
+                                Xoá bài hát ra khỏi Playlist
                             </p>
                         </div>
                     )}

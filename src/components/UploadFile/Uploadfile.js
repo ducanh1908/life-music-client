@@ -119,6 +119,12 @@ position: relative;
 margin: 15px auto;
 border: 1px solid #ddd;
 cursor: pointer;
+  :hover span {
+    bottom: -15%;
+  }
+,:: -webkit-file-upload-button {
+  cursor: pointer;
+}
 `;
 const InfoImg = styled.img`
 width: 100%;
@@ -128,7 +134,7 @@ object-fit: cover;
 `;
 const InforSpan = styled.span`
 position: absolute;
-bottom: -15%;
+bottom: -100%;
 left: 0;
 width: 100%;
 height: 50%;
@@ -161,9 +167,7 @@ height: 50px;
 width: 50px;
 `
 const SongName = styled.span``
-const Inputfile = styled.input`
-
-`
+const Inputfile = styled.input``
 function AddNewFile() {
     const [fileUpload, setFileUpload] = useState(null);
     const [newSong, setNewSong] = useState({});

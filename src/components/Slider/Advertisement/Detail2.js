@@ -82,7 +82,7 @@ const ReadMore = ({ children }) => {
     return (
         <p className="text">
             {isReadMore ? text.slice(0, 150) : text}
-            <span onClick={toggleReadMore}  className="read-or-hide">
+            <span onClick={toggleReadMore}  className="read-or-hide" style={{color:"blueviolet"}}>
         {isReadMore ? "...Xem thêm": "...Ẩn bớt"}
       </span>
         </p>
@@ -97,7 +97,7 @@ const ReadMore2 = ({ children }) => {
     return (
         <p className="text">
             {isReadMore ? text.slice(0, 500) : text}
-        <span onClick={toggleReadMore} className="read-or-hide">
+        <span onClick={toggleReadMore} className="read-or-hide" style={{color:"blueviolet"}}>
         {isReadMore ? "...Xem thêm" : " ...Ẩn bớt"}
       </span>
         </p>

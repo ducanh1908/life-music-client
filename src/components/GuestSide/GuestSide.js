@@ -175,13 +175,16 @@ const GuestSide = () => {
   const handleSubmit = async (data) => {
     try {
       if (isLoggedIn) {
-        const action = await createPlaylist(data);
-        const resultAction = await dispatch(action);
-        const playlists = unwrapResult(resultAction);
+         dispatch(createPlaylist(data)).then(() => {
+          dispatch(getPlaylistAndUser(user._id))
+         });
+         setOpen(false);
+        // const resultAction = await dispatch(action);
+        // const playlists = unwrapResult(resultAction);
         enqueueSnackbar("Bạn đã tạo playlist thành công", {
           variant: "success",
         });
-        setTimeout(window.location.reload(), 5000);
+        // setTimeout(window.location.reload(), 5000);
       } else {
         enqueueSnackbar("Vui lòng đăng nhập tài khoản", { variant: "error" });
       }
