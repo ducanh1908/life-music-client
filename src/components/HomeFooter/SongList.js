@@ -101,9 +101,7 @@ const SongList = ({ song, onTrackSelect }) => {
   let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs)
   const isLoggedIn = !!isLoggedInUser._id;
   const [menu, setMenu] = useState(false);
-
   const dispatch = useDispatch();
-
   const handleClick = (id, index) => {
     onTrackSelect(index);
   };
