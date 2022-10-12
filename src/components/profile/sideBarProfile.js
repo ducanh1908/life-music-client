@@ -126,11 +126,14 @@ const SideBarProfile = () => {
         setAvatar(file)
     }
     const uploadAvatar = async (e) => {
-        e.preventDefault()
-        try {
-            const action = await updateAvatar(avatar);
-            const resultAction = await dispatch(action);
+      try {
+          e.preventDefault();
+          if(avatar) {
+            dispatch(updateAvatar(avatar));
             enqueueSnackbar('Cập nhật ảnh đại diện thành công', {variant: "success"});
+          } else {
+            enqueueSnackbar('Chưa chọn ảnh đại diện', {variant: "error"});
+          }
         } catch (error) {
             console.log(error);
             enqueueSnackbar(error.message, {variant: "error"});

@@ -31,7 +31,6 @@ export const getAllPlaylist = createAsyncThunk(
   "/playlists",
   async (payload) => {
     const data = await playlistApi.getAllPlaylist(payload);
-    console.log(data)
     return data.playlists;
   }
 );

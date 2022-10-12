@@ -15,6 +15,7 @@ import PasswordField from "../../components/FormControler/PasswordField/Password
 import { login } from "../../redux/userSlice/userSlice";
 import CircularProgress from '@mui/material/CircularProgress';
 import { NavLink } from "react-router-dom";
+import { getPlaylistAndUser } from "../../redux/playlistSlice/playlistSlice";
 const Container = styled.div`
 width: 100%;
 height: 100vh;
@@ -90,9 +91,7 @@ const Login = (props) => {
   });
   const handleSubmit = async (data) => {
     try {
-      const action = await login(data);
-      const resultAction = await dispatch(action);
-      const user = unwrapResult(resultAction);
+      dispatch(login(data))      
         enqueueSnackbar('Đăng nhập thành công', { variant: "success" });
         navigate('/')
     } catch (error) {

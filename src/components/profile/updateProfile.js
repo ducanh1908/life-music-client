@@ -99,10 +99,9 @@ const UpdateProfile = (props) => {
 
     const handleSubmit = async (data) => {
         try {
-            const action = await updateProfile(data);
-            const resultAction = await dispatch(action);
-            const user = unwrapResult(resultAction);
+            dispatch(updateProfile(data));
             enqueueSnackbar('Cập nhật thành công', { variant: "success" });
+            navigate('/profile')
         } catch (error) {
             enqueueSnackbar(error.message, { variant: "error" });
         }
