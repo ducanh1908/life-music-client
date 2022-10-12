@@ -266,7 +266,7 @@ const Playlist = () => {
           <div className={"body_nav"}>
             <div className={"left"}>
               <span></span>
-              <p>Tên bài hát</p>
+              <p>Bài hát</p>
             </div>
             <div className={"center"}>
               <p></p>
