@@ -132,11 +132,11 @@ const Like = (props) => {
 
     if (!isliked) {
       enqueueSnackbar("Đã thêm bài hát vào danh sách yêu thích", {
-        iconVarian: "success",
+        variant: "success",
       });
     } else {
       enqueueSnackbar("Đã xóa bài hát khỏi danh sách yêu thích", {
-        iconVarian: "success",
+        variant: "success",
       });
     }
 
