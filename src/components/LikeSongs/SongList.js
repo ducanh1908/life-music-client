@@ -109,7 +109,7 @@ const SongList = ({ song, onTrackSelect }) => {
       </Head>
       <Wrapper>
         <Body>
-          <BodyTitle>#</BodyTitle>
+          <BodyTitle></BodyTitle>
           <BodyTitle>Tên bài hát</BodyTitle>
           <BodyTitle></BodyTitle>
           <BodyTitle>
