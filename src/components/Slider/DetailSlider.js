@@ -48,9 +48,7 @@ const Body = styled.div`
   padding: 1rem 3rem;
   display: grid;
   grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
-  text-transform: uppercase;
   color: #3b3b3b;
-  border-bottom: 1px solid #ccc;
 `;
 const BodyTitle = styled.p``;
 
@@ -108,22 +106,27 @@ const DetailSlider = ({ song, onTrackSelect }) => {
         <Head>
 
           <Navbar>
-            <Image src="https://images.unsplash.com/photo-1458560871784-56d23406c091?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
+            <Image src="https://photo-zmp3.zmdcdn.me/banner/a/4/a/3/a4a3a47822a3717b7c6caa2b5fe14673.jpg" />
             <PlaylistInfo>
-              <PlaylistTitle>Playlist</PlaylistTitle>
-              <PlaylistName>Danh sách bài hát</PlaylistName>
+              <PlaylistTitle>Chạm</PlaylistTitle>
+              <PlaylistName>Ưng Hoàng Phúc</PlaylistName>
             </PlaylistInfo>
           </Navbar>
 
         </Head>
         <Wrapper>
           <Body>
-            <BodyTitle>#</BodyTitle>
-            <BodyTitle>Tên bài hát</BodyTitle>
-            <BodyTitle>Album</BodyTitle>
-            <BodyTitle>
-              <AccessTimeIcon />
-            </BodyTitle>
+              <Navbar>
+                     Tuổi trẻ nhiệt huyết, sự thành công vang dội của Ưng Hoàng Phúc, từ khi còn là cậu ca sĩ nhỏ người với cái tên Ốc Tiêu, cho đến ngày trở thành một hiện tượng âm nhạc tới mức ở khắp mọi miền trên đất nước, không ai là không thuộc từng bài hát của anh.
+
+                      Nhưng cuộc đời luôn có quá nhiều những bất ngờ, trên con đường sự nghiệp vốn đang chỉ đầy hoa hồng ấy, bỗng một ngày chất đầy những khó khăn. Kể từ đó, có một Ưng Hoàng Phúc rất khác xuất hiện, một Ưng Hoàng Phúc mà bạn phải thực sự CHẠM để hiểu rõ. Đằng sau những bài báo, những mỹ từ tô vẽ hay cả những câu chuyện thị phi là rất nhiều những câu chuyện cần được CHẠM để thấu tỏ. Tất cả những cái CHẠM sâu lắng ấy, đều được Liêu Hà Trinh chắp bút vô cùng mộc mạc, chân thành qua lời kể của Ưng Hoàng Phúc trong cuốn sách viết về anh - cuốn sách mang tên CHẠM.
+
+                      Ở CHẠM, ta không chỉ bắt gặp cậu nhóc Quốc Thanh tinh nghịch, lắm trò. Không chỉ bắt gặp “thằng” Ốc Tiêu với niềm đam mê ca hát mãnh liệt và mong muốn chạm đến đỉnh hào quang nơi ánh đèn sân khấu lấp lánh sắc màu… Ta còn bắt gặp một Ưng Hoàng Phúc ngã xuống từ đỉnh cao của vinh quang, quay về con số 0 tròn trĩnh vì chống chọi với những cơn đau bệnh tật, hay một Ưng Hoàng Phúc trưởng thành, điềm đạm, và cả một Ưng Hoàng Phúc hết lòng vì những người anh yêu và những người đã tin tưởng, ủng hộ anh đến cùng.
+
+                      Cuốn sách với sự chân thành và tận tụy của Ưng Hoàng Phúc qua ngòi bút của Liêu Hà Trinh mang đến thông điệp mạnh mẽ rằng: chỉ khi ta không ngừng cố gắng, nỗ lực chiến thắng những điều tưởng chừng đã được số phận an bài, ta sẽ CHẠM được tới ước mơ, hạnh phúc mà mình chờ mong.
+
+                      Khép lại CHẠM, chính ta cũng được trở về với vùng ký ức đầy sống động của một thuở thiếu thời, những chúng ta của một thời yêu đương vụng dại nhưng đầy nhung nhớ ấy.
+              </Navbar>
           </Body>
 
         </Wrapper>
