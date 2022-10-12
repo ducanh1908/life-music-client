@@ -1,8 +1,8 @@
 
 
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import userApi from "./../../service/userService";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import playlistApi from "./../../service/playlistService";
+import userApi from "./../../service/userService";
 
 const initialState = {
   playlists: [],

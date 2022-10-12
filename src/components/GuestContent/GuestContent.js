@@ -155,6 +155,7 @@ const SongItem = styled.div`
   align-items: center;
   color: #fff;
   height: 80px;
+  cursor: pointer;
   .move-icon {
     display: none;
     width: 30px;
