@@ -26,22 +26,20 @@ export const searchPlaylist = createAsyncThunk(
     });
 
 const playlistAdminSlice = createSlice({
-    name: "playlistAdmin",
-    initialState,
-    reducers: {},
-    extraReducers: {
-        [getAllPlaylist.fulfilled]: (state, action) => {
-            state.playlistAdmin = action.payload;
-        },
-        [getRandomPlaylist.fulilled]: (state, action) => {
-            state.playlistAdmin = action.payload;
-        },
-        [searchPlaylist.fulfilled]: (state, action) => {
-            state.playlistAdmin = action.payload;
-            console.log(state.playlistAdmin);
-        }
-
-    }
+  name: "playlistAdmin",
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [getAllPlaylist.fulfilled]: (state, action) => {
+      state.playlistAdmin = action.payload;
+    },
+    [getRandomPlaylist.fulfilled]: (state, action) => {
+      state.playlistRandom = action.payload;
+    },
+    [searchPlaylist.fulfilled] : (state, action) => {
+      state.playlistAdmin = action.payload
+  }
+  },
 });
 
 const { reducer, actions } = playlistAdminSlice;

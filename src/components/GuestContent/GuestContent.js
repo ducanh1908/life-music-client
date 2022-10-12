@@ -57,7 +57,7 @@ const Wrapper = styled.div``;
 
 const Top = styled.div``;
 const TopTitle = styled.h1`
-
+  margin-bottom: 20px;
   color: #ffffff;
   display: flex;
   align-items: start;
@@ -128,6 +128,8 @@ const PlaylistSinger = styled.span`
 `;
 const Header = styled.div`
   height: 250px;
+  margin-bottom: 40px;
+ 
 `;
 
 const NewSong = styled.div`
@@ -199,7 +201,7 @@ const GuestContent = () => {
   const playlistRandom = useSelector(
     (state) => state.playlistAdmin.playlistRandom
   );
-  console.log("hhhh",playlistRandom)
+
   const songRandom = useSelector((state) => state.song.songRandom)
   const dispatch = useDispatch();
   const [trackIndex, setTrackIndex] = useState(-1)
@@ -225,7 +227,7 @@ const GuestContent = () => {
       <Wrapper>
         <Header>
         <TopTitle>Sản phẩm sắp phát hành</TopTitle>
-          <Slider />
+          <Slider  />
         </Header>
         <Top>
           <TopTitle>Có thể bạn muốn nghe</TopTitle>

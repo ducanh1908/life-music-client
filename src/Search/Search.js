@@ -6,6 +6,7 @@ import {getAllPlaylist} from "../redux/playlistSlice/playlistAdmin";
 import PlaylistGuest from "../components/Playlist/playlistGuest";
 import DetailSong from "../components/HomeFooter/DetailSong";
 import Audios from "../components/HomeFooter/Audio";
+import PlaylistAdmin from './../components/PlaylistAdmin/PlaylistAdmin';
 
 
 const Total = styled.div`
