@@ -19,7 +19,8 @@ import PlaylistAdmin from './components/PlaylistAdmin/PlaylistAdmin';
 import HomeFooter from './components/HomeFooter/HomeFooter';
 import Search from "./Search/Search";
 import LikeSongs from './components/LikeSongs/LikeFooter';
-import DetailSlider from './components/Slider/DetailSlider';
+import DetailSlider from './components/Slider/Advertisement/DetailSlider';
+import DetailSliderGao from "./components/Slider/Advertisement/Detail2";
 
 function App() {
 
@@ -52,7 +53,8 @@ function App() {
          <Route path="search" element={<Search />} />
         <Route path="playlists/:id" element={<PlaylistAdmin />} />
         <Route path="slider" element={<DetailSlider />} />
-        
+        <Route path="sliderBar" element={<DetailSliderGao />} />
+
       </Route>
       <Route path='profile' element={<Profile />} >  
             <Route path=""  element={<Information />} />

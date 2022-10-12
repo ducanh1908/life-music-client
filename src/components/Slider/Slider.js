@@ -69,7 +69,7 @@ export default function App() {
 
             </SwiperSlide>
         <SwiperSlide className="swiper-slider">
-            <NavLink to={'/slider'}>
+            <NavLink to={'/sliderBar'}>
             <SilderImage src="https://photo-zmp3.zmdcdn.me/banner/2/5/f/f/25ff09320e00b735a2ef29ff44cc6e1c.jpg" />
             </NavLink>
             </SwiperSlide>
