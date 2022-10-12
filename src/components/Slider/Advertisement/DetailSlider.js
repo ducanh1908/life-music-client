@@ -66,6 +66,7 @@ const BodyTitle = styled.p`
   padding: 1.5rem;
   color: white;
   background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
+  
 `
 const Wrapper = styled.div`
   height: 100%;
@@ -80,8 +81,8 @@ const ReadMore = ({ children }) => {
     return (
         <p className="text">
             {isReadMore ? text.slice(0, 190) : text}
-            <span onClick={toggleReadMore} className="read-or-hide">
-        {isReadMore ? "...Xem thêm" : " Ẩn bớt"}
+            <span onClick={toggleReadMore} className="read-or-hide" style={{color:"blueviolet"}}>
+        {isReadMore ? "...Xem thêm" : " ....Ẩn bớt"}
       </span>
         </p>
     );
@@ -95,8 +96,8 @@ const ReadMore2 = ({ children }) => {
     return (
         <p className="text">
             {isReadMore ? text.slice(0, 500) : text}
-            <span onClick={toggleReadMore} className="read-or-hide">
-        {isReadMore ? "...Xem thêm" : " Ẩn bớt"}
+            <span onClick={toggleReadMore} className="read-or-hide" style={{color:"blueviolet"}}>
+        {isReadMore ? "...Xem thêm" : " ....Ẩn bớt"}
       </span>
         </p>
     );
