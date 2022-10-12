@@ -424,9 +424,6 @@ function AddNewFile() {
                                                 <select style={{height: "30px", width: "90px"}}
                                                         onChange={(e) => handleSong(e)}>
                                                     <option value={""}>-- Chọn --</option>
-                                                    <option value={`1,${song._id}`}>
-                                                        Thêm bài hát vào playlist{" "}
-                                                    </option>
                                                     <option value={`2,${song._id}`}>Xóa bài hát</option>
                                                     <option
                                                         value={`3,${song._id}, ${song.name}, ${song.image}, ${song.singerName}`}
