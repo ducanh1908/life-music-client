@@ -160,7 +160,6 @@ align-items: flex-start;
 `
 const Footer = styled.div`
 height: 20%;
-  background-color: #333;
 display: grid;
 grid-template-columns: 1fr 2fr;
 `
@@ -179,7 +178,6 @@ const Playlist = () => {
   const dispatch = useDispatch();
   let user = JSON.parse(localStorage.getItem('user'));
   let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs)
-  // let likeStatus = useSelector((state) => state.song.getAllLikedSongsStatus);
 
   useEffect(() => {
     dispatch(getPlaylistById(id));
@@ -267,11 +265,11 @@ const Playlist = () => {
         <Body>
           <div className={"body_nav"}>
             <div className={"left"}>
-              <span>#</span>
+              <span></span>
               <p>Tên bài hát</p>
             </div>
             <div className={"center"}>
-              <p>Ca sỹ</p>
+              <p></p>
             </div>
             <div className={"right"}>
               <AccessTimeIcon />

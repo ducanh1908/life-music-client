@@ -354,6 +354,126 @@ function AddNewFile() {
         publicOrPrivateStatus == 'success',
     ]);
 
+    const style = {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "100%",
+        bgcolor: "background.paper",
+        border: "2px solid #000",
+        boxShadow: 24,
+        p: 4,
+    };
+    const Total = styled.div`
+      display: grid;
+      grid-template-rows: 75vh 15vh;
+    `
+    const Footerdiv = styled.div`
+      height: 20%;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+    `
+    const Container = styled.div`
+      @font-face {
+        font-family: "MyWebFont";
+        src: url("webfont.eot"); /* IE9 Compat Modes */
+        src: url("webfont.eot?#iefix") format("embedded-opentype"),
+          /* IE6-IE8 */ url("webfont.woff2") format("woff2"),
+          /* Super Modern Browsers */ url("webfont.woff") format("woff"),
+          /* Pretty Modern Browsers */ url("webfont.ttf") format("truetype"),
+          /* Safari, Android, iOS */ url("webfont.svg#svgFontName") format("svg"); /* Legacy iOS */
+      }
+      background-color: whitesmoke;
+      position: relative;
+      border-radius: 10px;
+      overflow: auto;
+
+      #songlist {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        color: white;
+      }
+    ;
+
+      #songlist th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        color: black;
+        border-bottom: 1px solid #ccc;
+      }
+
+      #songlist tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.7)
+      }
+    `;
+
+    const Logo = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      padding: 10px;
+    `;
+    const Head = styled.div`
+      position: relative;
+      padding: 1rem 3rem;
+
+      display: flex;
+      height: 180px;
+      background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.4) 100%);
+    `;
+    const Wrapper = styled.div`
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.7) 100%);
+    `
+    const Body = styled.div`
+      grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
+      //text-transform: uppercase;
+      color: #3b3b3b;
+      border-bottom: 1px solid #ccc;
+    `;
+
+    const InforAvatar = styled.div`
+      width: 150px;
+      height: 150px;
+      overflow: hidden;
+      border-radius: 50%;
+      position: relative;
+      margin: 15px auto;
+      border: 1px solid #ddd;
+      cursor: pointer;
+    `;
+    const InfoImg = styled.img`
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    `;
+    const InforSpan = styled.span`
+      position: absolute;
+      bottom: -15%;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      text-align: center;
+      color: orange;
+      transition: 0.3s ease-in-out;
+      background: #fff5;
+    `;
+    const Input = styled.input`
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      opacity: 0;
+    `;
     return (
         <Total>
             <Container>
@@ -371,7 +491,7 @@ function AddNewFile() {
                                         setFileUpload(event.target.files[0]);
                                     }}
                             >
-                             
+
                                 <Inputfile accept="file/*" multiple type="file"/>
                             </Button>
                             {status == "loading" ? (
@@ -392,7 +512,7 @@ function AddNewFile() {
                                 </Button>
                             )}
                         </div>
-                        
+
                     </Head>
                     <Wrapper>
                         <Body>
@@ -505,7 +625,7 @@ function AddNewFile() {
                                                 </InforAvatar>
                                             </Logo>
                                           <Center >
-                                          <TextField 
+                                          <TextField
                                               sx={{width:"70%", mt:2}}
                                                 label="Tên bài hát"
                                                 placeholder={`${editSong.name}`}
@@ -524,8 +644,8 @@ function AddNewFile() {
                                                 }}
                                             />
                                           </Center>
-                                            
-                                            
+
+
                                             <Bottom>
                                             <Button color="inherit"
                                                     sx={{borderRadius: '200px', width: '100px'}}
@@ -543,7 +663,7 @@ function AddNewFile() {
                                                 Lưu
                                             </Button>
                                             </Bottom>
-                                           
+
                                         </Box>
                                     </form>
                                 </Modal>

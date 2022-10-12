@@ -120,7 +120,7 @@ const SongList = ({ song, onTrackSelect }) => {
         <Body>
           <BodyTitle>#</BodyTitle>
           <BodyTitle>Tên bài hát</BodyTitle>
-          <BodyTitle>Album</BodyTitle>
+          <BodyTitle></BodyTitle>
           <BodyTitle>
             <AccessTimeIcon />
           </BodyTitle>
@@ -137,7 +137,7 @@ const SongList = ({ song, onTrackSelect }) => {
                   <SongImage src={item.image} />
                   <SongDetail>
                     <SongName>{item.name.slice(0, 15)}</SongName>
-                    <SongSinger>{item.singer}</SongSinger>
+                    <SongSinger>{item.singerName}</SongSinger>
                   </SongDetail>
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>

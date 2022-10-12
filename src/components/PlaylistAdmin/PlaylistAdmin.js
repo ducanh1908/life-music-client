@@ -155,9 +155,9 @@ const PlaylistAdmin = () => {
         </Head>
         <Wrapper>
           <Body>
-            <BodyTitle>#</BodyTitle>
+            <BodyTitle></BodyTitle>
             <BodyTitle>Tên bài hát</BodyTitle>
-            <BodyTitle>Album</BodyTitle>
+            <BodyTitle></BodyTitle>
             <BodyTitle>
               <AccessTimeIcon />
             </BodyTitle>

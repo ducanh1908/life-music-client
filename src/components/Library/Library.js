@@ -14,6 +14,10 @@ const Total = styled.div`
   grid-template-rows: 75vh 15vh;
 `
 const Container=styled.div`
+  //background: linear-gradient(
+  //        rgba(255, 255, 255, 0.1),
+  //        rgba(255, 255, 255, 0.1)
+  //);
   background-color: grey;
   overflow: auto;
   
