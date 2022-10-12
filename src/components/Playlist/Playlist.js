@@ -15,7 +15,7 @@ import {
   getSongToPlaylist,
   removeSongFromPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
-import { fetchSong, getSongRandom } from "../../redux/songSlice/songSlice";
+import { fetchSong, getAllLikedSongs,getSongRandom } from "../../redux/songSlice/songSlice";
 import Audios from "../HomeFooter/Audio";
 import DetailSong from "../HomeFooter/DetailSong";
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
@@ -167,8 +167,7 @@ grid-template-columns: 1fr 2fr;
 const Playlist = () => {
   const { id } = useParams();
   const navigate=useNavigate();
-  const songs = useSelector((state) => state.song.songRandom);
-  console.log(songs)
+  const songs = useSelector((state) => state.song.songs);
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
   );
@@ -178,13 +177,18 @@ const Playlist = () => {
   const [model, setModel] = useState(false);
   const {enqueueSnackbar} = useSnackbar();
   const dispatch = useDispatch();
+  let user = JSON.parse(localStorage.getItem('user'));
+  let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs)
+  // let likeStatus = useSelector((state) => state.song.getAllLikedSongsStatus);
+
   useEffect(() => {
     dispatch(getPlaylistById(id));
   }, [id]);
   useEffect(()=> {
-    dispatch(getSongToPlaylist(id))
+    dispatch(getSongToPlaylist(id));
   },[id]);
   useEffect(() => {
+    dispatch(getAllLikedSongs(user._id));
     dispatch(fetchSong())
   },[])
   useEffect(() => {
@@ -276,6 +280,7 @@ const Playlist = () => {
           {currentSong && currentSong.map((song) => (
               <Fragment key={song._id} >
                 <SongPlaylist
+                    allLikedSongs={allLikedSongs}
                     song={song}
                     currentPlaylist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}
@@ -288,6 +293,7 @@ const Playlist = () => {
           {songs.map((song,index) => (
               <Fragment key={song._id}>
                 <SongPlaylist
+                    allLikedSongs={allLikedSongs}
                     index={index}
                     song={song}
                     playlist={currentPlaylist}

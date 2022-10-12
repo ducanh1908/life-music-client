@@ -94,7 +94,7 @@ const Wrapper = styled.div`
 `;
 const SongList = ({ song, onTrackSelect }) => {
   const isLoggedInUser = useSelector(state => state.user.user )
- 
+  let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs)
   const isLoggedIn = !!isLoggedInUser._id;
   const [menu, setMenu] = useState(false);
 
@@ -142,7 +142,7 @@ const SongList = ({ song, onTrackSelect }) => {
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
                 {
-                  isLoggedIn && ( <Like track={item} />)
+                  isLoggedIn && ( <Like track={item} allLikedSongs={allLikedSongs} />)
                 }
                
                 <SongTime className="col">{item.duration}</SongTime>
