@@ -145,6 +145,7 @@ const Image = styled.img`
  width: 200px;
     height: 200px;
     box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
+    object-fit: cover;
 `
 const PlaylistInfo = styled.div`
 margin-left: 20px;
