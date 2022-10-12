@@ -145,6 +145,10 @@ const SongList = ({ song, onTrackSelect }) => {
                   </SongDetail>
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
+                {!isLoggedIn && (
+                  <SongName className="col">{item.album}</SongName>
+                )}
+
                 {
                   isLoggedIn && ( <Like track={item} allLikedSongs={allLikedSongs} />)
                 }

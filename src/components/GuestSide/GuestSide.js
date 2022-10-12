@@ -71,18 +71,25 @@ const Hr = styled.div`
   border: 1px solid #a7a7a7;
   width: 80%;
 `;
-
+const Bottom = styled.div`
+overflow: auto;
+height: 57vh;
+&::-webkit-scrollbar {
+    width: 0.5rem;
+    &-thumb {
+      background-color: rgba(255, 255, 255,0.6);
+    }
+  }
+`
 const CreateList = styled.div`
   color: #b3b3b3;
   cursor: pointer;
   display: flex;
-
   .profile-item {
     color: #b3b3b3;
     text-decoration: none;
     display: flex;
     align-items: flex-start;
-
     &:hover {
       color: #fff;
     }
@@ -292,6 +299,7 @@ const GuestSide = () => {
         </Menu>
         <Hr />
 
+        <Bottom>
         {playlists &&
           isLoggedIn &&
           playlists.length > 0 &&
@@ -302,6 +310,7 @@ const GuestSide = () => {
               </NavLink>
             </CreateList>
           ))}
+        </Bottom>
       </Wrapper>
 
       <Modal

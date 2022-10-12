@@ -27,14 +27,13 @@ import Audios from "../HomeFooter/Audio";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
+
 `;
 const Container = styled.div`
   height: 100%;
   width: 100%;
   border-radius: 10px;
   padding: 24px 24px 0;
-  /* display: grid;
-  grid-template-rows: 75vh; */
   overflow: auto;
   &::-webkit-scrollbar {
     width: 0.8rem;
@@ -58,7 +57,7 @@ const Wrapper = styled.div``;
 const Top = styled.div``;
 const TopTitle = styled.h1`
   margin-bottom: 20px;
-  color: #ffffff;
+  color: var(--primary-white);
   display: flex;
   align-items: start;
 `;

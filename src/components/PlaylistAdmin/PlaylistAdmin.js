@@ -1,21 +1,16 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { useParams } from "react-router";
-import { IconButton } from "@mui/material";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import styled from "styled-components";
 import {
   getPlaylistById,
-  getSongToPlaylist,
+  getSongToPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
-import DetailSong from "../HomeFooter/DetailSong";
-import Audios from "../HomeFooter/Audio";
-import React from "react";
-import SongPlaylist from "./../SongInPlaylist/SongPlaylist";
-import PlaylistModel from "./../Playlist/PlaylistModel";
-import Like from "../Like/like";
 import { getAllLikedSongs } from "../../redux/songSlice/songSlice";
+import Audios from "../HomeFooter/Audio";
+import DetailSong from "../HomeFooter/DetailSong";
+import Like from "../Like/like";
 const Total = styled.div`
   display: grid;
   grid-template-rows: 75vh 15vh;
@@ -124,7 +119,7 @@ const PlaylistAdmin = () => {
     (state) => state.currentPlaylist.playlistAdmin
   );
 
-  const [model, setModel] = useState(false);
+
 
   const dispatch = useDispatch();
   const [trackIndex, setTrackIndex] = useState(-1);

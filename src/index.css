@@ -1,3 +1,8 @@
+:root {
+--primary-white: #fff;
+
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +18,10 @@
   background-color: #040404 !important;
   width: 90%;
   height: 70%;
-  color: #fff !important;
+  color: var(--primary-white) !important;
   border: none !important;
   
 }
+
+
+

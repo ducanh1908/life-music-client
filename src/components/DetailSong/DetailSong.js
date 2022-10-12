@@ -10,10 +10,10 @@ height: 50px;
 width: 50px;
 `
 const SongName = styled.h3`
-color: #fff;
+color: var(--primary-white);
 `
 const SongSinger = styled.h4`
-color: #fff;
+color: var(--primary-white);
 
 `
 function Details(props) {

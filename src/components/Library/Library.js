@@ -42,7 +42,9 @@ const Container=styled.div`
 `
 const SongItem = styled.div`
   cursor: pointer;
+  height: 60px;
   display: flex;
+  padding: 10px;
   margin: 10px;
    background-color: #7a7a7a; 
   padding: 0 20px;
