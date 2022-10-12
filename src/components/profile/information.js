@@ -29,7 +29,12 @@ const Info = styled.div`
   width: 50%;
 `;
 
-const Desc = styled.h2``;
+const Desc = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`;
 
 
 const Warrper = styled.div`

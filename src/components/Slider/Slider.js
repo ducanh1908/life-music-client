@@ -7,14 +7,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
+import { NavLink } from "react-router-dom";
 
   
 
   const Container = styled.div`
-  
+
   .mySwiper {
      width: 100%;
      height: 100%;
+   
  } 
  .swiper-slider {
     text-align: center;
@@ -61,7 +63,10 @@ export default function App() {
         className="mySwiper"
       >
         <SwiperSlide className="swiper-slider">
+          <NavLink to={'/slider'}>
             <SilderImage src="https://photo-zmp3.zmdcdn.me/banner/a/4/a/3/a4a3a47822a3717b7c6caa2b5fe14673.jpg" />
+          </NavLink>
+
             </SwiperSlide>
         <SwiperSlide className="swiper-slider">
             <SilderImage src="https://photo-zmp3.zmdcdn.me/banner/2/5/f/f/25ff09320e00b735a2ef29ff44cc6e1c.jpg" />

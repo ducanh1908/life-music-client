@@ -1,87 +1,111 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState, useEffect, Fragment} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components';
-import {fetchSong,searchSong} from "../redux/songSlice/songSlice";
+import {fetchSong, searchSong} from "../redux/songSlice/songSlice";
 import {getAllPlaylist} from "../redux/playlistSlice/playlistAdmin";
+import PlaylistGuest from "../components/Playlist/playlistGuest";
+import DetailSong from "../components/HomeFooter/DetailSong";
+import Audios from "../components/HomeFooter/Audio";
 
+
+const Total = styled.div`
+  display: grid;
+  grid-template-rows: 75vh 15vh;
+`
 const Container = styled.div`
-background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)) ;
-overflow: auto;
+  background-color: grey;
+  overflow: auto;
+
+  .results_container {
+    margin: 2rem;
+    display: grid;
+    z-index: 2;
+    grid-template-columns: 1fr 2fr;
+
+    .songs_container {
+      flex: 2;
+    }
+
+    .playlists_container {
+      width: 100%;
+      height: 320px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+  }
 `
 const Songs = styled.div``
 const SongItem = styled.div`
-display: flex;
-margin: 10px;
-background-color: #7a7a7a;
-padding: 0 20px;
-display: flex;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  margin: 10px;
+  background-color: #7a7a7a;
+  padding: 0 20px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 `
 const SongImage = styled.img`
-width: 50px;
-height: 50px;
+  width: 50px;
+  height: 50px;
 `
 const SongName = styled.p`
-  color:#fff;
-  `
-const SongSinger = styled.span`
-
-`;
+  margin-left: 20px;
+  color: #fff;
+`
+const Footer = styled.div`
+  height: 20%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+`
 const Search = () => {
-  const dispatch = useDispatch();
-  const songs = useSelector(state => {
-    console.log(state)
-    return state.song.songs
-  })
-  // console.log(songs)
-  const playlists = useSelector(state => state.playlist.playlist);
-  // console.log(playlists)
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [nextSongIndex, setNextSongIndex] = useState(0);
+    const dispatch = useDispatch();
+    const songs = useSelector(state => {
+        return state.song.songs
+    })
+    const playlists = useSelector(state => {
+        return state.playlistAdmin.playlistAdmin
+    })
+    const [trackIndex, setTrackIndex] = useState(-1)
+    const handleClick = (id, index) => {
+        setTrackIndex(index);
+    }
 
-  useEffect(() => {
-    setNextSongIndex(() => {
-      if (currentSongIndex + 1 > songs.length - 1) {
-        return 0;
-      } else {
-        return currentSongIndex + 1;
-      }
-    });
-  }, [currentSongIndex]);
+        useEffect(() => {
+            dispatch(fetchSong());
+            dispatch(getAllPlaylist());
+        }, [])
 
-  useEffect(() => {
-    dispatch(fetchSong());
-    dispatch(getAllPlaylist());
-  },[])
-  const handlePlay =(idSong) => {
-    // console.log(idSong)
-  }
-  return (
-      <Container>
-        <div>
-          {songs.map((song, index)=> (
-              <SongItem key={index} onClick= {() => handlePlay(index)}>
-                <p>{index + 1}</p>
-                <SongImage  src={song.image}/>
-                <SongName>{song.name}</SongName>
-                <a href={song.file} >link</a>
-              </SongItem>
-          ))
-          }
-        </div>
-        {/*<div>*/}
-        {/*  {playlists.map((playlist, index)=> (*/}
-        {/*      <SongItem key={index} >*/}
-        {/*        <p>{index + 1}</p>*/}
-        {/*        <SongImage  src={playlist.image}/>*/}
-        {/*        <SongName>{playlist.name}</SongName>*/}
-        {/*      </SongItem>*/}
-        {/*  ))}*/}
-        {/*</div>*/}
-      </Container>
-  )
-}
+        return (
+            <Total>
+                <Container>
+                    <div className={"results_container"}>
+                        <div className={"songs_container"} >
+                            {songs.map((song, index) => (
+                                <Fragment key={song._id}>
+                                    <SongItem  onClick={() => handleClick(song._id, index)} >
+                                        <SongImage src={song.image}/>
+                                        <SongName>{song.name}</SongName>
+                                    </SongItem>
+                                </Fragment>
+                            ))
+                            }
+                        </div>
+                        <div className={"playlists_container"}>
+                            {playlists &&
+                                <PlaylistGuest playlists={playlists}/>
+                            }
+                        </div>
+                    </div>
+                </Container>
+                <Footer>
+                    <DetailSong song={songs} trackIndex={trackIndex}/>
+                    <Audios song={songs} trackIndex={trackIndex} setTrackIndex={setTrackIndex}/>
+                </Footer>
+            </Total>
+        )
+    }
+
 
 export default Search;
 
