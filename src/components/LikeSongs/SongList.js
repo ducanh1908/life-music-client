@@ -58,7 +58,7 @@ const SongItem = styled.div`
   padding: 0.5rem 3rem;
   display: grid;
   color: #fff;
-  grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
+  grid-template-columns: 0.2fr 3fr 2fr 0.2fr 0.2fr;
   cursor: pointer;
   .col {
     display: flex;
@@ -109,9 +109,9 @@ const SongList = ({ song, onTrackSelect }) => {
       </Head>
       <Wrapper>
         <Body>
-          <BodyTitle>#</BodyTitle>
-          <BodyTitle>Tên bài hát</BodyTitle>
-          <BodyTitle>Album</BodyTitle>
+          <BodyTitle></BodyTitle>
+          <BodyTitle>Bài hát</BodyTitle>
+          <BodyTitle></BodyTitle>
           <BodyTitle>
             <AccessTimeIcon />
           </BodyTitle>
@@ -133,6 +133,7 @@ const SongList = ({ song, onTrackSelect }) => {
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
                 <Dislike songId={item._id} likeId={item.like} />
+                <SongTime className="col">{item.duration}</SongTime>
               </SongItem>
             ))}
         </Song>

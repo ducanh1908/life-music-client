@@ -97,7 +97,7 @@ const Wrapper = styled.div`
 `;
 const SongList = ({ song, onTrackSelect }) => {
   const isLoggedInUser = useSelector(state => state.user.user )
- 
+  let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs)
   const isLoggedIn = !!isLoggedInUser._id;
   const [menu, setMenu] = useState(false);
 
@@ -121,9 +121,9 @@ const SongList = ({ song, onTrackSelect }) => {
       </Head>
       <Wrapper>
         <Body>
-          <BodyTitle>#</BodyTitle>
+          <BodyTitle></BodyTitle>
           <BodyTitle>Tên bài hát</BodyTitle>
-          <BodyTitle>Album</BodyTitle>
+          <BodyTitle></BodyTitle>
           <BodyTitle>
             <AccessTimeIcon />
           </BodyTitle>
@@ -140,12 +140,12 @@ const SongList = ({ song, onTrackSelect }) => {
                   <SongImage src={item.image} />
                   <SongDetail>
                     <SongName>{item.name.slice(0, 15)}</SongName>
-                    <SongSinger>{item.singer}</SongSinger>
+                    <SongSinger>{item.singerName}</SongSinger>
                   </SongDetail>
                 </SongInfo>
                 <SongName className="col">{item.album}</SongName>
                 {
-                  isLoggedIn && ( <Like track={item} />)
+                  isLoggedIn && ( <Like track={item} allLikedSongs={allLikedSongs} />)
                 }
                
                 <SongTime className="col">{item.duration}</SongTime>

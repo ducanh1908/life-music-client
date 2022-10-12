@@ -43,7 +43,7 @@ const SongItem = styled.div`
   background-color: #7a7a7a;
   padding: 0 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
 `
 const SongImage = styled.img`
@@ -51,6 +51,7 @@ const SongImage = styled.img`
   height: 50px;
 `
 const SongName = styled.p`
+  margin-left: 20px;
   color: #fff;
 `
 const Footer = styled.div`
@@ -80,10 +81,10 @@ const Search = () => {
             <Total>
                 <Container>
                     <div className={"results_container"}>
-                        <div className={"songs_container"}>
+                        <div className={"songs_container"} >
                             {songs.map((song, index) => (
                                 <Fragment key={song._id}>
-                                    <SongItem  onClick={() => handleClick(song._id, index)}>
+                                    <SongItem  onClick={() => handleClick(song._id, index)} >
                                         <SongImage src={song.image}/>
                                         <SongName>{song.name}</SongName>
                                     </SongItem>

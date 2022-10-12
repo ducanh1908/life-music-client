@@ -16,7 +16,9 @@ import {
   removeSongFromPlaylist
 } from "../../redux/playlistSlice/currentPlaylist";
 
-import {fetchSong,getSongRandom,getAllLikedSongs} from "../../redux/songSlice/songSlice";
+
+import { fetchSong, getAllLikedSongs, getSongRandom } from "../../redux/songSlice/songSlice";
+
 import Audios from "../HomeFooter/Audio";
 import DetailSong from "../HomeFooter/DetailSong";
 import SongPlaylist from "../SongInPlaylist/SongPlaylist";
@@ -161,7 +163,6 @@ align-items: flex-start;
 `
 const Footer = styled.div`
 height: 20%;
-  background-color: #333;
 display: grid;
 grid-template-columns: 1fr 2fr;
 `
@@ -267,11 +268,11 @@ const Playlist = () => {
         <Body>
           <div className={"body_nav"}>
             <div className={"left"}>
-              <span>#</span>
-              <p>Tên bài hát</p>
+              <span></span>
+              <p>Bài hát</p>
             </div>
             <div className={"center"}>
-              <p>Ca sỹ</p>
+              <p></p>
             </div>
             <div className={"right"}>
               <AccessTimeIcon />
@@ -280,6 +281,7 @@ const Playlist = () => {
           {currentSong && currentSong.map((song) => (
               <Fragment key={song._id} >
                 <SongPlaylist
+                    allLikedSongs={allLikedSongs}
                     song={song}
                     currentPlaylist={currentPlaylist}
                     handleRemoveSong={handleRemoveSong}

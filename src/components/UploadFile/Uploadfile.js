@@ -34,6 +34,7 @@ import {imageUpload} from "../../components/UploadFile/avatarUpload";
 import Swal from "sweetalert2";
 import DetailSong from "../HomeFooter/DetailSong";
 import Audios from "../HomeFooter/Audio";
+import { NoEncryption } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
@@ -43,9 +44,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: '30%',
+  width: '40%',
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  outline:'none',
+  border: 'none',
   boxShadow: 24,
   p: 4,
 };
@@ -60,15 +62,7 @@ display: grid;
 grid-template-columns: 1fr 2fr;
 `
 const Container = styled.div`
-@font-face {
-  font-family: "MyWebFont";
-  src: url("webfont.eot"); /* IE9 Compat Modes */
-  src: url("webfont.eot?#iefix") format("embedded-opentype"),
-    /* IE6-IE8 */ url("webfont.woff2") format("woff2"),
-    /* Super Modern Browsers */ url("webfont.woff") format("woff"),
-    /* Pretty Modern Browsers */ url("webfont.ttf") format("truetype"),
-    /* Safari, Android, iOS */ url("webfont.svg#svgFontName") format("svg"); /* Legacy iOS */
-}
+
 background-color: whitesmoke;
 position: relative;
 border-radius: 10px;
@@ -354,6 +348,7 @@ function AddNewFile() {
         publicOrPrivateStatus == 'success',
     ]);
 
+    
     return (
         <Total>
             <Container>
@@ -371,7 +366,7 @@ function AddNewFile() {
                                         setFileUpload(event.target.files[0]);
                                     }}
                             >
-                             
+
                                 <Inputfile accept="file/*" multiple type="file"/>
                             </Button>
                             {status == "loading" ? (
@@ -392,7 +387,7 @@ function AddNewFile() {
                                 </Button>
                             )}
                         </div>
-                        
+
                     </Head>
                     <Wrapper>
                         <Body>
@@ -423,8 +418,8 @@ function AddNewFile() {
                                                                         handleSongStatus(e, song);
                                                                     }}
                                                             >
-                                                                <option value={1}>Riêng tư</option>
-                                                                <option value={2}>Công khai</option>
+                                                                <option value={1}>Công khai</option>
+                                                                <option value={2}>Riêng tư</option>
                                                             </select>
                                                         </>
                                                     ) : (
@@ -433,9 +428,9 @@ function AddNewFile() {
                                                                 onChange={(e) => {
                                                                     handleSongStatus(e, song);
                                                                 }}
-                                                            >
-                                                                <option value={2}>Công khai</option>
-                                                                <option value={1}>Riêng tư</option>
+                                                            >Công khai
+                                                                <option value={2}>Riêng tư</option>
+                                                                <option value={1}>Công khai</option>
                                                             </select>
                                                         </>
                                                     )}
@@ -505,7 +500,7 @@ function AddNewFile() {
                                                 </InforAvatar>
                                             </Logo>
                                           <Center >
-                                          <TextField 
+                                          <TextField
                                               sx={{width:"70%", mt:2}}
                                                 label="Tên bài hát"
                                                 placeholder={`${editSong.name}`}
@@ -524,8 +519,8 @@ function AddNewFile() {
                                                 }}
                                             />
                                           </Center>
-                                            
-                                            
+
+
                                             <Bottom>
                                             <Button color="inherit"
                                                     sx={{borderRadius: '200px', width: '100px'}}
@@ -543,7 +538,7 @@ function AddNewFile() {
                                                 Lưu
                                             </Button>
                                             </Bottom>
-                                           
+
                                         </Box>
                                     </form>
                                 </Modal>

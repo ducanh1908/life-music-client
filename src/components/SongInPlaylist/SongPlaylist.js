@@ -27,12 +27,17 @@ const Container = styled.div`
     flex: 1;
 
     .play_btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       margin: 0 0.5rem;
-
+      width: 40px;
+      height: 64px;
       svg {
         width: 2rem;
         height: 2rem;
-        color: var(--white);
+        color: grey;
       }
     }
 
@@ -82,11 +87,13 @@ const Container = styled.div`
     }
 
     .menu_btn {
-      svg {
-        width: 2rem;
-        height: 2rem;
+      height: 50px;
+      width: 50px;
+      /* svg {
+        width: 40px;
+        height: 40px;
         color: var(--white);
-      }
+      } */
     }
   }
 `;
@@ -100,6 +107,7 @@ const SongPlaylist = ({
   onTrackSelect,
 }) => {
   const [menu, setMenu] = useState(false);
+
   // const { currentSong } = useSelector((state) => state.audioPlayer);
   const dispatch = useDispatch();
   const handleClick = (id, index) => {
@@ -125,7 +133,7 @@ const SongPlaylist = ({
         <Like track={song} allLikedSongs={allLikedSongs} />
         <p>{song.duration}</p>
         <IconButton className={"menu_btn"} onClick={() => setMenu(true)}>
-          <MoreHorizIcon />
+          <MoreHorizIcon  />
         </IconButton>
         {menu && (
           <PlaylistMenu
