@@ -16,7 +16,7 @@ const Container= styled.div`
     width: 15rem;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    background-color: grey;
+    background-color: whitesmoke;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     position: absolute;
     top: 0%;
@@ -24,14 +24,13 @@ const Container= styled.div`
 
     .option,
     .playlist_option {
-      font-size: 1.4rem;
+      font-size: 1rem;
       padding: 0.5rem;
       border-radius: 0.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-
       svg {
         width: 2rem;
         height: 2rem;
@@ -81,7 +80,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
             <ClickAwayListener onClickAway={closeMenu}>
                 <div className={"menu"} onClick={closeMenu}>
                     <div className={"playlist_option"}>
-                        <p>Thêm bài hát vào Playlist</p>
+                        <p style={{fontSize:'17px'}}>Thêm bài hát vào Playlist</p>
                         <Fragment>
                             <ArrowLeftIcon />
                             <div className={"playlists"}>
@@ -91,7 +90,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
                                         onClick={() => handleAddToPlaylist(song._id,playlist._id)}
                                         key={playlist._id}
                                     >
-                                        <p>{playlist.name}</p>
+                                        <p style={{fontSize:'17px'}}>{playlist.name}</p>
                                     </div>
                                 ))}
                             </div>
@@ -99,7 +98,7 @@ const PlaylistMenu = ({ currentPlaylist, song, handleRemoveSong, closeMenu }) =>
                     </div>
                     {currentPlaylist && currentPlaylist.user === user._id && (
                         <div className={"option"}>
-                            <p onClick={() => handleRemoveSong(song._id)}>
+                            <p onClick={() => handleRemoveSong(song._id)} style={{fontSize:'17px'}}>
                                 Xoá bài hát ra khỏi Playlist
                             </p>
                         </div>

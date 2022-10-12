@@ -107,6 +107,8 @@ const PlaylistImage = styled.img`
   width: 159px;
   height: 159px;
   border-radius: 5px;
+  object-fit: cover;
+
 `;
 const PlaylistTitle = styled.p`
   color: #fff;
@@ -176,6 +178,8 @@ const SongImg = styled.img`
   height: 60px;
   border-radius: 10px;
   margin-left: 10px;
+  object-fit: cover;
+
 `;
 const SongName = styled.span`
   display: flex;

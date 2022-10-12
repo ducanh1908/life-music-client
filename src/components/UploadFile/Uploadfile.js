@@ -1,40 +1,32 @@
-import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
-import {storage} from "./firebase";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {v4} from "uuid";
-import {
-    getUploadedSongs,
-    uploadSong,
-    deleteSongById,
-    loading,
-    changeDeleteSongStatus,
-    updateSongInfo,
-    publicOrPrivate,
-} from "../../redux/songSlice/songSlice";
-import {useSnackbar} from "notistack";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import "./uploadfile.css";
-import styled from "styled-components";
-import $ from "jquery";
-import * as React from "react";
+import SaveIcon from "@mui/icons-material/Save";
+import LoadingButton from "@mui/lab/LoadingButton";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
-import {getCategories} from "../../redux/cateSlice/cateSlice";
-import LoadingButton from "@mui/lab/LoadingButton";
-import SaveIcon from "@mui/icons-material/Save";
-import {
-    addToPlaylist,
-    fetchPlaylist,
-} from "../../redux/playlistSlice/playlistSlice";
-import {imageUpload} from "../../components/UploadFile/avatarUpload";
+import Typography from "@mui/material/Typography";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import $ from "jquery";
+import { useSnackbar } from "notistack";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import Swal from "sweetalert2";
-import DetailSong from "../HomeFooter/DetailSong";
+import { v4 } from "uuid";
+import { imageUpload } from "../../components/UploadFile/avatarUpload";
+import { getCategories } from "../../redux/cateSlice/cateSlice";
+import {
+    fetchPlaylist
+} from "../../redux/playlistSlice/playlistSlice";
+import {
+    changeDeleteSongStatus, deleteSongById, getUploadedSongs, loading, publicOrPrivate, updateSongInfo, uploadSong
+} from "../../redux/songSlice/songSlice";
 import Audios from "../HomeFooter/Audio";
-import { NoEncryption } from "@mui/icons-material";
+import DetailSong from "../HomeFooter/DetailSong";
+import { storage } from "./firebase";
+import "./uploadfile.css";
 
 const style = {
   position: "absolute",
@@ -127,6 +119,12 @@ position: relative;
 margin: 15px auto;
 border: 1px solid #ddd;
 cursor: pointer;
+  :hover span {
+    bottom: -15%;
+  }
+,:: -webkit-file-upload-button {
+  cursor: pointer;
+}
 `;
 const InfoImg = styled.img`
 width: 100%;
@@ -136,7 +134,7 @@ object-fit: cover;
 `;
 const InforSpan = styled.span`
 position: absolute;
-bottom: -15%;
+bottom: -100%;
 left: 0;
 width: 100%;
 height: 50%;
@@ -169,9 +167,7 @@ height: 50px;
 width: 50px;
 `
 const SongName = styled.span``
-const Inputfile = styled.input`
-
-`
+const Inputfile = styled.input``
 function AddNewFile() {
     const [fileUpload, setFileUpload] = useState(null);
     const [newSong, setNewSong] = useState({});
@@ -190,9 +186,7 @@ function AddNewFile() {
     let {uploadSongs, status, deleteSongStatus, publicOrPrivateStatus, updateSongStatus} = useSelector(
         (state) => state.song
     );
-    let {playlists} = useSelector((state) => state.playlist);
-
-    let categories = useSelector((state) => state.cate.categories);
+    
     const songs = uploadSongs.songs
     let updateSong = {};
     let file;
@@ -269,17 +263,13 @@ function AddNewFile() {
         }
     };
 
-    // const addSongToPlaylist = (value) => {
-    //   dispatch(addToPlaylist(value))
-    // };
 
     const handleSong = (obj) => {
         try {
             let select = obj.target.value.split(",")[0];
             let songId = obj.target.value.split(",")[1];
             if (select == 1) {
-                //
-                // addSongToPlaylist({songId, playlistId});
+               
             } else if (select == 2) {
                 deleleSong(songId);
             } else if (select == 3) {
@@ -442,9 +432,6 @@ function AddNewFile() {
                                                 <select style={{height: "30px", width: "90px"}}
                                                         onChange={(e) => handleSong(e)}>
                                                     <option value={""}>-- Chọn --</option>
-                                                    <option value={`1,${song._id}`}>
-                                                        Thêm bài hát vào playlist{" "}
-                                                    </option>
                                                     <option value={`2,${song._id}`}>Xóa bài hát</option>
                                                     <option
                                                         value={`3,${song._id}, ${song.name}, ${song.image}, ${song.singerName}`}

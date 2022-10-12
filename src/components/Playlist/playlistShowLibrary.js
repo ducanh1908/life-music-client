@@ -26,6 +26,8 @@ const PlaylistImage = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 5px;
+  object-fit: cover;
+
 `;
 const PlaylistTitle = styled.p`
   color: #fff;

@@ -45,10 +45,12 @@ const SongItem = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+  cursor: pointer;
 `
 const SongImage = styled.img`
   width: 50px;
   height: 50px;
+  object-fit: cover;
 `
 const SongName = styled.p`
   margin-left: 20px;

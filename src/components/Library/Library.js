@@ -41,6 +41,7 @@ const Container=styled.div`
   }
 `
 const SongItem = styled.div`
+  cursor: pointer;
   display: flex;
   margin: 10px;
    background-color: #7a7a7a; 
@@ -50,6 +51,7 @@ const SongItem = styled.div`
   align-items: center;
 `;
 const SongImage = styled.img`
+object-fit: cover;
   width: 50px;
   height: 50px;
 `;

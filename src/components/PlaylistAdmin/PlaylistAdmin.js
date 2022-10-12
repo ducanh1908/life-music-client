@@ -97,6 +97,7 @@ const SongIndex = styled.span``;
 const SongImage = styled.img`
   width: 50px;
   height: 50px;
+  object-fit: cover;
 `;
 const SongTime = styled.span``;
 const SongInfo = styled.div``;
