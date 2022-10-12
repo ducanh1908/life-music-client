@@ -216,7 +216,6 @@ const Playlist = () => {
           enqueueSnackbar('Xoá playlist thành công', {variant: "success"});
           navigate('/')
         }
-
       })
 
     } catch (error) {
