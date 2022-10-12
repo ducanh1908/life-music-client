@@ -199,8 +199,8 @@ const GuestContent = () => {
   const playlistRandom = useSelector(
     (state) => state.playlistAdmin.playlistRandom
   );
+  console.log("hhhh",playlistRandom)
   const songRandom = useSelector((state) => state.song.songRandom)
-
   const dispatch = useDispatch();
   const [trackIndex, setTrackIndex] = useState(-1)
   const handleClickSong = (id, index) => {
@@ -218,16 +218,13 @@ const GuestContent = () => {
     dispatch(getSongRandom());
 
   }, []);
-  const handleClickPlaylist = (id) => {
-    console.log(id);
-  };
+
   return (
       <Total>
     <Container>
       <Wrapper>
         <Header>
         <TopTitle>Sản phẩm sắp phát hành</TopTitle>
-
           <Slider />
         </Header>
         <Top>
