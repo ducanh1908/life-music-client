@@ -59,7 +59,7 @@ const SongItem = styled.div`
   display: grid;
   font-weight: 500;
   /* color: #fff; */
-  grid-template-columns: 0.2fr 3fr 2fr 0.2fr 0.2fr;
+  grid-template-columns: 0.2fr 3fr 2fr 0.5fr 0.2fr;
   cursor: pointer;
   .col {
     display: flex;
@@ -85,7 +85,9 @@ const SongImage = styled.img`
   width: 50px;
   height: 50px;
 `;
-const SongTime = styled.span``;
+const SongTime = styled.span`
+
+`;
 const SongInfo = styled.div``;
 
 const Wrapper = styled.div`
