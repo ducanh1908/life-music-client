@@ -381,7 +381,7 @@ function AddNewFile() {
                             <table id="songlist" cellspacing= "10">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th></th>
                                     <th colSpan={2}>Bài hát</th>
                                     <th colSpan={3}>Trạng thái</th>
                                     <th>Thời gian</th>
