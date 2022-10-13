@@ -143,11 +143,10 @@ const PlaylistModel = ({closeModel, playlist, id}) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const action = await updatePlaylist({id, avatar, name, description})
-            const resultAction = await dispatch(action);
-            const user = unwrapResult(resultAction);
-            enqueueSnackbar('Cập nhật thành công', {variant: "success"});
-            window.location.reload();
+          dispatch(updatePlaylist({id, avatar, name, description})).then(() => {
+            dispatch(getPlaylistById(id))
+          });
+          enqueueSnackbar('Cập nhật thành công', {variant: "success"});
         } catch (error) {
             console.log(error);
             enqueueSnackbar(error.message, {variant: "error"});

@@ -110,7 +110,6 @@ const PlaylistAdmin = () => {
   const { id } = useParams();
   const isLoggedInUser = useSelector((state) => state.user.user);
   let allLikedSongs = useSelector((state) => state.song.getAllLikedSongs);
-
   const isLoggedIn = !!isLoggedInUser._id;
   const currentPlaylist = useSelector(
     (state) => state.currentPlaylist.playlist
@@ -118,8 +117,6 @@ const PlaylistAdmin = () => {
   const currentSong = useSelector(
     (state) => state.currentPlaylist.playlistAdmin
   );
-
-
 
   const dispatch = useDispatch();
   const [trackIndex, setTrackIndex] = useState(-1);
