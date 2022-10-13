@@ -170,7 +170,7 @@ const GuestSide = () => {
 
   useEffect(() => {
     dispatch(getPlaylistAndUser(user._id));
-  }, []);
+  },[]);
 
   const handleSubmit = async (data) => {
     try {

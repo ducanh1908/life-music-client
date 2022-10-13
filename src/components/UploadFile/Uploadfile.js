@@ -75,10 +75,13 @@ overflow: auto;
   color: black;
   border-bottom: 1px solid #ccc;
 }
-
-#songlist tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.7)
+#tbody.song-item {
+    padding: 10px 0;
 }
+#songlist tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.2)
+}
+
 `;
 
 const Logo = styled.div`
@@ -107,7 +110,7 @@ grid-template-columns: 0.2fr 3fr 2fr 0.2fr;
 //text-transform: uppercase;
 color: #3b3b3b;
 border-bottom: 1px solid #ccc;
-margin: 20px;
+padding: 0 20px;
 `;
 
 const InforAvatar = styled.div`
@@ -119,10 +122,10 @@ position: relative;
 margin: 15px auto;
 border: 1px solid #ddd;
 cursor: pointer;
-  :hover span {
+&:hover span {
     bottom: -15%;
-  }
-,:: -webkit-file-upload-button {
+  },
+:: -webkit-file-upload-button {
   cursor: pointer;
 }
 `;
@@ -375,9 +378,10 @@ function AddNewFile() {
                     </Head>
                     <Wrapper>
                         <Body>
-                            <table id="songlist">
+                            <table id="songlist" cellspacing= "10">
                                 <thead>
                                 <tr>
+                                    <th></th>
                                     <th colSpan={2}>Bài hát</th>
                                     <th colSpan={3}>Trạng thái</th>
                                     <th>Thời gian</th>
@@ -387,7 +391,8 @@ function AddNewFile() {
                                 <tbody id="tbody">
                                 {uploadSongs.songs &&
                                     uploadSongs.songs.map((song, index) => (
-                                        <tr key={index}>
+                                        <tr className="song-item" key={index} cellspacing= "10" >
+                                            <td>{index + 1}</td>
                                             <td onClick={() => handleClick(song._id, index)}>
                                               <SongImg width={50} src={song.image} alt=""/>
                                             </td>

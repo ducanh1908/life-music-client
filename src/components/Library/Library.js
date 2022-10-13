@@ -51,6 +51,9 @@ const SongItem = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+  &:hover {
+    background-color: rgba(255, 255, 255,0.1)
+  }
 `;
 const SongImage = styled.img`
 object-fit: cover;
