@@ -5,7 +5,8 @@ import {imageUpload} from "../../components/UploadFile/avatarUpload";
 
 const initialState = {
   currentPlaylists: {},
-  loading: false
+  loading: false,
+  playlistAdmin: []
 };
 
 
